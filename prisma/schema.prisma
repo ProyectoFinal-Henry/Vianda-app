@@ -9,3 +9,38 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Vianda {
+  id           Int    @id @default(autoincrement())
+  nombre       String
+  tipo         Tipo
+  descripcion  String
+  ingredientes String
+  imagen       String
+  stock        Int
+}
+
+enum Tipo {
+  clasico
+  sinHarinas
+  vegetariano
+  dieta
+}
+
+model Dia {
+  id          Int      @id @default(autoincrement())
+  nombreDia   Dias
+  fecha       DateTime
+  clasico     Int
+  sinHarinas  Int
+  vegetariano Int
+  dieta       Int
+}
+
+enum Dias {
+  lunes
+  martes
+  miercoles
+  jueves
+  viernes
+}
