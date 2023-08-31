@@ -3,10 +3,12 @@ import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient()
 
-export async function GET() {
+export async function GET(request) {
     try {
-        const dia = await prisma.Dia.findMany()
-        const diaForteado = await formatearDia(dia[0])
+        const { searchParams } = new URL(request.url)
+        const id = searchParams.get("id")
+        const dia = await prisma.Dia.findUnique({ where: { id: Number(id) } })
+        const diaForteado = await formatearDia(dia)
         return NextResponse.json(diaForteado);
     } catch (error) {
         return NextResponse.json("Error al obtener el dia.");
@@ -32,6 +34,11 @@ export async function POST(request) {
 
     }
 }
+
+
+
+
+
 
 const formatearDia = async function (dia) {
     const { clasico, sinHarinas, vegetariano, dieta } = dia;
