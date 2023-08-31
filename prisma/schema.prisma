@@ -31,10 +31,10 @@ model Dia {
   id          Int      @id @default(autoincrement())
   nombreDia   Dias
   fecha       DateTime
-  clasico     Int
-  sinHarinas  Int
+  clasico Int
+  sinHarinas Int
   vegetariano Int
-  dieta       Int
+  dieta Int
 }
 
 enum Dias {
