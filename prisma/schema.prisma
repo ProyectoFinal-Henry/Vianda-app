@@ -18,6 +18,12 @@ model Vianda {
   ingredientes String
   imagen       String
   stock        Int
+
+  CartaLunes   Carta? @relation("lunes", fields: [cartaLunesId], references: [id])
+  cartaLunesId Int?
+
+  CartaMartes   Carta? @relation("martes", fields: [cartaMartesId], references: [id])
+  cartaMartesId Int?
 }
 
 enum Tipo {
@@ -27,20 +33,10 @@ enum Tipo {
   dieta
 }
 
-model Dia {
+model Carta {
   id          Int      @id @default(autoincrement())
-  nombreDia   Dias
-  fecha       DateTime
-  clasico Int
-  sinHarinas Int
-  vegetariano Int
-  dieta Int
-}
-
-enum Dias {
-  lunes
-  martes
-  miercoles
-  jueves
-  viernes
+  fechaInicio DateTime
+  fechaFin    DateTime
+  lunes       Vianda[] @relation("lunes")
+  martes      Vianda[] @relation("martes")
 }
