@@ -4,7 +4,8 @@ const prisma = new PrismaClient();
 
 export async function POST(request) {
   try {
-    const { fechaInicio, fechaFin, lunes, martes } = await request.json();
+    const { fechaInicio, fechaFin, lunes, martes, miercoles, jueves, viernes } =
+      await request.json();
 
     const nuevaCarta = await prisma.Carta.create({
       data: {
