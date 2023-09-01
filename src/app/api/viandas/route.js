@@ -29,3 +29,29 @@ export async function POST(request) {
     return NextResponse.json({ error: error.message });
   }
 }
+
+export async function PUT(request) {
+  try {
+    const queryParams = new URLSearchParams(request.url.split("?")[1]);
+    const id = queryParams.get("id");
+
+    const { nombre, tipo, descripcion, ingredientes, imagen, stock } =
+      await request.json();
+
+    const vianda = await prisma.Vianda.update({
+      where: { id: parseInt(id, 10) },
+      data: {
+        nombre,
+        tipo,
+        descripcion,
+        ingredientes,
+        imagen,
+        stock,
+      },
+    });
+
+    return NextResponse.json("Vianda actualizada exitosamente!");
+  } catch (error) {
+    return NextResponse.json({ error: error.message });
+  }
+}
