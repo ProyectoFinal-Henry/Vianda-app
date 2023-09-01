@@ -1,5 +1,5 @@
-import Card from "@/components/card";
-import CardRecomend from "@/components/cardRecomend";
+import Card from "@/components/cards/card";
+import CardRecomend from "@/components/cards/cardRecomend";
 
 function Homepage() {
   return (
