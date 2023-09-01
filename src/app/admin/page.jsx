@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export default function AdminHomePage() {
+const AdminHomePage = async () => {
   return (
     <>
       <h1>Esto es Admin </h1>
@@ -16,3 +16,4 @@ export default function AdminHomePage() {
     </>
   )
 }
+export default AdminHomePage
