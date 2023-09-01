@@ -1,10 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/libs/prisma";
 import { NextResponse } from "next/server";
-const prisma = new PrismaClient();
 
 export async function POST(request) {
   try {
-    const { fechaInicio, fechaFin, lunes, martes } = await request.json();
+    const { fechaInicio, fechaFin, lunes, martes, miercoles, jueves, viernes } =
+      await request.json();
 
     const nuevaCarta = await prisma.Carta.create({
       data: {
@@ -22,6 +22,36 @@ export async function POST(request) {
         },
         martes: {
           create: martes.map((vianda) => ({
+            nombre: vianda.nombre,
+            tipo: vianda.tipo,
+            descripcion: vianda.descripcion,
+            ingredientes: vianda.ingredientes,
+            imagen: vianda.imagen,
+            stock: vianda.stock,
+          })),
+        },
+        miercoles: {
+          create: miercoles.map((vianda) => ({
+            nombre: vianda.nombre,
+            tipo: vianda.tipo,
+            descripcion: vianda.descripcion,
+            ingredientes: vianda.ingredientes,
+            imagen: vianda.imagen,
+            stock: vianda.stock,
+          })),
+        },
+        jueves: {
+          create: jueves.map((vianda) => ({
+            nombre: vianda.nombre,
+            tipo: vianda.tipo,
+            descripcion: vianda.descripcion,
+            ingredientes: vianda.ingredientes,
+            imagen: vianda.imagen,
+            stock: vianda.stock,
+          })),
+        },
+        viernes: {
+          create: viernes.map((vianda) => ({
             nombre: vianda.nombre,
             tipo: vianda.tipo,
             descripcion: vianda.descripcion,

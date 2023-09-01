@@ -18,32 +18,37 @@ const AdminViandasPage = async () => {
           <button className="btn">crear vianda</button>
         </Link>
         <p>esto es un elemento de la lista de viandas inicio</p>
-        <table className="border border-neutral mx-auto">
-          <thead>
-            <td className="border border-neutral">Imagen</td>
-            <td className="border border-neutral">Nombre</td>
-            <td className="border border-neutral">Tipo</td>
-            <td className="border border-neutral">Descripcion</td>
-            <td className="border border-neutral">Ingredientes</td>
-            <td className="border border-neutral">Stock</td>
-            <td className="border border-neutral">Acciones</td>
+        <table className="border-2 border-neutral/30 mx-auto">
+          <thead className="bg-green-400">
+            <th className="text-center border-2 border-neutral/30">Imagen</th>
+            <th className="text-center border-2 border-neutral/30">Nombre</th>
+            <th className="text-center border-2 border-neutral/30">Tipo</th>
+            <th className="text-center border-2 border-neutral/30">Descripcion</th>
+            <th className="text-center border-2 border-neutral/30">Ingredientes</th>
+            <th className="text-center border-2 border-neutral/30">Stock</th>
+            <th className="text-center border-2 border-neutral/30">Acciones</th>
           </thead>
           {data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock }, I) => {
             return (
-              <tr key={I}>
-                <td className="border border-neutral text-center">
+              <tr
+                key={I}
+                className={`${I % 2 === 0 && `bg-green-100`}`}
+              >
+                <td className="border-r  border-neutral/30  text-center">
                   <img
-                    className="w-20 "
+                    className="w-20 rounded-full "
                     src={imagen}
                     alt={nombre}
                   />
                 </td>
-                <td className="border border-neutral">{nombre}</td>
-                <td className="border border-neutral">{tipo}</td>
-                <td className="border border-neutral">{descripcion}</td>
-                <td className="border border-neutral">{ingredientes}</td>
-                <td className="border border-neutral">{stock}</td>
-                <td className="border border-neutral">
+                <td className="border-r border-neutral/30 pl-2">{nombre}</td>
+                <td className="border-r border-neutral/30 px-2 text-center">
+                  <div class="badge badge-neutral">{tipo}</div>
+                </td>
+                <td className="border-r border-neutral/30 pl-2">{descripcion}</td>
+                <td className="border-r border-neutral/30 pl-2">{ingredientes}</td>
+                <td className="border-r border-neutral/30 pl-2">{stock}</td>
+                <td className="border-r border-neutral/30 pl-2">
                   <div className="flex flex-row justify-center items-center gap-x-2">
                     <EditCrud route={`/admin/viandas/actualizar-vianda/${id}`} />
                     <DeleteCrud id={id} />

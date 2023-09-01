@@ -1,11 +1,27 @@
 import { NextResponse } from "next/server"
+import { prisma } from '@/libs/prisma'
 
-const DELETE = ({ params }) => {
+export async function DELETE(request, { params }) {
   try {
-    return NextResponse.json()
+    // Se busca la vianda a traves de params
+    const vianda = await prisma.Vianda.findUnique({
+      where: { id: Number(params.viandaId) },
+      select: { status: true },
+    });
+
+    // Se evalua si existe la vianda
+    if (!vianda) {
+      return NextResponse.json("Vianda no encontrada", { status: 404 });
+    }
+
+    // Se invierte el valor booleano {status}
+    await prisma.Vianda.update({
+      where: { id: Number(params.viandaId) },
+      data: { status: !vianda.status },
+    });
+
+    return NextResponse.json("Vianda modificada correctamente");
   } catch (error) {
-    return NextResponse.json("deleted", { status: 403 })
+    return NextResponse.json("Error al intentar modificar la carta", { status: 403 });
   }
 }
-
-export default DELETE
