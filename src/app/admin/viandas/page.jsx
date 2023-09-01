@@ -1,9 +1,9 @@
 import Link from "next/link"
 import React from "react"
 import axios from "axios"
-import RowResponsive from "@/app/components/formaters/RowResponsive"
-import EditCrud from "@/app/components/actions/EditCrud"
-import DeleteCrud from "@/app/components/actions/DeleteCrud"
+import RowResponsive from "@/components/formaters/RowResponsive"
+import EditCrud from "@/components/actions/EditCrud"
+import DeleteCrud from "@/components/actions/DeleteCrud"
 
 const AdminViandasPage = async () => {
   const res = await axios.get(`${process.env.LOCALHOST}/api/viandas`)
@@ -28,16 +28,15 @@ const AdminViandasPage = async () => {
             <td className="border border-neutral">Stock</td>
             <td className="border border-neutral">Acciones</td>
           </thead>
-          {data.map(({id, imagen, nombre, tipo, descripcion, ingredientes, stock }, I) => {
+          {data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock }, I) => {
             return (
               <tr key={I}>
                 <td className="border border-neutral text-center">
                   <img
-                  className="w-20 "
+                    className="w-20 "
                     src={imagen}
                     alt={nombre}
                   />
-
                 </td>
                 <td className="border border-neutral">{nombre}</td>
                 <td className="border border-neutral">{tipo}</td>
@@ -45,11 +44,10 @@ const AdminViandasPage = async () => {
                 <td className="border border-neutral">{ingredientes}</td>
                 <td className="border border-neutral">{stock}</td>
                 <td className="border border-neutral">
-                <div className="flex flex-row justify-center items-center gap-x-2">
-                  <EditCrud  route={`/admin/viandas/actualizar-vianda/${id}`}/>
-                  <DeleteCrud id={id}/>
-                </div>
-              
+                  <div className="flex flex-row justify-center items-center gap-x-2">
+                    <EditCrud route={`/admin/viandas/actualizar-vianda/${id}`} />
+                    <DeleteCrud id={id} />
+                  </div>
                 </td>
               </tr>
             )

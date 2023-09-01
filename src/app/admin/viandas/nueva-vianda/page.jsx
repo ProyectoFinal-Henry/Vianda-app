@@ -1,5 +1,5 @@
 "use client"
-import FormResponsiveContainer from "@/app/components/formaters/FormResponsiveContainer"
+import FormResponsiveContainer from "@/components/formaters/FormResponsiveContainer"
 import axios from "axios"
 import React from "react"
 
