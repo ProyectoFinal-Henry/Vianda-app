@@ -30,6 +30,36 @@ export async function POST(request) {
             stock: vianda.stock,
           })),
         },
+        miercoles: {
+          create: miercoles.map((vianda) => ({
+            nombre: vianda.nombre,
+            tipo: vianda.tipo,
+            descripcion: vianda.descripcion,
+            ingredientes: vianda.ingredientes,
+            imagen: vianda.imagen,
+            stock: vianda.stock,
+          })),
+        },
+        jueves: {
+          create: jueves.map((vianda) => ({
+            nombre: vianda.nombre,
+            tipo: vianda.tipo,
+            descripcion: vianda.descripcion,
+            ingredientes: vianda.ingredientes,
+            imagen: vianda.imagen,
+            stock: vianda.stock,
+          })),
+        },
+        viernes: {
+          create: viernes.map((vianda) => ({
+            nombre: vianda.nombre,
+            tipo: vianda.tipo,
+            descripcion: vianda.descripcion,
+            ingredientes: vianda.ingredientes,
+            imagen: vianda.imagen,
+            stock: vianda.stock,
+          })),
+        },
       },
     });
 
