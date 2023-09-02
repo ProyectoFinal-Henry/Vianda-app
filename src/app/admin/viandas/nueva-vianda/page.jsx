@@ -1,17 +1,31 @@
 "use client"
 import FormResponsiveContainer from "@/components/formaters/FormResponsiveContainer"
 import { useForm } from "react-hook-form"
-
 const AdminNuevaViandaPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-  // console.log("file: page.jsx:7  errors:", errors)
 
   const onSubmit = handleSubmit((data) => {
-    console.log("file: page.jsx:9  data:", data)
+    const { nombre, tipo, descripcion, ingredientes, imagen, stock } = data
+    //  remapear para sacar el archivo
+    const dataMapper = {
+      nombre,
+      tipo,
+      descripcion,
+      ingredientes,
+      imagen: imagen[0].name,
+      stock,
+    }
+    console.log("file: page.jsx:42  dataMapper:", dataMapper)
+
+    //manejo de la imagen
+    const formdata = new FormData()
+    formdata.append("imagen", imagen)
+    console.log(formdata.get("imagen"))
+    // uploader(dataMapper.nombre,dataMapper.imagen.)
   })
   return (
     <>
@@ -38,9 +52,9 @@ const AdminNuevaViandaPage = () => {
               placeholder="Arroz con pollo lasagna etc.."
               className="input   input-bordered w-full max-w-[75%] ml-[10%]"
             />
-            {errors.nombre?.type === "required" && <div className=" ml-14 badge badge-error gap-2">{errors.nombre.message}</div>}
-            {errors.nombre?.type === "maxLength" && <div className="ml-14 badge badge-error gap-2">{errors.nombre.message}</div>}
-            {errors.nombre?.type === "minLength" && <div className="ml-14 badge badge-error gap-2">{errors.nombre.message}</div>}
+            {errors.nombre?.type === "required" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.nombre.message}</div>}
+            {errors.nombre?.type === "maxLength" && <div className="ml-20 mt-2 badge badge-error gap-2">{errors.nombre.message}</div>}
+            {errors.nombre?.type === "minLength" && <div className="ml-20 mt-2 badge badge-error gap-2">{errors.nombre.message}</div>}
           </div>
           <div className="form-control  w-full ">
             <label className="label ml-3  pb-1">
@@ -58,7 +72,7 @@ const AdminNuevaViandaPage = () => {
               <option value="vegetariano">Vegetariano</option>
               <option value="dieta">Dieta</option>
             </select>
-            {errors.tipo?.type === "required" && <div className=" ml-14 badge badge-error gap-2">{errors.tipo.message}</div>}
+            {errors.tipo?.type === "required" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.tipo.message}</div>}
           </div>
           <div className="form-control  w-full ">
             <label className="label ml-3  pb-1">
@@ -67,11 +81,24 @@ const AdminNuevaViandaPage = () => {
             {/* ============= */}
 
             <textarea
-              {...register("descripcion")}
+              {...register("descripcion", {
+                required: { value: true, message: "La descripcion es requerida" },
+                minLength: { value: 10, message: "mínimo 10 caracteres" },
+                maxLength: { value: 50, message: "Máximo 50 Caracteres" },
+              })}
               type="text"
               placeholder="Arroz con pollo lasagna etc.."
               className="textarea   input-bordered w-full max-w-[75%] ml-[10%]"
             />
+            {errors.descripcion?.type === "required" && (
+              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.descripcion.message}</div>
+            )}
+            {errors.descripcion?.type === "minLength" && (
+              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.descripcion.message}</div>
+            )}
+            {errors.descripcion?.type === "maxLength" && (
+              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.descripcion.message}</div>
+            )}
           </div>
           <div className="form-control  w-full ">
             <label className="label ml-3  pb-1">
@@ -80,11 +107,24 @@ const AdminNuevaViandaPage = () => {
             {/* ============= */}
 
             <textarea
-              {...register("ingredientes")}
+              {...register("ingredientes", {
+                required: { value: true, message: "Ingredientes requeridos" },
+                minLength: { value: 10, message: "mínimo 10 caracteres" },
+                maxLength: { value: 50, message: "Máximo 50 Caracteres" },
+              })}
               type="text"
               placeholder="Arroz con pollo lasagna etc.."
               className="textarea   input-bordered w-full max-w-[75%] ml-[10%]"
             />
+            {errors.ingredientes?.type === "required" && (
+              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.ingredientes.message}</div>
+            )}
+            {errors.ingredientes?.type === "minLength" && (
+              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.ingredientes.message}</div>
+            )}
+            {errors.ingredientes?.type === "maxLength" && (
+              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.ingredientes.message}</div>
+            )}
           </div>
           <div className="form-control  w-full ">
             <label className="label ml-3  pb-1">
@@ -93,10 +133,11 @@ const AdminNuevaViandaPage = () => {
             {/* ============= */}
 
             <input
-              {...register("imagen")}
+              {...register("imagen", { required: { value: true, message: "Imagen requerida" } })}
               type="file"
               className="file-input file-input-bordered w-full max-w-[75%] ml-[10%]"
             />
+            {errors.imagen?.type === "required" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.imagen.message}</div>}
           </div>
           <div className="form-control  w-full ">
             <label className="label ml-3  pb-1">
@@ -105,10 +146,17 @@ const AdminNuevaViandaPage = () => {
             {/* ============= */}
 
             <input
-              {...register("stock")}
-              type="Number"
+              {...register("stock", {
+                required: { value: true, message: "el stock es obligatorio" },
+                min: { value: 5, message: "el stock minimo es 5" },
+                max: { value: 200, message: "el stock maximo es 200" },
+              })}
+              type="number"
               className="input   input-bordered w-full max-w-[75%] ml-[10%]"
             />
+            {errors.stock?.type === "required" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.stock.message}</div>}
+            {errors.stock?.type === "min" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.stock.message}</div>}
+            {errors.stock?.type === "max" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.stock.message}</div>}
           </div>
           <div className="form-control  w-full max-w-[75%] ml-[10%] my-4 ">
             <button
