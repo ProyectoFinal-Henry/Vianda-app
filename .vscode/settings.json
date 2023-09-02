@@ -8,7 +8,7 @@
       "server": "localhost",
       "driver": "PostgreSQL",
       "name": "viandapp",
-      "connectString": "postgres://default:TCqx8mtdH7UM@ep-lingering-boat-68438565.us-east-1.postgres.vercel-storage.com:5432/verceldb"
+      "connectString": "postgres://henry_user:iex1AGkmPpkxn2UeManNYxEOpbh0497a@dpg-cjp2u861208c73callag-a.oregon-postgres.render.com/henry"
     }
   ]
 }
