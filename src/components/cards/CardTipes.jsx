@@ -1,9 +1,10 @@
+import React from "react";
 
-function Card() {
+function CardTipes() {
   return (
     <>
       <div className="my-6">
-        <div className="card w-72 bg-primary-focus hover:scale-110 duration-300 shadow-xl mx-auto cursor-default">
+        <div className="card flex-wrap w-72 bg-primary-focus hover:scale-110 duration-300 shadow-xl mx-auto cursor-default">
           <figure>
             <img src="/images/clasico.png" alt="clasico" />
           </figure>
@@ -57,4 +58,4 @@ function Card() {
   );
 }
 
-export default Card;
+export default CardTipes;

@@ -4,7 +4,6 @@ async function CardRecomend() {
   const res = await axios.get(`${process.env.LOCALHOST}/api/viandas`);
   const data = res.data;
   
-  // Obtener tres índices aleatorios únicos
   const randomIndices = [];
   while (randomIndices.length < 3) {
     const randomIndex = Math.floor(Math.random() * data.length);
@@ -18,15 +17,15 @@ async function CardRecomend() {
   return (
     <>
       {randomViandas.map((vianda, index) => (
-        <div key={index} className="my-6 ml-8">
+        <div key={index} className="my-6 mx-8">
           <div className="card w-80 h-96 bg-primary-focus hover:scale-110 duration-300 shadow-xl mx-auto cursor-default">
             <figure>
               <img className="h-auto w-full" src={vianda.imagen} alt={vianda.nombre} />
             </figure>
-            <div className="card-body">
-              <h2 className="card-title">
+            <div className="card-body p-4 ">
+              <h2 className="card-title justify-between ">
                 {vianda.nombre}
-                <div className="badge badge-secondary">NEW</div>
+                <div className="badge badge-secondary ">NEW</div>
               </h2>
               <p>{vianda.descripcion}</p>
               <div className="card-actions justify-end">
