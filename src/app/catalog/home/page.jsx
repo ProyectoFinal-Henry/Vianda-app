@@ -11,10 +11,10 @@ async function Homepage() {
 
   return (
     <>
-      <div>
-        <div className="flex justify-end mr-32 mt-10">
+      <div className="my-10" >
+        <div className="flex justify-center sm:flex sm:justify-end sm:mr-32">
           <button className="btn btn-info hover:bg-lime-300 font-bold text-lg">
-            REALIZAR PEDIDO
+            INICIAR PEDIDO
           </button>
         </div>
 
@@ -23,7 +23,7 @@ async function Homepage() {
             Categorias en nuestro Menu
           </h1>
         </div>
-        <div className="grid grid-cols-4 gap-3 mx-10 ">
+        <div className="grid grid-rows-4 gap-3 sm:flex justify-evenly flex-wrap mt-6">
           <CardTipes />
         </div>
 
@@ -32,7 +32,7 @@ async function Homepage() {
             Recomendados de la semana
           </h1>
         </div>
-        <div className="grid grid-cols-3 gap-3 mx-10 ">
+        <div className="grid grid-rows-3 gap-3 sm:flex justify-evenly flex-wrap mt-6">
           <CardRecomend />
         </div>
 
@@ -46,9 +46,9 @@ async function Homepage() {
           <Pagination data={data}/>
         </div>
 
-        <div className="flex justify-end mr-32 my-10">
+        <div className="flex justify-center mt-5 sm:flex sm:justify-end sm:mr-32">
           <button className="btn btn-info hover:bg-lime-300 font-bold text-lg">
-            REALIZAR PEDIDO
+            INICIAR PEDIDO
           </button>
         </div>
       </div>

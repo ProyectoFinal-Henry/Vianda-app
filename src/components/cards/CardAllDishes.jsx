@@ -11,7 +11,7 @@ function CardAllDishes(props) {
     <>     
       {data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock }) => {
           return (
-            <div key={id} className="m-6">
+            <div key={id} className="mb-6">
               <div className="card w-72 h-96 bg-primary-focus hover:scale-110 duration-300 shadow-xl mx-auto cursor-default">
                 <figure>
                   <img className="h-auto w-full" src={imagen} alt={nombre} />

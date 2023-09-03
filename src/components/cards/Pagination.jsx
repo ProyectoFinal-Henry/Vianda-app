@@ -30,9 +30,9 @@ function Pagination({ data }) {
 
   return (
     <>
-      <div className="flex justify-center flex-wrap items-center">
+      <div className="flex justify-center flex-wrap items-center my-10">
         {buttonSelect.map((i) => (
-          <button className={i === (page) ?  "bg-info font-bold rounded-full w-10 h-10 border-none mx-3 mt-10 mb-5 text-xs transition-transform transform hover:scale-125 hover:bg-info" : "bg-secondary font-bold rounded-full w-10 h-10 border-none mx-3 mt-10 mb-5 text-xs transition-transform transform hover:scale-125 hover:bg-info"}
+          <button className={i === (page) ? "bg-info font-bold rounded-full w-10 h-10 border-none mx-3 text-xs transition-transform transform hover:scale-125 hover:bg-info" : "bg-secondary font-bold rounded-full w-10 h-10 border-none mx-3 text-xs transition-transform transform hover:scale-125 hover:bg-info"}
             key={i}
             value={i}
             onClick={handleClick}
@@ -42,7 +42,7 @@ function Pagination({ data }) {
         ))}
       </div>  
 
-      <div className="grid grid-cols-4 gap-3 mx-10 ">
+      <div className="grid grid-rows-4 gap-3 sm:flex justify-evenly flex-wrap mt-6">
         <CardAllDishes data={paginated}/>
       </div>
             
