@@ -13,11 +13,16 @@ const AdminViandasPage = async () => {
   return (
     <div>
       <RowResponsive>
-        <p> aqui usamos el endpoint get de viandas</p>
-        <Link href="/admin/viandas/nueva-vianda">
-          <button className="btn">crear vianda</button>
-        </Link>
-        <p>esto es un elemento de la lista de viandas inicio</p>
+        <div className="flex flex-col mt-10 pb-14 items-center relative w-full">
+          <h1 className="stat-value ">Lista de Viandas del sistema</h1>
+          <Link
+            className="btn btn-primary my-3  absolute bottom-0 right-0"
+            href="/admin/viandas/nueva-vianda"
+          >
+            Crear vianda
+          </Link>
+        </div>
+
         <table className="border-2 border-neutral/30 mx-auto">
           <thead className="bg-green-400">
             <th className="text-center border-2 border-neutral/30">Imagen</th>
@@ -34,14 +39,14 @@ const AdminViandasPage = async () => {
                 key={I}
                 className={`${I % 2 === 0 && `bg-green-100`}`}
               >
-                <td className="border-r  border-neutral/30  text-center">
-                  <img
-                    className="w-20 rounded-full "
-                    src={imagen}
-                    alt={nombre}
-                  />
+                <td>
+                  <div className="avatar p-1">
+                    <div className="w-24 rounded-full">
+                      <img src={imagen} />
+                    </div>
+                  </div>
                 </td>
-                <td className="border-r border-neutral/30 pl-2">{nombre}</td>
+                <td className="border-r border-neutral/30 pl-2 font-bold">{nombre}</td>
                 <td className="border-r border-neutral/30 px-2 text-center">
                   <div class="badge badge-neutral">{tipo}</div>
                 </td>
@@ -58,7 +63,6 @@ const AdminViandasPage = async () => {
             )
           })}
         </table>
-        <p>esto es un elemento de la lista de viandas fin</p>
       </RowResponsive>
     </div>
   )
