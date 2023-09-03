@@ -11,13 +11,25 @@ datasource db {
 }
 
 model Vianda {
-  id           Int    @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
   nombre       String
   tipo         Tipo
   descripcion  String
   ingredientes String
   imagen       String
   stock        Int
+  status       Boolean @default(true)
+
+  CartaLunes       Carta? @relation("lunes", fields: [cartaLunesId], references: [id])
+  cartaLunesId     Int?
+  CartaMartes      Carta? @relation("martes", fields: [cartaMartesId], references: [id])
+  cartaMartesId    Int?
+  CartaMiercoles   Carta? @relation("miercoles", fields: [cartaMiercolesId], references: [id])
+  cartaMiercolesId Int?
+  CartaJueves      Carta? @relation("jueves", fields: [cartaJuevesId], references: [id])
+  cartaJuevesId    Int?
+  CartaViernes     Carta? @relation("viernes", fields: [cartaViernesId], references: [id])
+  cartaViernesId   Int?
 }
 
 enum Tipo {
@@ -27,20 +39,14 @@ enum Tipo {
   dieta
 }
 
-model Dia {
+model Carta {
   id          Int      @id @default(autoincrement())
-  nombreDia   Dias
-  fecha       DateTime
-  clasico Int
-  sinHarinas Int
-  vegetariano Int
-  dieta Int
-}
-
-enum Dias {
-  lunes
-  martes
-  miercoles
-  jueves
-  viernes
+  fechaInicio DateTime
+  fechaFin    DateTime
+  status      Boolean  @default(true)
+  lunes       Vianda[] @relation("lunes")
+  martes      Vianda[] @relation("martes")
+  miercoles   Vianda[] @relation("miercoles")
+  jueves      Vianda[] @relation("jueves")
+  viernes     Vianda[] @relation("viernes")
 }

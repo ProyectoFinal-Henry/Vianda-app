@@ -1,14 +1,14 @@
 {
-    "sqltools.connections": [
-        {
-            "pgOptions": {
-                "ssl": true
-            },
-            "previewLimit": 50,
-            "server": "localhost",
-            "driver": "PostgreSQL",
-            "name": "viandapp",
-            "connectString": "postgres://default:UAk1Q3cDqoSJ@ep-steep-field-00626774.us-east-1.postgres.vercel-storage.com:5432/verceldb"
-        }
-    ]
+  "sqltools.connections": [
+    {
+      "pgOptions": {
+        "ssl": true
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "driver": "PostgreSQL",
+      "name": "viandapp",
+      "connectString": "postgres://henry_user:iex1AGkmPpkxn2UeManNYxEOpbh0497a@dpg-cjp2u861208c73callag-a.oregon-postgres.render.com/henry"
+    }
+  ]
 }
