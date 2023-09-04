@@ -11,25 +11,15 @@ datasource db {
 }
 
 model Vianda {
-  id           Int     @id @default(autoincrement())
+  id           Int             @id @default(autoincrement())
   nombre       String
   tipo         Tipo
   descripcion  String
   ingredientes String
   imagen       String
   stock        Int
-  status       Boolean @default(true)
-
-  CartaLunes       Carta? @relation("lunes", fields: [cartaLunesId], references: [id])
-  cartaLunesId     Int?
-  CartaMartes      Carta? @relation("martes", fields: [cartaMartesId], references: [id])
-  cartaMartesId    Int?
-  CartaMiercoles   Carta? @relation("miercoles", fields: [cartaMiercolesId], references: [id])
-  cartaMiercolesId Int?
-  CartaJueves      Carta? @relation("jueves", fields: [cartaJuevesId], references: [id])
-  cartaJuevesId    Int?
-  CartaViernes     Carta? @relation("viernes", fields: [cartaViernesId], references: [id])
-  cartaViernesId   Int?
+  status       Boolean         @default(true)
+  menus        ViandasEnMenu[]
 }
 
 enum Tipo {
@@ -39,14 +29,34 @@ enum Tipo {
   dieta
 }
 
+model ViandasEnMenu {
+  id            Int        @id @default(autoincrement())
+  fk_Viandas    Int?
+  fk_diasSemana Int?
+  vianda        Vianda?    @relation(fields: [fk_Viandas], references: [id])
+  diaSemana     DiaSemana? @relation(fields: [fk_diasSemana], references: [id])
+}
+
+model DiaSemana {
+  id      Int             @id @default(autoincrement())
+  fkCarta Int?
+  dia     Dias
+  carta   Carta?          @relation(fields: [fkCarta], references: [id])
+  viandas ViandasEnMenu[]
+}
+
+enum Dias {
+  lunes
+  martes
+  miercoles
+  jueves
+  viernes
+}
+
 model Carta {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   fechaInicio DateTime
   fechaFin    DateTime
-  status      Boolean  @default(true)
-  lunes       Vianda[] @relation("lunes")
-  martes      Vianda[] @relation("martes")
-  miercoles   Vianda[] @relation("miercoles")
-  jueves      Vianda[] @relation("jueves")
-  viernes     Vianda[] @relation("viernes")
+  status      Boolean     @default(true)
+  diasSemana  DiaSemana[]
 }

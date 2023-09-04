@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server"
-import { prisma } from '@/libs/prisma'
+import { NextResponse } from "next/server";
+import { prisma } from "@/libs/prisma";
 
 export async function DELETE(request, { params }) {
   try {
@@ -22,6 +22,8 @@ export async function DELETE(request, { params }) {
 
     return NextResponse.json("Carta modificada correctamente");
   } catch (error) {
-    return NextResponse.json("Error al intentar modificar la carta", { status: 403 });
+    return NextResponse.json("Error al intentar modificar la carta", {
+      status: 403,
+    });
   }
 }

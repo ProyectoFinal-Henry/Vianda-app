@@ -2,7 +2,7 @@ import { prisma } from "@/libs/prisma";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url)
+  const { searchParams } = new URL(request.url);
   if (searchParams.toString().length > 0) {
     try {
       const ing1 = searchParams.get("ing1");
@@ -12,9 +12,9 @@ export async function GET(request) {
       let search = searchParams.get("search");
       let campo = searchParams.get("campo");
       let orden = searchParams.get("orden");
-      if (!search) search = ""
-      if (!orden) orden = "asc"
-      if (!campo) campo = "id"
+      if (!search) search = "";
+      if (!orden) orden = "asc";
+      if (!campo) campo = "id";
 
       const whereCondicion = [];
       if (ing1) {
@@ -49,17 +49,19 @@ export async function GET(request) {
         where: {
           nombre: {
             contains: search,
-            mode: 'insensitive'
+            mode: "insensitive",
           },
           AND: whereCondicion,
         },
         orderBy: {
-          [campo]: orden
-        }
+          [campo]: orden,
+        },
       });
 
       if (!viandas || viandas.length === 0) {
-        return NextResponse.json("No se encontró una vianda que contenga la información requerida");
+        return NextResponse.json(
+          "No se encontró una vianda que contenga la información requerida"
+        );
       }
 
       return NextResponse.json(viandas);
@@ -70,11 +72,12 @@ export async function GET(request) {
     try {
       const viandas = await prisma.Vianda.findMany({
         orderBy: {
-          id: "asc"
-        }
+          id: "asc",
+        },
       });
       return NextResponse.json(viandas);
     } catch (error) {
+      console.log(error);
       return NextResponse.json("Error al obtener las viandas");
     }
   }
@@ -94,6 +97,12 @@ export async function POST(request) {
         stock,
       },
     });
+
+    // const data = await request.json();
+    // console.log(data);
+    // await prisma.Vianda.createMany({
+    //   data: data,
+    // });
     return NextResponse.json("Vianda creada exitosamente!");
   } catch (error) {
     return NextResponse.json({ error: error.message });
@@ -102,7 +111,7 @@ export async function POST(request) {
 
 export async function PUT(request) {
   try {
-    const { searchParams } = new URL(request.url)
+    const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
     const { nombre, tipo, descripcion, ingredientes, imagen, stock } =

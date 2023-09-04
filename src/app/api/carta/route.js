@@ -3,61 +3,30 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   try {
-    const { fechaInicio, fechaFin, lunes, martes, miercoles, jueves, viernes } =
-      await request.json();
+    const { fechaInicio, fechaFin, diasSemana } = await request.json();
 
     const nuevaCarta = await prisma.Carta.create({
       data: {
-        fechaInicio,
-        fechaFin,
-        lunes: {
-          create: lunes.map((vianda) => ({
-            nombre: vianda.nombre,
-            tipo: vianda.tipo,
-            descripcion: vianda.descripcion,
-            ingredientes: vianda.ingredientes,
-            imagen: vianda.imagen,
-            stock: vianda.stock,
-          })),
-        },
-        martes: {
-          create: martes.map((vianda) => ({
-            nombre: vianda.nombre,
-            tipo: vianda.tipo,
-            descripcion: vianda.descripcion,
-            ingredientes: vianda.ingredientes,
-            imagen: vianda.imagen,
-            stock: vianda.stock,
-          })),
-        },
-        miercoles: {
-          create: miercoles.map((vianda) => ({
-            nombre: vianda.nombre,
-            tipo: vianda.tipo,
-            descripcion: vianda.descripcion,
-            ingredientes: vianda.ingredientes,
-            imagen: vianda.imagen,
-            stock: vianda.stock,
-          })),
-        },
-        jueves: {
-          create: jueves.map((vianda) => ({
-            nombre: vianda.nombre,
-            tipo: vianda.tipo,
-            descripcion: vianda.descripcion,
-            ingredientes: vianda.ingredientes,
-            imagen: vianda.imagen,
-            stock: vianda.stock,
-          })),
-        },
-        viernes: {
-          create: viernes.map((vianda) => ({
-            nombre: vianda.nombre,
-            tipo: vianda.tipo,
-            descripcion: vianda.descripcion,
-            ingredientes: vianda.ingredientes,
-            imagen: vianda.imagen,
-            stock: vianda.stock,
+        fechaInicio: fechaInicio,
+        fechaFin: fechaFin,
+        diasSemana: {
+          create: diasSemana.map((dia) => ({
+            dia: dia.dia,
+            viandas: {
+              create: dia.viandas.map((vianda) => ({
+                vianda: {
+                  connect: {
+                    id: vianda.id,
+                    nombre: vianda.nombre,
+                    tipo: vianda.tipo,
+                    descripcion: vianda.descripcion,
+                    ingredientes: vianda.ingredientes,
+                    imagen: vianda.imagen,
+                    stock: vianda.stock,
+                  },
+                },
+              })),
+            },
           })),
         },
       },
@@ -67,17 +36,63 @@ export async function POST(request) {
   } catch (error) {
     return NextResponse.json({ error: error.message });
   }
+  // const fechaInicio = searchParams.get("fechaInicio");
+  // const whereCondicion = [];
+  // if (id) {
+  //   whereCondicion.push({ id: parseInt(id) });
+  // }
+  // if (fechaInicio) {
+  //   whereCondicion.push({ fechaInicio: fechaInicio });
+  // }
+  // console.log(whereCondicion);
 }
-
-export async function GET() {
+export async function GET(request) {
+  const { searchParams } = new URL(request.url);
   try {
-    const carta = await prisma.Carta.findMany({
-      include: {
-        lunes: true,
-        martes: true,
+    if (searchParams.toString().length > 0) {
+      const id = searchParams.get("id");
+      const carta = await prisma.Carta.findUnique({
+        where: {
+          id: parseInt(id),
+        },
+        select: {
+          id: true,
+          fechaInicio: true,
+          fechaFin: true,
+          status: true,
+          diasSemana: {
+            select: {
+              dia: true,
+              viandas: {
+                select: {
+                  vianda: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      return NextResponse.json(carta);
+    }
+    const cartas = await prisma.Carta.findMany({
+      select: {
+        id: true,
+        fechaInicio: true,
+        fechaFin: true,
+        status: true,
+        diasSemana: {
+          select: {
+            dia: true,
+            viandas: {
+              select: {
+                vianda: true,
+              },
+            },
+          },
+        },
       },
     });
-    return NextResponse.json(carta);
+    return NextResponse.json(cartas);
   } catch (error) {
     return NextResponse.json({ error: error.message });
   }
