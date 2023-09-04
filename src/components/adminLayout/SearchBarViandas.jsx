@@ -1,42 +1,33 @@
 "use client"
-// import { useRouter, usePathname } from "next/navigation"
-import { useRouter } from "next/navigation"
-import { useState, useTransition } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useState } from "react"
+import { FaSearch } from "react-icons/fa"
+export const dynamic = "force-dynamic"
 const SearchBarViandas = () => {
-  //   const { replace } = useRouter()
-  const router = useRouter()
-  //   const pathName = usePathname()
   const [searchValue, setSearchValue] = useState("")
-  //   const [isPending, starTransition] = useTransition()
 
-  const goto = () => {
-    // let params = new URLSearchParams(window.location.search)
-    // searchValue ? params.set("search", searchValue) : params.delete("search")
-    // params.delete("page")
-    // const urltogo = `${pathName}?${params.toString()}`
+  const pathName = usePathname()
 
-    // console.log("file: SearchBarViandas.jsx:14  urltogo:", urltogo)
-
-    // starTransition(() => {
-    //   replace(urltogo)
-    // })
-    const urltogo = `?search=${searchValue}`
-    router.push(`${urltogo}`)
-    // console.log("file: SearchBarViandas.jsx:12  searchValue:", searchValue)
-    console.log("file: SearchBarViandas.jsx:11  urltogo:", urltogo)
-  }
-
+  const urltogo = `${pathName}?search=${searchValue}`
   return (
     <>
-      <form onSubmit={goto}>
+      <div className="flex items-center gap-x-0 min-w-[40%] md:min-w-[35%] ">
         <input
           onChange={(e) => setSearchValue(e.target.value)}
           type="text"
           placeholder="Haburguesa, Pasta etc.."
           className="input input-bordered input-md w-full max-w-xl"
         />
-        <button type="submit"> buscar</button>
-      </form>
+        <Link
+          href={urltogo}
+          className="-ml-10"
+        >
+          <button className=" btn btn-warning text-white ">
+            <FaSearch />
+          </button>
+        </Link>
+      </div>
     </>
   )
 }
