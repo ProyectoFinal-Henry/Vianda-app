@@ -9,6 +9,13 @@ export async function GET(request) {
       const ing2 = searchParams.get("ing2");
       const ing3 = searchParams.get("ing3");
       const tipo = searchParams.get("tipo");
+      let search = searchParams.get("search");
+      let campo = searchParams.get("campo");
+      let orden = searchParams.get("orden");
+      if (!search) search = ""
+      if (!orden) orden = "asc"
+      if (!campo) campo = "id"
+
       const whereCondicion = [];
       if (ing1) {
         whereCondicion.push({
@@ -40,15 +47,19 @@ export async function GET(request) {
 
       const viandas = await prisma.Vianda.findMany({
         where: {
+          nombre: {
+            contains: search,
+            mode: 'insensitive'
+          },
           AND: whereCondicion,
         },
         orderBy: {
-          nombre: "asc"
+          [campo]: orden
         }
       });
 
       if (!viandas || viandas.length === 0) {
-        return NextResponse.json("No se encontró una vianda que contenga estos elementos entre sus ingredientes.");
+        return NextResponse.json("No se encontró una vianda que contenga la información requerida");
       }
 
       return NextResponse.json(viandas);
@@ -59,7 +70,7 @@ export async function GET(request) {
     try {
       const viandas = await prisma.Vianda.findMany({
         orderBy: {
-          nombre: "asc"
+          id: "asc"
         }
       });
       return NextResponse.json(viandas);
