@@ -1,19 +1,23 @@
-import Link from "next/link"
+import React from "react"
+import { FiAward } from "react-icons/fi"
 
-const AdminHomePage = async () => {
+const page = () => {
   return (
     <>
-      <h1>Esto es Admin </h1>
-      <p>Aqui se mostrara una bienvenida al aplicativo y en el futuro algunas visatas</p>
-
-      <Link
-        className="link"
-        href="/admin/viandas"
+      <div
+        class="w-full min-h-[85vh] hidden md:block   bg-contain bg-no-repeat overflow-scroll"
+        style={{ backgroundImage: 'url("/demoToDelete/adminD.png")' }}
       >
-        {" "}
-        Administrar viandas{" "}
-      </Link>
+        <div className="min-h-[1900px]"></div>
+      </div>
+      <div
+        class="w-full min-h-[85vh]  md:hidden  bg-contain  bg-center bg-no-repeat overflow-scroll"
+        style={{ backgroundImage: 'url("/demoToDelete/adminM.png")' }}
+      >
+        <div className="min-h-[1900px]"></div>
+      </div>
     </>
   )
 }
-export default AdminHomePage
+
+export default page

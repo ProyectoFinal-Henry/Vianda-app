@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HowWorks } from "@/components/LandingComponents/HowWorks";
+import InfoEmpresa from "@/components/LandingComponents/InfoEmpresa";
+import CallToAction from "@/components/LandingComponents/CallToAction";
 
 const data = [
   {
@@ -38,7 +40,7 @@ export default function LandingPage() {
       <div
         id="container-principal "
         // items-center place-content-center gap-80
-        className=" grid grid-cols-2 gap-10 mt-[7rem] mb-[15rem] hb-[20rem] w-[100%] place  "
+        className=" grid grid-cols-2 gap-10 mt-[7rem] mb-[5rem] hb-[20rem] w-[100%] place  "
       >
         <div
           id="container-text"
@@ -76,6 +78,8 @@ export default function LandingPage() {
         </div>
       </div>
       <HowWorks />
+      <InfoEmpresa />
+      <CallToAction />
     </>
   );
 }
