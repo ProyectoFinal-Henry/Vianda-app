@@ -1,7 +1,7 @@
 import Image from "next/image";
 export const HowWorks = () => {
   return (
-    <section className="container mb-40  ">
+    <section className="container mx-auto mb-40  ">
       <div className="flex flex-col items-center">
         <h1 className="font-bold text-4xl mb-3">Como funciona</h1>
         <Image
