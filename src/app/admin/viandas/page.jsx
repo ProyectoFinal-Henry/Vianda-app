@@ -5,6 +5,7 @@ import RowResponsive from "@/components/formaters/RowResponsive"
 import EditCrud from "@/components/actions/EditCrud"
 import DeleteCrud from "@/components/actions/DeleteCrud"
 import SearchBarViandas from "@/components/adminLayout/SearchBarViandas"
+import ClearFilters from "@/components/adminLayout/ClearFilters"
 
 const AdminViandasPage = async ({ searchParams }) => {
   let data = []
@@ -27,8 +28,9 @@ const AdminViandasPage = async ({ searchParams }) => {
           <div className="flex flex-row items-center justify-center gap-x-4 min-w-full">
             <SearchBarViandas />
 
+            <ClearFilters />
             <Link
-              className="btn btn-primary my-3  "
+              className="btn btn-accent my-3 text-white "
               href="/admin/viandas/nueva-vianda"
             >
               Crear vianda
@@ -38,21 +40,17 @@ const AdminViandasPage = async ({ searchParams }) => {
 
         <table className="border-2 border-neutral/30 mx-auto">
           <thead className="bg-green-400">
-            <th className="text-center border-2 border-neutral/30">Imagen</th>
-            <th className="text-center border-2 border-neutral/30">Nombre</th>
-            <th className="text-center border-2 border-neutral/30">Tipo</th>
-            <th className="text-center border-2 border-neutral/30">Descripcion</th>
-            <th className="text-center border-2 border-neutral/30">Ingredientes</th>
-            <th className="text-center border-2 border-neutral/30">Stock</th>
-            <th className="text-center border-2 border-neutral/30">Acciones</th>
-          </thead>
-          {!Array.isArray(data) ? (
             <tr>
-              <td colSpan={"7"}>
-                <h1 className=" w-full text-2xl md:text-3xl text-center">{data}</h1>
-              </td>
+              <th className="text-center border-2 border-neutral/30">Imagen</th>
+              <th className="text-center border-2 border-neutral/30">Nombre</th>
+              <th className="text-center border-2 border-neutral/30">Tipo</th>
+              <th className="text-center border-2 border-neutral/30">Descripcion</th>
+              <th className="text-center border-2 border-neutral/30">Ingredientes</th>
+              <th className="text-center border-2 border-neutral/30">Stock</th>
+              <th className="text-center border-2 border-neutral/30">Acciones</th>
             </tr>
-          ) : (
+          </thead>
+          {Array.isArray(data) ? (
             data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock }, I) => {
               return (
                 <tr
@@ -82,6 +80,12 @@ const AdminViandasPage = async ({ searchParams }) => {
                 </tr>
               )
             })
+          ) : (
+            <tr>
+              <td colSpan={"7"}>
+                <h1 className=" w-full text-2xl md:text-3xl text-center">{data}</h1>
+              </td>
+            </tr>
           )}
         </table>
       </RowResponsive>

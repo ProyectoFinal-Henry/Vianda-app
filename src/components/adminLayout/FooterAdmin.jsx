@@ -9,6 +9,7 @@ const FooterAdmin = () => {
         <aside>
           <Image
             className="w-11"
+            alt="icon ViandApp"
             width={"10"}
             height={"10"}
             src={"/images/corporate/icon.svg"}
