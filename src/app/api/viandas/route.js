@@ -2,7 +2,7 @@ import { prisma } from "@/libs/prisma";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url)
+  const { searchParams } = new URL(request.url);
   if (searchParams.toString().length > 0) {
     try {
       const ing1 = searchParams.get("ing1");
@@ -45,20 +45,21 @@ export async function GET(request) {
       });
 
       if (!viandas || viandas.length === 0) {
-        return NextResponse.json("No se encontró una vianda que contenga estos elementos entre sus ingredientes.");
+        return NextResponse.json(
+          "No se encontró una vianda que contenga estos elementos entre sus ingredientes."
+        );
       }
 
       return NextResponse.json(viandas);
     } catch (error) {
       return NextResponse.json({ error: error.message });
     }
-  }
-  else{
+  } else {
     try {
       const viandas = await prisma.Vianda.findMany();
       return NextResponse.json(viandas);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return NextResponse.json("Error al obtener las viandas");
     }
   }
@@ -78,6 +79,12 @@ export async function POST(request) {
         stock,
       },
     });
+
+    // const data = await request.json();
+    // console.log(data);
+    // await prisma.Vianda.createMany({
+    //   data: data,
+    // });
     return NextResponse.json("Vianda creada exitosamente!");
   } catch (error) {
     return NextResponse.json({ error: error.message });
@@ -86,7 +93,7 @@ export async function POST(request) {
 
 export async function PUT(request) {
   try {
-    const { searchParams } = new URL(request.url)
+    const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
     const { nombre, tipo, descripcion, ingredientes, imagen, stock } =
