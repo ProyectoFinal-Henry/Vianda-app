@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HowWorks } from "@/components/LandingComponents/HowWorks";
+import InfoEmpresa from "@/components/LandingComponents/InfoEmpresa";
+import CallToAction from "@/components/LandingComponents/CallToAction";
 
 const data = [
   {
@@ -76,6 +78,8 @@ export default function LandingPage() {
         </div>
       </div>
       <HowWorks />
+      <InfoEmpresa />
+      <CallToAction />
     </>
   );
 }
