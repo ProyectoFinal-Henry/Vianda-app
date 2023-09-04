@@ -3,8 +3,8 @@ import React from "react";
 function CardTipes() {
   return (
     <>
-      <div className="my-6">
-        <div className="card flex-wrap w-72 bg-primary-focus hover:scale-110 duration-300 shadow-xl mx-auto cursor-default">
+      <div>
+        <div className="card w-72 bg-primary-focus hover:scale-110 duration-300 shadow-xl m-auto cursor-default">
           <figure>
             <img src="/images/clasico.png" alt="clasico" />
           </figure>
@@ -16,7 +16,7 @@ function CardTipes() {
         </div>
       </div>
 
-      <div className="my-6">
+      <div>
         <div className="card w-72 bg-primary-focus hover:scale-110 duration-300 shadow-xl m-auto cursor-default">
           <figure>
             <img src="/images/vegetariano.png" alt="vegetariano" />
@@ -29,7 +29,7 @@ function CardTipes() {
         </div>
       </div>
 
-      <div className="my-6">
+      <div>
         <div className="card w-72 bg-primary-focus hover:scale-110 duration-300 shadow-xl m-auto cursor-default">
           <figure>
             <img src="/images/sin_harinas.png" alt="sin_harinas" />
@@ -42,7 +42,7 @@ function CardTipes() {
         </div>
       </div>
 
-      <div className="my-6">
+      <div>
         <div className="card w-72 bg-primary-focus hover:scale-110 duration-300 shadow-xl m-auto cursor-default">
           <figure>
             <img src="/images/dieta.png" alt="dieta" />
