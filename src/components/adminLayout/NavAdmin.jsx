@@ -54,10 +54,11 @@ const NavAdmin = () => {
             />
           </Link>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-center hidden  lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li tabIndex={1}>
-              <details>
+              <Link href={"/admin/viandas/"}>Viandas</Link>
+              {/* <details>
                 <summary>Viandas</summary>
                 <ul className="p-2 bg-accent   rounded-t-none">
                   <li>
@@ -67,41 +68,41 @@ const NavAdmin = () => {
                     <Link href={"/admin/viandas/nueva-vianda"}>Crear Vianda</Link>
                   </li>
                 </ul>
-              </details>
+              </details> */}
             </li>
 
             <li tabIndex={2}>
               <details>
                 <summary>Menu Diario</summary>
-                <ul className="p-2 bg-accent">
+                {/* <ul className="p-2 bg-accent">
                   <li>
                     <a>Ver Todos</a>
                   </li>
                   <li>
                     <a>Crear Nuevo</a>
                   </li>
-                </ul>
+                </ul> */}
               </details>
             </li>
 
             <li tabIndex={3}>
               <details>
                 <summary>Cartas</summary>
-                <ul className="p-2 bg-accent">
+                {/* <ul className="p-2 bg-accent">
                   <li>
                     <a>Ver Todas</a>
                   </li>
                   <li>
                     <a>Crear Nueva</a>
                   </li>
-                </ul>
+                </ul> */}
               </details>
             </li>
           </ul>
         </div>
         <div className="navbar-end">
           <Link
-            className="ink link-primary"
+            className="ink link-primary font-extrabold mr-10 "
             href={"/"}
           >
             Salir Del Admin
