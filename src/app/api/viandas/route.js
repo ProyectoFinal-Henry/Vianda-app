@@ -84,7 +84,7 @@ export async function GET(request) {
           id: "asc",
         },
       });
-      console.log("hola");
+
       return NextResponse.json(viandas);
     } catch (error) {
       return NextResponse.json(error.message);
