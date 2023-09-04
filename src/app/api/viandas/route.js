@@ -42,6 +42,9 @@ export async function GET(request) {
         where: {
           AND: whereCondicion,
         },
+        orderBy: {
+          nombre: "asc"
+        }
       });
 
       if (!viandas || viandas.length === 0) {
@@ -52,13 +55,15 @@ export async function GET(request) {
     } catch (error) {
       return NextResponse.json({ error: error.message });
     }
-  }
-  else{
+  } else {
     try {
-      const viandas = await prisma.Vianda.findMany();
+      const viandas = await prisma.Vianda.findMany({
+        orderBy: {
+          nombre: "asc"
+        }
+      });
       return NextResponse.json(viandas);
     } catch (error) {
-      console.log(error)
       return NextResponse.json("Error al obtener las viandas");
     }
   }
