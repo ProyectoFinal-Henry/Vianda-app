@@ -3,20 +3,20 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
+  let skip = parseInt(searchParams.get("skip"));
+  let take = parseInt(searchParams.get("take"));
+  if (!skip) skip = 0;
+  if (!take) take = 10;
+
   if (searchParams.toString().length > 0) {
     try {
-      
       const ing1 = searchParams.get("ing1");
       const ing2 = searchParams.get("ing2");
       const ing3 = searchParams.get("ing3");
       const tipo = searchParams.get("tipo");
-      let skip = parseInt(searchParams.get("skip"));
-      let take = parseInt(searchParams.get("take"));
       let search = searchParams.get("search");
       let campo = searchParams.get("campo");
       let orden = searchParams.get("orden");
-      if (!skip) skip = 0;
-      if (!take) take = 10;
       if (!search) search = "";
       if (!orden) orden = "asc";
       if (!campo) campo = "id";
@@ -78,14 +78,16 @@ export async function GET(request) {
   } else {
     try {
       const viandas = await prisma.Vianda.findMany({
+        skip: skip,
+        take: take,
         orderBy: {
           id: "asc",
         },
       });
+
       return NextResponse.json(viandas);
     } catch (error) {
-      console.log(error);
-      return NextResponse.json("Error al obtener las viandas");
+      return NextResponse.json(error.message);
     }
   }
 }
