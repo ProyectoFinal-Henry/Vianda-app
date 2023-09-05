@@ -5,6 +5,7 @@ import RowResponsive from "@/components/formaters/RowResponsive"
 import EditCrud from "@/components/actions/EditCrud"
 import DeleteCrud from "@/components/actions/DeleteCrud"
 import SearchBarViandas from "@/components/adminLayout/SearchBarViandas"
+import Filters from "@/components/adminLayout/Filters"
 import ClearFilters from "@/components/adminLayout/ClearFilters"
 
 const AdminViandasPage = async ({ searchParams }) => {
@@ -36,6 +37,7 @@ const AdminViandasPage = async ({ searchParams }) => {
               Crear vianda
             </Link>
           </div>
+          <Filters />
         </div>
 
         <table className="border-2 border-neutral/30 mx-auto">
