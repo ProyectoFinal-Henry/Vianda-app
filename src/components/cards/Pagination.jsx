@@ -1,10 +1,9 @@
-"use client"
+"use client";
 import React from "react";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import CardAllDishes from "./CardAllDishes";
 
 function Pagination({ data }) {
-
   if (!Array.isArray(data)) {
     return <p>No hay datos disponibles</p>;
   }
@@ -32,7 +31,12 @@ function Pagination({ data }) {
     <>
       <div className="flex justify-center flex-wrap items-center my-10">
         {buttonSelect.map((i) => (
-          <button className={i === (page) ? "bg-info font-bold rounded-full w-10 h-10 border-none mx-3 text-xs transition-transform transform hover:scale-125 hover:bg-info" : "bg-secondary font-bold rounded-full w-10 h-10 border-none mx-3 text-xs transition-transform transform hover:scale-125 hover:bg-info"}
+          <button
+            className={
+              i === page
+                ? "bg-info font-bold rounded-full w-10 h-10 border-none mx-3 text-xs transition-transform transform hover:scale-125 hover:bg-info"
+                : "bg-secondary font-bold rounded-full w-10 h-10 border-none mx-3 text-xs transition-transform transform hover:scale-125 hover:bg-info"
+            }
             key={i}
             value={i}
             onClick={handleClick}
@@ -40,12 +44,11 @@ function Pagination({ data }) {
             {i}
           </button>
         ))}
-      </div>  
+      </div>
 
       <div className="grid grid-rows-4 gap-3 sm:flex justify-evenly flex-wrap mt-6">
-        <CardAllDishes data={paginated}/>
+        <CardAllDishes data={paginated} />
       </div>
-            
     </>
   );
 }
