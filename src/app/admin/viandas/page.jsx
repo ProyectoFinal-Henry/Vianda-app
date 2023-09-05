@@ -66,7 +66,7 @@ const AdminViandasPage = async ({ searchParams }) => {
                   </td>
                   <td className="border-r border-neutral/30 pl-2 font-bold">{nombre}</td>
                   <td className="border-r border-neutral/30 px-2 text-center">
-                    <div class="badge badge-neutral">{tipo}</div>
+                    <div className="badge badge-neutral">{tipo}</div>
                   </td>
                   <td className="border-r border-neutral/30 pl-2">{descripcion}</td>
                   <td className="border-r border-neutral/30 pl-2">{ingredientes}</td>
