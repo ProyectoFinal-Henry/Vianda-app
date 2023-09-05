@@ -150,7 +150,7 @@ export async function POST(request) {
 export async function PUT(request) {
   try {
     const formData = await request.formData()
-    console.log("file: route.js:153  formData:", formData)
+    // console.log("file: route.js:153  formData:", formData)
     const nombre = formData.get("nombre")
     const tipo = formData.get("tipo")
     const descripcion = formData.get("descripcion")
@@ -160,7 +160,6 @@ export async function PUT(request) {
     const id = Number(formData.get("id"))
     let imagenToDB = ""
     if (typeof imagen !== "string") {
-      console.log("viene un foto")
       const bytes = await imagen.arrayBuffer()
       const buffer = Buffer.from(bytes)
       const response = await new Promise((resolve, reject) => {
@@ -174,20 +173,9 @@ export async function PUT(request) {
 
       imagenToDB = response.secure_url
     } else {
-      console.log("no se cambio el valor es:", imagen)
       imagenToDB = imagen
     }
 
-    console.log("first:", {
-      id,
-      nombre,
-
-      tipo,
-      descripcion,
-      ingredientes,
-      imagenToDB,
-      stock,
-    })
     const prismares = await prisma.vianda.update({
       where: { id: id },
       data: {
@@ -199,11 +187,11 @@ export async function PUT(request) {
         stock,
       },
     })
-    console.log("file: route.js:189  prisma:", prismares)
+    // console.log("file: route.js:189  prisma:", prismares)
 
     return NextResponse.json("Vianda creada exitosamente!")
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     return NextResponse.json({ error: error.message })
   }
 }
