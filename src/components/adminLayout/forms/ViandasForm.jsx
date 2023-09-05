@@ -28,13 +28,13 @@ const ViandasForm = ({ viandaId }) => {
   //para enviar el archivo solito sin pasarlo por react hook form
   const [file, setFile] = useState(null)
   //para sacar la imagen del use effect porq ue react hook form saca los demas directo a los inputs
-  const [imagenTmp, setImagenTmp] = useState("/")
+  const [imagenTmp, setImagenTmp] = useState("")
   //sacar el id del useEffect para mandarlo cunado sea update
-  const [idDb, setIidDb] = useState("/")
+  const [idDb, setIdDb] = useState("/")
+  //entre el submit y la respuesta del server
+  const [loadingUp, setLoadingUp] = useState(false)
 
   const router = useRouter()
-
-  //=====================================cuando es update traemos el id y cargamos los datos en el estado
 
   //traer registro de la base de datos
   useEffect(() => {
@@ -48,7 +48,7 @@ const ViandasForm = ({ viandaId }) => {
         setValue("ingredientes", data.ingredientes)
         setValue("stock", data.stock)
         setImagenTmp(data.imagen)
-        setIidDb(data.id)
+        setIdDb(data.id)
       })()
 
       // pasarlo com value de los campos
@@ -56,7 +56,7 @@ const ViandasForm = ({ viandaId }) => {
   }, [viandaId, setValue])
 
   const onSubmit = handleSubmit(async (data) => {
-    const { nombre, tipo, descripcion, ingredientes, imagen, stock } = data
+    const { nombre, tipo, descripcion, ingredientes, stock } = data
 
     //  remapear para sacar el archivo
     const formData = new FormData()
@@ -64,26 +64,34 @@ const ViandasForm = ({ viandaId }) => {
     formData.append("tipo", tipo)
     formData.append("descripcion", descripcion)
     formData.append("ingredientes", ingredientes)
-    formData.append("imagen", file)
+    //si no se actualizó mandar la url que tenia
+    if (!file) {
+      formData.append("imagen", imagenTmp)
+    } else {
+      formData.append("imagen", file)
+    }
     formData.append("stock", stock)
     if (viandaId) {
-      
       formData.append("id", idDb)
     }
-    let newVianda= null
+    let newVianda = null
+
+    setLoadingUp(true)
+    await new Promise((resolve) => setTimeout(resolve, 1000))
     if (!viandaId) {
-         newVianda = await axios.post(`/api/viandas`, formData)
+      newVianda = await axios.post(`/api/viandas`, formData)
     } else {
-       newVianda = await axios.put(`/api/viandas`, formData)
+      newVianda = await axios.put(`/api/viandas`, formData)
     }
+    setLoadingUp(false)
 
     if (newVianda.data === "Vianda creada exitosamente!") {
       setSuccess(true)
-    //   console.log("file: page.jsx:38  newVianda.data:", newVianda.data)
+      //   console.log("file: page.jsx:38  newVianda.data:", newVianda.data)
     }
     await new Promise((resolve) => setTimeout(resolve, 2500))
     setSuccess(false)
-    !viandaId ? router.push("/admin/viandas?orden=desc&campo=id") : router.push("/admin/viandas?orden=asc&campo=nombre")
+    !viandaId ? router.push("/admin/viandas") : router.push("/admin/viandas")
     router.refresh()
   })
   return (
@@ -93,16 +101,24 @@ const ViandasForm = ({ viandaId }) => {
         {success && (
           <div className="alert alert-info border-2 font-extrabold my-6 shadow-secondary shadow-xl border-primary flex flex-col justify-center">
             <div className="flex gap-x-2 items-center">
-              <FaAngellist className=" text-2xl" />
+              <FaAngellist className=" text-4xl" />
               <span>la Vianda ha sido creada!</span>
             </div>
             <span>Dirigiendo a la lista....</span>
           </div>
         )}
-        {imagenTmp === "/" && viandaId && (
+        {/* carga para update mientras llegan los datos */}
+        {imagenTmp === "" && viandaId && (
           <div className="alert alert-info border-2 font-extrabold my-6 shadow-secondary shadow-xl border-primary flex items-center animate-bounce">
             <GiSandsOfTime className=" text-2xl" />
             <span>Cargando datos de la vianda......</span>
+          </div>
+        )}
+        {/* carga para create mientras suben los datos */}
+        {loadingUp && (
+          <div className="alert alert-info border-2 font-extrabold my-6 shadow-secondary shadow-xl border-primary flex items-center animate-bounce">
+            <GiSandsOfTime className=" text-2xl" />
+            <span>Cargando vianda en el sistema......</span>
           </div>
         )}
         <form
@@ -220,12 +236,23 @@ const ViandasForm = ({ viandaId }) => {
           <div className="form-control  w-full items-center my-4 justify-center">
             <div className="avatar">
               <div className="w-[60%] mx-auto  rounded">
+                {/* cunado se entre a new que muestre una imagen demo */}
+                {imagenTmp === "" && (
+                  <img
+                    src="/images/corporate/imagePlaceholder.png" //todo:cuando no hay mostrar un skeleton, cunado se actualie mostrar el nuevo valor
+                    alt={"vianda to show"}
+                    width={300}
+                    height={300}
+                  />
+                )}
+                {/* cunado se traiga de update que e comporte como ahora */}
                 <img
-                  src={imagenTmp} //todo:cuando no hay mostrar un skeleton, cunado se actualie mostrar el nuevo valor 
-                  alt={"vianda toshow"}
+                  src={imagenTmp} //todo:cuando no hay mostrar un skeleton, cunado se actualie mostrar el nuevo valor
+                  alt={"vianda to show"}
                   width={300}
                   height={300}
                 />
+                {/* cunado se ponga una nueva imagen que se ponga aqui */}
               </div>
             </div>
           </div>
@@ -237,17 +264,26 @@ const ViandasForm = ({ viandaId }) => {
 
             {viandaId ? (
               <input
-                // {...register("imagen", { required: { value: true, message: "Imagen requerida" } })}
                 type="file"
                 className="file-input file-input-bordered w-full max-w-[75%] ml-[10%]"
-                onChange={(e) => setFile(e.target.files[0])}
+                onChange={(e) => {
+                  setFile(e.target.files[0])
+                  setImagenTmp(URL.createObjectURL(e.target.files[0]))
+                }}
               />
             ) : (
               <input
                 {...register("imagen", { required: { value: true, message: "Imagen requerida" } })}
                 type="file"
-                className="file-input file-input-bordered w-full max-w-[75%] ml-[10%]"
-                onChange={(e) => setFile(e.target.files[0])}
+                className="file-input file-input-secondary file-input-bordered border-accent w-full max-w-[75%] ml-[10%]"
+                onChange={(e) => {
+                  setFile(e.target.files[0])
+                  if (e.target.files[0]) {
+                    setImagenTmp(URL.createObjectURL(e.target.files[0]))
+                  } else {
+                    setImagenTmp("")
+                  }
+                }}
               />
             )}
             {errors.imagen?.type === "required" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.imagen.message}</div>}
