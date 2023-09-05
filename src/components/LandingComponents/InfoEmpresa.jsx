@@ -25,7 +25,7 @@ const InfoEmpresa = () => {
 
           <div className="stat place-items-center">
             <div className="stat-title  text-zinc-500">Pedidos</div>
-            <div className="stat-value">141.000k</div>
+            <div className="stat-value">141.000</div>
             <div className="stat-desc  text-zinc-800">
               141.000 pedidos hechos
             </div>
