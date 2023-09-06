@@ -7,7 +7,7 @@ const NavAdmin = () => {
     <>
       <div
         id="NavAdmin"
-        className="navbar bg-accent text-white z-10"
+        className="navbar bg-accent text-white z-10 text-lg"
       >
         <div className="navbar-start">
           <div className="dropdown ">
@@ -19,24 +19,16 @@ const NavAdmin = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-neutral rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-accent rounded-box w-52"
             >
               <li>
-                <a>Item 1</a>
+                <Link href={"/admin/viandas/"}>Viandas</Link>
               </li>
               <li>
-                <a>Parent</a>
-                <ul className="p-2 bg-accent">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
+                <Link href={"/admin/viandas/"}>Menu Diario</Link>
               </li>
               <li>
-                <a>Item 3</a>
+                <Link href={"/admin/viandas/"}>Cartas</Link>
               </li>
             </ul>
           </div>
@@ -57,46 +49,28 @@ const NavAdmin = () => {
         <div className="navbar-center hidden  lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li tabIndex={1}>
-              <Link href={"/admin/viandas/"}>Viandas</Link>
-              {/* <details>
-                <summary>Viandas</summary>
-                <ul className="p-2 bg-accent   rounded-t-none">
-                  <li>
-                    <Link href={"/admin/viandas/"}>Ver Todas</Link>
-                  </li>
-                  <li>
-                    <Link href={"/admin/viandas/nueva-vianda"}>Crear Vianda</Link>
-                  </li>
-                </ul>
-              </details> */}
+              <Link
+                className="text-lg"
+                href={"/admin/viandas/"}
+              >
+                Viandas
+              </Link>
             </li>
-
-            <li tabIndex={2}>
-              <details>
-                <summary>Menu Diario</summary>
-                {/* <ul className="p-2 bg-accent">
-                  <li>
-                    <a>Ver Todos</a>
-                  </li>
-                  <li>
-                    <a>Crear Nuevo</a>
-                  </li>
-                </ul> */}
-              </details>
+            <li tabIndex={1}>
+              <Link
+                className="text-lg"
+                href={"/admin/viandas/"}
+              >
+                Menu Diario
+              </Link>
             </li>
-
-            <li tabIndex={3}>
-              <details>
-                <summary>Cartas</summary>
-                {/* <ul className="p-2 bg-accent">
-                  <li>
-                    <a>Ver Todas</a>
-                  </li>
-                  <li>
-                    <a>Crear Nueva</a>
-                  </li>
-                </ul> */}
-              </details>
+            <li tabIndex={1}>
+              <Link
+                className="text-lg"
+                href={"/admin/viandas/"}
+              >
+                Cartas
+              </Link>
             </li>
           </ul>
         </div>

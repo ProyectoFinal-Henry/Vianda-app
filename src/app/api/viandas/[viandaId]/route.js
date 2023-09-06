@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/libs/prisma"
 
-export const GET = async (request,{ params }) => {
-  const { viandaId } = params
+export const GET = async (request, { params }) => {
+   const { viandaId } = params
 
   try {
     if (viandaId) {
@@ -14,8 +14,7 @@ export const GET = async (request,{ params }) => {
       return NextResponse.json(result, { status: 200 })
     }
   } catch (error) {
-
-    return NextResponse.json('vianda no encontrada', { status: 400 })
+    return NextResponse.json("vianda no encontrada", { status: 400 })
   }
 }
 
