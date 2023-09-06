@@ -1,13 +1,11 @@
-import { BsFillClipboardCheckFill } from "react-icons/bs"
 import { TbSquareForbid2 } from "react-icons/tb"
-import { GiSightDisabled } from "react-icons/gi"
+
 import { AiFillCheckSquare } from "react-icons/ai"
 import Link from "next/link"
-import React from "react"
 import axios from "axios"
 import RowResponsive from "@/components/formaters/RowResponsive"
 import EditCrud from "@/components/actions/EditCrud"
-import DeleteCrud from "@/components/actions/DeleteCrud"
+import ToogleEstadoVianda from "@/components/actions/ToogleEstadoVianda"
 import SearchBarViandas from "@/components/adminLayout/SearchBarViandas"
 import Filters from "@/components/adminLayout/Filters"
 import ClearFilters from "@/components/adminLayout/ClearFilters"
@@ -77,12 +75,15 @@ const AdminViandasPage = async ({ searchParams }) => {
                   return (
                     <tr
                       key={I}
-                      className={`${I % 2 === 0 && `bg-green-100`}`}
+                      className={`${I % 2 === 0 && `bg-green-100`}  ${!estado && "bg-red-200/50"}`}
                     >
                       <td>
                         <div className="avatar p-1 relative">
                           <div className="w-24 rounded-full">
-                            <img src={imagen} />
+                            <img
+                              src={imagen}
+                              className={!estado && "filter grayscale"}
+                            />
                           </div>
                           <span className="absolute top-[0.1rem] left-[0.1rem] ">{id}</span>
                         </div>
@@ -101,29 +102,20 @@ const AdminViandasPage = async ({ searchParams }) => {
                           <TbSquareForbid2 className=" text-3xl text-warning" />
                         )}
                       </td>
-                      <td className=" ">
-                        <div className="flex flex-row justify-center items-center gap-x-2">
+                      <td>
+                        <div className=" h-full w-full flex flex-col  justify-center items-center gap-y-2 ">
                           <span
                             className="tooltip tooltip-left tooltip-top"
                             data-tip="Editar vianda"
                           >
                             <EditCrud route={`/admin/viandas/actualizar-vianda/${id}`} />
                           </span>
-                          {estado ? (
-                            <span
-                              className="tooltip tooltip-left tooltip-top"
-                              data-tip="Desactivar vianda"
-                            >
-                              <DeleteCrud id={id} />
-                            </span>
-                          ) : (
-                            <span
-                              className="tooltip tooltip-left"
-                              data-tip="Desactivar vianda"
-                            >
-                              <BsFillClipboardCheckFill className=" text-3xl text-accent" />
-                            </span>
-                          )}
+
+                          <ToogleEstadoVianda
+                            localHost={process.env.LOCALHOST}
+                            id={id}
+                            estado={estado}
+                          />
                         </div>
                       </td>
                     </tr>
