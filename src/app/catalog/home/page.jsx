@@ -1,5 +1,5 @@
 import CardTipes from "@/components/cards/CardTipes"
-import cardRecomend from "@/components/cards/cardRecomend"
+import CardRecomend from "@/components/cards/cardRecomend"
 import Pagination from "@/components/cards/Pagination"
 import axios from "axios"
 
