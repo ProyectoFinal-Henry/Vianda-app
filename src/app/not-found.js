@@ -10,7 +10,7 @@ const NotFound = () => {
             ¡Ups!
             <Image src="/notFound.png"
             className="mt-12 mb-12"
-            alt="notFound4"
+            alt="notFound"
             width={500}
             height={500}
             ></Image>
