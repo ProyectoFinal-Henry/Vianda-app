@@ -1,4 +1,7 @@
+"use client"
+
 import Image from "next/image";
+import Link from "next/link"
 
 const NotFound = () => {
     return(
@@ -12,8 +15,15 @@ const NotFound = () => {
             height={500}
             ></Image>
         Parece que la página a la cual intentas ingresar no existe.
-        </div>
-        </>
+        <Link href="/catalog/home">
+            <div className="mt-8">
+              <button className="mt-5 bg-accent text-white px-6 py-3 rounded-3xl text-[14px] transition-transform hover:scale-110 text-lg font-semibold ">
+                Volver al Home
+              </button>
+            </div>
+          </Link>
+          </div>
+          </>
     )
 }
 
