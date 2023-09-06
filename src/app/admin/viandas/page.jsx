@@ -7,6 +7,7 @@ import DeleteCrud from "@/components/actions/DeleteCrud"
 import SearchBarViandas from "@/components/adminLayout/SearchBarViandas"
 import Filters from "@/components/adminLayout/Filters"
 import ClearFilters from "@/components/adminLayout/ClearFilters"
+import OrderByField from "@/components/adminLayout/OrderByField"
 
 const AdminViandasPage = async ({ searchParams }) => {
   let data = []
@@ -41,54 +42,69 @@ const AdminViandasPage = async ({ searchParams }) => {
         </div>
 
         <table className="border-2 border-neutral/30 mx-auto">
-          <thead className="bg-green-400">
-            <tr>
-              <th className="text-center border-2 border-neutral/30">Imagen</th>
-              <th className="text-center border-2 border-neutral/30">Nombre</th>
-              <th className="text-center border-2 border-neutral/30">Tipo</th>
-              <th className="text-center border-2 border-neutral/30">Descripcion</th>
-              <th className="text-center border-2 border-neutral/30">Ingredientes</th>
-              <th className="text-center border-2 border-neutral/30">Stock</th>
-              <th className="text-center border-2 border-neutral/30">Acciones</th>
+          <thead>
+            <tr className="bg-green-400">
+              <th className="text-center  border ">Imagen</th>
+              <th>
+                <OrderByField field="nombre" />
+              </th>
+              <th>
+                <OrderByField field="tipo" />
+              </th>
+
+              <th>
+                <OrderByField field="descripcion" />
+              </th>
+
+              <th>
+                <OrderByField field="ingredientes" />
+              </th>
+              <th>
+                <OrderByField field="stock" />
+              </th>
+              <th>Acciones</th>
             </tr>
           </thead>
-          {Array.isArray(data) ? (
-            data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock }, I) => {
-              return (
-                <tr
-                  key={I}
-                  className={`${I % 2 === 0 && `bg-green-100`}`}
-                >
-                  <td>
-                    <div className="avatar p-1">
-                      <div className="w-24 rounded-full">
-                        <img src={imagen} />
+
+          <tbody>
+            {Array.isArray(data) ? (
+              data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock }, I) => {
+                return (
+                  <tr
+                    key={I}
+                    className={`${I % 2 === 0 && `bg-green-100`}`}
+                  >
+                    <td>
+                      <div className="avatar p-1">
+                        <div className="w-24 rounded-full">
+                          <img src={imagen} />
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td className="border-r border-neutral/30 pl-2 font-bold">{nombre}</td>
-                  <td className="border-r border-neutral/30 px-2 text-center">
-                    <div className="badge badge-neutral">{tipo}</div>
-                  </td>
-                  <td className="border-r border-neutral/30 pl-2">{descripcion}</td>
-                  <td className="border-r border-neutral/30 pl-2">{ingredientes}</td>
-                  <td className="border-r border-neutral/30 pl-2">{stock}</td>
-                  <td className="border-r border-neutral/30 pl-2">
-                    <div className="flex flex-row justify-center items-center gap-x-2">
-                      <EditCrud route={`/admin/viandas/actualizar-vianda/${id}`} />
-                      <DeleteCrud id={id} />
-                    </div>
-                  </td>
-                </tr>
-              )
-            })
-          ) : (
-            <tr>
-              <td colSpan={"7"}>
-                <h1 className=" w-full text-2xl md:text-3xl text-center">{data}</h1>
-              </td>
-            </tr>
-          )}
+                    </td>
+                    <td className="border-r border-neutral/30 pl-2 font-bold">{nombre}</td>
+                    <td className="border-r border-neutral/30 px-2 text-center">
+                      <div className="badge badge-neutral">{tipo}</div>
+                    </td>
+                    <td className="border-r border-neutral/30 pl-2">{descripcion}</td>
+                    <td className="border-r border-neutral/30 pl-2">{ingredientes}</td>
+                    <td className="border-r border-neutral/30 pl-2">{stock}</td>
+                    <td className="border-r border-neutral/30 pl-2">
+                      <div className="flex flex-row justify-center items-center gap-x-2">
+                        <EditCrud route={`/admin/viandas/actualizar-vianda/${id}`} />
+                        <DeleteCrud id={id} />
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })
+            ) : (
+              <tr>
+                <td colSpan={"7"}>
+                  <h1 className=" w-full text-2xl md:text-3xl text-center">{data}</h1>
+                </td>
+              </tr>
+            )}
+          </tbody>
         </table>
       </RowResponsive>
     </div>
