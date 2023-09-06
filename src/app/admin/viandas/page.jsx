@@ -1,3 +1,7 @@
+import { BsFillClipboardCheckFill } from "react-icons/bs"
+import { TbSquareForbid2 } from "react-icons/tb"
+import { GiSightDisabled } from "react-icons/gi"
+import { AiFillCheckSquare } from "react-icons/ai"
 import Link from "next/link"
 import React from "react"
 import axios from "axios"
@@ -40,72 +44,101 @@ const AdminViandasPage = async ({ searchParams }) => {
           </div>
           <Filters />
         </div>
+        <div className="overflow-x-auto">
+          <table className="table table-zebra ">
+            <thead>
+              <tr className="bg-green-400">
+                <th className="text-center text-neutral ">Imagen</th>
+                <th>
+                  <OrderByField field="nombre" />
+                </th>
+                <th>
+                  <OrderByField field="tipo" />
+                </th>
 
-        <table className="border-2 border-neutral/30 mx-auto">
-          <thead>
-            <tr className="bg-green-400">
-              <th className="text-center  border ">Imagen</th>
-              <th>
-                <OrderByField field="nombre" />
-              </th>
-              <th>
-                <OrderByField field="tipo" />
-              </th>
+                <th>
+                  <OrderByField field="descripcion" />
+                </th>
 
-              <th>
-                <OrderByField field="descripcion" />
-              </th>
-
-              <th>
-                <OrderByField field="ingredientes" />
-              </th>
-              <th>
-                <OrderByField field="stock" />
-              </th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {Array.isArray(data) ? (
-              data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock }, I) => {
-                return (
-                  <tr
-                    key={I}
-                    className={`${I % 2 === 0 && `bg-green-100`}`}
-                  >
-                    <td>
-                      <div className="avatar p-1">
-                        <div className="w-24 rounded-full">
-                          <img src={imagen} />
-                        </div>
-                      </div>
-                    </td>
-                    <td className="border-r border-neutral/30 pl-2 font-bold">{nombre}</td>
-                    <td className="border-r border-neutral/30 px-2 text-center">
-                      <div className="badge badge-neutral">{tipo}</div>
-                    </td>
-                    <td className="border-r border-neutral/30 pl-2">{descripcion}</td>
-                    <td className="border-r border-neutral/30 pl-2">{ingredientes}</td>
-                    <td className="border-r border-neutral/30 pl-2">{stock}</td>
-                    <td className="border-r border-neutral/30 pl-2">
-                      <div className="flex flex-row justify-center items-center gap-x-2">
-                        <EditCrud route={`/admin/viandas/actualizar-vianda/${id}`} />
-                        <DeleteCrud id={id} />
-                      </div>
-                    </td>
-                  </tr>
-                )
-              })
-            ) : (
-              <tr>
-                <td colSpan={"7"}>
-                  <h1 className=" w-full text-2xl md:text-3xl text-center">{data}</h1>
-                </td>
+                <th>
+                  <OrderByField field="ingredientes" />
+                </th>
+                <th>
+                  <OrderByField field="stock" />
+                </th>
+                <th className="text-center text-neutral ">Status</th>
+                <th className="text-center text-neutral ">Acciones</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {Array.isArray(data) ? (
+                data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock, estado }, I) => {
+                  return (
+                    <tr
+                      key={I}
+                      className={`${I % 2 === 0 && `bg-green-100`}`}
+                    >
+                      <td>
+                        <div className="avatar p-1 relative">
+                          <div className="w-24 rounded-full">
+                            <img src={imagen} />
+                          </div>
+                          <span className="absolute top-[0.1rem] left-[0.1rem] ">{id}</span>
+                        </div>
+                      </td>
+                      <td className="b font-bold">{nombre}</td>
+                      <td className="">
+                        <div className="badge badge-neutral">{tipo}</div>
+                      </td>
+                      <td className=" ">{descripcion}</td>
+                      <td className=" ">{ingredientes}</td>
+                      <td className=" ">{stock}</td>
+                      <td className=" ">
+                        {estado ? (
+                          <AiFillCheckSquare className=" text-3xl text-accent" />
+                        ) : (
+                          <TbSquareForbid2 className=" text-3xl text-warning" />
+                        )}
+                      </td>
+                      <td className=" ">
+                        <div className="flex flex-row justify-center items-center gap-x-2">
+                          <span
+                            className="tooltip tooltip-left tooltip-top"
+                            data-tip="Editar vianda"
+                          >
+                            <EditCrud route={`/admin/viandas/actualizar-vianda/${id}`} />
+                          </span>
+                          {estado ? (
+                            <span
+                              className="tooltip tooltip-left tooltip-top"
+                              data-tip="Desactivar vianda"
+                            >
+                              <DeleteCrud id={id} />
+                            </span>
+                          ) : (
+                            <span
+                              className="tooltip tooltip-left"
+                              data-tip="Desactivar vianda"
+                            >
+                              <BsFillClipboardCheckFill className=" text-3xl text-accent" />
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })
+              ) : (
+                <tr>
+                  <td colSpan={"7"}>
+                    <h1 className=" w-full text-2xl md:text-3xl text-center">{data}</h1>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </RowResponsive>
     </div>
   )
