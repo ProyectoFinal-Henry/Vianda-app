@@ -4,7 +4,7 @@ import Image from "next/image"
 function NavBar() {
   return (
     <nav className="bg-primary">
-      <div className="container mx-auto flex justify-between items-center px-3">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-3">
         <Link href="/">
           <Image
             width={150}
@@ -13,13 +13,7 @@ function NavBar() {
             alt="imagen logo"
           />
         </Link>
-        <div className="form-control">
-          <input
-            type="text"
-            placeholder="Buscar"
-            className=" input input-bordered-none"
-          />
-        </div>
+
         <ul className="flex text-lg font-bold">
           <li className="btn btn-primary font-bold">
             <Link href="/catalog/registro">Registrarse</Link>
