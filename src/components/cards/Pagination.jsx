@@ -7,8 +7,12 @@ function Pagination({ data }) {
   if (!Array.isArray(data)) {
     return <p>No hay datos disponibles</p>;
   }
-
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setPage(1);
+  }, [data]);
+
   const render = 4;
   const totalpages = Math.ceil(data.length / render);
 
@@ -17,10 +21,6 @@ function Pagination({ data }) {
   const handleClick = (event) => {
     setPage(parseInt(event.target.value));
   };
-
-  useEffect(() => {
-    setPage(1);
-  }, [data]);
 
   const buttonSelect = [];
   for (let i = 1; i <= totalpages; i++) {
