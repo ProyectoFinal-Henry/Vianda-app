@@ -1,5 +1,5 @@
 import CardTipes from "@/components/cards/CardTipes";
-import CardRecomend from "@/components/cards/CardRecomend";
+import CardViandasRecommended from "@/components/cards/CardViandasRecommended";
 import Pagination from "@/components/cards/Pagination";
 import axios from "axios";
 
@@ -31,7 +31,7 @@ async function Homepage() {
           </h1>
         </div>
         <div className="grid grid-rows-3 gap-3 sm:flex justify-evenly flex-wrap mt-6">
-          <CardRecomend />
+          <CardViandasRecommended />
         </div>
 
         <div className="flex justify-center">
