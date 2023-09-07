@@ -94,58 +94,71 @@ cloudinary.config({
   api_key: "893119423458729",
   api_secret: "1euwypKSkGC2FgIGVH30SPmfXFw",
 })
-export async function POST(request) {
+
+//! POST CON CLOUDINARY
+// export async function POST(request) {
+//   try {
+//     const formData = await request.formData()
+//     // console.log("file: route.js:100  formData:", formData)
+//     const nombre = formData.get("nombre")
+//     const tipo = formData.get("tipo")
+//     const descripcion = formData.get("descripcion")
+//     const ingredientes = formData.get("ingredientes")
+//     const imagen = formData.get("imagen")
+//     const stock = Number(formData.get("stock"))
+//     const bytes = await imagen.arrayBuffer()
+//     const buffer = Buffer.from(bytes)
+//     //*====*
+//     //* recibiendo y creando el archivo en local(testing- no usar para producccion)
+//     // *===*
+//     // const filePath = path.join(process.cwd(), "public/cloudinary", imagen.name)
+//     // await writeFile(filePath, buffer)
+//     // const response = await cloudinary.uploader.upload(filePath)
+
+//     const response = await new Promise((resolve, reject) => {
+//       cloudinary.uploader
+//         .upload_stream({}, (err, result) => {
+//           err && reject(err)
+//           resolve(result)
+//         })
+//         .end(buffer)
+//     })
+
+//     const imagenToDB = response.secure_url
+
+//     const created = await prisma.Vianda.create({
+//       data: {
+//         nombre,
+//         tipo,
+//         descripcion,
+//         ingredientes,
+//         imagen: imagenToDB,
+//         stock,
+//       },
+//     })
+//     // console.log("file: route.js:138  created:", created)
+
+//     return NextResponse.json("Vianda creada exitosamente!")
+//   } catch (error) {
+//     return NextResponse.json({ error: error.message })
+//   }
+// }
+
+//! POST PARA CARGAR DESDE CERO.
+
+export async function POST(request){
   try {
-    const formData = await request.formData()
-    // console.log("file: route.js:100  formData:", formData)
-    const nombre = formData.get("nombre")
-    const tipo = formData.get("tipo")
-    const descripcion = formData.get("descripcion")
-    const ingredientes = formData.get("ingredientes")
-    const imagen = formData.get("imagen")
-    const stock = Number(formData.get("stock"))
-    const bytes = await imagen.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-    //*====*
-    //* recibiendo y creando el archivo en local(testing- no usar para producccion)
-    // *===*
-    // const filePath = path.join(process.cwd(), "public/cloudinary", imagen.name)
-    // await writeFile(filePath, buffer)
-    // const response = await cloudinary.uploader.upload(filePath)
-
-    const response = await new Promise((resolve, reject) => {
-      cloudinary.uploader
-        .upload_stream({}, (err, result) => {
-          err && reject(err)
-          resolve(result)
-        })
-        .end(buffer)
-    })
-
-    const imagenToDB = response.secure_url
-
-    const created = await prisma.Vianda.create({
-      data: {
-        nombre,
-        tipo,
-        descripcion,
-        ingredientes,
-        imagen: imagenToDB,
-        stock,
-      },
-    })
-    // console.log("file: route.js:138  created:", created)
-
-    // const data = await request.json();
-    // console.log(data);
-    // await prisma.Vianda.createMany({
-    //   data: data,
-    // });
+    const data = await request.json();
+    console.log(data);
+    await prisma.Vianda.createMany({
+      data: data,
+    });
     return NextResponse.json("Vianda creada exitosamente!")
   } catch (error) {
     return NextResponse.json({ error: error.message })
   }
 }
+
 
 export async function PUT(request) {
   try {
