@@ -1,14 +1,14 @@
-import Footer from "@/components/footer/Footer"
-import NavBar from "@/components/navbar/NavBar"
+import Footer from "@/components/footer/Footer";
+import NavBar from "@/components/navbar/NavBar";
 
 const layoutAdmin = ({ children }) => {
   return (
     <div>
       <NavBar />
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </div>
-  )
-}
+  );
+};
 
-export default layoutAdmin
+export default layoutAdmin;
