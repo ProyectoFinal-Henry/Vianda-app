@@ -1,10 +1,10 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { HowWorks } from "@/components/LandingComponents/HowWorks";
-import InfoEmpresa from "@/components/LandingComponents/InfoEmpresa";
-import CallToAction from "@/components/LandingComponents/CallToAction";
+"use client"
+import Image from "next/image"
+import Link from "next/link"
+import { useEffect, useState } from "react"
+import { HowWorks } from "@/components/LandingComponents/HowWorks"
+import InfoEmpresa from "@/components/LandingComponents/InfoEmpresa"
+import CallToAction from "@/components/LandingComponents/CallToAction"
 
 const data = [
   {
@@ -22,19 +22,15 @@ const data = [
     title: "Elegí calidad, elgí ViandApp",
     image: "/home-banner-image (1).png",
   },
-];
+]
 
 export default function LandingPage() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0)
 
   useEffect(() => {
-    const interval = setInterval(
-      () =>
-        setCurrentSlide((prev) => (prev === data.length - 1 ? 0 : prev + 1)),
-      4000
-    );
-    return () => clearInterval(interval);
-  }, []);
+    const interval = setInterval(() => setCurrentSlide((prev) => (prev === data.length - 1 ? 0 : prev + 1)), 4000)
+    return () => clearInterval(interval)
+  }, [])
   return (
     <>
       <div
@@ -54,11 +50,9 @@ export default function LandingPage() {
             </h2>
           </div>
           <div className="mt-[2rem]">
-            <p className="text-gray-700 text-xl  font-semibold mt-3  ml-[6rem]">
-              El sabor de tu semana a tu gusto
-            </p>
+            <p className="text-gray-700 text-xl  font-semibold mt-3  ml-[6rem]">El sabor de tu semana a tu gusto</p>
           </div>
-          <Link href="/catalog/home">
+          <Link href="/catalog">
             <div className="mt-[1rem]">
               <button className="  ml-[6rem] mx-2 mt-5 bg-accent text-white px-6 py-3 rounded-3xl text-[14px] transition-transform hover:scale-110 text-lg font-semibold ">
                 Comenzar ahora
@@ -81,5 +75,5 @@ export default function LandingPage() {
       <InfoEmpresa />
       <CallToAction />
     </>
-  );
+  )
 }
