@@ -39,19 +39,19 @@ enum Tipo {
 model Usuario {
   id             Int      @id @default(autoincrement())
   username       String   @unique
-  rol            Rol
+  rol            Rol      @default(cliente)
   nombreCompleto String
   telefono       String
   email          String   @unique
   dni            String
   password       String
-  direccion      String 
+  direccion      String
   activo         Boolean  @default(true)
   pedidos        Pedido[] @relation("UsuarioPedidos")
 }
 
 enum Rol {
-  comprador
+  cliente
   repartidor
   cocina
   administrador
