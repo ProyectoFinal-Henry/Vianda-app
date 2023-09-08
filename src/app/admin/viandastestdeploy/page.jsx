@@ -28,7 +28,7 @@ const AdminViandasPage = async ({ searchParams }) => {
     <div>
       <RowResponsive>
         <div className="flex flex-col mt-10 pb-4 items-center  w-full">
-          <h1 className="font-extrabold text-2xl md:text-3xl ">Lista de Viandas del sistema</h1>
+          <h1 className="font-extrabold text-2xl md:text-3xl ">Lista de Viandas del sistema 500</h1>
           <div className="flex flex-row items-center justify-center gap-x-4 min-w-full">
             {/* <SearchBarViandas /> */}
 
