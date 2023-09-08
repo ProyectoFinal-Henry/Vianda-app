@@ -52,9 +52,11 @@ const LoginCatalogPage = () => {
                     },
                   })}
                 />
-                {errors.email && (
-                  <span className="mt-1 text-xs text-warning">
-                    {errors.email.message}
+                {errors.email ? (
+                  <span className="mt-1 text-xs text-warning">{errors.email.message}</span>
+                ) : (
+                  <span className="mt-1 text-xs">
+                    <br></br>
                   </span>
                 )}
               </div>
@@ -83,14 +85,16 @@ const LoginCatalogPage = () => {
                     })}
                   />
                   <button type="button"
-                  class="relative flex right-8 items-center ml-2 h-full mr-10"
-                  onClick={passwordVisibility}>
-                    {visible? <AiOutlineEye className="text-xl" /> : <AiOutlineEyeInvisible className="text-xl" />}
-                   </button>
+                    class="relative flex right-8 items-center ml-2 h-full mr-10"
+                    onClick={passwordVisibility}>
+                    {visible ? <AiOutlineEye className="text-xl" /> : <AiOutlineEyeInvisible className="text-xl" />}
+                  </button>
                 </div>
-                {errors.password && (
-                  <span className="mt-1 text-xs text-warning">
-                    {errors.password.message}
+                {errors.password ? (
+                  <span className="mt-1 text-xs text-warning">{errors.password.message}</span>
+                ) : (
+                  <span className="mt-1 text-xs">
+                    <br></br>
                   </span>
                 )}
               </div>
