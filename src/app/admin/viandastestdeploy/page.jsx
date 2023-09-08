@@ -33,103 +33,34 @@ const AdminViandasPage = async ({ searchParams }) => {
             {/* <SearchBarViandas /> */}
 
             {/* <ClearFilters /> */}
-            <Link
+            {/* <Link
               className="btn btn-accent my-3 text-white "
               href="/admin/viandas/nueva-vianda"
             >
               Crear vianda
-            </Link>
+            </Link> */}
           </div>
           {/* <Filters /> */}
         </div>
         <div className="overflow-x-auto">
-          <table className="table table-zebra ">
-            {/* <thead>
-              <tr className="bg-green-400">
-                <th className="text-center text-neutral ">Imagen</th>
-                <th>
-                  <OrderByField field="nombre" />
-                </th>
-                <th>
-                  <OrderByField field="tipo" />
-                </th>
-
-                <th>
-                  <OrderByField field="descripcion" />
-                </th>
-
-                <th>
-                  <OrderByField field="ingredientes" />
-                </th>
-                <th>
-                  <OrderByField field="stock" />
-                </th>
-                <th className="text-center text-neutral ">Status</th>
-                <th className="text-center text-neutral ">Acciones</th>
-              </tr>
-            </thead> */}
-
-            <tbody>
-              {Array.isArray(data) ? (
-                data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock, estado }, I) => {
-                  return (
-                    <tr
-                      key={I}
-                      className={`${I % 2 === 0 && `bg-green-100`}  ${!estado && "bg-red-200/50"}`}
-                    >
-                      <td>
-                        <div className="avatar p-1 relative">
-                          <div className="w-24 rounded-full">
-                            <img
-                              src={imagen}
-                              className={!estado && "filter grayscale"}
-                            />
-                          </div>
-                          <span className="absolute top-[0.1rem] left-[0.1rem] ">{id}</span>
-                        </div>
-                      </td>
-                      <td className="b font-bold">{nombre}</td>
-                      <td className="">
-                        <div className="badge badge-neutral">{tipo}</div>
-                      </td>
-                      <td className=" ">{descripcion}</td>
-                      <td className=" ">{ingredientes}</td>
-                      <td className=" ">{stock}</td>
-                      <td className=" ">
-                        {estado ? (
-                          <AiFillCheckSquare className=" text-3xl text-accent" />
-                        ) : (
-                          <TbSquareForbid2 className=" text-3xl text-warning" />
-                        )}
-                      </td>
-                      <td>
-                        <div className=" h-full w-full flex flex-col  justify-center items-center gap-y-2 ">
-                          <span
-                            className="tooltip tooltip-left tooltip-top"
-                            data-tip="Editar vianda"
-                          >
-                            <EditCrud route={`/admin/viandas/actualizar-vianda/${id}`} />
-                          </span>
-
-                          <ToogleEstadoVianda
-                            localHost={process.env.LOCALHOST}
-                            id={id}
-                            estado={estado}
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                })
-              ) : (
-                <tr>
-                  <td colSpan={"7"}>
-                    <h1 className=" w-full text-2xl md:text-3xl text-center">{data}</h1>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+          {Array.isArray(data) &&
+            data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock, estado }, I) => {
+              return (
+                <div
+                  className="flex flex-row"
+                  key={I}
+                >
+                  <div>{id}</div>
+                  <div>{imagen}</div>
+                  <div>{nombre}</div>
+                  <div>{tipo}</div>
+                  <div>{descripcion}</div>
+                  <div>{ingredientes}</div>
+                  <div>{stock}</div>
+                  <div>{estado}</div>
+                </div>
+              )
+            })}
         </div>
       </RowResponsive>
     </div>
