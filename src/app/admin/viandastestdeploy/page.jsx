@@ -42,7 +42,8 @@ const AdminViandasPage = async ({ searchParams }) => {
           </div>
           {/* <Filters /> */}
         </div>
-        <div className="overflow-x-auto">
+        <p>{data}</p>
+        {/* <div className="overflow-x-auto">
           {data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock, estado }, I) => {
             return (
               <div
@@ -60,7 +61,7 @@ const AdminViandasPage = async ({ searchParams }) => {
               </div>
             )
           })}
-        </div>
+        </div> */}
       </RowResponsive>
     </div>
   )
