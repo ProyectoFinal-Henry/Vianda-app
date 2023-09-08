@@ -16,7 +16,7 @@ const AdminViandasPage = async ({ searchParams }) => {
   try {
     const parameters = new URLSearchParams(searchParams)
     const querytosend = "?" + parameters.toString()
-    const url = `/api/viandas${querytosend}`
+    const url = `vercel.com/proyectofinal-henry/api/viandas${querytosend}`
     const res = await axios.get(url)
     data = res.data
   } catch (error) {
@@ -42,8 +42,8 @@ const AdminViandasPage = async ({ searchParams }) => {
           </div>
           {/* <Filters /> */}
         </div>
-        <p>{data}</p>
-        {/* <div className="overflow-x-auto">
+        {/* <p>{data}</p> */}
+        <div className="overflow-x-auto">
           {data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock, estado }, I) => {
             return (
               <div
@@ -61,7 +61,7 @@ const AdminViandasPage = async ({ searchParams }) => {
               </div>
             )
           })}
-        </div> */}
+        </div>
       </RowResponsive>
     </div>
   )
