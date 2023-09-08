@@ -16,7 +16,7 @@ const AdminViandasPage = async ({ searchParams }) => {
   try {
     const parameters = new URLSearchParams(searchParams)
     const querytosend = "?" + parameters.toString()
-    const url = `${process.env.LOCALHOST}/api/viandas${querytosend}`
+    const url = `/api/viandas${querytosend}`
     const res = await axios.get(url)
     data = res.data
   } catch (error) {
