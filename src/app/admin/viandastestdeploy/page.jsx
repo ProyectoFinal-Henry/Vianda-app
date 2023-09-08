@@ -30,9 +30,9 @@ const AdminViandasPage = async ({ searchParams }) => {
         <div className="flex flex-col mt-10 pb-4 items-center  w-full">
           <h1 className="font-extrabold text-2xl md:text-3xl ">Lista de Viandas del sistema</h1>
           <div className="flex flex-row items-center justify-center gap-x-4 min-w-full">
-            <SearchBarViandas />
+            {/* <SearchBarViandas /> */}
 
-            <ClearFilters />
+            {/* <ClearFilters /> */}
             <Link
               className="btn btn-accent my-3 text-white "
               href="/admin/viandas/nueva-vianda"
@@ -40,11 +40,11 @@ const AdminViandasPage = async ({ searchParams }) => {
               Crear vianda
             </Link>
           </div>
-          <Filters />
+          {/* <Filters /> */}
         </div>
         <div className="overflow-x-auto">
           <table className="table table-zebra ">
-            <thead>
+            {/* <thead>
               <tr className="bg-green-400">
                 <th className="text-center text-neutral ">Imagen</th>
                 <th>
@@ -67,7 +67,7 @@ const AdminViandasPage = async ({ searchParams }) => {
                 <th className="text-center text-neutral ">Status</th>
                 <th className="text-center text-neutral ">Acciones</th>
               </tr>
-            </thead>
+            </thead> */}
 
             <tbody>
               {Array.isArray(data) ? (
