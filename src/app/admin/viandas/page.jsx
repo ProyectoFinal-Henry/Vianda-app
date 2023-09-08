@@ -1,5 +1,5 @@
+"use client"
 import { TbSquareForbid2 } from "react-icons/tb"
-
 import { AiFillCheckSquare } from "react-icons/ai"
 import Link from "next/link"
 import axios from "axios"
@@ -10,18 +10,23 @@ import SearchBarViandas from "@/components/adminLayout/SearchBarViandas"
 import Filters from "@/components/adminLayout/Filters"
 import ClearFilters from "@/components/adminLayout/ClearFilters"
 import OrderByField from "@/components/adminLayout/OrderByField"
+import { useEffect, useState } from "react"
 
-const AdminViandasPage = async ({ searchParams }) => {
-  let data = []
-  try {
-    const parameters = new URLSearchParams(searchParams)
-    const querytosend = "?" + parameters.toString()
-    const url = `${process.env.LOCALHOST}/api/viandas${querytosend}`
-    const res = await axios.get(url)
-    data = res.data
-  } catch (error) {
-    data = error
-  }
+const AdminViandasPage = ({ searchParams }) => {
+  const [data, setData] = useState([])
+  const parameters = new URLSearchParams(searchParams)
+  const querytosend = "?" + parameters.toString()
+
+  useEffect(() => {
+    const url = `/api/viandas${querytosend}`
+    const viandas = axios
+      .get(url)
+      .then((res) => res.data)
+      .then((viandas) => setData(viandas))
+
+    // data = viandas
+  }, [data, querytosend])
+
   // console.log("file: page.jsx:17  data:", data)
 
   return (
@@ -71,7 +76,7 @@ const AdminViandasPage = async ({ searchParams }) => {
 
             <tbody>
               {Array.isArray(data) ? (
-                data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock, estado }, I) => {
+                data?.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock, estado }, I) => {
                   return (
                     <tr
                       key={I}
