@@ -11,15 +11,22 @@ datasource db {
 }
 
 model Vianda {
-  id           Int             @id @default(autoincrement())
-  nombre       String
-  tipo         Tipo
-  descripcion  String
-  ingredientes String
-  imagen       String
-  stock        Int
-  estado       Boolean         @default(true)
-  menus        ViandasEnMenu[]
+  id            Int             @id @default(autoincrement())
+  nombre        String
+  tipo          Tipo
+  descripcion   String
+  ingredientes  String
+  imagen        String
+  stock         Int
+  estado        Boolean         @default(true)
+  lunes         Boolean         @default(false)
+  martes        Boolean         @default(false)
+  miercoles     Boolean         @default(false)
+  jueves        Boolean         @default(false)
+  viernes       Boolean         @default(false)
+  sabado        Boolean         @default(false)
+  domingo       Boolean         @default(false)
+  detallePedido DetallePedido[]
 }
 
 enum Tipo {
@@ -29,34 +36,52 @@ enum Tipo {
   dieta
 }
 
-model ViandasEnMenu {
-  id            Int        @id @default(autoincrement())
-  fk_Viandas    Int?
-  fk_diasSemana Int?
-  vianda        Vianda?    @relation(fields: [fk_Viandas], references: [id])
-  diaSemana     DiaSemana? @relation(fields: [fk_diasSemana], references: [id])
+model Usuario {
+  id             Int      @id @default(autoincrement())
+  username       String   @unique
+  rol            Rol
+  nombreCompleto String
+  telefono       String
+  email          String   @unique
+  dni            String
+  password       String
+  direccion      String 
+  activo         Boolean  @default(true)
+  pedidos        Pedido[] @relation("UsuarioPedidos")
 }
 
-model DiaSemana {
-  id      Int             @id @default(autoincrement())
-  fkCarta Int?
-  dia     Dias
-  carta   Carta?          @relation(fields: [fkCarta], references: [id])
-  viandas ViandasEnMenu[]
+enum Rol {
+  comprador
+  repartidor
+  cocina
+  administrador
 }
 
-enum Dias {
-  lunes
-  martes
-  miercoles
-  jueves
-  viernes
+model Pedido {
+  id            Int             @id @default(autoincrement())
+  fk_usuarioId  Int
+  usuario       Usuario         @relation("UsuarioPedidos", fields: [fk_usuarioId], references: [id])
+  totalVenta    Int
+  metodoPago    String
+  estado        Estado
+  idTransaccion Int             @default(autoincrement())
+  fecha         DateTime
+  detallePedido DetallePedido[]
 }
 
-model Carta {
-  id          Int         @id @default(autoincrement())
-  fechaInicio DateTime
-  fechaFin    DateTime
-  status      Boolean     @default(true)
-  diasSemana  DiaSemana[]
+enum Estado {
+  pagado
+  despachado
+  entregado
+}
+
+model DetallePedido {
+  id          Int     @id @default(autoincrement())
+  fk_pedidoId Int
+  pedido      Pedido  @relation(fields: [fk_pedidoId], references: [id])
+  fk_viandaId Int
+  vianda      Vianda  @relation(fields: [fk_viandaId], references: [id])
+  cantidad    Int
+  precio      Decimal @db.Decimal(10, 2)
+  total       Decimal @db.Decimal(10, 2)
 }
