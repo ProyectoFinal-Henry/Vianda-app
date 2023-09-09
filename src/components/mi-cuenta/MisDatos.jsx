@@ -1,5 +1,5 @@
 "use client";
-// import { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { CgLogOff } from "react-icons/cg"; 
 import { RiShoppingBasketFill } from "react-icons/ri"; 
 import { MdRateReview } from "react-icons/md"; 
@@ -9,9 +9,7 @@ import { FiMenu } from "react-icons/fi";
 import Link from "next/link";
 
 
-function MisDatos({data}) {
-
-  // console.log(data);
+function MisDatos({usuarioId}) {
 
   const {
     register,
@@ -19,30 +17,31 @@ function MisDatos({data}) {
     formState: { errors },
     setValue,
   } = useForm({defaultValues: {
-    nombre: `${data.nombre}`,
-    email: "diego@mail.com",
-    DNI: "",
+    nombre: "",
+    email: "",
+    dni: "",
     telefono: "",
     direccion: "",
   },});
 
 
-  // useEffect(() => {
-  //   if (viandaId) {
-  //     ;(async () => {
-  //       const toUpdateReq = await axios(`/api/viandas/${viandaId}`)
-  //       const data = toUpdateReq.data
-  //       setValue("nombre", data.nombre)
-  //       setValue("tipo", data.tipo)
-  //       setValue("descripcion", data.descripcion)
-  //       setValue("ingredientes", data.ingredientes)
-  //       setValue("stock", data.stock)
-  //       setImagenTmp(data.imagen)
-  //       setIdDb(data.id)
-  //     })()
-  //     // pasarlo com value de los campos
-  //   }
-  // }, [viandaId, setValue])
+  useEffect(() => {
+    if (usuarioId) {
+      ;(async () => {
+        const toUpdateReq = await axios(`/api/usuarios/${usuarioId}`)
+        const data = toUpdateReq.data
+        setValue("nombre", data.nombreCompleto)
+        setValue("email", data.email)
+        setValue("dni", data.dni)
+        setValue("telefono", data.telefono)
+        setValue("direccion", data.direccion)
+        setIdDb(data.id)
+      })()
+    }
+  }, [usuarioId, setValue])
+
+
+  
 
 
   return (    
@@ -161,8 +160,9 @@ function MisDatos({data}) {
                   {...register("email", {
                   })}
                   type="text"
-                  placeholder=""
+                  placeholder="diego@email.com"
                   className="input input-bordered bg-neutral-200 bg-opacity-70 input-sm w-full max-w-[95%] ml-3"
+                  disabled 
                 />
               </div>
 
@@ -174,28 +174,28 @@ function MisDatos({data}) {
                   </span>
                 </label>
                 <input
-                  {...register("DNI", {
+                  {...register("dni", {
                     maxLength: { value: 15, message: "Máximo 40 caracteres" },
                     minLength: { value: 5, message: "Mínimo 5 caracteres" },
                     required: { value: true, message: "El campo es requerido" },
                   })}
-                  type="text"
+                  type="number"
                   placeholder="Ej. CC 12345678"
-                  className="input input-bordered input-sm w-full max-w-[95%] ml-3"
+                  className="appearance-none input input-bordered input-sm w-full max-w-[95%] ml-3 "
                 />
-                {errors.DNI?.type === "required" && (
+                {errors.dni?.type === "required" && (
                   <div className=" ml-20 mt-2 badge badge-error gap-2">
-                    {errors.DNI.message}
+                    {errors.dni.message}
                   </div>
                 )}
-                {errors.DNI?.type === "maxLength" && (
+                {errors.dni?.type === "maxLength" && (
                   <div className="ml-20 mt-2 badge badge-error gap-2">
-                    {errors.DNI.message}
+                    {errors.dni.message}
                   </div>
                 )}
-                {errors.DNI?.type === "minLength" && (
+                {errors.dni?.type === "minLength" && (
                   <div className="ml-20 mt-2 badge badge-error gap-2">
-                    {errors.DNI.message}
+                    {errors.dni.message}
                   </div>
                 )}
               </div>
@@ -213,7 +213,7 @@ function MisDatos({data}) {
                     minLength: { value: 5, message: "Mínimo 5 caracteres" },
                     required: { value: true, message: "El campo es requerido" },
                   })}
-                  type="text"
+                  type="number"
                   placeholder="Ej. 3109876543 - 2345678"
                   className="input input-bordered input-sm w-full max-w-[95%] ml-3"
                 />
