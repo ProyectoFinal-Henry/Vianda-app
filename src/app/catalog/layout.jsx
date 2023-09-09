@@ -6,7 +6,7 @@ const layoutAdmin = ({ children }) => {
     <div>
       <NavBar />
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
