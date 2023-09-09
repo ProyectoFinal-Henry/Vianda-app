@@ -10,6 +10,7 @@ import SearchBarViandas from "@/components/adminLayout/SearchBarViandas"
 import Filters from "@/components/adminLayout/Filters"
 import ClearFilters from "@/components/adminLayout/ClearFilters"
 import OrderByField from "@/components/adminLayout/OrderByField"
+import  NotAdmin  from '@/components/adminLayout/NotAdmin'
 
 const AdminViandasPage = async ({ searchParams }) => {
   let data = []
@@ -26,6 +27,7 @@ const AdminViandasPage = async ({ searchParams }) => {
 
   return (
     <div>
+      {/* <NotAdmin /> ----------------- si no tiene permisos se renderiza este componente, y el resto no*/} 
       <RowResponsive>
         <div className="flex flex-col mt-10 pb-4 items-center  w-full">
           <h1 className="font-extrabold text-2xl md:text-3xl ">Lista de Viandas del sistema</h1>
