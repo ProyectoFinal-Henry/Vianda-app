@@ -39,7 +39,7 @@ enum Tipo {
 
 model Usuario {
   id             Int      @id @default(autoincrement())
-  username       String   @unique
+  username       String?  @unique
   rol            Rol      @default(cliente)
   nombreCompleto String
   telefono       String
@@ -81,7 +81,7 @@ model DetallePedido {
   pedidoId     Int
   vianda       Vianda  @relation(fields: [viandaId], references: [id])
   viandaId     Int
-  viandaNombre String
+  viandaNombre String?
   viandaImagen String
   cantidad     Int
   precio       Decimal @db.Decimal(10, 2)
