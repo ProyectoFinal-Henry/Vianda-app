@@ -11,22 +11,22 @@ datasource db {
 }
 
 model Vianda {
-  id            Int             @id @default(autoincrement())
-  nombre        String
-  tipo          Tipo
-  descripcion   String
-  ingredientes  String
-  imagen        String
-  stock         Int
-  estado        Boolean         @default(true)
-  lunes         Boolean         @default(false)
-  martes        Boolean         @default(false)
-  miercoles     Boolean         @default(false)
-  jueves        Boolean         @default(false)
-  viernes       Boolean         @default(false)
-  sabado        Boolean         @default(false)
-  domingo       Boolean         @default(false)
-  pedidos       DetallePedido[]
+  id           Int             @id @default(autoincrement())
+  nombre       String
+  tipo         Tipo
+  descripcion  String
+  ingredientes String
+  imagen       String
+  stock        Int
+  estado       Boolean         @default(true)
+  lunes        Boolean         @default(false)
+  martes       Boolean         @default(false)
+  miercoles    Boolean         @default(false)
+  jueves       Boolean         @default(false)
+  viernes      Boolean         @default(false)
+  sabado       Boolean         @default(false)
+  domingo      Boolean         @default(false)
+  pedidos      DetallePedido[]
 }
 
 enum Tipo {
@@ -39,19 +39,19 @@ enum Tipo {
 model Usuario {
   id             Int      @id @default(autoincrement())
   username       String   @unique
-  rol            Rol @default(cliente)
+  rol            Rol      @default(cliente)
   nombreCompleto String
   telefono       String
   email          String   @unique
   dni            String
   password       String
-  direccion      String 
+  direccion      String
   activo         Boolean  @default(true)
   pedidos        Pedido[] @relation("UsuarioPedidos")
 }
 
 enum Rol {
-  cliente 
+  cliente
   repartidor
   cocina
   administrador
@@ -76,13 +76,13 @@ enum Estado {
 }
 
 model DetallePedido {
-  pedido   Pedido   @relation(fields: [pedidoId], references: [id])
+  pedido   Pedido  @relation(fields: [pedidoId], references: [id])
   pedidoId Int
-  vianda   Vianda   @relation(fields: [viandaId], references: [id])
+  vianda   Vianda  @relation(fields: [viandaId], references: [id])
   viandaId Int
   cantidad Int
-  precio   Decimal  @db.Decimal(10,2)
-  total    Decimal  @db.Decimal(10,2)
+  precio   Decimal @db.Decimal(10, 2)
+  total    Decimal @db.Decimal(10, 2)
 
   @@id([pedidoId, viandaId])
 }
