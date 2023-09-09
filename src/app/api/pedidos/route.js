@@ -3,7 +3,18 @@ import { prisma } from "@/libs/prisma";
 
 export async function GET() {
   try {
-    const pedidos = await prisma.pedido.findMany();
+    const pedidos = await prisma.pedido.findMany({
+      include: {
+        usuario: {
+          select: {
+            nombreCompleto: true,
+            email: true,
+            telefono: true,
+            direccion: true,
+          },
+        },
+      },
+    });
     return NextResponse.json(pedidos);
   } catch (error) {
     return NextResponse.json({
@@ -14,7 +25,7 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const { usuarioId, totalVenta, metodoPago, estado, detallePedido } =
+  const { usuarioId, totalVenta, metodoPago, estado, viandas } =
     await request.json();
 
   try {
@@ -25,19 +36,16 @@ export async function POST(request) {
         metodoPago,
         estado,
         fecha: new Date(),
-        detallePedido: {
-          create: {
-            data: detallePedido.map((item) => ({
-              fk_viandaId: item.viandaId,
-              cantidad: item.cantidad,
-              precio: item.precio,
-              total: item.cantidad * item.precio,
+        viandas: {
+          createMany: {
+            data: viandas.map((vianda) => ({
+              viandaId: vianda.viandaId,
+              cantidad: vianda.cantidad,
+              precio: vianda.precio,
+              total: vianda.cantidad * vianda.precio,
             })),
           },
         },
-      },
-      include: {
-        detallePedido: true,
       },
     });
 
