@@ -94,6 +94,8 @@ cloudinary.config({
   api_key: "893119423458729",
   api_secret: "1euwypKSkGC2FgIGVH30SPmfXFw",
 })
+
+//! POST CON CLOUDINARY
 export async function POST(request) {
   try {
     const formData = await request.formData()
@@ -136,16 +138,27 @@ export async function POST(request) {
     })
     // console.log("file: route.js:138  created:", created)
 
-    // const data = await request.json();
-    // console.log(data);
-    // await prisma.Vianda.createMany({
-    //   data: data,
-    // });
     return NextResponse.json("Vianda creada exitosamente!")
   } catch (error) {
     return NextResponse.json({ error: error.message })
   }
 }
+
+//? POST PARA CARGAR DESDE CERO.
+
+// export async function POST(request){
+//   try {
+//     const data = await request.json();
+//     console.log(data);
+//     await prisma.Vianda.createMany({
+//       data: data,
+//     });
+//     return NextResponse.json("Vianda creada exitosamente!")
+//   } catch (error) {
+//     return NextResponse.json({ error: error.message })
+//   }
+// }
+
 
 export async function PUT(request) {
   try {

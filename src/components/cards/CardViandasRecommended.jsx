@@ -5,7 +5,7 @@ async function CardRecomend() {
   const data = res.data
 
   const randomIndices = []
-  while (randomIndices.length < 3) {
+  while (randomIndices.length < 4) {
     const randomIndex = Math.floor(Math.random() * data.length)
     if (!randomIndices.includes(randomIndex)) {
       randomIndices.push(randomIndex)
@@ -16,20 +16,24 @@ async function CardRecomend() {
 
   return (
     <>
-      {randomViandas.map((vianda, index) => (
-        <div
-          key={index}
-          className="mb-6"
-        >
-          <div className="card w-80 h-96 bg-primary-focus hover:scale-110 duration-300 shadow-xl mx-auto cursor-default">
-            <figure>
-              <img
-                className="h-auto w-full"
-                src={vianda.imagen}
-                alt={vianda.nombre}
-              />
-            </figure>
-            <div className="card-body p-4 ">
+      <div className="max-w-full inline-flex flex-wrap items-stretch gap-2 my-6">
+        {randomViandas.map((vianda, index) => (
+          <div
+            key={index}
+            className="card w-[90%] mx-auto sm:max-w-[220px] bg-primary-focus hover:scale-110 duration-300 shadow-xl cursor-default
+          "
+          >
+            <div className="avatar">
+              <div className="w-full h-40 rounded-t-2xl ">
+                <img
+                  src={vianda.imagen}
+                  alt={vianda.nombre}
+                  height={300}
+                  width={300}
+                />
+              </div>
+            </div>
+            <div className="card-body p-4 min-h-max ">
               <h2 className="card-title justify-between ">
                 {vianda.nombre}
                 <div className="badge badge-secondary ">NEW</div>
@@ -56,8 +60,8 @@ async function CardRecomend() {
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}{" "}
+      </div>
     </>
   )
 }
