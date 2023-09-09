@@ -4,7 +4,7 @@ async function MiCuenta({params}) {
 
   return (
     <>
-      {/* <MisDatos /> */}
+      <MisDatos usuarioId={params.usuarioId}/>
     </>
   );
 }
