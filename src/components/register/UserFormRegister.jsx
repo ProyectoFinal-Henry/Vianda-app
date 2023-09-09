@@ -8,6 +8,7 @@ import {
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 
 export const UserFormRegister = () => {
   const [visible, setVisible] = useState(false);
@@ -22,11 +23,15 @@ export const UserFormRegister = () => {
     formState: { errors },
     reset,
   } = useForm();
-  console.log(register);
-  console.log(errors);
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      console.log(data);
+      const res = await axios.post("/api/usuarios/registro", data);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
     reset();
   });
 
@@ -50,14 +55,14 @@ export const UserFormRegister = () => {
         >
           <div className="flex flex-col md:flex-row   min-w-full gap-x-9  ">
             <div className="form-control w-full pb-2 ">
-              <label className="label" htmlFor="nombre">
+              <label className="label" htmlFor="nombreCompleto">
                 <span className="label-text font-medium ">Nombre Completo</span>
               </label>
               <input
                 type="text"
                 placeholder="nombre"
                 className="input min-w-full input-bordered w-full  input-sm rounded h-7 bg-neutral-50"
-                {...register("nombre", {
+                {...register("nombreCompleto", {
                   required: {
                     value: true,
                     message: "Este campo es requerido",
@@ -77,9 +82,9 @@ export const UserFormRegister = () => {
                 })}
               />
 
-              {errors.nombre && (
+              {errors.nombreCompleto && (
                 <span className="mt-1 text-xs text-warning">
-                  {errors.nombre.message}
+                  {errors.nombreCompleto.message}
                 </span>
               )}
             </div>
