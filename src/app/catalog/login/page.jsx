@@ -1,7 +1,10 @@
-
 "use client";
 
-import { AiFillLock, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import {
+  AiFillLock,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+} from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { useState } from "react";
@@ -13,7 +16,7 @@ const LoginCatalogPage = () => {
 
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState);
-  }
+  };
 
   const {
     register,
@@ -82,11 +85,17 @@ const LoginCatalogPage = () => {
                       },
                     })}
                   />
-                  <button type="button"
-                  class="relative flex right-8 items-center ml-2 h-full mr-10"
-                  onClick={passwordVisibility}>
-                    {visible? <AiOutlineEye className="text-xl" /> : <AiOutlineEyeInvisible className="text-xl" />}
-                   </button>
+                  <button
+                    type="button"
+                    class="relative flex right-8 items-center ml-2 h-full mr-10"
+                    onClick={passwordVisibility}
+                  >
+                    {visible ? (
+                      <AiOutlineEye className="text-xl" />
+                    ) : (
+                      <AiOutlineEyeInvisible className="text-xl" />
+                    )}
+                  </button>
                 </div>
                 {errors.password && (
                   <span className="mt-1 text-xs text-warning">

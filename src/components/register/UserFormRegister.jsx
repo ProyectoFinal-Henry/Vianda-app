@@ -1,21 +1,11 @@
 "use client";
 import FormResponsiveContainer from "../formaters/FormResponsiveContainer";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import {
-  AiFillLock,
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-} from "react-icons/ai";
+
+import { AiFillLock } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
 export const UserFormRegister = () => {
-  const [visible, setVisible] = useState(false);
-
-  const contraseñaVisibilidad = () => {
-    setVisible((prevState) => !prevState);
-  };
-
   const {
     register,
     handleSubmit,
@@ -55,12 +45,12 @@ export const UserFormRegister = () => {
               </label>
               <input
                 type="text"
-                placeholder="Type here"
+                placeholder="nombre"
                 className="input min-w-full input-bordered w-full  input-sm rounded h-7 bg-neutral-50"
                 {...register("nombre", {
                   required: {
                     value: true,
-                    message: "El nombre es requerido",
+                    message: "Este campo es requerido",
                   },
                   minLength: {
                     value: 3,
@@ -68,7 +58,7 @@ export const UserFormRegister = () => {
                   },
                   maxLength: {
                     value: 15,
-                    message: "El nombre debe tener máximo 15 caracteres",
+                    message: "Se ha excedido del maximo de caracteres",
                   },
                   pattern: {
                     value: /^[A-Za-z\s]+$/,
@@ -77,7 +67,11 @@ export const UserFormRegister = () => {
                 })}
               />
 
-              {errors.nombre && <span>{errors.nombre.message}</span>}
+              {errors.nombre && (
+                <span className="mt-1 text-xs text-warning">
+                  {errors.nombre.message}
+                </span>
+              )}
             </div>
             <div className="form-control  w-full pb-2 ">
               <label className="label" htmlFor="email">
@@ -85,12 +79,12 @@ export const UserFormRegister = () => {
               </label>
               <input
                 type="email"
-                placeholder="Type here"
+                placeholder="email@example.com"
                 className="input input-bordered w-full  input-sm  bg-neutral-50  rounded h-7  "
                 {...register("email", {
                   required: {
                     value: true,
-                    message: "El email es requerido",
+                    message: "Este campo es requerido",
                   },
                   pattern: {
                     value: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
@@ -98,17 +92,21 @@ export const UserFormRegister = () => {
                   },
                 })}
               />
-              {errors.email && <span>{errors.email.message}</span>}
+              {errors.email && (
+                <span className="mt-1 text-xs text-warning">
+                  {errors.email.message}
+                </span>
+              )}
             </div>
           </div>
-          <div className="flex flex-col md:flex-row   min-w-full gap-x-3">
+          <div className="flex flex-col md:flex-row   min-w-full gap-x-9">
             <div className="form-control w-full pb-2 ">
               <label className="label" htmlFor="telefono">
                 <span className="label-text font-medium ">Teléfono</span>
               </label>
               <input
                 type="tel"
-                placeholder="Type here"
+                placeholder="teléfono"
                 className="input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
                 {...register("telefono", {
                   required: {
@@ -122,7 +120,9 @@ export const UserFormRegister = () => {
                 })}
               />
               {errors.telefono && (
-                <span className="">{errors.telefono.message}</span>
+                <span className="mt-1 text-xs text-warning">
+                  {errors.telefono.message}
+                </span>
               )}
             </div>
             <div className="form-control  w-full pb-2 ">
@@ -131,17 +131,16 @@ export const UserFormRegister = () => {
               </label>
               <input
                 type="text"
-                placeholder="Type here"
+                placeholder="DNI"
                 className="input input-bordered w-full  input-sm bg-neutral-50  rounded h-7"
                 {...register("dni", {
                   required: {
                     value: true,
-                    message: "El DNI es requerido",
+                    message: "Este campo es requerido",
                   },
                   minLength: {
                     value: 8,
-                    message:
-                      "No corresponde con la mínima cantidad de números requeridos",
+                    message: "Datos incorrectos",
                   },
                   maxLength: {
                     value: 8,
@@ -149,22 +148,27 @@ export const UserFormRegister = () => {
                   },
                   pattern: {
                     value: /^[0-9]+$/,
-                    message: "El DNI solo debe contener números",
+                    message: "Debe contener solo debe contener números",
                   },
                 })}
               />
-              {errors.dni && <span>{errors.dni.message}</span>}
+              {errors.dni && (
+                <span className="mt-1 text-xs text-warning">
+                  {errors.dni.message}
+                </span>
+              )}
             </div>
           </div>
-          <div className="flex flex-col md:flex-row   min-w-full gap-x-3">
+          <div className="flex flex-col  items-center md:flex-row   min-w-full gap-x-9">
             <div className="form-control w-full pb-2 ">
-              <label className="label" htmlFor="contraseña">
+              <label className="label">
                 <span className="label-text font-medium ">Contraseña</span>
               </label>
+
               <input
                 type="password"
-                placeholder="Type here"
-                className="input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
+                placeholder="contraseña"
+                className=" ss input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
                 {...register("password", {
                   required: {
                     value: true,
@@ -181,20 +185,12 @@ export const UserFormRegister = () => {
                   },
                 })}
               />
-
-              <button
-                type="button"
-                class="relative flex right-8 items-center ml-2 h-full mr-10"
-                onClick={contraseñaVisibilidad}
-              >
-                {visible ? (
-                  <AiOutlineEye className="text-xl" />
-                ) : (
-                  <AiOutlineEyeInvisible className="text-xl" />
-                )}
-              </button>
+              {errors.password && (
+                <span className="mt-1 text-xs text-warning">
+                  {errors.password.message}
+                </span>
+              )}
             </div>
-            {errors.contraseña && <span>{errors.contraseña.message}</span>}
 
             <div className="form-control  w-full pb-2 ">
               <label className="label" htmlFor="direccion">
@@ -202,19 +198,24 @@ export const UserFormRegister = () => {
               </label>
               <input
                 type="text"
-                placeholder="Type here"
-                className="input input-bordered w-full  input-sm bg-neutral-50  rounded h-7"
+                placeholder="dirección"
+                className="  input input-bordered w-full  input-sm bg-neutral-50  rounded h-7"
                 {...register("direccion", {
                   required: {
                     value: true,
-                    maxLength: {
-                      value: 30,
-                      message: "Este campo es requerido",
-                    },
+                    message: "Este campo es requerido",
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: "Máximo de numeros excedido",
                   },
                 })}
               />
-              {errors.direccion && <span>{errors.direccion.message}</span>}
+              {errors.direccion && (
+                <span className="mt-1 text-xs text-warning">
+                  {errors.direccion.message}
+                </span>
+              )}
             </div>
           </div>
 
