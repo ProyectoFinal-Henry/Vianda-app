@@ -13,6 +13,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
+export const revalidate = 0;
+
 const LoginCatalogPage = () => {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
