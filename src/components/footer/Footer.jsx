@@ -21,7 +21,6 @@ function Footer() {
           >
             Registráte
           </Link>
-       
         </nav>
         <nav>
           <div className="grid grid-flow-col gap-4">
@@ -61,7 +60,7 @@ function Footer() {
           </div>
         </nav>
         <aside>
-          <p>Copyright © 2023 - All right reserved by ACME Industries Ltd</p>
+          <p className="text-center">Copyright © 2023 - All right reserved by ViandAapp Ltd</p>
         </aside>
       </footer>
     </>
