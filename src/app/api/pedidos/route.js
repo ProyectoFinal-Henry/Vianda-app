@@ -25,24 +25,26 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const { usuarioId, totalVenta, metodoPago, estado, viandas } =
+  const { fk_usuarioId, totalVenta, metodoPago, estado, detallePedido } =
     await request.json();
 
   try {
     const nuevoPedido = await prisma.pedido.create({
       data: {
-        fk_usuarioId: usuarioId,
+        fk_usuarioId,
         totalVenta,
         metodoPago,
         estado,
         fecha: new Date(),
-        viandas: {
+        detallePedido: {
           createMany: {
-            data: viandas.map((vianda) => ({
-              viandaId: vianda.viandaId,
-              cantidad: vianda.cantidad,
-              precio: vianda.precio,
-              total: vianda.cantidad * vianda.precio,
+            data: detallePedido.map((detalle) => ({
+              viandaId: detalle.viandaId,
+              viandaNombre: detalle.viandaNombre,
+              viandaImagen: detalle.viandaImagen,
+              cantidad: detalle.cantidad,
+              precio: detalle.precio,
+              total: detalle.cantidad * detalle.precio,
             })),
           },
         },
