@@ -26,7 +26,7 @@ model Vianda {
   viernes       Boolean         @default(false)
   sabado        Boolean         @default(false)
   domingo       Boolean         @default(false)
-  detallePedido DetallePedido[]
+  pedidos       DetallePedido[]
 }
 
 enum Tipo {
@@ -39,7 +39,7 @@ enum Tipo {
 model Usuario {
   id             Int      @id @default(autoincrement())
   username       String   @unique
-  rol            Rol
+  rol            Rol @default(cliente)
   nombreCompleto String
   telefono       String
   email          String   @unique
@@ -51,7 +51,7 @@ model Usuario {
 }
 
 enum Rol {
-  comprador
+  cliente 
   repartidor
   cocina
   administrador
@@ -66,7 +66,7 @@ model Pedido {
   estado        Estado
   idTransaccion Int             @default(autoincrement())
   fecha         DateTime
-  detallePedido DetallePedido[]
+  viandas       DetallePedido[]
 }
 
 enum Estado {
@@ -76,12 +76,13 @@ enum Estado {
 }
 
 model DetallePedido {
-  id          Int     @id @default(autoincrement())
-  fk_pedidoId Int
-  pedido      Pedido  @relation(fields: [fk_pedidoId], references: [id])
-  fk_viandaId Int
-  vianda      Vianda  @relation(fields: [fk_viandaId], references: [id])
-  cantidad    Int
-  precio      Decimal @db.Decimal(10, 2)
-  total       Decimal @db.Decimal(10, 2)
+  pedido   Pedido   @relation(fields: [pedidoId], references: [id])
+  pedidoId Int
+  vianda   Vianda   @relation(fields: [viandaId], references: [id])
+  viandaId Int
+  cantidad Int
+  precio   Decimal  @db.Decimal(10,2)
+  total    Decimal  @db.Decimal(10,2)
+
+  @@id([pedidoId, viandaId])
 }

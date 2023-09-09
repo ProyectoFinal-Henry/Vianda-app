@@ -55,9 +55,13 @@ const LoginCatalogPage = () => {
                     },
                   })}
                 />
-                {errors.email && (
+                {errors.email ? (
                   <span className="mt-1 text-xs text-warning">
                     {errors.email.message}
+                  </span>
+                ) : (
+                  <span className="mt-1 text-xs">
+                    <br></br>
                   </span>
                 )}
               </div>
@@ -97,9 +101,13 @@ const LoginCatalogPage = () => {
                     )}
                   </button>
                 </div>
-                {errors.password && (
+                {errors.password ? (
                   <span className="mt-1 text-xs text-warning">
                     {errors.password.message}
+                  </span>
+                ) : (
+                  <span className="mt-1 text-xs">
+                    <br></br>
                   </span>
                 )}
               </div>

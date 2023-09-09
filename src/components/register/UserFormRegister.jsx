@@ -1,11 +1,21 @@
 "use client";
 import FormResponsiveContainer from "../formaters/FormResponsiveContainer";
 import { useForm } from "react-hook-form";
-
-import { AiFillLock } from "react-icons/ai";
+import { useState } from "react";
+import {
+  AiFillLock,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+} from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
 export const UserFormRegister = () => {
+  const [visible, setVisible] = useState(false);
+
+  const passwordVisibility = () => {
+    setVisible((prevState) => !prevState);
+  };
+
   const {
     register,
     handleSubmit,
@@ -54,11 +64,11 @@ export const UserFormRegister = () => {
                   },
                   minLength: {
                     value: 3,
-                    message: "El nombre debe tener al menos 2 caracteres",
+                    message: "El nombre debe tener al menos 3 caracteres",
                   },
                   maxLength: {
-                    value: 15,
-                    message: "Se ha excedido del maximo de caracteres",
+                    value: 30,
+                    message: "Se ha excedido del maximo de 30 caracteres",
                   },
                   pattern: {
                     value: /^[A-Za-z\s]+$/,
@@ -88,6 +98,7 @@ export const UserFormRegister = () => {
                   },
                   pattern: {
                     value: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
+                    // value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                     message: "Correo no válido",
                   },
                 })}
@@ -139,12 +150,12 @@ export const UserFormRegister = () => {
                     message: "Este campo es requerido",
                   },
                   minLength: {
-                    value: 8,
-                    message: "Datos incorrectos",
+                    value: 5,
+                    message: "El campo debe tener al menos 5 caracteres",
                   },
                   maxLength: {
-                    value: 8,
-                    message: "Máximo de numeros excedido",
+                    value: 12,
+                    message: "El campo acepta maximo 12 caracteres",
                   },
                   pattern: {
                     value: /^[0-9]+$/,
@@ -159,16 +170,16 @@ export const UserFormRegister = () => {
               )}
             </div>
           </div>
-          <div className="flex flex-col  items-center md:flex-row   min-w-full gap-x-9">
+          <div className="flex flex-col  items-center justify-center md:flex-row   min-w-full gap-x-9">
             <div className="form-control w-full pb-2 ">
               <label className="label">
                 <span className="label-text font-medium ">Contraseña</span>
               </label>
 
               <input
-                type="password"
+                type={visible ? "text" : "password"}
                 placeholder="contraseña"
-                className=" ss input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
+                className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
                 {...register("password", {
                   required: {
                     value: true,
@@ -185,6 +196,18 @@ export const UserFormRegister = () => {
                   },
                 })}
               />
+
+              <button
+                type="button"
+                class="relative min-w-min left-24 bottom-6  ml-3  "
+                onClick={passwordVisibility}
+              >
+                {visible ? (
+                  <AiOutlineEye className="text-xl mr-0" />
+                ) : (
+                  <AiOutlineEyeInvisible className="text-xl mr-0" />
+                )}
+              </button>
               {errors.password && (
                 <span className="mt-1 text-xs text-warning">
                   {errors.password.message}
@@ -192,7 +215,7 @@ export const UserFormRegister = () => {
               )}
             </div>
 
-            <div className="form-control  w-full pb-2 ">
+            <div className="form-control  w-full pb-7">
               <label className="label" htmlFor="direccion">
                 <span className="label-text font-medium ">Dirección</span>
               </label>
