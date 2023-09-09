@@ -27,5 +27,5 @@ export async function POST (request) {
       },
     });
   }
-    return NextResponse.json({error: "usuario o contraseña incorrecta"}, {status:200})
+  return NextResponse.json({ error: "usuario o contraseña incorrecta" }, { status: 401 });
 };
