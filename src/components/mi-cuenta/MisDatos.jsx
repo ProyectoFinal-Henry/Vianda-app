@@ -41,8 +41,6 @@ function MisDatos({usuarioId}) {
   }, [usuarioId, setValue])
 
 
-  
-
 
   return (    
     <>
@@ -179,7 +177,7 @@ function MisDatos({usuarioId}) {
                     minLength: { value: 5, message: "Mínimo 5 caracteres" },
                     required: { value: true, message: "El campo es requerido" },
                   })}
-                  type="number"
+                  type="text"
                   placeholder="Ej. CC 12345678"
                   className="appearance-none input input-bordered input-sm w-full max-w-[95%] ml-3 "
                 />
@@ -213,7 +211,7 @@ function MisDatos({usuarioId}) {
                     minLength: { value: 5, message: "Mínimo 5 caracteres" },
                     required: { value: true, message: "El campo es requerido" },
                   })}
-                  type="number"
+                  type="text"
                   placeholder="Ej. 3109876543 - 2345678"
                   className="input input-bordered input-sm w-full max-w-[95%] ml-3"
                 />
