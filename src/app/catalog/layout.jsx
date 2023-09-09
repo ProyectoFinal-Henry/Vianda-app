@@ -1,5 +1,5 @@
-import Footer from "@/components/footer/Footer";
-import NavBar from "@/components/navbar/NavBar";
+import Footer from "@/components/footer/Footer"
+import NavBar from "@/components/navbar/NavBar"
 
 const layoutAdmin = ({ children }) => {
   return (
@@ -8,7 +8,7 @@ const layoutAdmin = ({ children }) => {
       {children}
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default layoutAdmin;
+export default layoutAdmin
