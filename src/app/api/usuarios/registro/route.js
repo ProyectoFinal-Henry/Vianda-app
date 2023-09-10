@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/libs/prisma";
-import bcrypt from "bcrypt";
 
 export async function POST(request) {
   const { nombreCompleto, telefono, email, dni, password, direccion } =
@@ -19,19 +18,6 @@ export async function POST(request) {
       );
     }
     if (nombreCompleto && telefono && email && dni && password && direccion) {
-      //se crea una promesa que devuelve el password hasheado usando bcrypt
-      const saltRounds = 10;
-      const passwordHashed = await new Promise((resolve, reject) => {
-        bcrypt.hash(password, saltRounds, function (err, hash) {
-          if (err) {
-            console.error(err);
-            reject(err);
-            return;
-          }
-          resolve(hash);
-        });
-      });
-
       const nuevoUsuario = await prisma.usuario.create({
         data: {
           nombreCompleto,
