@@ -33,7 +33,7 @@ const LoginCatalogPage = () => {
     try {
       const response = await axios.post("/api/auth/login", formData);
       if (response.data === "success") {
-        console.log('success')
+        router.refresh()
         router.push("/admin");
       }
     } catch (error) {
