@@ -1,9 +1,11 @@
 import React from "react"
 import { FiAward } from "react-icons/fi"
+import  NotAdmin  from '@/components/adminLayout/NotAdmin'
 
 const page = () => {
   return (
     <>
+    {/* <NotAdmin /> ----------------- si no tiene permisos se renderiza este componente, y el resto no*/} 
       <div
         className="w-full min-h-[85vh] hidden md:block   bg-contain bg-no-repeat overflow-scroll"
         style={{ backgroundImage: 'url("/demoToDelete/adminD.png")' }}

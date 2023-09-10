@@ -10,9 +10,14 @@ import Link from "next/link";
 import { useState } from "react";
 import FormResponsiveContainer from "@/components/formaters/FormResponsiveContainer";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+
 
 const LoginCatalogPage = () => {
+  const router = useRouter();
   const [visible, setVisible] = useState(false);
+  const [authError, setAuthError] = useState(false);
 
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState);
@@ -24,8 +29,16 @@ const LoginCatalogPage = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (formData) => {
+    try {
+      const response = await axios.post("/api/auth/login", formData);
+      if (response.data === "success") {
+        router.refresh()
+        router.push("/admin");
+      }
+    } catch (error) {
+      setAuthError(true);
+    }
   });
 
   return (
@@ -42,7 +55,7 @@ const LoginCatalogPage = () => {
                 </span>
                 <input
                   className="input input-bordered input-sm w-full min-w-full rounded h-7"
-                  type="email"
+                  type="text"
                   placeholder="email@example.com"
                   {...register("email", {
                     required: {
@@ -74,20 +87,7 @@ const LoginCatalogPage = () => {
                     className="relative input input-bordered input-sm w-full min-w-full rounded h-7"
                     placeholder="contraseña"
                     type={visible ? "text" : "password"}
-                    {...register("password", {
-                      required: {
-                        value: true,
-                        message: "Password requerida",
-                      },
-                      minLength: {
-                        value: 8,
-                        message: "Entre 8 y 16 caracteres",
-                      },
-                      maxLength: {
-                        value: 16,
-                        message: "Entre 8 y 16 caracteres",
-                      },
-                    })}
+                    {...register("password", {})}
                   />
                   <button
                     type="button"
@@ -101,12 +101,12 @@ const LoginCatalogPage = () => {
                     )}
                   </button>
                 </div>
-                {errors.password ? (
-                  <span className="mt-1 text-xs text-warning">
-                    {errors.password.message}
+                {authError ? (
+                  <span className="mt-4 text-xs text-warning text-center">
+                    USUARIO O CONTRASEÑA INCORRECTOS
                   </span>
                 ) : (
-                  <span className="mt-1 text-xs">
+                  <span className="mt-4 text-xs">
                     <br></br>
                   </span>
                 )}
@@ -115,7 +115,7 @@ const LoginCatalogPage = () => {
             <div className="flex mt-5 justify-center">
               <button
                 type="submit"
-                className="items-center flex gap-x-2 first-letter:font-bold btn-accent bg-opacity-80 px-8 py-1 rounded-md mt-3"
+                className="items-center flex gap-x-2 first-letter:font-bold btn-accent bg-opacity-80 px-8 py-1 rounded-md mt-0"
               >
                 <AiFillLock className="text-xl" />
                 Iniciar sesión segura
