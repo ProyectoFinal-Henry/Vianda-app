@@ -11,12 +11,13 @@ import { useState } from "react";
 import FormResponsiveContainer from "@/components/formaters/FormResponsiveContainer";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
+
 
 const LoginCatalogPage = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [visible, setVisible] = useState(false);
-  const [authError, setAuthError] = useState(false)
+  const [authError, setAuthError] = useState(false);
 
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState);
@@ -29,13 +30,15 @@ const LoginCatalogPage = () => {
   } = useForm();
 
   const onSubmit = handleSubmit(async (formData) => {
+    try {
       const response = await axios.post("/api/auth/login", formData);
-      if (response.data === 'success'){
-        router.push('/admin')
+      if (response.data === "success") {
+        router.refresh()
+        router.push("/admin");
       }
-      else{
-        setAuthError(true)
-      }
+    } catch (error) {
+      setAuthError(true);
+    }
   });
 
   return (
@@ -84,8 +87,7 @@ const LoginCatalogPage = () => {
                     className="relative input input-bordered input-sm w-full min-w-full rounded h-7"
                     placeholder="contraseña"
                     type={visible ? "text" : "password"}
-                    {...register("password", {
-                    })}
+                    {...register("password", {})}
                   />
                   <button
                     type="button"
