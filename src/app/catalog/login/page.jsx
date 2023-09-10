@@ -13,7 +13,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-export const revalidate = 0;
 
 const LoginCatalogPage = () => {
   const router = useRouter();
@@ -34,6 +33,7 @@ const LoginCatalogPage = () => {
     try {
       const response = await axios.post("/api/auth/login", formData);
       if (response.data === "success") {
+        console.log('success')
         router.push("/admin");
       }
     } catch (error) {
