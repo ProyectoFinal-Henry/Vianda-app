@@ -20,8 +20,8 @@ export async function POST(request) {
       const token = jwt.sign(
         {
           exp: Math.floor(Date.now() / 1000) * 3600 * 24 * 30,
-          email: "prueba@gmail.com",
-          username: "prueba",
+          email: usuario.email,
+          username: usuario.password,
         },
         "secret"
       );
