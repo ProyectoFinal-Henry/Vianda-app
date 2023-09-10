@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
+
 const LoginCatalogPage = () => {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
@@ -32,6 +33,7 @@ const LoginCatalogPage = () => {
     try {
       const response = await axios.post("/api/auth/login", formData);
       if (response.data === "success") {
+        router.refresh()
         router.push("/admin");
       }
     } catch (error) {
