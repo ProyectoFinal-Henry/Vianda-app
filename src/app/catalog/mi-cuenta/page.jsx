@@ -1,10 +1,10 @@
 import MisDatos from "@/components/mi-cuenta/MisDatos";
 
-async function MiCuenta({params}) {
+async function MiCuenta() {
 
   return (
     <>
-      {/* <MisDatos /> */}
+      <MisDatos />
     </>
   );
 }
