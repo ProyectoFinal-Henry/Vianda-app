@@ -180,39 +180,41 @@ export const UserFormRegister = () => {
               <label className="label">
                 <span className="label-text font-medium ">Contraseña</span>
               </label>
+              <div className="flex flex-row">
+                <input
+                  type={visible ? "text" : "password"}
+                  placeholder="contraseña"
+                  className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Este campo es requerido",
+                    },
+                    minLength: {
+                      value: 6,
+                      message: "La contraseña debe tener al menos 6 caracteres",
+                    },
+                    pattern: {
+                      value: /^[A-Z][a-zA-Z0-9]*$/,
+                      message:
+                        "La contraseña debe contener minúsculas,mayúsculas y numeros",
+                    },
+                  })}
+                />
 
-              <input
-                type={visible ? "text" : "password"}
-                placeholder="contraseña"
-                className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
-                {...register("password", {
-                  required: {
-                    value: true,
-                    message: "Este campo es requerido",
-                  },
-                  minLength: {
-                    value: 6,
-                    message: "La contraseña debe tener al menos 6 caracteres",
-                  },
-                  pattern: {
-                    value: /^[A-Z][a-zA-Z0-9]*$/,
-                    message:
-                      "La contraseña debe contener minúsculas,mayúsculas y numeros",
-                  },
-                })}
-              />
+                <button
+                  type="button"
+                  class="relative min-w-min   ml-3  right-9"
+                  onClick={passwordVisibility}
+                >
+                  {visible ? (
+                    <AiOutlineEye className="text-xl mr-0" />
+                  ) : (
+                    <AiOutlineEyeInvisible className="text-xl mr-0" />
+                  )}
+                </button>
+              </div>
 
-              <button
-                type="button"
-                class="relative min-w-min left-24 bottom-6  ml-3  "
-                onClick={passwordVisibility}
-              >
-                {visible ? (
-                  <AiOutlineEye className="text-xl mr-0" />
-                ) : (
-                  <AiOutlineEyeInvisible className="text-xl mr-0" />
-                )}
-              </button>
               {errors.password && (
                 <span className="mt-1 text-xs text-warning">
                   {errors.password.message}
@@ -220,7 +222,7 @@ export const UserFormRegister = () => {
               )}
             </div>
 
-            <div className="form-control  w-full pb-7">
+            <div className="form-control  w-full pb-2 ">
               <label className="label" htmlFor="direccion">
                 <span className="label-text font-medium ">Dirección</span>
               </label>
