@@ -28,10 +28,10 @@ const CatalogRegisterPage = async () => {
       <RowResponsive>
         <div
           id="checkout"
-          className="flex  flex-col md:flex-row   gap-y"
+          className="flex  flex-col md:flex-row   gap-8"
         >
           <main
-            className="md:max-w-[80%] bg-yellow-200"
+            className="md:max-w-[80%] "
             id="grid"
           >
             <h1
@@ -53,7 +53,7 @@ const CatalogRegisterPage = async () => {
           <div className="min-w-[100%] md:min-w-[20%] flex flex-col justify-start ">
             <side
               className="fixed bottom-0 left-0 md:relative bg-base-100 min-w-[100%]  px-3 flex flex-col border-2 border-slate-900/10 rounded-t-xl pt-2
-               md:rounded-none
+               md:rounded-xl
               "
               id="detail"
             >

@@ -28,6 +28,20 @@ export async function POST(request) {
   const { fk_usuarioId, totalVenta, metodoPago, estado, detallePedido } =
     await request.json();
 
+  const editarStock = async (detallePedido) => {
+    for (const detalle of detallePedido) {
+      await prisma.vianda.update({
+        where: {
+          id: detalle.viandaId,
+        },
+        data: {
+          stock: {
+            decrement: detalle.cantidad,
+          },
+        },
+      });
+    }
+  };
   try {
     const nuevoPedido = await prisma.pedido.create({
       data: {
@@ -50,9 +64,16 @@ export async function POST(request) {
         },
       },
     });
+    editarStock(detallePedido);
 
-    return NextResponse.json(nuevoPedido);
+    return NextResponse.json({
+      message: "Pedido realizado exitosamente",
+      data: nuevoPedido,
+    });
   } catch (error) {
-    return NextResponse.json({ error: error.message });
+    return NextResponse.json({
+      message: "Ocurrio un error, intenta realizar el pedido nuevamente",
+      error: error.message,
+    });
   }
 }

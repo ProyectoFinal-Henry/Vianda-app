@@ -44,7 +44,7 @@ const AdminViandasPage = async ({ searchParams }) => {
           </div>
           <Filters />
         </div>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto max-w-full">
           <table className="table table-zebra ">
             <thead>
               <tr className="bg-green-400">

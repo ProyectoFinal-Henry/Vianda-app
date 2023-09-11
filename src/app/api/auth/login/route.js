@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
 import { NextResponse } from "next/server";
 import { prisma } from "@/libs/prisma";
+import { compare } from "bcrypt";
 
 export async function POST(request) {
   const { email, password } = await request.json();
@@ -13,15 +14,19 @@ export async function POST(request) {
     });
 
     if (!usuario) {
-      return NextResponse.json("Correo electronico o contraseña incorrectos");
+      return NextResponse.json({ error: "Correo electronico incorrecto" });
     }
 
-    if (email === usuario.email && password === usuario.password) {
+    // comparacion contraseña ingresada con la almacenada en base de datos
+    const passwordMatch = await compare(password, usuario.password);
+
+    //si contraseña coincide se genera el token
+    if (passwordMatch) {
       const token = jwt.sign(
         {
           exp: Math.floor(Date.now() / 1000) * 3600 * 24 * 30,
           email: usuario.email,
-          username: usuario.password,
+          username: usuario.email,
         },
         "secret"
       );
@@ -38,11 +43,13 @@ export async function POST(request) {
           "Set-Cookie": serialized,
         },
       });
+    } else {
+      // Contraseña incorrecta, deniega el acceso
+      return NextResponse.json(
+        { error: "Contraseña incorrecta" },
+        { status: 200 }
+      );
     }
-    return NextResponse.json(
-      { error: "usuario o contraseña incorrecta" },
-      { status: 200 }
-    );
   } catch (error) {
     return NextResponse.json({
       message: "Ocurrio un error en el inicio de sesion",

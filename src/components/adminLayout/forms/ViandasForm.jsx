@@ -138,11 +138,11 @@ const ViandasForm = ({ viandaId }) => {
               })}
               type="text"
               placeholder="Arroz con pollo lasagna etc.."
-              className="input   input-bordered w-full max-w-[75%] ml-[10%]"
+              className="input input-sm   input-bordered w-full max-w-[75%] ml-[10%]"
             />
-            {errors.nombre?.type === "required" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.nombre.message}</div>}
-            {errors.nombre?.type === "maxLength" && <div className="ml-20 mt-2 badge badge-error gap-2">{errors.nombre.message}</div>}
-            {errors.nombre?.type === "minLength" && <div className="ml-20 mt-2 badge badge-error gap-2">{errors.nombre.message}</div>}
+            {errors.nombre?.type === "required" && <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.nombre.message}</div>}
+            {errors.nombre?.type === "maxLength" && <div className="ml-10 mt-2 capitalize text-red-500 gap-2">{errors.nombre.message}</div>}
+            {errors.nombre?.type === "minLength" && <div className="ml-10 mt-2 capitalize text-red-500 gap-2">{errors.nombre.message}</div>}
           </div>
           <div className="form-control  w-full ">
             <label className="label ml-3  pb-1">
@@ -160,7 +160,7 @@ const ViandasForm = ({ viandaId }) => {
               <option Value="vegetariano">Vegetariano</option>
               <option Value="dieta">Dieta</option>
             </select>
-            {errors.tipo?.type === "required" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.tipo.message}</div>}
+            {errors.tipo?.type === "required" && <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.tipo.message}</div>}
           </div>
           <div className="form-control  w-full ">
             <label className="label ml-3  pb-1">
@@ -179,13 +179,13 @@ const ViandasForm = ({ viandaId }) => {
               className="textarea   input-bordered w-full max-w-[75%] ml-[10%]"
             />
             {errors.descripcion?.type === "required" && (
-              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.descripcion.message}</div>
+              <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.descripcion.message}</div>
             )}
             {errors.descripcion?.type === "minLength" && (
-              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.descripcion.message}</div>
+              <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.descripcion.message}</div>
             )}
             {errors.descripcion?.type === "maxLength" && (
-              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.descripcion.message}</div>
+              <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.descripcion.message}</div>
             )}
           </div>
           <div className="form-control  w-full ">
@@ -205,13 +205,13 @@ const ViandasForm = ({ viandaId }) => {
               className="textarea   input-bordered w-full max-w-[75%] ml-[10%]"
             />
             {errors.ingredientes?.type === "required" && (
-              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.ingredientes.message}</div>
+              <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.ingredientes.message}</div>
             )}
             {errors.ingredientes?.type === "minLength" && (
-              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.ingredientes.message}</div>
+              <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.ingredientes.message}</div>
             )}
             {errors.ingredientes?.type === "maxLength" && (
-              <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.ingredientes.message}</div>
+              <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.ingredientes.message}</div>
             )}
           </div>
           <div className="form-control  w-full ">
@@ -227,11 +227,11 @@ const ViandasForm = ({ viandaId }) => {
                 max: { value: 200, message: "el stock maximo es 200" },
               })}
               type="number"
-              className="input   input-bordered w-full max-w-[75%] ml-[10%]"
+              className="input input-sm   input-bordered w-full max-w-[75%] ml-[10%]"
             />
-            {errors.stock?.type === "required" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.stock.message}</div>}
-            {errors.stock?.type === "min" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.stock.message}</div>}
-            {errors.stock?.type === "max" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.stock.message}</div>}
+            {errors.stock?.type === "required" && <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.stock.message}</div>}
+            {errors.stock?.type === "min" && <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.stock.message}</div>}
+            {errors.stock?.type === "max" && <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.stock.message}</div>}
           </div>
           <div className="form-control  w-full items-center my-4 justify-center">
             <div className="avatar">
@@ -275,7 +275,7 @@ const ViandasForm = ({ viandaId }) => {
               <input
                 {...register("imagen", { required: { value: true, message: "Imagen requerida" } })}
                 type="file"
-                className="file-input file-input-secondary file-input-bordered border-accent w-full max-w-[75%] ml-[10%]"
+                className="file-input file-input-sm file-input-secondary file-input-bordered border-accent w-full max-w-[75%] ml-[10%]"
                 onChange={(e) => {
                   setFile(e.target.files[0])
                   if (e.target.files[0]) {
@@ -286,12 +286,12 @@ const ViandasForm = ({ viandaId }) => {
                 }}
               />
             )}
-            {errors.imagen?.type === "required" && <div className=" ml-20 mt-2 badge badge-error gap-2">{errors.imagen.message}</div>}
+            {errors.imagen?.type === "required" && <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.imagen.message}</div>}
           </div>
 
           <div className="form-control  w-full max-w-[75%] ml-[10%] my-4 ">
             <button
-              className="btn btn-accent btn-lg"
+              className="btn btn-accent btn-block "
               type="submit"
             >
               {viandaId ? "Actualizar Vianda" : "Crear Vianda"}
