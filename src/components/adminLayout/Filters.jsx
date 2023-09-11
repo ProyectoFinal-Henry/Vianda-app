@@ -21,46 +21,58 @@ const Filters = () => {
 
   return (
     <div className="flex  flex-row flex-wrap justify-center mt-3">
-      <Link
+      {searchParams.get("tipo") === "clasico"? (
+        <Link
+        href="/admin/viandas"
+        className="btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        >Clásico
+        </Link>   
+      ) : (
+        <Link
         href={{ search: toggleFilter("clasico") }}
-        className={
-          searchParams.get("tipo") === "clasico"
-            ? "btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-        }
-      >
-        Clásico
-      </Link>
-      <Link
+        className="btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        >Clásico
+        </Link>
+      )}
+      {searchParams.get("tipo") === "sinHarinas"? (
+        <Link
+        href="/admin/viandas"
+        className="btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        >Sin Harinas
+        </Link>   
+      ) : (
+        <Link
         href={{ search: toggleFilter("sinHarinas") }}
-        className={
-          searchParams.get("tipo") === "sinHarinas"
-            ? "btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-        }
-      >
-        Sin Harinas
-      </Link>
-      <Link
+        className="btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        >Sin Harinas
+        </Link>
+      )}
+      {searchParams.get("tipo") === "vegetariano"? (
+        <Link
+        href="/admin/viandas"
+        className="btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        >Vegetariano
+        </Link>   
+      ) : (
+        <Link
         href={{ search: toggleFilter("vegetariano") }}
-        className={
-          searchParams.get("tipo") === "vegetariano"
-            ? "btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-        }
-      >
-        Vegetariano
-      </Link>
-      <Link
+        className="btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        >Vegetariano
+        </Link>
+      )}
+      {searchParams.get("tipo") === "dieta"? (
+        <Link
+        href="/admin/viandas"
+        className="btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        >Dieta
+        </Link>   
+      ) : (
+        <Link
         href={{ search: toggleFilter("dieta") }}
-        className={
-          searchParams.get("tipo") === "dieta"
-            ? "btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-        }
-      >
-        Dieta
-      </Link>
+        className="btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        >Dieta
+        </Link>
+      )}
     </div>
   );
 };
