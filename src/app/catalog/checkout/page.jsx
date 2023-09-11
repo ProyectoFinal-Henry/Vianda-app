@@ -9,33 +9,61 @@ import { currencyFormater } from "@/libs/utils/currencyFormater"
 import axios from "axios"
 import Image from "next/image"
 import Link from "next/link"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useCarrito } from "@/context/CarritoContext"
+import LoadingComponentApp from "@/app/loading"
 
 
 /*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
-const CatalogRegisterPage = async () => {
+const CatalogRegisterPage = () => {
   const {precioTotal} = useCarrito();
   console.log(precioTotal);
   let precioTotal1 = Number(precioTotal)
+  const [semana, setSemana] = useState([])
+  const [ready, setReady] = useState(false)
+
+const semanal = async () => {
+  const week = []
   const respuestaLunes = await axios.get(`http://localhost:3000/api/viandas?dia=lunes`);
-  const viandasLunes = await respuestaLunes.data;
+  const viandasLunes = respuestaLunes.data;
+  week.push(viandasLunes)
+  console.log("longitud:", week.length);
 
   const respuestaMartes = await axios.get(`http://localhost:3000/api/viandas?dia=martes`)
-  const viandasMartes = await respuestaMartes.data
+  const viandasMartes = respuestaMartes.data
+  week.push(viandasMartes)
+  console.log("longitud:", week.length);
 
   const respuestaMiercoles = await axios.get(`http://localhost:3000/api/viandas?dia=miercoles`)
   const viandasMiercoles = await respuestaMiercoles.data
+  week.push(viandasMiercoles)
+  console.log("longitud:", week.length);
 
   const respuestaJueves = await axios.get(`http://localhost:3000/api/viandas?dia=jueves`)
   const viandasJueves = await respuestaJueves.data
+  week.push(viandasJueves)
+  console.log("longitud:", week.length);
 
   const respuestaViernes = await axios.get(`http://localhost:3000/api/viandas?dia=viernes`)
   const viandasViernes = await respuestaViernes.data
+  console.log("longitud:", week.length);
+
+  week.push(viandasViernes)
+  console.log("week:", week[0]);
+  setReady(true)
+  setSemana(week);
+}
+
+useEffect(() => 
+{ 
+  semanal()
+}, [])
 
   return (
     <>
+    {ready?  
       <RowResponsive>
+
         <div
           id="checkout"
           className="flex  flex-col md:flex-row   gap-8"
@@ -55,23 +83,23 @@ const CatalogRegisterPage = async () => {
 
             <div className="flex flex-row gap-2 items-center">
               <CardsCheckout
-                viandasDia={viandasLunes}
+                viandasDia={semana[0]}
                 dia={"lunes"}
               />
               <CardsCheckout
-                viandasDia={viandasMartes}
+                viandasDia={semana[1]}
                 dia={"martes"}
               />
               <CardsCheckout
-                viandasDia={viandasMiercoles}
+                viandasDia={semana[2]}
                 dia={"miercoles"}
               />
               <CardsCheckout
-                viandasDia={viandasJueves}
+                viandasDia={semana[3]}
                 dia={"jueves"}
               />
               <CardsCheckout
-                viandasDia={viandasViernes}
+                viandasDia={semana[4]}
                 dia={"viernes"}
               />
             </div>
@@ -137,6 +165,8 @@ const CatalogRegisterPage = async () => {
           </div>
         </div>
       </RowResponsive>
+      : <LoadingComponentApp/>
+}
     </>
   )
 }
