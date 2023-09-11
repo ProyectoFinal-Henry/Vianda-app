@@ -1,7 +1,7 @@
 "use client";
 
 import FormResponsiveContainer from "../formaters/FormResponsiveContainer";
-const bcrypt = require("bcryptjs");
+import bcrypt from "bcryptjs";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import {
@@ -12,8 +12,14 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 
+import { ModalUserError } from "./ModalUserError";
+
 export const UserFormRegister = () => {
   const [visible, setVisible] = useState(false);
+  const [toastEmail, setToastEmail] = useState(false);
+  const [modalErroCreateUser, setModalErrorCreateUser] = useState(false);
+  const [modalExit, setModalExit] = useState(false);
+  const [email, setEmail] = useState("");
 
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState);
@@ -28,6 +34,9 @@ export const UserFormRegister = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      setToastEmail(false);
+      let emailIngresado = data.email;
+      setEmail(emailIngresado);
       let contraseñaIngresada = data.password;
       const saltRounds = 10;
       const passwordHashed = await new Promise((resolve, reject) => {
@@ -46,9 +55,17 @@ export const UserFormRegister = () => {
       console.log(data);
       const res = await axios.post("/api/usuarios/registro", newData);
       console.log(res);
+      const resMessage = res.data.message;
+
+      if (resMessage.includes("ya existe")) {
+        setToastEmail(true);
+      } else if (resMessage.includes("error creando el usuario")) {
+        setModalErrorCreateUser(true);
+      }
     } catch (error) {
       console.log(error);
     }
+
     reset();
   });
 
@@ -129,6 +146,11 @@ export const UserFormRegister = () => {
                 <span className="mt-1 text-xs text-warning">
                   {errors.email.message}
                 </span>
+              )}
+              {toastEmail ? (
+                <div>{`El email ingresado ${email} ya existe`} </div>
+              ) : (
+                setToastEmail(false)
               )}
             </div>
           </div>
@@ -212,7 +234,7 @@ export const UserFormRegister = () => {
                       message: "La contraseña debe tener al menos 6 caracteres",
                     },
                     pattern: {
-                      value: /^[A-Z][a-zA-Z0-9]*$/,
+                      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
                       message:
                         "La contraseña debe contener minúsculas,mayúsculas y numeros",
                     },
@@ -281,6 +303,9 @@ export const UserFormRegister = () => {
             className="divider 
         "
           ></div>
+          {modalErroCreateUser && (
+            <ModalUserError setModalErrorCreateUser={setModalErrorCreateUser} />
+          )}
         </form>
         <p className="font-medium ">O ingresa con</p>
         <button className="items-center gap-x-1.5 mt-4 flex font-bold border-solid border-neutral border-2 rounded-sm px-4 py-0.5 border-opacity-30">

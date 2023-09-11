@@ -6,6 +6,7 @@ import Link from "next/link";
 function CardAllDishes(props) {
   const router = useRouter();
   const { data } = props;
+  console.log(data);
 
   if (!Array.isArray(data)) {
     return <p>No hay datos disponibles</p>;
@@ -23,35 +24,7 @@ function CardAllDishes(props) {
                 </figure>
                 <div className="card-body p-5">
                   <h2 className="card-title">{nombre}</h2>
-                  <p>{descripcion}</p>
-
-                  <div id="modalDetalle">
-                    <button
-                      className="btn"
-                      onClick={() =>
-                        document.getElementById("my_modal_5").showModal()
-                      }
-                    >
-                      open modal
-                    </button>
-                    <dialog
-                      id="my_modal_5"
-                      className="modal modal-bottom sm:modal-middle"
-                    >
-                      <div className="modal-box">
-                        <h3 className="font-bold text-lg">Hello!</h3>
-                        <p className="py-4">
-                          Press ESC key or click the button below to close
-                        </p>
-                        <div className="modal-action">
-                          <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn">Close</button>
-                          </form>
-                        </div>
-                      </div>
-                    </dialog>
-                  </div>
+                  <p className="max-h-16">{descripcion}</p>
 
                   <div className="dropdown">
                     <label
