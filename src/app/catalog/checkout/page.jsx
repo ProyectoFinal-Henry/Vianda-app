@@ -1,4 +1,4 @@
-
+"use client"
 import { BsBox2Heart } from "react-icons/bs"
 import { BsBox2HeartFill } from "react-icons/bs"
 import { BiSupport } from "react-icons/bi"
@@ -15,27 +15,18 @@ import React from "react"
 /*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
 const CatalogRegisterPage = async () => {
   const respuestaLunes = await axios.get(`http://localhost:3000/api/viandas?dia=lunes`);
-  setTimeout(()=>{},5000)
   const viandasLunes = await respuestaLunes.data;
-  console.log("🚀 ~ file: page.jsx:19 ~ CatalogRegisterPage ~ viandasLunes:", viandasLunes)
 
   const respuestaMartes = await axios.get(`http://localhost:3000/api/viandas?dia=martes`);
-  setTimeout(()=>{},5000)
   const viandasMartes = await respuestaMartes.data;
 
   const respuestaMiercoles = await axios.get(`http://localhost:3000/api/viandas?dia=miercoles`);
-  setTimeout(()=>{},5000)
-
   const viandasMiercoles = await respuestaMiercoles.data;
 
   const respuestaJueves = await axios.get(`http://localhost:3000/api/viandas?dia=jueves`);
-  setTimeout(()=>{},5000)
-
   const viandasJueves = await respuestaJueves.data;
 
   const respuestaViernes = await axios.get(`http://localhost:3000/api/viandas?dia=viernes`);
-  setTimeout(()=>{},5000)
-
   const viandasViernes = await respuestaViernes.data;
 
   return (
