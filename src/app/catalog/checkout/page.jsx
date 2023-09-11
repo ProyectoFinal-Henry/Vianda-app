@@ -1,3 +1,4 @@
+"use client"
 import { BsBox2Heart } from "react-icons/bs"
 import { BsBox2HeartFill } from "react-icons/bs"
 import { BiSupport } from "react-icons/bi"
@@ -13,160 +14,152 @@ import React, { useEffect, useState } from "react"
 import { useCarrito } from "@/context/CarritoContext"
 import LoadingComponentApp from "@/app/loading"
 
-
 /*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
 const CatalogRegisterPage = () => {
-  const {precioTotal} = useCarrito();
-  console.log(precioTotal);
+  const { precioTotal } = useCarrito()
+  console.log(precioTotal)
   let precioTotal1 = Number(precioTotal)
   const [semana, setSemana] = useState([])
   const [ready, setReady] = useState(false)
 
-const semanal = async () => {
-  const week = []
-  const respuestaLunes = await axios.get(`http://localhost:3000/api/viandas?dia=lunes`);
-  const viandasLunes = respuestaLunes.data;
-  week.push(viandasLunes)
-  console.log("longitud:", week.length);
+  const semanal = async () => {
+    const week = []
+    const respuestaLunes = await axios.get(`http://localhost:3000/api/viandas?dia=lunes`)
+    const viandasLunes = respuestaLunes.data
+    week.push(viandasLunes)
 
-  const respuestaMartes = await axios.get(`http://localhost:3000/api/viandas?dia=martes`)
-  const viandasMartes = respuestaMartes.data
-  week.push(viandasMartes)
-  console.log("longitud:", week.length);
+    const respuestaMartes = await axios.get(`http://localhost:3000/api/viandas?dia=martes`)
+    const viandasMartes = respuestaMartes.data
+    week.push(viandasMartes)
 
-  const respuestaMiercoles = await axios.get(`http://localhost:3000/api/viandas?dia=miercoles`)
-  const viandasMiercoles = await respuestaMiercoles.data
-  week.push(viandasMiercoles)
-  console.log("longitud:", week.length);
+    const respuestaMiercoles = await axios.get(`http://localhost:3000/api/viandas?dia=miercoles`)
+    const viandasMiercoles = await respuestaMiercoles.data
+    week.push(viandasMiercoles)
 
-  const respuestaJueves = await axios.get(`http://localhost:3000/api/viandas?dia=jueves`)
-  const viandasJueves = await respuestaJueves.data
-  week.push(viandasJueves)
-  console.log("longitud:", week.length);
+    const respuestaJueves = await axios.get(`http://localhost:3000/api/viandas?dia=jueves`)
+    const viandasJueves = await respuestaJueves.data
+    week.push(viandasJueves)
 
-  const respuestaViernes = await axios.get(`http://localhost:3000/api/viandas?dia=viernes`)
-  const viandasViernes = await respuestaViernes.data
-  console.log("longitud:", week.length);
+    const respuestaViernes = await axios.get(`http://localhost:3000/api/viandas?dia=viernes`)
+    const viandasViernes = await respuestaViernes.data
 
-  week.push(viandasViernes)
-  console.log("week:", week[0]);
-  setReady(true)
-  setSemana(week);
-}
+    week.push(viandasViernes)
+    setReady(true)
+    setSemana(week)
+  }
 
-useEffect(() => 
-{ 
-  semanal()
-}, [])
+  useEffect(() => {
+    semanal()
+  }, [])
 
   return (
     <>
-    {ready?  
-      <RowResponsive>
-
-        <div
-          id="checkout"
-          className="flex  flex-col md:flex-row   gap-8"
-        >
-          <main
-            className="md:max-w-[80%] "
-            id="grid"
+      {ready ? (
+        <RowResponsive>
+          <div
+            id="checkout"
+            className="flex  flex-col md:flex-row min-h-[80vh] items-center  gap-8"
           >
-            <h1
-              id="title"
-              className="font-medium text-lg text-center mx-4
-              md:mt-8 md:text-left"
+            <main
+              className="md:max-w-[80%] "
+              id="grid"
             >
-              MIS VIANDAS PARA LA SEMANA DEL: 18 AL 22 DE SEPTIEMBRE:
-            </h1>
-            <div className="divider my-0"></div>
+              <h1
+                id="title"
+                className="font-medium text-lg text-center mx-4
+              md:mt-8 md:text-left"
+              >
+                MIS VIANDAS PARA LA SEMANA DEL: 18 AL 22 DE SEPTIEMBRE:
+              </h1>
+              <div className="divider my-0"></div>
 
-            <div className="flex flex-row gap-2 items-center">
-              <CardsCheckout
-                viandasDia={semana[0]}
-                dia={"lunes"}
-              />
-              <CardsCheckout
-                viandasDia={semana[1]}
-                dia={"martes"}
-              />
-              <CardsCheckout
-                viandasDia={semana[2]}
-                dia={"miercoles"}
-              />
-              <CardsCheckout
-                viandasDia={semana[3]}
-                dia={"jueves"}
-              />
-              <CardsCheckout
-                viandasDia={semana[4]}
-                dia={"viernes"}
-              />
-            </div>
+              <div className="flex flex-row gap-2 items-center">
+                <CardsCheckout
+                  viandasDia={semana[0]}
+                  dia={"lunes"}
+                />
+                <CardsCheckout
+                  viandasDia={semana[1]}
+                  dia={"martes"}
+                />
+                <CardsCheckout
+                  viandasDia={semana[2]}
+                  dia={"miercoles"}
+                />
+                <CardsCheckout
+                  viandasDia={semana[3]}
+                  dia={"jueves"}
+                />
+                <CardsCheckout
+                  viandasDia={semana[4]}
+                  dia={"viernes"}
+                />
+              </div>
 
-            <div
-              id="cards"
-              className=""
-            ></div>
-          </main>
+              <div
+                id="cards"
+                className=""
+              ></div>
+            </main>
 
-          <div className="min-w-[100%] md:min-w-[20%] flex flex-col justify-start ">
-            <side
-              className="fixed bottom-0 left-0 md:relative bg-base-100 min-w-[100%]  px-3 flex flex-col border-2 border-slate-900/10 rounded-t-xl pt-2
+            <div className="min-w-[100%] md:min-w-[20%] flex flex-col justify-start ">
+              <side
+                className="fixed bottom-0 left-0 md:relative bg-base-100 min-w-[100%]  px-3 flex flex-col border-2 border-slate-900/10 rounded-t-xl pt-2
                md:rounded-xl
               "
-              id="detail"
-            >
-              <h2 className="font-bold text-lg">RESUMEN DE TU PEDIDO</h2>
-              <div className="divider my-0"></div>
-              <div className="flex flex-row justify-between items-center">
-                <h3 className="font-bold text-lg">TOTAL:</h3>
-                <h3 className="font-bold text-lg text-red-500">$ {precioTotal}</h3>
-              </div>
-              <div className="divider my-0"></div>
-              <div
-                id="btnWrapper"
-                className="min-w-full p-2"
+                id="detail"
               >
-                <button className="btn  btn-warning btn-wide min-w-full text-white text-xl tracking-wider  ">PROCESAR COMPRA</button>
+                <h2 className="font-bold text-lg">RESUMEN DE TU PEDIDO</h2>
                 <div className="divider my-0"></div>
-                <Image
-                  className="mx-auto my-4 hidden md:block"
-                  src={"/images/corporate/100seguro.png"}
-                  alt=""
-                  height={"46"}
-                  width={"155"}
-                ></Image>
-                <linksBox className="hidden  md:block">
-                  <Link
-                    className="flex flex-row gap-x-4 items-center text-neutral-600 my-4 mx-2"
-                    href={"#"}
-                  >
-                    <BsShieldCheck className=" text-3xl " />
-                    <span className=" text-lg font-medium">Protección al comprador</span>{" "}
-                  </Link>
-                  <Link
-                    className="flex flex-row gap-x-4 items-center text-neutral-600 my-4 mx-2"
-                    href={"#"}
-                  >
-                    <BiSupport className=" text-3xl " />
-                    <span className=" text-lg font-medium">Asesoría telefónica: (54) 484-2222</span>{" "}
-                  </Link>
-                  <Link
-                    className="flex flex-row gap-x-4 items-center text-neutral-600 my-4 mx-2"
-                    href={"#"}
-                  >
-                    <BsBox2Heart className=" text-3xl " />
-                    <span className=" text-lg font-medium">Rastrea tu pedido</span>{" "}
-                  </Link>
-                </linksBox>
-              </div>
-            </side>
+                <div className="flex flex-row justify-between items-center">
+                  <h3 className="font-bold text-lg">TOTAL:</h3>
+                  <h3 className="font-bold text-lg text-red-500">$ {precioTotal}</h3>
+                </div>
+                <div className="divider my-0"></div>
+                <div
+                  id="btnWrapper"
+                  className="min-w-full p-2"
+                >
+                  <button className="btn  btn-warning btn-wide min-w-full text-white text-xl tracking-wider  ">PROCESAR COMPRA</button>
+                  <div className="divider my-0"></div>
+                  <Image
+                    className="mx-auto my-4 hidden md:block"
+                    src={"/images/corporate/100seguro.png"}
+                    alt=""
+                    height={"46"}
+                    width={"155"}
+                  ></Image>
+                  <linksBox className="hidden  md:block">
+                    <Link
+                      className="flex flex-row gap-x-4 items-center text-neutral-600 my-4 mx-2"
+                      href={"#"}
+                    >
+                      <BsShieldCheck className=" text-3xl " />
+                      <span className=" text-lg font-medium">Protección al comprador</span>{" "}
+                    </Link>
+                    <Link
+                      className="flex flex-row gap-x-4 items-center text-neutral-600 my-4 mx-2"
+                      href={"#"}
+                    >
+                      <BiSupport className=" text-3xl " />
+                      <span className=" text-lg font-medium">Asesoría telefónica: (54) 484-2222</span>{" "}
+                    </Link>
+                    <Link
+                      className="flex flex-row gap-x-4 items-center text-neutral-600 my-4 mx-2"
+                      href={"#"}
+                    >
+                      <BsBox2Heart className=" text-3xl " />
+                      <span className=" text-lg font-medium">Rastrea tu pedido</span>{" "}
+                    </Link>
+                  </linksBox>
+                </div>
+              </side>
+            </div>
           </div>
-        </div>
-      </RowResponsive>
-      : <LoadingComponentApp/>
-}
+        </RowResponsive>
+      ) : (
+        <LoadingComponentApp />
+      )}
     </>
   )
 }

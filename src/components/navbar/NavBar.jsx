@@ -1,22 +1,24 @@
 "use client"
+import { BiCartAdd } from "react-icons/bi"
+import { BsFillCartCheckFill } from "react-icons/bs"
+import { BsPersonCircle } from "react-icons/bs"
 
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import axios from "axios"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 import Link from "next/link"
 import Image from "next/image"
-import LoginLogout from '@/components/LoginLogout/LoginLogout'
+import LoginLogout from "@/components/LoginLogout/LoginLogout"
 
-import { useCarrito } from '@/context/CarritoContext'
+import { useCarrito } from "@/context/CarritoContext"
 
 function NavBar() {
+  const { cantidadTotal } = useCarrito()
 
-  const {cantidadTotal} = useCarrito();
-  
   const [logeado, setLogeado] = useState(false)
 
-/*   useEffect(async () => {
+  /*   useEffect(async () => {
     try {
       const response = await axios.get("/api/auth/check");
       if (response.status === 200){
@@ -34,7 +36,7 @@ function NavBar() {
 
   const router = useRouter()
 
-/*     const login = async () =>{
+  /*     const login = async () =>{
       router.refresh()
       router.push('/catalog/login')
     }
@@ -46,7 +48,6 @@ function NavBar() {
           router.push('/catalog/login')
         }
       } */
-
 
   return (
     <>
@@ -66,7 +67,7 @@ function NavBar() {
     </nav> */}
       <div className="navbar bg-base-100 shadow  shadowl-xl">
         <div className="flex-1">
-          <Link href="/">
+          <Link href="/catalog">
             <Image
               width={150}
               height={100}
@@ -82,21 +83,8 @@ function NavBar() {
               className="btn btn-ghost btn-circle"
             >
               <div className="indicator">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
                 <span className="badge badge-sm indicator-item">{cantidadTotal}</span>
+                <BiCartAdd className="text-2xl" />
               </div>
             </label>
             <div
@@ -120,7 +108,7 @@ function NavBar() {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                <BsPersonCircle className=" text-4xl text-center" />
               </div>
             </label>
             <ul
@@ -137,7 +125,7 @@ function NavBar() {
                 <a>Settings</a>
               </li>
               <li>
-             <a>Login</a>
+                <a>Login</a>
               </li>
             </ul>
           </div>
