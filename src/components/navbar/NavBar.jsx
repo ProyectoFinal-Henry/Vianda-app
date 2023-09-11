@@ -1,7 +1,50 @@
+"use client"
+
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+
 import Link from "next/link"
 import Image from "next/image"
+import LoginLogout from '@/components/LoginLogout/LoginLogout'
 
 function NavBar() {
+  
+  const [logeado, setLogeado] = useState(false)
+
+  useEffect(async () => {
+    try {
+      const response = await axios.get("/api/auth/check");
+      if (response.status === 200){
+        setLogeado(true)
+      }
+      else{
+        setLogeado(false)
+      }
+
+    } catch (error) {
+      setLogeado(false)
+      console.log(error)
+    }
+  }, [])
+
+  const router = useRouter()
+
+    const login = async () =>{
+      router.refresh()
+      router.push('/catalog/login')
+    }
+
+    const logout = async () =>{
+        const response = await axios.post("/api/auth/logout")
+        if (response.status === 200){
+          router.refresh()
+          router.push('/catalog/login')
+        }
+      }
+
+
+
   return (
     <>
       {/* <nav className="bg-primary">
@@ -91,7 +134,7 @@ function NavBar() {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+              {logeado? (<button onClick={logout}>Logout</button>) : (<button onClick={login}>Login</button>)}
               </li>
             </ul>
           </div>
