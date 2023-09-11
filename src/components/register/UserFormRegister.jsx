@@ -1,5 +1,7 @@
 "use client";
+
 import FormResponsiveContainer from "../formaters/FormResponsiveContainer";
+const bcrypt = require("bcryptjs");
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import {
@@ -8,6 +10,7 @@ import {
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 
 export const UserFormRegister = () => {
   const [visible, setVisible] = useState(false);
@@ -22,11 +25,30 @@ export const UserFormRegister = () => {
     formState: { errors },
     reset,
   } = useForm();
-  console.log(register);
-  console.log(errors);
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      let contraseñaIngresada = data.password;
+      const saltRounds = 10;
+      const passwordHashed = await new Promise((resolve, reject) => {
+        bcrypt.hash(contraseñaIngresada, saltRounds, function (err, hash) {
+          if (err) {
+            console.error(err);
+            reject(err);
+            return;
+          }
+          resolve(hash);
+        });
+      });
+      let newData = data;
+      newData.password = passwordHashed;
+
+      console.log(data);
+      const res = await axios.post("/api/usuarios/registro", newData);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
     reset();
   });
 
@@ -50,14 +72,14 @@ export const UserFormRegister = () => {
         >
           <div className="flex flex-col md:flex-row   min-w-full gap-x-9  ">
             <div className="form-control w-full pb-2 ">
-              <label className="label" htmlFor="nombre">
+              <label className="label" htmlFor="nombreCompleto">
                 <span className="label-text font-medium ">Nombre Completo</span>
               </label>
               <input
                 type="text"
                 placeholder="nombre"
                 className="input min-w-full input-bordered w-full  input-sm rounded h-7 bg-neutral-50"
-                {...register("nombre", {
+                {...register("nombreCompleto", {
                   required: {
                     value: true,
                     message: "Este campo es requerido",
@@ -77,9 +99,9 @@ export const UserFormRegister = () => {
                 })}
               />
 
-              {errors.nombre && (
+              {errors.nombreCompleto && (
                 <span className="mt-1 text-xs text-warning">
-                  {errors.nombre.message}
+                  {errors.nombreCompleto.message}
                 </span>
               )}
             </div>
@@ -175,39 +197,41 @@ export const UserFormRegister = () => {
               <label className="label">
                 <span className="label-text font-medium ">Contraseña</span>
               </label>
+              <div className="flex flex-row">
+                <input
+                  type={visible ? "text" : "password"}
+                  placeholder="contraseña"
+                  className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Este campo es requerido",
+                    },
+                    minLength: {
+                      value: 6,
+                      message: "La contraseña debe tener al menos 6 caracteres",
+                    },
+                    pattern: {
+                      value: /^[A-Z][a-zA-Z0-9]*$/,
+                      message:
+                        "La contraseña debe contener minúsculas,mayúsculas y numeros",
+                    },
+                  })}
+                />
 
-              <input
-                type={visible ? "text" : "password"}
-                placeholder="contraseña"
-                className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
-                {...register("password", {
-                  required: {
-                    value: true,
-                    message: "Este campo es requerido",
-                  },
-                  minLength: {
-                    value: 6,
-                    message: "La contraseña debe tener al menos 6 caracteres",
-                  },
-                  pattern: {
-                    value: /^[A-Z][a-zA-Z0-9]*$/,
-                    message:
-                      "La contraseña debe contener minúsculas,mayúsculas y numeros",
-                  },
-                })}
-              />
+                <button
+                  type="button"
+                  class="relative min-w-min   ml-3  right-9"
+                  onClick={passwordVisibility}
+                >
+                  {visible ? (
+                    <AiOutlineEye className="text-xl mr-0" />
+                  ) : (
+                    <AiOutlineEyeInvisible className="text-xl mr-0" />
+                  )}
+                </button>
+              </div>
 
-              <button
-                type="button"
-                class="relative min-w-min left-24 bottom-6  ml-3  "
-                onClick={passwordVisibility}
-              >
-                {visible ? (
-                  <AiOutlineEye className="text-xl mr-0" />
-                ) : (
-                  <AiOutlineEyeInvisible className="text-xl mr-0" />
-                )}
-              </button>
               {errors.password && (
                 <span className="mt-1 text-xs text-warning">
                   {errors.password.message}
@@ -215,7 +239,7 @@ export const UserFormRegister = () => {
               )}
             </div>
 
-            <div className="form-control  w-full pb-7">
+            <div className="form-control  w-full pb-2 ">
               <label className="label" htmlFor="direccion">
                 <span className="label-text font-medium ">Dirección</span>
               </label>
