@@ -21,6 +21,7 @@ function PaginationAdmin({ totalPages }) {
       <div className="flex justify-center flex-wrap items-center my-10">
         {Array.from({ length: totalPages }).map((_, index) => (
           <button
+            key={index}
             className={
               currentPage === index + 1
                 ? "bg-info font-bold rounded-full w-10 h-10 border-none mx-3 text-xs transition-transform transform hover:scale-125 hover:bg-info"
