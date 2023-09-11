@@ -11,12 +11,12 @@ const Filters = () => {
     if (params.get("tipo") === filterName) {
       params.delete("tipo");
     } else {
+      params.delete("skip");
       params.set("tipo", filterName);
     }
 
     const queryString = params.toString();
     return queryString;
-    
   };
 
   return (
@@ -24,36 +24,40 @@ const Filters = () => {
       <Link
         href={{ search: toggleFilter("clasico") }}
         className={
-            searchParams.get("tipo") === "clasico" 
+          searchParams.get("tipo") === "clasico"
             ? "btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"}
+            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        }
       >
         Clásico
       </Link>
       <Link
         href={{ search: toggleFilter("sinHarinas") }}
         className={
-            searchParams.get("tipo") === "sinHarinas" 
+          searchParams.get("tipo") === "sinHarinas"
             ? "btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"}
+            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        }
       >
         Sin Harinas
       </Link>
       <Link
         href={{ search: toggleFilter("vegetariano") }}
         className={
-            searchParams.get("tipo") === "vegetariano" 
+          searchParams.get("tipo") === "vegetariano"
             ? "btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"}
+            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        }
       >
         Vegetariano
       </Link>
       <Link
         href={{ search: toggleFilter("dieta") }}
         className={
-            searchParams.get("tipo") === "dieta" 
+          searchParams.get("tipo") === "dieta"
             ? "btn-info flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
-            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"}
+            : "btn-accent flex items-center justify-center rounded-xl h-8 w-28 mx-3 my-3 text-white"
+        }
       >
         Dieta
       </Link>
