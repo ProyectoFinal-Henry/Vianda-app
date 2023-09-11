@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation"
 const LinkToogleAdminCatalog = () => {
   // Obtén la ruta actual
   const currentPath = usePathname()
-  console.log("file: LinkToogleAdminCatalog.jsx:8  currentPath:", currentPath)
+ 
 
   // Verifica si la ruta contiene "/admin" o "/catalog"
 
