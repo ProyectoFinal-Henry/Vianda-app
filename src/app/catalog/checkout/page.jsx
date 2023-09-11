@@ -17,7 +17,6 @@ import LoadingComponentApp from "@/app/loading"
 /*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
 const CatalogRegisterPage = () => {
   const { precioTotal } = useCarrito()
-  console.log(precioTotal)
   let precioTotal1 = Number(precioTotal)
   const [semana, setSemana] = useState([])
   const [ready, setReady] = useState(false)
