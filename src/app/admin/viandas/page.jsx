@@ -11,6 +11,8 @@ import Filters from "@/components/adminLayout/Filters";
 import ClearFilters from "@/components/adminLayout/ClearFilters";
 import OrderByField from "@/components/adminLayout/OrderByField";
 import NotAdmin from "@/components/adminLayout/NotAdmin";
+import { prisma } from "@/libs/prisma";
+import PaginationAdmin from "@/components/adminLayout/PaginationAdmin";
 
 const AdminViandasPage = async ({ searchParams }) => {
   let data = [];
@@ -32,9 +34,9 @@ const AdminViandasPage = async ({ searchParams }) => {
       nombre: {
         contains: searchParams.search,
       },
+      tipo: searchParams.tipo,
     },
   });
-
   const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   return (
@@ -168,6 +170,7 @@ const AdminViandasPage = async ({ searchParams }) => {
               )}
             </tbody>
           </table>
+          <PaginationAdmin totalPages={totalPages} />
         </div>
       </RowResponsive>
     </div>

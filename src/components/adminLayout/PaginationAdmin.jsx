@@ -4,15 +4,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 function PaginationAdmin({ totalPages }) {
   const router = useRouter();
-  const params = useSearchParams();
-  const parameters = params.toString();
-  console.log(parameters);
-  // console.log(querytosend);
-  const handlePageChange = (index) => {
-    // const queryParams = { params, skip: index * 10 };
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  console.log(params.toString());
 
-    router.push(`?${parameters}&skip=${index * 10}`);
-    // router.push(`?skip=${index * 10}`);
+  const handlePageChange = (index) => {
+    params.set("skip", index * 10);
+    const queryString = params.toString();
+    router.push(`/admin/viandas?${queryString}`);
   };
 
   return (
