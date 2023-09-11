@@ -3,7 +3,7 @@ import { currencyFormater } from "@/libs/utils/currencyFormater"
 const CardsCheckout = ({ viandas }) => {
   return (
     <>
-      <div className="inline-flex items-stretch justify-start flex-wrap gap-2 mx-auto">
+      <div className="inline-flex items-stretch justify-start flex-wrap gap-x-2  mx-auto">
         {viandas
           .slice(5)
           .map(
@@ -27,8 +27,8 @@ const CardsCheckout = ({ viandas }) => {
             }) => {
               return (
                 <div
-                  className="flex flex-col justify-between min-h-[300px] items-stretch w-[47%] max-w-[250px] bg-base-100 shadow-xl my-6 border rounded-3xl border-slate900/10
-                  md:max-w-[140px]"
+                  className="flex flex-col justify-between min-h-[300px] items-stretch  max-w-[250px] bg-base-100 shadow-xl my-6 border rounded-3xl border-slate900/10
+                  md:max-w-[130px]"
                   key={id}
                   id="card"
                 >
