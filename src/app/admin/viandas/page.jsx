@@ -1,15 +1,16 @@
+import { TbSquareForbid2 } from "react-icons/tb";
+
+import { AiFillCheckSquare } from "react-icons/ai";
 import Link from "next/link";
-import React from "react";
 import axios from "axios";
 import RowResponsive from "@/components/formaters/RowResponsive";
 import EditCrud from "@/components/actions/EditCrud";
-import DeleteCrud from "@/components/actions/DeleteCrud";
+import ToogleEstadoVianda from "@/components/actions/ToogleEstadoVianda";
 import SearchBarViandas from "@/components/adminLayout/SearchBarViandas";
 import Filters from "@/components/adminLayout/Filters";
 import ClearFilters from "@/components/adminLayout/ClearFilters";
-import { prisma } from "@/libs/prisma";
-import PaginationAdmin from "@/components/adminLayout/PaginationAdmin";
 import OrderByField from "@/components/adminLayout/OrderByField";
+import NotAdmin from "@/components/adminLayout/NotAdmin";
 
 const AdminViandasPage = async ({ searchParams }) => {
   let data = [];
@@ -38,6 +39,7 @@ const AdminViandasPage = async ({ searchParams }) => {
 
   return (
     <div>
+      {/* <NotAdmin /> ----------------- si no tiene permisos se renderiza este componente, y el resto no*/}
       <RowResponsive>
         <div className="flex flex-col mt-10 pb-4 items-center  w-full">
           <h1 className="font-extrabold text-2xl md:text-3xl ">
@@ -56,95 +58,117 @@ const AdminViandasPage = async ({ searchParams }) => {
           </div>
           <Filters />
         </div>
+        <div className="overflow-x-auto max-w-full">
+          <table className="table table-zebra ">
+            <thead>
+              <tr className="bg-green-400">
+                <th className="text-center text-neutral ">Imagen</th>
+                <th>
+                  <OrderByField field="nombre" />
+                </th>
+                <th>
+                  <OrderByField field="tipo" />
+                </th>
 
-        <table className="border-2 border-neutral/30 mx-auto">
-          <thead>
-            <tr className="bg-green-400">
-              <th className="text-center  border ">Imagen</th>
-              <th>
-                <OrderByField field="nombre" />
-              </th>
-              <th>
-                <OrderByField field="tipo" />
-              </th>
+                <th>
+                  <OrderByField field="descripcion" />
+                </th>
 
-              <th>
-                <OrderByField field="descripcion" />
-              </th>
-
-              <th>
-                <OrderByField field="ingredientes" />
-              </th>
-              <th>
-                <OrderByField field="stock" />
-              </th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {Array.isArray(data) ? (
-              data.map(
-                (
-                  {
-                    id,
-                    imagen,
-                    nombre,
-                    tipo,
-                    descripcion,
-                    ingredientes,
-                    stock,
-                  },
-                  I
-                ) => {
-                  return (
-                    <tr key={I} className={`${I % 2 === 0 && `bg-green-100`}`}>
-                      <td>
-                        <div className="avatar p-1">
-                          <div className="w-24 rounded-full">
-                            <img src={imagen} />
-                          </div>
-                        </div>
-                      </td>
-                      <td className="border-r border-neutral/30 pl-2 font-bold">
-                        {nombre}
-                      </td>
-                      <td className="border-r border-neutral/30 px-2 text-center">
-                        <div className="badge badge-neutral">{tipo}</div>
-                      </td>
-                      <td className="border-r border-neutral/30 pl-2">
-                        {descripcion}
-                      </td>
-                      <td className="border-r border-neutral/30 pl-2">
-                        {ingredientes}
-                      </td>
-                      <td className="border-r border-neutral/30 pl-2">
-                        {stock}
-                      </td>
-                      <td className="border-r border-neutral/30 pl-2">
-                        <div className="flex flex-row justify-center items-center gap-x-2">
-                          <EditCrud
-                            route={`/admin/viandas/actualizar-vianda/${id}`}
-                          />
-                          <DeleteCrud id={id} />
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                }
-              )
-            ) : (
-              <tr>
-                <td colSpan={"7"}>
-                  <h1 className=" w-full text-2xl md:text-3xl text-center">
-                    {data}
-                  </h1>
-                </td>
+                <th>
+                  <OrderByField field="ingredientes" />
+                </th>
+                <th>
+                  <OrderByField field="stock" />
+                </th>
+                <th className="text-center text-neutral ">Status</th>
+                <th className="text-center text-neutral ">Acciones</th>
               </tr>
-            )}
-          </tbody>
-        </table>
-        <PaginationAdmin totalPages={totalPages} querytosend={querytosend} />
+            </thead>
+
+            <tbody>
+              {Array.isArray(data) ? (
+                data.map(
+                  (
+                    {
+                      id,
+                      imagen,
+                      nombre,
+                      tipo,
+                      descripcion,
+                      ingredientes,
+                      stock,
+                      estado,
+                    },
+                    I
+                  ) => {
+                    return (
+                      <tr
+                        key={I}
+                        className={`${I % 2 === 0 && `bg-green-100`}  ${
+                          !estado && "bg-red-200/50"
+                        }`}
+                      >
+                        <td>
+                          <div className="avatar p-1 relative">
+                            <div className="w-24 rounded-full">
+                              <img
+                                src={imagen}
+                                className={!estado && "filter grayscale"}
+                              />
+                            </div>
+                            <span className="absolute top-[0.1rem] left-[0.1rem] ">
+                              {id}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="b font-bold">{nombre}</td>
+                        <td className="">
+                          <div className="badge badge-neutral">{tipo}</div>
+                        </td>
+                        <td className=" ">{descripcion}</td>
+                        <td className=" ">{ingredientes}</td>
+                        <td className=" ">{stock}</td>
+                        <td className=" ">
+                          {estado ? (
+                            <AiFillCheckSquare className=" text-3xl text-accent" />
+                          ) : (
+                            <TbSquareForbid2 className=" text-3xl text-warning" />
+                          )}
+                        </td>
+                        <td>
+                          <div className=" h-full w-full flex flex-col  justify-center items-center gap-y-2 ">
+                            <span
+                              className="tooltip tooltip-left tooltip-top"
+                              data-tip="Editar vianda"
+                            >
+                              <EditCrud
+                                route={`/admin/viandas/actualizar-vianda/${id}`}
+                              />
+                            </span>
+
+                            <ToogleEstadoVianda
+                              localHost={process.env.LOCALHOST}
+                              id={id}
+                              estado={estado}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  }
+                )
+              ) : (
+                <tr>
+                  <td colSpan={"7"}>
+                    <h1 className=" w-full text-2xl md:text-3xl text-center">
+                      {data}
+                    </h1>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </RowResponsive>
     </div>
   );

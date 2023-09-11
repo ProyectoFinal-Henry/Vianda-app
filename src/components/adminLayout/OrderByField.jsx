@@ -26,7 +26,8 @@ const OrderByField = ({ field }) => {
 
   return (
     <>
-      <div className="flex flex-row items-center justify-center min-h-full gap-x-1 m-1">
+      <div className="flex flex-row items-center justify-center min-h-full gap-x-2 ">
+        <span className="text-neutral"> {field.charAt(0).toUpperCase() + field.slice(1).toLowerCase()} </span>
         <div className="flex flex-col  items-center gap-0  rounded-sm text-white min-h-full">
           <FaSortUp
             onClick={() => {
@@ -34,9 +35,8 @@ const OrderByField = ({ field }) => {
 
               router.refresh()
             }}
-            className="text-primary text-2xl -mb-3"
+            className="text-primary text-2xl -mb-2"
           />
-          <span className="text-neutral"> {field.charAt(0).toUpperCase() + field.slice(1).toLowerCase()} </span>
 
           <FaSortDown
             onClick={() => {
@@ -44,7 +44,7 @@ const OrderByField = ({ field }) => {
 
               router.refresh()
             }}
-            className="text-primary text-2xl -mt-3"
+            className="text-primary text-2xl -mt-2"
           />
         </div>
       </div>

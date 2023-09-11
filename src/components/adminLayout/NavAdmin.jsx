@@ -1,8 +1,23 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { FiMenu } from "react-icons/fi"
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 const NavAdmin = () => {
+  
+  const router = useRouter()
+
+  const logout = async () =>{
+    const response = await axios.post("/api/auth/logout")
+    if (response.status === 200){
+      router.refresh()
+      router.push('/')
+    }
+  }
+
   return (
     <>
       <div
@@ -75,12 +90,13 @@ const NavAdmin = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link
-            className="ink link-primary font-extrabold mr-10 "
+          <button
+            onClick={logout}
+            className="ink link-primary font-extrabold mr-0 md:mr-10 "
             href={"/"}
           >
             Salir Del Admin
-          </Link>
+          </button>
         </div>
       </div>
     </>

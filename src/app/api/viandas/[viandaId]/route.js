@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { prisma } from "@/libs/prisma"
 
 export const GET = async (request, { params }) => {
-   const { viandaId } = params
+  const { viandaId } = params
 
   try {
     if (viandaId) {
@@ -23,22 +23,23 @@ export async function DELETE(request, { params }) {
     // Se busca la vianda a traves de params
     const vianda = await prisma.Vianda.findUnique({
       where: { id: Number(params.viandaId) },
-      select: { status: true },
     })
 
-    // Se evalua si existe la vianda
+    // // Se evalua si existe la vianda
     if (!vianda) {
       return NextResponse.json("Vianda no encontrada", { status: 404 })
     }
 
-    // Se invierte el valor booleano {status}
-    await prisma.Vianda.update({
+    // // Se invierte el valor booleano {status}
+    const actDeactVianda = await prisma.Vianda.update({
       where: { id: Number(params.viandaId) },
-      data: { status: !vianda.status },
+      data: { estado: !vianda.estado },
     })
 
     return NextResponse.json("Vianda modificada correctamente")
   } catch (error) {
-    return NextResponse.json("Error al intentar modificar la carta", { status: 403 })
+    console.log("file: route.js:44  error:", error)
+
+    return NextResponse.json("Error al intentar activar- desactivar la vianda", { status: 403 })
   }
 }

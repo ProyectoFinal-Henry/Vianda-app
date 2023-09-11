@@ -1,35 +1,35 @@
-"use client";
-import React from "react";
-import { useState, useEffect } from "react";
-import CardAllDishes from "./CardAllDishes";
+"use client"
+import React from "react"
+import { useState, useEffect } from "react"
+import CardAllDishes from "./CardAllDishes"
 
 function Pagination({ data }) {
-  if (!Array.isArray(data)) {
-    return <p>No hay datos disponibles</p>;
-  }
-
-  const [page, setPage] = useState(1);
-  const render = 4;
-  const totalpages = Math.ceil(data.length / render);
-
-  const paginated = data.slice((page - 1) * render, page * render);
-
-  const handleClick = (event) => {
-    setPage(parseInt(event.target.value));
-  };
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
-    setPage(1);
-  }, [data]);
+    setPage(1)
+  }, [data])
 
-  const buttonSelect = [];
+  if (!Array.isArray(data)) {
+    return <p>No hay datos disponibles</p>
+  }
+  const render = 4
+  const totalpages = Math.ceil(data.length / render)
+
+  const paginated = data.slice((page - 1) * render, page * render)
+
+  const handleClick = (event) => {
+    setPage(parseInt(event.target.value))
+  }
+
+  const buttonSelect = []
   for (let i = 1; i <= totalpages; i++) {
-    buttonSelect.push(i);
+    buttonSelect.push(i)
   }
 
   return (
     <>
-      <div className="flex justify-center flex-wrap items-center my-10">
+      <div className="inline-flex items-start gap-8 mt-6">
         {buttonSelect.map((i) => (
           <button
             className={
@@ -46,11 +46,11 @@ function Pagination({ data }) {
         ))}
       </div>
 
-      <div className="grid grid-rows-4 gap-3 sm:flex justify-evenly flex-wrap mt-6">
+      <div className="max-w-full inline-flex flex-wrap items-stretch gap-2 my-6">
         <CardAllDishes data={paginated} />
       </div>
     </>
-  );
+  )
 }
 
-export default Pagination;
+export default Pagination
