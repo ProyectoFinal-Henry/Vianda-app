@@ -5,10 +5,10 @@ import { v2 as cloudinary } from "cloudinary";
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   let skip = parseInt(searchParams.get("skip"));
-  let take = parseInt(searchParams.get("take"));
+  // let take = parseInt(searchParams.get("take"));
   if (!skip) skip = 0;
-  if (!take) take = 10;
-
+  const take = 10;
+  console.log(searchParams.toString());
   if (searchParams.toString().length > 0) {
     try {
       const ing1 = searchParams.get("ing1");
@@ -82,10 +82,10 @@ export async function GET(request) {
         }
       }
 
-
       const viandas = await prisma.Vianda.findMany({
         skip: skip,
         take: take,
+
         where: {
           nombre: {
             contains: search,

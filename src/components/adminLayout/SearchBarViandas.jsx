@@ -1,15 +1,15 @@
-"use client"
-import Link from "next/link"
-import { useSearchParams } from "next/navigation"
-import { useState } from "react"
-import { FaSearch } from "react-icons/fa"
-export const dynamic = "force-dynamic"
+"use client";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { FaSearch } from "react-icons/fa";
+export const dynamic = "force-dynamic";
 
 const SearchBarViandas = () => {
-  const [searchValue, setSearchValue] = useState("")
+  const [searchValue, setSearchValue] = useState("");
   const searchParams = useSearchParams();
   const handleSearchChange = (e) => {
-  setSearchValue(e.target.value);
+    setSearchValue(e.target.value);
   };
 
   const buildQueryString = () => {
@@ -18,6 +18,7 @@ const SearchBarViandas = () => {
       params.delete("search");
     } else {
       params.set("search", searchValue);
+      params.delete("skip");
     }
     const queryString = params.toString();
     return queryString;
@@ -33,17 +34,14 @@ const SearchBarViandas = () => {
           className="input input-bordered input-md w-full max-w-xl"
           value={searchValue}
         />
-        <Link
-          href={{ search: buildQueryString() }}
-          className="-ml-10"
-        >
+        <Link href={{ search: buildQueryString() }} className="-ml-10">
           <button className=" btn btn-warning text-white ">
             <FaSearch />
           </button>
         </Link>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default SearchBarViandas
+export default SearchBarViandas;
