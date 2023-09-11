@@ -23,23 +23,23 @@ const CatalogRegisterPage = () => {
 
   const semanal = async () => {
     const week = []
-    const respuestaLunes = await axios.get(`http://localhost:3000/api/viandas?dia=lunes`)
+    const respuestaLunes = await axios.get(`/api/viandas?dia=lunes`)
     const viandasLunes = respuestaLunes.data
     week.push(viandasLunes)
 
-    const respuestaMartes = await axios.get(`http://localhost:3000/api/viandas?dia=martes`)
+    const respuestaMartes = await axios.get(`/api/viandas?dia=martes`)
     const viandasMartes = respuestaMartes.data
     week.push(viandasMartes)
 
-    const respuestaMiercoles = await axios.get(`http://localhost:3000/api/viandas?dia=miercoles`)
+    const respuestaMiercoles = await axios.get(`/api/viandas?dia=miercoles`)
     const viandasMiercoles = await respuestaMiercoles.data
     week.push(viandasMiercoles)
 
-    const respuestaJueves = await axios.get(`http://localhost:3000/api/viandas?dia=jueves`)
+    const respuestaJueves = await axios.get(`/api/viandas?dia=jueves`)
     const viandasJueves = await respuestaJueves.data
     week.push(viandasJueves)
 
-    const respuestaViernes = await axios.get(`http://localhost:3000/api/viandas?dia=viernes`)
+    const respuestaViernes = await axios.get(`/api/viandas?dia=viernes`)
     const viandasViernes = await respuestaViernes.data
 
     week.push(viandasViernes)
