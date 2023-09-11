@@ -1,4 +1,3 @@
-"use client"
 import { BsBox2Heart } from "react-icons/bs"
 import { BsBox2HeartFill } from "react-icons/bs"
 import { BiSupport } from "react-icons/bi"
@@ -11,23 +10,28 @@ import axios from "axios"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
+import { useCarrito } from "@/context/CarritoContext"
+
 
 /*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
 const CatalogRegisterPage = async () => {
+  const {precioTotal} = useCarrito();
+  console.log(precioTotal);
+  let precioTotal1 = Number(precioTotal)
   const respuestaLunes = await axios.get(`http://localhost:3000/api/viandas?dia=lunes`);
   const viandasLunes = await respuestaLunes.data;
 
-  const respuestaMartes = await axios.get(`http://localhost:3000/api/viandas?dia=martes`);
-  const viandasMartes = await respuestaMartes.data;
+  const respuestaMartes = await axios.get(`http://localhost:3000/api/viandas?dia=martes`)
+  const viandasMartes = await respuestaMartes.data
 
-  const respuestaMiercoles = await axios.get(`http://localhost:3000/api/viandas?dia=miercoles`);
-  const viandasMiercoles = await respuestaMiercoles.data;
+  const respuestaMiercoles = await axios.get(`http://localhost:3000/api/viandas?dia=miercoles`)
+  const viandasMiercoles = await respuestaMiercoles.data
 
-  const respuestaJueves = await axios.get(`http://localhost:3000/api/viandas?dia=jueves`);
-  const viandasJueves = await respuestaJueves.data;
+  const respuestaJueves = await axios.get(`http://localhost:3000/api/viandas?dia=jueves`)
+  const viandasJueves = await respuestaJueves.data
 
-  const respuestaViernes = await axios.get(`http://localhost:3000/api/viandas?dia=viernes`);
-  const viandasViernes = await respuestaViernes.data;
+  const respuestaViernes = await axios.get(`http://localhost:3000/api/viandas?dia=viernes`)
+  const viandasViernes = await respuestaViernes.data
 
   return (
     <>
@@ -48,11 +52,29 @@ const CatalogRegisterPage = async () => {
               MIS VIANDAS PARA LA SEMANA DEL: 18 AL 22 DE SEPTIEMBRE:
             </h1>
             <div className="divider my-0"></div>
-            <CardsCheckout viandasDia={viandasLunes} dia={"lunes"}/>
-            <CardsCheckout viandasDia={viandasMartes} dia={"martes"}/>
-            <CardsCheckout viandasDia={viandasMiercoles} dia= {"miercoles"}/>
-            <CardsCheckout viandasDia={viandasJueves} dia={"jueves"}/>
-            <CardsCheckout viandasDia={viandasViernes} dia={"viernes"}/>
+
+            <div className="flex flex-row gap-2 items-center">
+              <CardsCheckout
+                viandasDia={viandasLunes}
+                dia={"lunes"}
+              />
+              <CardsCheckout
+                viandasDia={viandasMartes}
+                dia={"martes"}
+              />
+              <CardsCheckout
+                viandasDia={viandasMiercoles}
+                dia={"miercoles"}
+              />
+              <CardsCheckout
+                viandasDia={viandasJueves}
+                dia={"jueves"}
+              />
+              <CardsCheckout
+                viandasDia={viandasViernes}
+                dia={"viernes"}
+              />
+            </div>
 
             <div
               id="cards"
@@ -71,7 +93,7 @@ const CatalogRegisterPage = async () => {
               <div className="divider my-0"></div>
               <div className="flex flex-row justify-between items-center">
                 <h3 className="font-bold text-lg">TOTAL:</h3>
-                <h3 className="font-bold text-lg text-red-500">{currencyFormater(5700)}</h3>
+                <h3 className="font-bold text-lg text-red-500">$ {precioTotal}</h3>
               </div>
               <div className="divider my-0"></div>
               <div

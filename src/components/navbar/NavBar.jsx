@@ -16,7 +16,7 @@ function NavBar() {
   
   const [logeado, setLogeado] = useState(false)
 
-  useEffect(async () => {
+/*   useEffect(async () => {
     try {
       const response = await axios.get("/api/auth/check");
       if (response.status === 200){
@@ -30,11 +30,11 @@ function NavBar() {
       setLogeado(false)
       console.log(error)
     }
-  }, [])
+  }, []) */
 
   const router = useRouter()
 
-    const login = async () =>{
+/*     const login = async () =>{
       router.refresh()
       router.push('/catalog/login')
     }
@@ -45,8 +45,7 @@ function NavBar() {
           router.refresh()
           router.push('/catalog/login')
         }
-      }
-
+      } */
 
 
   return (
@@ -138,7 +137,7 @@ function NavBar() {
                 <a>Settings</a>
               </li>
               <li>
-              {logeado? (<button onClick={logout}>Logout</button>) : (<button onClick={login}>Login</button>)}
+             <a>Login</a>
               </li>
             </ul>
           </div>
