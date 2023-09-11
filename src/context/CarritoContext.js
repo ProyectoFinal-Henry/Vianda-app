@@ -15,22 +15,19 @@ export const useCarrito = () => {
 export const CarritoProvider = ({ children }) => {
     const [viandas, setViandas] = useState([]);
     const [cantidadTotal, setCantidadTotal] = useState(0);
-    let flag = true;
 
 
-    if (flag) {
-        useEffect(() => {
-            const viandasGuardadas = localStorage.getItem("viandas");
-            const viandasGuardadasArray = JSON.parse(viandasGuardadas)
-            const cantidadTotalGuardada = localStorage.getItem("cantidadTotal")
-            const cantidadTotalNumber = Number(cantidadTotalGuardada);
-            if (viandasGuardadasArray && cantidadTotalNumber) {
-                setViandas(viandasGuardadasArray);
-                setCantidadTotal(cantidadTotalNumber);
-            }
-            flag = false;
-        }, [])
-    }
+    useEffect(() => {
+        const viandasGuardadas = localStorage.getItem("viandas");
+        const viandasGuardadasArray = JSON.parse(viandasGuardadas)
+        const cantidadTotalGuardada = localStorage.getItem("cantidadTotal")
+        const cantidadTotalNumber = Number(cantidadTotalGuardada);
+        if (viandasGuardadasArray && cantidadTotalNumber) {
+            setViandas(viandasGuardadasArray);
+            setCantidadTotal(cantidadTotalNumber);
+        }
+    }, [])
+
 
     useEffect(() => {
         localStorage.setItem("viandas", JSON.stringify(viandas));
