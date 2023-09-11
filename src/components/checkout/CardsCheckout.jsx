@@ -4,12 +4,12 @@ import { useCarrito } from "@/context/CarritoContext"
 import { useEffect, useState } from "react"
 
 
-let id = 0;
 
+
+let id = 0;
 const CardsCheckout = async({viandasDia, dia}) => {
   //Me traigo los valores guardados en localStorage por si exisitieren. Y las funciones para las modificaciones.  
   const {viandas, agregarVianda, quitarVianda, modificarCantidad} = useCarrito();
-  
   const viandaVacia = {
     id: 0,
     nombre: "Sin seleccion.",
@@ -20,36 +20,38 @@ const CardsCheckout = async({viandasDia, dia}) => {
     stock: "Sin seleccion.",
   };
   
-  
   //Guardo cada tipo de vianda en una variable diferente para poder manejar las posibilidades de cambio.
   const viandaDieta = viandasDia.find((vianda)=> vianda.tipo === "dieta");
   const viandaClasico = viandasDia.find((vianda)=> vianda.tipo === "clasico");
   const viandaSinHarina = viandasDia.find((vianda)=> vianda.tipo === "sinHarinas");
   const viandaVegetariano = viandasDia.find((vianda)=> vianda.tipo === "vegetariano");
   
+  
   //Estado para guardar las seleccion. Por default nada en caso de que no se desee pedir. O no se haya registrado
   // de manera previa.
   const [viandaSeleccionada, setViandaSeleccionada]= useState(viandaVacia);
-  
-  
-  const index = viandas.findIndex((vianda) => vianda[dia] === true);
-  const viandaGuardada = viandas[index];
 
-  
+
+const index = viandas.findIndex((vianda) => vianda[dia] === true);
+const viandaGuardada = viandas[index];
+
   if (viandaSeleccionada.id === 0 && viandaGuardada){
     id = viandaGuardada.id;
+    console.log(id)
     setViandaSeleccionada(viandaGuardada);
   }
-  
-    useEffect(() => {
+  if(viandaSeleccionada.id===0){
+
+  }
+
+  useEffect(() => {
     if (viandaSeleccionada.id !== 0) {
       id = Number(viandaSeleccionada.id);
-      console.log("entro");
     }
   }, [viandaSeleccionada]);
   
-  
-  const handleChange = async(e)=>{
+
+const handleChange = async(e)=>{
   const seleccion = e.target.value;
   switch (seleccion) {
     case "clasico":
@@ -57,23 +59,23 @@ const CardsCheckout = async({viandasDia, dia}) => {
       setViandaSeleccionada(viandaClasico);
       break;
       case "sinHarina":
-        agregarVianda(viandaSinHarina);
+      agregarVianda(viandaSinHarina);
       setViandaSeleccionada(viandaSinHarina);
       break;
       case "vegetariano":
-        agregarVianda(viandaVegetariano);
-        setViandaSeleccionada(viandaVegetariano);
-        break;
-        case "dieta":
-          agregarVianda(viandaDieta);
-          setViandaSeleccionada(viandaDieta);
+      agregarVianda(viandaVegetariano);
+      setViandaSeleccionada(viandaVegetariano);
+      break;
+      case "dieta":
+      agregarVianda(viandaDieta);
+      setViandaSeleccionada(viandaDieta);
       break;
       case "viandaVacia":
-        setViandaSeleccionada(viandaVacia);
-        break;
-        default:
-          break;
-        }
+      setViandaSeleccionada(viandaVacia);
+      break;
+      default:
+      break;
+  }
 }
 
 const handleOnClick = (e)=>{
@@ -85,9 +87,8 @@ const handleChangeCantidad =(e) => {
   const valor = Number(e.target.value)
   modificarCantidad(id,valor)
 }
-/*
-*/
-return (
+
+  return (
     <>
       <div className="inline-flex items-stretch justify-start flex-wrap gap-2 mx-auto">
                 <div
@@ -105,6 +106,7 @@ return (
                           <option value="4">4</option>
                           <option value="5">5</option>
                         </select>
+                  {/* <div id="cardHeader"> */}
                   <div className="avatar max-h-36">
 
                     <div
@@ -123,6 +125,7 @@ return (
                   >
                     <span className="badge m-1 bg-accent/50 rounded border-none">{viandaSeleccionada.tipo}</span>
                     <h2 className="font-bold leading-4 ml-2">{viandaSeleccionada.nombre}</h2>
+                    {/* </div> */}
                     <div className="card-actions flex flex-col justify-end ">
                       <h3 className="ml-3">{currencyFormater(viandaSeleccionada.stock)}</h3>
                       <div
@@ -143,7 +146,7 @@ return (
                     </div>
                   </div>
                 </div>
-      </div> 
+      </div>
     </>
   )
 }
