@@ -18,8 +18,8 @@ import { GiSandsOfTime } from "react-icons/gi"
 const LoginCatalogPage = () => {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
-  const [authError, setAuthError] = useState(false);
   const [loadingUp, setLoadingUp] = useState(false)
+  const [error, setError] = useState("")
 
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState);
@@ -40,8 +40,11 @@ const LoginCatalogPage = () => {
         router.refresh()
         router.push("/admin");
       }
+      else {
+        setError(response.data.error)
+      }
     } catch (error) {
-      setAuthError(true);
+      console.log(error)
     }
     setLoadingUp(false)
   });
@@ -50,12 +53,12 @@ const LoginCatalogPage = () => {
     <>
       <FormResponsiveContainer className="">
         {loadingUp ? (
-          <div className="alert alert-info border-1 h-12 font-extrabold shadow-secondary shadow-xl border-primary flex items-center animate-bounce">
+          <div className="alert alert-info border-1 h-12 mb-3 font-extrabold shadow-secondary shadow-xl border-primary flex items-center animate-bounce">
             <GiSandsOfTime className="text-2xl" />
             PROCESANDO...
           </div>
         ) : (
-          <div className="alert-placeholder h-12">
+          <div className="alert-placeholder h-12 mt-3">
           </div>
         )}
         <div className="min-w-full flex flex-col items-center">
@@ -115,15 +118,10 @@ const LoginCatalogPage = () => {
                     )}
                   </button>
                 </div>
-                {authError ? (
-                  <span className="mt-4 text-xs text-warning text-center">
-                    USUARIO O CONTRASEÑA INCORRECTOS
-                  </span>
-                ) : (
-                  <span className="mt-4 text-xs">
-                    <br></br>
-                  </span>
-                )}
+                    {error? (<span className="mt-4 text-xs text-warning text-center">{error}</span>)
+                    : (<span className="mt-4 text-xs">
+                      <br></br>
+                      </span>) }
               </div>
             </div>
             <div className="flex mt-5 justify-center">
