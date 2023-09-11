@@ -91,7 +91,7 @@ const NavAdmin = () => {
         <div className="navbar-end">
           <button
             onClick={logout}
-            className="ink link-primary font-extrabold mr-10 "
+            className="ink link-primary font-extrabold mr-0 md:mr-10 "
             href={"/"}
           >
             Salir Del Admin
