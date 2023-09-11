@@ -7,17 +7,17 @@ const Filters = () => {
   const searchParams = useSearchParams();
   const toggleFilter = (filterName) => {
     const params = new URLSearchParams(searchParams);
-      if (params.get("tipo") === filterName) {
-        params.delete("tipo");
-      } else {
-        params.set("tipo", filterName);
-      }
-  
-      const queryString = params.toString();
-      console.log
-      return queryString;
+
+    if (params.get("tipo") === filterName) {
+      params.delete("tipo");
+    } else {
+      params.delete("skip");
+      params.set("tipo", filterName);
     }
-    
+
+    const queryString = params.toString();
+    return queryString;
+  };
 
   return (
     <div className="flex  flex-row flex-wrap justify-center mt-3">
