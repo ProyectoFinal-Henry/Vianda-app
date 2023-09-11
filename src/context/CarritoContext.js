@@ -10,10 +10,12 @@ export const useCarrito = () => {
     }
     return context;
 }
+let precioTotal = 0;
 
 export const CarritoProvider = ({ children }) => {
     const [viandas, setViandas] = useState([]);
     const [cantidadTotal, setCantidadTotal] = useState(0);
+
 
     useEffect(() => {
         const viandasGuardadas = localStorage.getItem("viandas");
@@ -30,6 +32,8 @@ export const CarritoProvider = ({ children }) => {
     useEffect(() => {
         const contadorCantidad = viandas.reduce((total, producto) => total + producto.cantidad, 0);
         setCantidadTotal(contadorCantidad);
+        const contadorPrecio = viandas.reduce((total, producto) => Number(total) + (Number(producto.precio) * Number(producto.cantidad)), 0);
+        precioTotal = contadorPrecio
         localStorage.setItem("viandas", JSON.stringify(viandas));
         localStorage.setItem("cantidadTotal", contadorCantidad);
     }, [viandas])
@@ -65,6 +69,6 @@ export const CarritoProvider = ({ children }) => {
             throw new Error("No se pudo encontrar la vianda en el carrito de compras.")
         }
     }
-
-    return <CarritoContext.Provider value={{ viandas, cantidadTotal, agregarVianda, quitarVianda, modificarCantidad }}>{children}</CarritoContext.Provider>
+    
+    return <CarritoContext.Provider value={{ viandas, cantidadTotal, precioTotal, agregarVianda, quitarVianda, modificarCantidad }}>{children}</CarritoContext.Provider>
 }
