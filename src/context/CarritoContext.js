@@ -17,6 +17,7 @@ export const CarritoProvider = ({ children }) => {
     const [cantidadTotal, setCantidadTotal] = useState(0);
 
 
+
     useEffect(() => {
         const viandasGuardadas = localStorage.getItem("viandas");
         const viandasGuardadasArray = JSON.parse(viandasGuardadas)
