@@ -38,7 +38,7 @@ export async function POST(request) {
           telefono,
           email,
           dni,
-          password: passwordHashed,
+          password,
           direccion,
         },
       });

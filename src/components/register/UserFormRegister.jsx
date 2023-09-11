@@ -1,5 +1,7 @@
 "use client";
+
 import FormResponsiveContainer from "../formaters/FormResponsiveContainer";
+const bcrypt = require("bcryptjs");
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import {
@@ -26,8 +28,23 @@ export const UserFormRegister = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      let contraseñaIngresada = data.password;
+      const saltRounds = 10;
+      const passwordHashed = await new Promise((resolve, reject) => {
+        bcrypt.hash(contraseñaIngresada, saltRounds, function (err, hash) {
+          if (err) {
+            console.error(err);
+            reject(err);
+            return;
+          }
+          resolve(hash);
+        });
+      });
+      let newData = data;
+      newData.password = passwordHashed;
+
       console.log(data);
-      const res = await axios.post("/api/usuarios/registro", data);
+      const res = await axios.post("/api/usuarios/registro", newData);
       console.log(res);
     } catch (error) {
       console.log(error);
