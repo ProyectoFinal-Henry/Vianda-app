@@ -1,7 +1,53 @@
+"use client"
+
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+
 import Link from "next/link"
 import Image from "next/image"
+import LoginLogout from '@/components/LoginLogout/LoginLogout'
+
+import { useCarrito } from '@/context/CarritoContext'
 
 function NavBar() {
+
+  const {cantidadTotal} = useCarrito();
+  
+  const [logeado, setLogeado] = useState(false)
+
+/*   useEffect(async () => {
+    try {
+      const response = await axios.get("/api/auth/check");
+      if (response.status === 200){
+        setLogeado(true)
+      }
+      else{
+        setLogeado(false)
+      }
+
+    } catch (error) {
+      setLogeado(false)
+      console.log(error)
+    }
+  }, []) */
+
+  const router = useRouter()
+
+/*     const login = async () =>{
+      router.refresh()
+      router.push('/catalog/login')
+    }
+
+    const logout = async () =>{
+        const response = await axios.post("/api/auth/logout")
+        if (response.status === 200){
+          router.refresh()
+          router.push('/catalog/login')
+        }
+      } */
+
+
   return (
     <>
       {/* <nav className="bg-primary">
@@ -50,7 +96,7 @@ function NavBar() {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <span className="badge badge-sm indicator-item">8</span>
+                <span className="badge badge-sm indicator-item">{cantidadTotal}</span>
               </div>
             </label>
             <div
@@ -58,11 +104,11 @@ function NavBar() {
               className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
             >
               <div className="card-body">
-                <span className="font-bold text-lg">8 Items</span>
+                <span className="font-bold text-lg">{`${cantidadTotal} Items`}</span>
                 <span className="text-info">Subtotal: $999</span>
                 <div className="card-actions">
                   <Link href={"/catalog/checkout"}>
-                    <button className="btn btn-primary btn-block">Ver carrito</button>
+                    <button className="btn btn-primary btn-sm btn-block">Ver carrito</button>
                   </Link>
                 </div>
               </div>
@@ -91,7 +137,7 @@ function NavBar() {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+             <a>Login</a>
               </li>
             </ul>
           </div>

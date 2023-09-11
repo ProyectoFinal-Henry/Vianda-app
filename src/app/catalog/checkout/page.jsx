@@ -1,3 +1,4 @@
+"use client"
 import { BsBox2Heart } from "react-icons/bs"
 import { BsBox2HeartFill } from "react-icons/bs"
 import { BiSupport } from "react-icons/bi"
@@ -12,26 +13,31 @@ import Link from "next/link"
 import React from "react"
 
 /*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
-const temporaryViandas = async () => {
-  const viandas = await axios(`${process.env.LOCALHOST}/api/viandas`)
-
-  // console.log("file: page.jsx:15  viandas.data:", viandas.data)
-  return viandas.data
-}
-/*========== solo mientras hay acceso al local storage voy a traer las viandas por request FIN ==========*/
 const CatalogRegisterPage = async () => {
-  /*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
-  const viandasToRender = await temporaryViandas()
-  /*========== solo mientras hay acceso al local storage voy a traer las viandas por request FIN ==========*/
+  const respuestaLunes = await axios.get(`http://localhost:3000/api/viandas?dia=lunes`);
+  const viandasLunes = await respuestaLunes.data;
+
+  const respuestaMartes = await axios.get(`http://localhost:3000/api/viandas?dia=martes`);
+  const viandasMartes = await respuestaMartes.data;
+
+  const respuestaMiercoles = await axios.get(`http://localhost:3000/api/viandas?dia=miercoles`);
+  const viandasMiercoles = await respuestaMiercoles.data;
+
+  const respuestaJueves = await axios.get(`http://localhost:3000/api/viandas?dia=jueves`);
+  const viandasJueves = await respuestaJueves.data;
+
+  const respuestaViernes = await axios.get(`http://localhost:3000/api/viandas?dia=viernes`);
+  const viandasViernes = await respuestaViernes.data;
+
   return (
     <>
       <RowResponsive>
         <div
           id="checkout"
-          className="flex  flex-col md:flex-row   gap-y"
+          className="flex  flex-col md:flex-row   gap-8"
         >
           <main
-            className="md:max-w-[80%] bg-yellow-200"
+            className="md:max-w-[80%] "
             id="grid"
           >
             <h1
@@ -42,7 +48,11 @@ const CatalogRegisterPage = async () => {
               MIS VIANDAS PARA LA SEMANA DEL: 18 AL 22 DE SEPTIEMBRE:
             </h1>
             <div className="divider my-0"></div>
-            <CardsCheckout viandas={viandasToRender} />
+            <CardsCheckout viandasDia={viandasLunes} dia={"lunes"}/>
+            <CardsCheckout viandasDia={viandasMartes} dia={"martes"}/>
+            <CardsCheckout viandasDia={viandasMiercoles} dia= {"miercoles"}/>
+            <CardsCheckout viandasDia={viandasJueves} dia={"jueves"}/>
+            <CardsCheckout viandasDia={viandasViernes} dia={"viernes"}/>
 
             <div
               id="cards"
@@ -53,7 +63,7 @@ const CatalogRegisterPage = async () => {
           <div className="min-w-[100%] md:min-w-[20%] flex flex-col justify-start ">
             <side
               className="fixed bottom-0 left-0 md:relative bg-base-100 min-w-[100%]  px-3 flex flex-col border-2 border-slate-900/10 rounded-t-xl pt-2
-               md:rounded-none
+               md:rounded-xl
               "
               id="detail"
             >

@@ -39,7 +39,6 @@ enum Tipo {
 
 model Usuario {
   id             Int      @id @default(autoincrement())
-  username       String?  @unique
   rol            Rol      @default(cliente)
   nombreCompleto String
   telefono       String

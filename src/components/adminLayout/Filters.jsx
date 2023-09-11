@@ -20,7 +20,7 @@ const Filters = () => {
   };
 
   return (
-    <div className="flex mt-3">
+    <div className="flex  flex-row flex-wrap justify-center mt-3">
       <Link
         href={{ search: toggleFilter("clasico") }}
         className={

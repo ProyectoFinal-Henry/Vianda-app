@@ -12,12 +12,14 @@ import FormResponsiveContainer from "@/components/formaters/FormResponsiveContai
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { GiSandsOfTime } from "react-icons/gi"
 
 
 const LoginCatalogPage = () => {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
   const [authError, setAuthError] = useState(false);
+  const [loadingUp, setLoadingUp] = useState(false)
 
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState);
@@ -31,6 +33,8 @@ const LoginCatalogPage = () => {
 
   const onSubmit = handleSubmit(async (formData) => {
     try {
+      setLoadingUp(true)
+      await new Promise((resolve) => setTimeout(resolve, 1000))
       const response = await axios.post("/api/auth/login", formData);
       if (response.data === "success") {
         router.refresh()
@@ -39,12 +43,22 @@ const LoginCatalogPage = () => {
     } catch (error) {
       setAuthError(true);
     }
+    setLoadingUp(false)
   });
 
   return (
     <>
       <FormResponsiveContainer className="">
-        <div className="min-w-full flex flex-col my-16 items-center ">
+        {loadingUp ? (
+          <div className="alert alert-info border-1 h-12 font-extrabold shadow-secondary shadow-xl border-primary flex items-center animate-bounce">
+            <GiSandsOfTime className="text-2xl" />
+            PROCESANDO...
+          </div>
+        ) : (
+          <div className="alert-placeholder h-12">
+          </div>
+        )}
+        <div className="min-w-full flex flex-col items-center">
           <form onSubmit={onSubmit}>
             <h1 className="text-xl text-neutral text-center">INICIAR SESIÓN</h1>
             <div className="divider mt-2"></div>
@@ -127,7 +141,7 @@ const LoginCatalogPage = () => {
             <div className="divider"></div>
           </form>
           <p>O ingresa con</p>
-          <button className="items-center gap-x-1.5 mt-4 flex font-bold border-solid border-neutral border-2 rounded-sm px-4 py-0.5 border-opacity-30">
+          <button className="items-center gap-x-1.5 mt-4 mb-16 flex font-bold border-solid border-neutral border-2 rounded-sm px-4 py-0.5 border-opacity-30">
             <FcGoogle className="text-2xl px-0 mx-0" />
             Google
           </button>
