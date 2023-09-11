@@ -11,9 +11,14 @@ import axios from "axios"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
+import { useCarrito } from "@/context/CarritoContext"
+
 
 /*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
 const CatalogRegisterPage = async () => {
+  const {precioTotal} = useCarrito();
+  console.log(precioTotal);
+  let precioTotal1 = Number(precioTotal)
   const respuestaLunes = await axios.get(`http://localhost:3000/api/viandas?dia=lunes`);
   const viandasLunes = await respuestaLunes.data;
 
@@ -71,7 +76,7 @@ const CatalogRegisterPage = async () => {
               <div className="divider my-0"></div>
               <div className="flex flex-row justify-between items-center">
                 <h3 className="font-bold text-lg">TOTAL:</h3>
-                <h3 className="font-bold text-lg text-red-500">{currencyFormater(5700)}</h3>
+                <h3 className="font-bold text-lg text-red-500">$ {precioTotal}</h3>
               </div>
               <div className="divider my-0"></div>
               <div

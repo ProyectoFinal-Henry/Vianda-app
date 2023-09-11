@@ -158,7 +158,7 @@ const CardsCheckout = async({viandasDia, dia}) => {
                     <span className="badge m-1 bg-accent/50 rounded border-none">{viandaSeleccionada.tipo}</span>
                     <h2 className="font-bold leading-4 ml-2">{viandaSeleccionada.nombre}</h2>
                     <div className="card-actions flex flex-col justify-end ">
-                      <h3 className="ml-3">{currencyFormater(viandaSeleccionada.stock)}</h3>
+                      <h3 className="ml-3">{currencyFormater(viandaSeleccionada.precio)}</h3>
                       <div
                         id="typeWrapper"
                         className="mx-auto mb-2"
