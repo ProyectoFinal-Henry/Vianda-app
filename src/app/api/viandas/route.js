@@ -18,6 +18,7 @@ export async function GET(request) {
       let search = searchParams.get("search");
       let campo = searchParams.get("campo");
       let orden = searchParams.get("orden");
+      const dia = searchParams.get("dia");
       if (!search) search = "";
       if (!orden) orden = "asc";
       if (!campo) campo = "id";
@@ -37,7 +38,6 @@ export async function GET(request) {
           },
         });
       }
-
       if (ing3) {
         whereCondicion.push({
           ingredientes: {
@@ -50,6 +50,38 @@ export async function GET(request) {
           tipo: tipo,
         });
       }
+      if (dia) {
+        switch (dia) {
+          case "lunes":
+            whereCondicion.push({
+              lunes: true,
+            });
+            break;
+          case "martes":
+            whereCondicion.push({
+              martes: true,
+            });
+            break;
+          case "miercoles":
+            whereCondicion.push({
+              miercoles: true,
+            });
+            break;
+          case "jueves":
+            whereCondicion.push({
+              jueves: true,
+            });
+            break;
+          case "viernes":
+            whereCondicion.push({
+              viernes: true,
+            });
+            break;
+          default:
+            break;
+        }
+      }
+
 
       const viandas = await prisma.Vianda.findMany({
         skip: skip,
