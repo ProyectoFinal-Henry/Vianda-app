@@ -23,23 +23,23 @@ const CatalogRegisterPage = () => {
 
   const semanal = async () => {
     const week = []
-    const respuestaLunes = await axios.get(`http://localhost:3000/api/viandas?dia=lunes`)
+    const respuestaLunes = await axios.get(`/api/viandas?dia=lunes`)
     const viandasLunes = respuestaLunes.data
     week.push(viandasLunes)
 
-    const respuestaMartes = await axios.get(`http://localhost:3000/api/viandas?dia=martes`)
+    const respuestaMartes = await axios.get(`/api/viandas?dia=martes`)
     const viandasMartes = respuestaMartes.data
     week.push(viandasMartes)
 
-    const respuestaMiercoles = await axios.get(`http://localhost:3000/api/viandas?dia=miercoles`)
+    const respuestaMiercoles = await axios.get(`/api/viandas?dia=miercoles`)
     const viandasMiercoles = await respuestaMiercoles.data
     week.push(viandasMiercoles)
 
-    const respuestaJueves = await axios.get(`http://localhost:3000/api/viandas?dia=jueves`)
+    const respuestaJueves = await axios.get(`/api/viandas?dia=jueves`)
     const viandasJueves = await respuestaJueves.data
     week.push(viandasJueves)
 
-    const respuestaViernes = await axios.get(`http://localhost:3000/api/viandas?dia=viernes`)
+    const respuestaViernes = await axios.get(`/api/viandas?dia=viernes`)
     const viandasViernes = await respuestaViernes.data
 
     week.push(viandasViernes)
@@ -65,14 +65,15 @@ const CatalogRegisterPage = () => {
             >
               <h1
                 id="title"
-                className="font-medium text-lg text-center mx-4
+                className="font-bold text-lg text-center mx-4
               md:mt-8 md:text-left"
               >
-                MIS VIANDAS PARA LA SEMANA DEL: 18 AL 22 DE SEPTIEMBRE:
+                MIS VIANDAS PARA LA SEMANA DEL:
+                <br className="md:hidden" /> 18 AL 22 DE SEPTIEMBRE:
               </h1>
               <div className="divider my-0"></div>
 
-              <div className="flex flex-row gap-2 items-center">
+              <div className="flex flex-row justify-center flex-wrap gap-2 items-center">
                 <CardsCheckout
                   viandasDia={semana[0]}
                   dia={"lunes"}
@@ -101,7 +102,7 @@ const CatalogRegisterPage = () => {
               ></div>
             </main>
 
-            <div className="min-w-[100%] md:min-w-[20%] flex flex-col justify-start ">
+            <div className="min-w-[100%] md:min-w-[20%] flex flex-col justify-start mt-16 ">
               <side
                 className="fixed bottom-0 left-0 md:relative bg-base-100 min-w-[100%]  px-3 flex flex-col border-2 border-slate-900/10 rounded-t-xl pt-2
                md:rounded-xl
@@ -157,7 +158,9 @@ const CatalogRegisterPage = () => {
           </div>
         </RowResponsive>
       ) : (
-        <LoadingComponentApp />
+        <div className="flex min-h-[90vh]">
+          <LoadingComponentApp />
+        </div>
       )}
     </>
   )

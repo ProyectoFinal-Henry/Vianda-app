@@ -118,74 +118,101 @@ const CardsCheckout = ({ viandasDia, dia }) => {
       agregarVianda(cambioDeCantidad)
     }
   }
-
+  // !===============================================================
   return (
     <>
       <div
-        className="flex flex-col w-[47%] max-w-[250px] bg-base-100 shadow-xl my-6 border rounded-3xl border-slate900/10
-    md:max-w-[130px]"
+        className="w-[47%] max-w-[250px] md:max-w-[130px] my-3"
+        id="cardWrapper"
       >
-        <div
-          className="flex flex-col justify-between  min-h-[350px] items-stretch "
-          key={viandaSeleccionada.id}
-          id="card"
+        <h1
+          id="title"
+          className="font-medium text-xl uppercase  text-center  tracking-wider"
         >
-          {/* <div
-        className="flex flex-col justify-between min-h-[300px] items-stretch w-[47%] max-w-[250px] bg-base-100 shadow-xl my-6 border rounded-3xl border-slate900/10
-                  md:max-w-[130px]"
-        key={viandaSeleccionada.id}
-        id="card"
-      > */}
-          <div className="avatar max-h-36">
-            <div
-              className="w-full
-                        rounded-t-3xl"
-            >
-              <img
-                className="object-cover"
-                src={viandaSeleccionada.imagen}
-              />
-            </div>
-          </div>
+          {dia}
+        </h1>
+
+        <div
+          className="flex flex-col  bg-base-100 shadow-xl  border rounded-xl border-slate900/10
+            "
+        >
           <div
-            id="cardBody"
-            className="flex flex-col justify-between gap-1 p-1 h-full"
+            className="flex flex-col justify-between  min-h-[330px] items-stretch "
+            key={viandaSeleccionada.id}
+            id="card"
           >
-            <span className="badge m-1 bg-accent/50 rounded border-none">{viandaSeleccionada.tipo}</span>
-            <h2 className="font-bold leading-4 ml-2">{viandaSeleccionada.nombre}</h2>
-            <div className="card-actions flex flex-col justify-end ">
-              {viandaSeleccionada.precio > 0 && <h3 className="ml-3">{currencyFormater(viandaSeleccionada.precio)}</h3>}
-              {mostrarBotonCantidad[dia] && <button onClick={handleCantidad}>{`Cantidad: ${viandaSeleccionada.cantidad}`}</button>}
-              {mostrarSelectCantidad[dia] && (
-                <select
-                  className="select select-xs select-bordered rounded w-full max-w-[130px]"
-                  onChange={handleChangeCantidad}
+            <div className="flex flex-col items-center justify-center gap-y-1">
+              <div className="avatar max-h-36">
+                <div
+                  className="w-full
+                            rounded-t-3xl"
                 >
-                  <option value="borrar">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-              )}
-              <div
-                id="typeWrapper"
-                className="mx-auto mb-2"
-              >
-                {viandaSeleccionada.id !== 0 && <button onClick={handleCambiar}>Cambiar</button>}
-                {viandaSeleccionada.id === 0 && (
+                  <img
+                    className="object-cover"
+                    src={viandaSeleccionada.imagen}
+                  />
+                </div>
+              </div>
+              <span className="badge m-1 bg-accent/50 rounded border-none">{viandaSeleccionada.tipo}</span>
+            </div>
+
+            <div
+              id="cardBody"
+              className="flex flex-col justify-between gap-1 p-1 min-h-[165px]"
+            >
+              <h2 className="font-medium leading-4 ml-1">{viandaSeleccionada.nombre}</h2>
+
+              <div className="card-actions flex flex-col justify-end ">
+                {viandaSeleccionada.precio > 0 && (
+                  <h3 className="min-w-full font-bold text-base text-center tracking-wider">
+                    {currencyFormater(viandaSeleccionada.precio)}
+                  </h3>
+                )}
+
+                {mostrarBotonCantidad[dia] && viandaSeleccionada.id !== 0 && (
+                  <button
+                    className="font-medium ml-2"
+                    onClick={handleCantidad}
+                  >{`Cantidad: ${viandaSeleccionada.cantidad}`}</button>
+                )}
+                {mostrarSelectCantidad[dia] && (
                   <select
-                    className="select select-xs select-bordered rounded w-full max-w-xs"
-                    onChange={handleChange}
+                    className="select select-xs select-bordered rounded w-full max-w-[130px]"
+                    onChange={handleChangeCantidad}
                   >
-                    <option value="viandaVacia">sel. tipo</option>
-                    <option value="clasico">Clasico</option>
-                    <option value="sinHarina">Sin Harinas</option>
-                    <option value="vegetariano">Vegetariano</option>
-                    <option value="dieta">Dieta</option>
+                    <option value="borrar">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                   </select>
                 )}
+                <div
+                  id="typeWrapper"
+                  className="mx-auto mb-2"
+                >
+                  {viandaSeleccionada.id !== 0 && (
+                    <button
+                      className="btn btn-accent btn-sm "
+                      onClick={handleCambiar}
+                    >
+                      Cambiar
+                    </button>
+                  )}
+                  {viandaSeleccionada.id === 0 && (
+                    <select
+                      className="select select-xs select-bordered rounded w-full max-w-xs bg-red-300/40"
+                      onChange={handleChange}
+                    >
+                      <option value="viandaVacia">sel. tipo</option>
+                      <option value="clasico">Clasico</option>
+                      <option value="sinHarina">Sin Harinas</option>
+                      <option value="vegetariano">Vegetariano</option>
+                      <option value="dieta">Dieta</option>
+                    </select>
+                  )}
+                </div>
               </div>
             </div>
           </div>
