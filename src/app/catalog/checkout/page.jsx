@@ -58,11 +58,15 @@ const CatalogRegisterPage = () => {
 
   const handleClick = async(e)=>{
   const usuario = await axios.get("/api/auth/check");
-  const fk_usuarioId = usuario.data.id;
-  const respuesta =  await pedidosFormater(fk_usuarioId, precioTotal, metodoPago, estado, viandas)
-  const pedidoDB = await axios.post(`/api/pedidos`, respuesta);
-  window.alert(pedidoDB.data.message);
+  if(usuario.data.error === "no token") {
+    window.alert("Es necesario estar LOGUEADO para poder finalizar el pedido.");
+  }else{
+    const fk_usuarioId = usuario.data.id;
+    const respuesta =  await pedidosFormater(fk_usuarioId, precioTotal, metodoPago, estado, viandas)
+    const pedidoDB = await axios.post(`/api/pedidos`, respuesta);
+    window.alert(pedidoDB.data.message);
   }
+}
 
   return (
     <>
