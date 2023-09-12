@@ -26,7 +26,7 @@ function MisDatos({usuarioId}) {
   },
 });
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (usuarioId) {
       ;(async () => {
         const toUpdateReq = await axios(`/api/usuarios/${usuarioId}`)
@@ -39,7 +39,17 @@ function MisDatos({usuarioId}) {
         // setIdDb(data.id)
       })()
     }
-  }, [usuarioId, setValue])
+  }, [usuarioId, setValue]) */
+
+  useEffect(async () => {
+      const response = await axios.get('/api/auth/check')
+      //la petición get a /check lo que hace es traer todos los datos de la sesión que están guardadas en el token
+      setValue("nombre", response.data.nombre)
+      setValue("email", response.data.email)
+      setValue("dni", response.data.dni)
+      setValue("telefono", response.data.telefono)
+      setValue("direccion", response.data.direccion)
+  }, [])
 
 
   const onSubmit = handleSubmit((data) => {

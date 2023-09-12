@@ -34,11 +34,15 @@ const LoginCatalogPage = () => {
   const onSubmit = handleSubmit(async (formData) => {
     try {
       setLoadingUp(true)
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await new Promise((resolve) => setTimeout(resolve, 3000))
       const response = await axios.post("/api/auth/login", formData);
-      if (response.data === "success") {
+      if (response.data.rol === "cliente") {
         router.refresh()
-        router.push("/admin");
+        router.push("/catalog/mi-cuenta");
+      }
+      else if (response.data.rol === "administrador"){
+        router.refresh()
+        router.push("/admin")
       }
       else {
         setError(response.data.error)
