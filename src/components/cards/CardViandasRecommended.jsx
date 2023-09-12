@@ -1,4 +1,5 @@
 import axios from "axios"
+import { BsFillBoxSeamFill } from "react-icons/bs"
 
 async function CardRecomend() {
   const res = await axios.get(`${process.env.LOCALHOST}/api/viandas`)
@@ -16,14 +17,19 @@ async function CardRecomend() {
 
   return (
     <>
-      <div className="max-w-full inline-flex flex-wrap items-stretch gap-2 my-6">
+      <div className="flex justify-center w-full my-12">
+        <h2 className="text-slate-700 font-extrabold text-2xl md:text-4xl text-left md:min-w-fit mt-12 md:mt-0">
+          Recomendados de la semana
+        </h2>
+      </div>
+      <div className="min-w-full flex flex-row flex-wrap  justify-between  my-6 gap-y-4">
         {randomViandas.map((vianda, index) => (
           <div
             key={index}
-            className="card w-[90%] mx-auto sm:max-w-[220px] bg-primary-focus hover:scale-110 duration-300 shadow-xl cursor-default
+            className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px]    shadow-xl cursor-default rounded-xl md:min-h-[360px]
           "
           >
-            <div className="avatar">
+            {/* <div className="avatar">
               <div className="w-full h-40 rounded-t-2xl ">
                 <img
                   src={vianda.imagen}
@@ -32,32 +38,25 @@ async function CardRecomend() {
                   width={300}
                 />
               </div>
-            </div>
+            </div> */}
+            <figure>
+              <img
+                className="rounded-t-xl object-cover min-w-full min-h-[150px] max-h-[150px] md:min-h-[200px] md:max-h-[200px]"
+                src={vianda.imagen}
+                alt={vianda.nombre}
+              />
+            </figure>
+
             <div className="card-body p-4 min-h-max ">
-              <h2 className="card-title justify-between ">
-                {vianda.nombre}
-                <div className="badge badge-secondary ">NEW</div>
-              </h2>
-              <p>{vianda.descripcion}</p>
-              <div className="dropdown">
-                <label
-                  tabIndex={0}
-                  className="m-1 font-bold cursor-pointer"
-                >
-                  Ingredientes
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-                >
-                  <li>
-                    <a>{vianda.ingredientes}</a>
-                  </li>
-                </ul>
+              <div className="text-lg  text-slate900 font-bolder badge-outline">{vianda.tipo}</div>
+              <div className="card-actions   items-center">
+                <BsFillBoxSeamFill />
+                <div className="font-extrabold text-xl">{vianda.stock}</div>
               </div>
-              <div className="card-actions justify-end">
-                <div className="badge badge-outline">{vianda.tipo}</div>
-              </div>
+              <h2 className="card-title leading-5">{vianda.nombre}</h2>
+              <p>{vianda.ingredientes}</p>
+
+              <div className="card-actions justify-end"></div>
             </div>
           </div>
         ))}{" "}

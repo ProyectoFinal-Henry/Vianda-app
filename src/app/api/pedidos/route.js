@@ -13,6 +13,7 @@ export async function GET() {
             direccion: true,
           },
         },
+        detallePedido: true,
       },
     });
     return NextResponse.json(pedidos);
