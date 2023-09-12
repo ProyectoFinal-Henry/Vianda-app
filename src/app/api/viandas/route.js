@@ -8,7 +8,7 @@ export async function GET(request) {
   // let take = parseInt(searchParams.get("take"));
   if (!skip) skip = 0;
   const take = 10;
-  console.log(searchParams.toString());
+
   if (searchParams.toString().length > 0) {
     try {
       const ing1 = searchParams.get("ing1");
@@ -19,6 +19,7 @@ export async function GET(request) {
       let campo = searchParams.get("campo");
       let orden = searchParams.get("orden");
       const dia = searchParams.get("dia");
+      const descripcion = searchParams.get("descripcion");
       if (!search) search = "";
       if (!orden) orden = "asc";
       if (!campo) campo = "id";
@@ -28,6 +29,7 @@ export async function GET(request) {
         whereCondicion.push({
           ingredientes: {
             contains: ing1.toLowerCase(),
+            mode: "insensitive",
           },
         });
       }
@@ -35,6 +37,7 @@ export async function GET(request) {
         whereCondicion.push({
           ingredientes: {
             contains: ing2.toLowerCase(),
+            mode: "insensitive",
           },
         });
       }
@@ -42,12 +45,21 @@ export async function GET(request) {
         whereCondicion.push({
           ingredientes: {
             contains: ing3.toLowerCase(),
+            mode: "insensitive",
           },
         });
       }
       if (tipo) {
         whereCondicion.push({
           tipo: tipo,
+        });
+      }
+      if (descripcion) {
+        whereCondicion.push({
+          descripcion: {
+            contains: descripcion,
+            mode: "insensitive",
+          },
         });
       }
       if (dia) {

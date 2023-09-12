@@ -29,6 +29,9 @@ function Pagination({ data }) {
 
   return (
     <>
+      <div className="flex justify-center w-full">
+        <h1 className="mt-10 py-5   w-full text-center  text-3xl font-bold">Menu:</h1>
+      </div>
       <div className="inline-flex items-start gap-8 mt-6">
         {buttonSelect.map((i) => (
           <button
@@ -46,9 +49,7 @@ function Pagination({ data }) {
         ))}
       </div>
 
-      <div className="max-w-full inline-flex flex-wrap items-stretch gap-2 my-6">
-        <CardAllDishes data={paginated} />
-      </div>
+      <CardAllDishes data={paginated} />
     </>
   )
 }

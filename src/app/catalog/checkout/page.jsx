@@ -13,13 +13,18 @@ import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import { useCarrito } from "@/context/CarritoContext"
 import LoadingComponentApp from "@/app/loading"
+import pedidosFormater from "@/libs/utils/pedidosFormater"
 
 /*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
 const CatalogRegisterPage = () => {
-  const { precioTotal } = useCarrito()
-  let precioTotal1 = Number(precioTotal)
+  const { precioTotal, viandas } = useCarrito()
   const [semana, setSemana] = useState([])
   const [ready, setReady] = useState(false)
+
+  //!-------------------------------------------------
+  const metodoPago = "MercadoPago";
+  const estado = "pagado";
+  //!-------------------------------------------------
 
   const semanal = async () => {
     const week = []
@@ -50,6 +55,14 @@ const CatalogRegisterPage = () => {
   useEffect(() => {
     semanal()
   }, [])
+
+  const handleClick = async(e)=>{
+  const usuario = await axios.get("/api/auth/check");
+  const fk_usuarioId = usuario.data.id;
+  const respuesta =  await pedidosFormater(fk_usuarioId, precioTotal, metodoPago, estado, viandas)
+  const pedidoDB = await axios.post(`/api/pedidos`, respuesta);
+  window.alert(pedidoDB.data.message);
+  }
 
   return (
     <>
@@ -120,7 +133,7 @@ const CatalogRegisterPage = () => {
                   id="btnWrapper"
                   className="min-w-full p-2"
                 >
-                  <button className="btn  btn-warning btn-wide min-w-full text-white text-xl tracking-wider  ">PROCESAR COMPRA</button>
+                  <button onClick={handleClick} className="btn  btn-warning btn-wide min-w-full text-white text-xl tracking-wider  ">PROCESAR COMPRA</button>
                   <div className="divider my-0"></div>
                   <Image
                     className="mx-auto my-4 hidden md:block"

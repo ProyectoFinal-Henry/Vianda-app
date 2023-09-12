@@ -8,6 +8,7 @@ import EditCrud from "@/components/actions/EditCrud";
 import ToogleEstadoVianda from "@/components/actions/ToogleEstadoVianda";
 import SearchBarViandas from "@/components/adminLayout/SearchBarViandas";
 import Filters from "@/components/adminLayout/Filters";
+import FiltersByField from "@/components/adminLayout/FiltersByField";
 import ClearFilters from "@/components/adminLayout/ClearFilters";
 import OrderByField from "@/components/adminLayout/OrderByField";
 import NotAdmin from "@/components/adminLayout/NotAdmin";
@@ -34,6 +35,18 @@ const AdminViandasPage = async ({ searchParams }) => {
         contains: searchParams.search,
       },
       tipo: searchParams.tipo,
+      descripcion: searchParams.descripcion,
+      AND: [
+        {
+          ingredientes: { contains: searchParams.ing1 },
+        },
+        {
+          ingredientes: { contains: searchParams.ing2 },
+        },
+        {
+          ingredientes: { contains: searchParams.ing3 },
+        },
+      ],
     },
   });
   const totalPages = Math.ceil(totalCount / itemsPerPage);
@@ -47,9 +60,8 @@ const AdminViandasPage = async ({ searchParams }) => {
             Lista de Viandas del sistema
           </h1>
           <div className="flex flex-row items-center justify-center gap-x-4 min-w-full">
-            <SearchBarViandas />
+            {/* <SearchBarViandas /> */}
 
-            <ClearFilters />
             <Link
               className="btn btn-accent my-3 text-white "
               href="/admin/viandas/nueva-vianda"
@@ -87,6 +99,8 @@ const AdminViandasPage = async ({ searchParams }) => {
             </thead>
 
             <tbody>
+              <FiltersByField />
+
               {Array.isArray(data) ? (
                 data.map(
                   (
