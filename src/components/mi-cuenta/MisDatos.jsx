@@ -55,29 +55,21 @@ function MisDatos({ usuarioId }) {
     }
   }, []);
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    reset();
+  const onSubmit = handleSubmit(async (data) => {
+    const {nombre, email, dni, telefono, direccion } = data
+    
+    const formData = {
+      nombreCompleto: nombre,
+      email: email,
+      dni: dni,
+      telefono: telefono,
+      direccion: direccion
+    }
+
+      const rta = await axios.put(`/api/usuarios/${usuarioId}`, formData)
+
   });
 
-  // const onSubmit = handleSubmit(async (data) => {
-  //   const {nombreCompleto, email, dni, telefono, direccion } = data
-
-  //   const formData = new FormData()
-  //   formData.append("nombre", nombreCompleto)
-  //   formData.append("email", email)
-  //   formData.append("dni", dni)
-  //   formData.append("telefono", telefono)
-  //   formData.append("direccion", direccion)
-
-  //   if (usuarioId) {
-  //     formData.append("id", idDb)
-  //   }
-
-  //   await new Promise((resolve) => setTimeout(resolve, 1000))
-  //     const UserUpdate = await axios.put(`/api/usuarios/${data.id}`, data)
-
-  // });
 
   return (
     <>
