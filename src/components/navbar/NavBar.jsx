@@ -13,7 +13,7 @@ import Image from "next/image"
 import { useCarrito } from "@/context/CarritoContext"
 
 function NavBar() {
-  const { cantidadTotal } = useCarrito()
+  const { cantidadTotal, precioTotal } = useCarrito()
 
   const [logeado, setLogeado] = useState(false)
 
@@ -58,7 +58,7 @@ function NavBar() {
             >
               <div className="card-body">
                 <span className="font-bold text-lg">{`${cantidadTotal} Items`}</span>
-                <span className="text-info">Subtotal: $999</span>
+                <span className="text-info">Subtotal: ${precioTotal}</span>
                 <div className="card-actions">
                   <Link href={"/catalog/checkout"}>
                     <button className="btn btn-primary btn-sm btn-block">Ver carrito</button>
