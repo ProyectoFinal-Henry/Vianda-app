@@ -26,7 +26,7 @@ async function CardRecomend() {
         {randomViandas.map((vianda, index) => (
           <div
             key={index}
-            className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px]    shadow-xl cursor-default rounded-xl md:min-h-[360px]
+            className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px] md:min-w-[265px]    shadow-xl cursor-default rounded-xl md:min-h-[360px]
           "
           >
             {/* <div className="avatar">
