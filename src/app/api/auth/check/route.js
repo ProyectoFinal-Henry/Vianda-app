@@ -11,6 +11,6 @@ export async function GET(request) {
        {status: 200});
 
   } catch (error) {
-    return NextResponse.json({error: 'no token'}, {status: 401})
+    return NextResponse.json({error: 'no token'}, {status: 202})
   }
 }

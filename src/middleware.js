@@ -8,5 +8,12 @@ export async function middleware(request) {
       return NextResponse.redirect(new URL("/catalog/login", request.url));
     }
   }
+
+  if (request.nextUrl.pathname.includes("/login")) {
+    if (jwt !== undefined){
+      return NextResponse.redirect(new URL("/catalog/mi-cuenta", request.url));
+    }
+  }
+
   return NextResponse.next();
 }
