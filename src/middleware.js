@@ -13,7 +13,7 @@ export async function middleware(request) {
 
   if (request.nextUrl.pathname.includes("/login")) {
     if (token !== undefined){
-      return NextResponse.redirect(<NotAdmin />);
+      return NextResponse.redirect(new URL("/catalog/mi-cuenta", request.url))
     }
   }
 
