@@ -22,7 +22,6 @@ const CatalogRegisterPage = () => {
   const [ready, setReady] = useState(false)
 
   //!-------------------------------------------------
-  const fk_usuarioId = 3
   const metodoPago = "MercadoPago";
   const estado = "pagado";
   //!-------------------------------------------------
@@ -58,10 +57,11 @@ const CatalogRegisterPage = () => {
   }, [])
 
   const handleClick = async(e)=>{
+  const usuario = await axios.get("/api/auth/check");
+  const fk_usuarioId = usuario.data.id;
   const respuesta =  await pedidosFormater(fk_usuarioId, precioTotal, metodoPago, estado, viandas)
-  console.log("🚀 ~ file: page.jsx:62 ~ handleClick ~ respuesta:", respuesta)
   const pedidoDB = await axios.post(`/api/pedidos`, respuesta);
-  window.alert(pedidoDB.message)
+  window.alert(pedidoDB.data.message);
   }
 
   return (
