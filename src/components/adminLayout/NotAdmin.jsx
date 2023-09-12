@@ -5,7 +5,7 @@ import Link from "next/link"
 const NotAdmin = () => {
   return (
     <>
-      <div className="flex flex-col items-center justify-center text-center text-4xl min-h-screen">
+      <div className="flex flex-col bg-base-100 items-center justify-center text-center text-4xl z-50 top-0 left-0 right-0 bottom-0 fixed">
         No tienes los permisos para ingresar a esta sección.
         <Link href="/catalog">
           <div className="">
