@@ -14,7 +14,7 @@ const NavAdmin = () => {
     const response = await axios.post("/api/auth/logout")
     if (response.status === 200){
       router.refresh()
-      router.push('/')
+      router.push('/catalog')
     }
   }
 

@@ -1,19 +1,22 @@
 import { NextResponse } from "next/server";
+import  { jwtVerify } from 'jose'
+import NotAdmin from "./components/adminLayout/NotAdmin";
 
 export async function middleware(request) {
-  const jwt = request.cookies.get("myToken");
+  const token = request.cookies.get("myToken");
 
   if (request.nextUrl.pathname.includes("/admin") || request.nextUrl.pathname.includes("/mi-cuenta")) {
-    if (jwt === undefined) {
+    if (token === undefined) {
       return NextResponse.redirect(new URL("/catalog/login", request.url));
     }
   }
 
   if (request.nextUrl.pathname.includes("/login")) {
-    if (jwt !== undefined){
-      return NextResponse.redirect(new URL("/catalog/mi-cuenta", request.url));
+    if (token !== undefined){
+      return NextResponse.redirect(<NotAdmin />);
     }
   }
+
 
   return NextResponse.next();
 }
