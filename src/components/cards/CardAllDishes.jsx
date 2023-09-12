@@ -6,7 +6,6 @@ import Link from "next/link";
 function CardAllDishes(props) {
   const router = useRouter();
   const { data } = props;
-  console.log(data);
 
   if (!Array.isArray(data)) {
     return <p>No hay datos disponibles</p>;
