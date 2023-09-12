@@ -9,7 +9,6 @@ import { useEffect, useState } from "react"
 
 import Link from "next/link"
 import Image from "next/image"
-import LoginLogout from "@/components/LoginLogout/LoginLogout"
 
 import { useCarrito } from "@/context/CarritoContext"
 
@@ -18,53 +17,19 @@ function NavBar() {
 
   const [logeado, setLogeado] = useState(false)
 
-  /*   useEffect(async () => {
-    try {
-      const response = await axios.get("/api/auth/check");
-      if (response.status === 200){
-        setLogeado(true)
-      }
-      else{
-        setLogeado(false)
-      }
-
-    } catch (error) {
-      setLogeado(false)
-      console.log(error)
-    }
-  }, []) */
-
   const router = useRouter()
 
-  /*     const login = async () =>{
-      router.refresh()
-      router.push('/catalog/login')
-    }
-
-    const logout = async () =>{
-        const response = await axios.post("/api/auth/logout")
+  const loginLogout = async () =>{
+        const response = await axios.get('/api/auth/check')
         if (response.status === 200){
-          router.refresh()
-          router.push('/catalog/login')
+          await axios.post('/api/auth/logout')
         }
-      } */
+        router.refresh()
+        router.push('/catalog/login')
+    }  
 
   return (
     <>
-      {/* <nav className="bg-primary">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-3">
-        
-
-        <ul className="flex text-lg font-bold">
-          <li className="btn btn-primary font-bold">
-            <Link href="/catalog/registro">Registrarse</Link>
-          </li>
-          <li className="btn btn-primary font-bold">
-            <Link href="/catalog/login">Ingresar</Link>
-          </li>
-        </ul>
-      </div>
-    </nav> */}
       <div className="navbar bg-base-100 shadow  shadowl-xl">
         <div className="flex-1">
           <Link href="/catalog">
@@ -127,7 +92,7 @@ function NavBar() {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Login</a>
+                <button onClick={loginLogout}>Login/Logout</button>
               </li>
             </ul>
           </div>
