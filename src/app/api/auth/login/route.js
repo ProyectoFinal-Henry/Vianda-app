@@ -26,7 +26,12 @@ export async function POST(request) {
         {
           exp: Math.floor(Date.now() / 1000) * 3600 * 24 * 30,
           email: usuario.email,
-          username: usuario.email,
+          nombre: usuario.nombreCompleto,
+          rol: usuario.rol,
+          id: usuario.id,
+          dni: usuario.dni,
+          direccion: usuario.direccion,
+          telefono: usuario.telefono
         },
         "secret"
       );
@@ -37,7 +42,7 @@ export async function POST(request) {
         maxAge: 1000 * 3600 * 24 * 30,
         path: "/",
       });
-      return new Response(JSON.stringify("success"), {
+      return new Response(JSON.stringify({ message: 'success', rol: usuario.rol }), {
         status: 200,
         headers: {
           "Set-Cookie": serialized,
