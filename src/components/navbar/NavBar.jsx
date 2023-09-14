@@ -1,32 +1,34 @@
-"use client"
-import { BiCartAdd } from "react-icons/bi"
-import { BsFillCartCheckFill } from "react-icons/bs"
-import { BsPersonCircle } from "react-icons/bs"
+"use client";
+import { BiCartAdd } from "react-icons/bi";
+import { BsFillCartCheckFill } from "react-icons/bs";
+import { BsPersonCircle } from "react-icons/bs";
+import LoginLogout from '@/components/LoginLogout/LoginLogout'
 
-import axios from "axios"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import Link from "next/link"
-import Image from "next/image"
+import Link from "next/link";
+import Image from "next/image";
 
-import { useCarrito } from "@/context/CarritoContext"
+import { useCarrito } from "@/context/CarritoContext";
 
 function NavBar() {
-  const { cantidadTotal, precioTotal } = useCarrito()
+  const { cantidadTotal, precioTotal } = useCarrito();
 
-  const [logeado, setLogeado] = useState(false)
+  const [logeado, setLogeado] = useState(false);
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const loginLogout = async () =>{
-        const response = await axios.get('/api/auth/check')
-        if (response.status === 200){
-          await axios.post('/api/auth/logout')
-        }
-        router.refresh()
-        router.push('/catalog/login')
-    }  
+  useEffect(() => {
+    axios.get("/api/auth/check").then((res) => {
+      if (res.status === 200) {
+        setLogeado(true);
+      } else {
+        setLogeado(false);
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -43,12 +45,11 @@ function NavBar() {
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
-            <label
-              tabIndex={0}
-              className="btn btn-ghost btn-circle"
-            >
+            <label tabIndex={0} className="btn btn-ghost btn-circle">
               <div className="indicator">
-                <span className="badge badge-sm indicator-item">{cantidadTotal}</span>
+                <span className="badge badge-sm indicator-item">
+                  {cantidadTotal}
+                </span>
                 <BiCartAdd className="text-2xl" />
               </div>
             </label>
@@ -61,17 +62,16 @@ function NavBar() {
                 <span className="text-info">Subtotal: ${precioTotal}</span>
                 <div className="card-actions">
                   <Link href={"/catalog/checkout"}>
-                    <button className="btn btn-primary btn-sm btn-block">Ver carrito</button>
+                    <button className="btn btn-primary btn-sm btn-block">
+                      Ver carrito
+                    </button>
                   </Link>
                 </div>
               </div>
             </div>
           </div>
           <div className="dropdown dropdown-end">
-            <label
-              tabIndex={0}
-              className="btn btn-ghost btn-circle avatar"
-            >
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 <BsPersonCircle className=" text-4xl text-center" />
               </div>
@@ -81,10 +81,7 @@ function NavBar() {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <Link
-                  href={"/catalog/mi-cuenta"}
-                  className="justify-between"
-                >
+                <Link href={"/catalog/mi-cuenta"} className="justify-between">
                   Mi Cuenta
                 </Link>
               </li>
@@ -92,14 +89,14 @@ function NavBar() {
                 <a>Settings</a>
               </li>
               <li>
-                <button onClick={loginLogout}>Login/Logout</button>
+                <LoginLogout />
               </li>
             </ul>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;

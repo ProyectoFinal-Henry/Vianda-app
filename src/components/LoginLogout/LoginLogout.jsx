@@ -8,45 +8,40 @@ const LoginLogout = () => {
 
   const [logeado, setLogeado] = useState(false)
 
-  useEffect(async () => {
-    try {
-      const response = await axios.get("/api/auth/check");
-      if (response.status === 200){
-        setLogeado(true)
-      }
-      else{
-        setLogeado(false)
-      }
+  const login = () =>{
+    router.push('/catalog/mi-cuenta')
+  }
 
+  const logout = async () =>{
+      const response = await axios.post("/api/auth/logout")
+      if (response.status === 200){
+        setLogeado(false)
+        router.push('/catalog/login')
+      }
+    }
+
+  useEffect( () => {
+    try {
+      axios.get("/api/auth/check").then((res) => {
+        if (res.status === 200){
+          setLogeado(true)
+        }
+        else{
+          setLogeado(false)
+        }
+      })
     } catch (error) {
-      setLogeado(false)
       console.log(error)
     }
-  }, [])
+  }, [login, logout])
   
 
   const router = useRouter()
-
-    const login = async () =>{
-      router.refresh()
-      router.push('/admin')
-      setLogeado(true)
-    }
-
-    const logout = async () =>{
-        const response = await axios.post("/api/auth/logout")
-        if (response.status === 200){
-          setLogeado(false)
-          router.refresh()
-          router.push('/catalog/login')
-        }
-        setLogeado(false)
-      }
  
 
       return (
         <>
-        {logeado? (<button onClick={logout}>Logout</button>) : (<button onClick={login}>Login</button>)}
+        {logeado? (<button onClick={logout}>Cerrar Sesión</button>) : (<button onClick={login}>Iniciar Sesión</button>)}
         </>
         )
 }

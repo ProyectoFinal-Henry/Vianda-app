@@ -10,7 +10,7 @@ const page = () => {
   const [auth, setAuth] = useState(false)
 
   useEffect(() => {
-    try {
+
       axios.get("/api/auth/check").then((res) => {
         if (res.data.rol === "administrador"){
           setAuth(true)
@@ -19,9 +19,6 @@ const page = () => {
           setAuth(false)
         }
       });
-    } catch (error) {
-      console.log(error);
-    }
   }, []);
   
   return (
