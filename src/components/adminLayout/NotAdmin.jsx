@@ -21,7 +21,6 @@ const NotAdmin = () => {
   const logout = async () =>{
     const response = await axios.post("/api/auth/logout")
     if (response.status === 200){
-      router.refresh()
       router.push('/catalog/login')
     }
   }
