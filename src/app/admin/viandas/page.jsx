@@ -128,7 +128,7 @@ const AdminViandasPage = async ({ searchParams }) => {
                             <div className="w-24 rounded-full">
                               <img
                                 src={imagen}
-                                className={!estado && "filter grayscale"}
+                                className={!estado ? "filter grayscale" : ""}
                               />
                             </div>
                             <span className="absolute top-[0.1rem] left-[0.1rem] ">
