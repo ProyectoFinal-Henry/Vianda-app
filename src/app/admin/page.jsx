@@ -2,28 +2,27 @@
 
 import React from "react";
 import { FiAward } from "react-icons/fi";
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import NotAdmin from '@/components/adminLayout/NotAdmin'
+import axios from "axios";
+import { useEffect, useState } from "react";
+import NotAdmin from "@/components/adminLayout/NotAdmin";
 
-const page = () => {
-  const [auth, setAuth] = useState(false)
+const AdminDashboard = () => {
+  const [auth, setAuth] = useState(false);
 
   useEffect(() => {
     try {
       axios.get("/api/auth/check").then((res) => {
-        if (res.data.rol === "administrador"){
-          setAuth(true)
-        }
-        else{
-          setAuth(false)
+        if (res.data.rol === "administrador") {
+          setAuth(true);
+        } else {
+          setAuth(false);
         }
       });
     } catch (error) {
       console.log(error);
     }
   }, []);
-  
+
   return (
     <div>
       {auth ? (
@@ -48,4 +47,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AdminDashboard;

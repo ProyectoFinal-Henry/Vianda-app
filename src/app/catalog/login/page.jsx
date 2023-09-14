@@ -12,14 +12,13 @@ import FormResponsiveContainer from "@/components/formaters/FormResponsiveContai
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { GiSandsOfTime } from "react-icons/gi"
-
+import { GiSandsOfTime } from "react-icons/gi";
 
 const LoginCatalogPage = () => {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
-  const [loadingUp, setLoadingUp] = useState(false)
-  const [error, setError] = useState("")
+  const [loadingUp, setLoadingUp] = useState(false);
+  const [error, setError] = useState("");
 
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState);
@@ -33,24 +32,22 @@ const LoginCatalogPage = () => {
 
   const onSubmit = handleSubmit(async (formData) => {
     try {
-      setLoadingUp(true)
-      await new Promise((resolve) => setTimeout(resolve, 3000))
+      setLoadingUp(true);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       const response = await axios.post("/api/auth/login", formData);
       if (response.data.rol === "cliente") {
-        router.refresh()
+        router.refresh();
         router.push("/catalog/mi-cuenta");
-      }
-      else if (response.data.rol === "administrador"){
-        router.refresh()
-        router.push("/admin")
-      }
-      else {
-        setError(response.data.error)
+      } else if (response.data.rol === "administrador") {
+        router.refresh();
+        router.push("/admin");
+      } else {
+        setError(response.data.error);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    setLoadingUp(false)
+    setLoadingUp(false);
   });
 
   return (
@@ -62,8 +59,7 @@ const LoginCatalogPage = () => {
             PROCESANDO...
           </div>
         ) : (
-          <div className="alert-placeholder h-12 mt-3">
-          </div>
+          <div className="alert-placeholder h-12 mt-3"></div>
         )}
         <div className="min-w-full flex flex-col items-center">
           <form onSubmit={onSubmit}>
@@ -103,7 +99,7 @@ const LoginCatalogPage = () => {
                 <span className="label-text text-sm font-medium mb-1">
                   Contraseña
                 </span>
-                <div class="flex items-center">
+                <div className="flex items-center">
                   <input
                     className="relative input input-bordered input-sm w-full min-w-full rounded h-7"
                     placeholder="contraseña"
@@ -112,7 +108,7 @@ const LoginCatalogPage = () => {
                   />
                   <button
                     type="button"
-                    class="relative flex right-8 items-center ml-2 h-full mr-10"
+                    className="relative flex right-8 items-center ml-2 h-full mr-10"
                     onClick={passwordVisibility}
                   >
                     {visible ? (
@@ -122,10 +118,15 @@ const LoginCatalogPage = () => {
                     )}
                   </button>
                 </div>
-                    {error? (<span className="mt-4 text-xs text-warning text-center">{error}</span>)
-                    : (<span className="mt-4 text-xs">
-                      <br></br>
-                      </span>) }
+                {error ? (
+                  <span className="mt-4 text-xs text-warning text-center">
+                    {error}
+                  </span>
+                ) : (
+                  <span className="mt-4 text-xs">
+                    <br></br>
+                  </span>
+                )}
               </div>
             </div>
             <div className="flex mt-5 justify-center">
