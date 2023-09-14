@@ -248,7 +248,7 @@ export const UserFormRegister = () => {
 
                   <button
                     type="button"
-                    class="relative min-w-min   ml-3  right-9"
+                    className="relative min-w-min   ml-3  right-9"
                     onClick={passwordVisibility}
                   >
                     {visible ? (
