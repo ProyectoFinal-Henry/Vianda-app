@@ -1,24 +1,24 @@
-import { NextResponse } from "next/server"
-import { prisma } from "@/libs/prisma"
+import { NextResponse } from "next/server";
+import { prisma } from "@/libs/prisma";
 
 export async function GET(request) {
   try {
-    const { searchParams } = new URL(request.url)
-    const all = searchParams.get("all")
+    const { searchParams } = new URL(request.url);
+    const all = searchParams.get("all");
 
     if (all) {
-      const viandas = await prisma.vianda.findMany({ where: { estado: true } })
-      return NextResponse.json(viandas)
+      const viandas = await prisma.vianda.findMany({ where: { estado: true } });
+      return NextResponse.json(viandas);
     }
   } catch (error) {
-    return NextResponse.json({ message: error.message })
+    return NextResponse.json({ message: error.message });
   }
 }
 
 export async function POST(request) {
   try {
-    const body = await request.json()
-    const { dia, viandaId, tipo } = body
+    const body = await request.json();
+    const { dia, viandaId, tipo } = body;
 
     //paso 1 buscar todas las viandas de ese [tipo](vegetariano, sin HArinas etcc) con ese [dia](lunes,martes) en true y ponerlas en false
     const reset = await prisma.vianda.updateMany({
@@ -29,7 +29,7 @@ export async function POST(request) {
         tipo: tipo,
         [dia]: true,
       },
-    })
+    });
     // paso 2 establecer la vianda con ese id en true para el campo [lunes, martes, miercoles, jueves, viernes] segun venga
     const setMenuItem = await prisma.vianda.update({
       data: {
@@ -38,10 +38,10 @@ export async function POST(request) {
       where: {
         id: Number(viandaId),
       },
-    })
-    console.log("file: route.js:42  setMenuItem:", setMenuItem)
-    return NextResponse.json(results)
+    });
+    // console.log("file: route.js:42  setMenuItem:", setMenuItem)
+    return NextResponse.json(results);
   } catch (error) {
-    return NextResponse.json({ message: error.message })
+    return NextResponse.json({ message: error.message });
   }
 }
