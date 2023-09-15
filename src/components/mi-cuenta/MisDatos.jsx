@@ -6,6 +6,7 @@ import { MdRateReview } from "react-icons/md";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import { FiMenu } from "react-icons/fi";
+import { FaAngellist } from "react-icons/fa"
 import axios from "axios";
 import Link from "next/link";
 
@@ -25,6 +26,7 @@ function MisDatos() {
     },
   });
 
+  const [success, setSuccess] = useState(false)
   const [userData, setUserData] = useState({
     nombre: "",
     email: "",
@@ -71,8 +73,12 @@ function MisDatos() {
     }
 
       try {
-    const rta = await axios.put(`/api/usuarios/${userData.id}`, formData);
-    console.log(rta);
+    const updateUser = await axios.put(`/api/usuarios/${userData.id}`, formData);
+    setSuccess(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 2500))
+    setSuccess(false)
+
   } catch (error) {
     console.log(error);
   }
@@ -158,6 +164,14 @@ function MisDatos() {
         </div>
 
         <div className="flex flex-col justify-center md:justify-start items-center bg-base-100 w-[90%] mx-[5%] mb-[5%] md:w-[300%] md:mx-[0%] md:mr-[8%] md:my-[10vh] rounded-2xl border-2 border-neutral/30 drop-shadow-lg px-2 pt-2 pb-6 ">
+        {success && (
+          <div className="alert alert-info border-2 font-extrabold my-6 shadow-secondary shadow-xl border-primary flex flex-col justify-center">
+            <div className="flex gap-x-2 items-center">
+              <FaAngellist className=" text-4xl" />
+              <span>Usuario actualizado correctamente!</span>
+            </div>
+          </div>
+        )}
           <h1 className="w-full font-bold ml-3 p-2">MIS DATOS PERSONALES</h1>
 
           <form onSubmit={onSubmit} className="w-full">
