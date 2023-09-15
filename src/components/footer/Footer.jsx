@@ -1,5 +1,6 @@
 import Link from "next/link"
 import LinkToogleAdminCatalog from "./LinkToogleAdminCatalog"
+import LoginOptions from "./LoginOptions"
 
 // saber si mi base es admin o catalog
 
@@ -7,22 +8,10 @@ function Footer() {
   return (
     <>
       <footer className="footer md:grid-flow-col footer-center p-5 bg-base-200 text-base-content gap-4">
-
-
         <nav className="grid grid-flow-col  gap-2 md:order-1">
           <LinkToogleAdminCatalog />
-          <Link
-            href={"/catalog/login"}
-            className="link link-hover"
-          >
-            Ingresá
-          </Link>
-          <Link
-            href={"/catalog/registro"}
-            className="link link-hover"
-          >
-            Registráte
-          </Link>
+
+          <LoginOptions />
         </nav>
         <nav>
           <div className="grid grid-flow-col gap-4 md:order-2">
@@ -62,9 +51,7 @@ function Footer() {
           </div>
         </nav>
 
-
         <aside>
-
           <p className="text-center md:order-3">Copyright © 2023 - All right reserved by ViandAapp Ltd</p>
         </aside>
       </footer>

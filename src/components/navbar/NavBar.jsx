@@ -19,14 +19,14 @@ function NavBar() {
 
   const router = useRouter()
 
-  const loginLogout = async () =>{
-        const response = await axios.get('/api/auth/check')
-        if (response.status === 200){
-          await axios.post('/api/auth/logout')
-        }
-        router.refresh()
-        router.push('/catalog/login')
-    }  
+  const loginLogout = async () => {
+    const response = await axios.get("/api/auth/check")
+    if (response.status === 200) {
+      await axios.post("/api/auth/logout")
+    }
+    router.refresh()
+    router.push("/catalog/login")
+  }
 
   return (
     <>
@@ -38,6 +38,7 @@ function NavBar() {
               height={100}
               src="/verde.png"
               alt="imagen logo"
+              className=" h-auto w-auto"
             />
           </Link>
         </div>

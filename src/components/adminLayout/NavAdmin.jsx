@@ -3,18 +3,17 @@
 import Image from "next/image"
 import Link from "next/link"
 import { FiMenu } from "react-icons/fi"
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
+import axios from "axios"
+import { useRouter } from "next/navigation"
 
 const NavAdmin = () => {
-  
   const router = useRouter()
 
-  const logout = async () =>{
+  const logout = async () => {
     const response = await axios.post("/api/auth/logout")
-    if (response.status === 200){
+    if (response.status === 200) {
       router.refresh()
-      router.push('/catalog')
+      router.push("/catalog")
     }
   }
 
@@ -43,7 +42,7 @@ const NavAdmin = () => {
                 <Link href={"/admin/viandas/"}>Menu Diario</Link>
               </li>
               <li>
-                <Link href={"/admin/viandas/"}>Cartas</Link>
+                <Link href={"/admin/usuarios/"}>Usuarios</Link>
               </li>
             </ul>
           </div>
@@ -82,9 +81,9 @@ const NavAdmin = () => {
             <li tabIndex={1}>
               <Link
                 className="text-lg"
-                href={"/admin/viandas/"}
+                href={"/admin/usuarios"}
               >
-                Cartas
+                Usuarios
               </Link>
             </li>
           </ul>
