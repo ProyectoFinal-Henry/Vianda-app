@@ -9,7 +9,7 @@ import { FiMenu } from "react-icons/fi";
 import axios from "axios";
 import Link from "next/link";
 
-function MisDatos({ usuarioId }) {
+function MisDatos() {
   const {
     register,
     handleSubmit,
@@ -25,6 +25,16 @@ function MisDatos({ usuarioId }) {
     },
   });
 
+  const [userData, setUserData] = useState({
+    nombre: "",
+    email: "",
+    dni: "",
+    telefono: "",
+    direccion: "",
+    id: null,
+  });
+
+
   useEffect(() => {
     try {
       //la petición get a /check lo que hace es traer todos los datos de la sesión que están guardadas en el token
@@ -34,6 +44,14 @@ function MisDatos({ usuarioId }) {
         setValue("dni", res.data.dni);
         setValue("telefono", res.data.telefono);
         setValue("direccion", res.data.direccion);
+        setUserData({
+          nombre: res.data.nombre,
+          email: res.data.email,
+          dni: res.data.dni,
+          telefono: res.data.telefono,
+          direccion: res.data.direccion,
+          id: res.data.id,
+        });
       });
     } catch (error) {
       console.log(error);
@@ -41,20 +59,25 @@ function MisDatos({ usuarioId }) {
   }, []);
 
   const onSubmit = handleSubmit(async (data) => {
-    const {nombre, email, dni, telefono, direccion } = data
+    const {id, nombre, email, dni, telefono, direccion } = data
     
     const formData = {
       nombreCompleto: nombre,
       email: email,
       dni: dni,
       telefono: telefono,
-      direccion: direccion
+      direccion: direccion,
+      id: id
     }
 
-      const rta = await axios.put(`/api/usuarios/${usuarioId}`, formData)
+      try {
+    const rta = await axios.put(`/api/usuarios/${userData.id}`, formData);
+    console.log(rta);
+  } catch (error) {
+    console.log(error);
+  }
 
   });
-
 
   return (
     <>
@@ -73,7 +96,7 @@ function MisDatos({ usuarioId }) {
                 className="menu menu-md dropdown-content z-50 p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <Link href={"/catalog/mi-cuenta"}>
+                  <Link href={`/catalog/mi-cuenta/`}>
                     <BsFillPersonLinesFill className="text-accent" /> Mis datos
                     Personales
                   </Link>
@@ -105,7 +128,7 @@ function MisDatos({ usuarioId }) {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-vertical px-1">
               <li tabIndex={1}>
-                <Link className="text-base" href={"/catalog/mi-cuenta"}>
+                <Link className="text-base" href={`/catalog/mi-cuenta/`}>
                   <BsFillPersonLinesFill className="text-xl text-accent" /> Mis
                   datos Personales
                 </Link>
