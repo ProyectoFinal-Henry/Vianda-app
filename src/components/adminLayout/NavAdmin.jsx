@@ -1,34 +1,28 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { FiMenu } from "react-icons/fi"
-import axios from "axios"
-import { useRouter } from "next/navigation"
+import Image from "next/image";
+import Link from "next/link";
+import { FiMenu } from "react-icons/fi";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const NavAdmin = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const logout = async () => {
-    const response = await axios.post("/api/auth/logout")
+    const response = await axios.post("/api/auth/logout");
     if (response.status === 200) {
-      router.refresh()
-      router.push("/catalog")
+      router.refresh();
+      router.push("/catalog");
     }
-  }
+  };
 
   return (
     <>
-      <div
-        id="NavAdmin"
-        className="navbar bg-accent text-white z-10 text-lg"
-      >
+      <div id="NavAdmin" className="navbar bg-accent text-white z-10 text-lg">
         <div className="navbar-start">
           <div className="dropdown ">
-            <label
-              tabIndex={0}
-              className="btn btn-ghost  lg:hidden"
-            >
+            <label tabIndex={0} className="btn btn-ghost  lg:hidden">
               <FiMenu className="text-2xl" />
             </label>
             <ul
@@ -39,17 +33,14 @@ const NavAdmin = () => {
                 <Link href={"/admin/viandas/"}>Viandas</Link>
               </li>
               <li>
-                <Link href={"/admin/viandas/"}>Menu Diario</Link>
+                <Link href={"/admin/pedidos/"}>Pedidos</Link>
               </li>
               <li>
                 <Link href={"/admin/usuarios/"}>Usuarios</Link>
               </li>
             </ul>
           </div>
-          <Link
-            className=" min-w-[80%] sm:min-w-[40%]"
-            href={"/admin"}
-          >
+          <Link className=" min-w-[80%] sm:min-w-[40%]" href={"/admin"}>
             <Image
               id="logo"
               className="min-w-full"
@@ -63,26 +54,17 @@ const NavAdmin = () => {
         <div className="navbar-center hidden  lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li tabIndex={1}>
-              <Link
-                className="text-lg"
-                href={"/admin/viandas/"}
-              >
+              <Link className="text-lg" href={"/admin/viandas/"}>
                 Viandas
               </Link>
             </li>
             <li tabIndex={1}>
-              <Link
-                className="text-lg"
-                href={"/admin/viandas/"}
-              >
-                Menu Diario
+              <Link className="text-lg" href={"/admin/pedidos/"}>
+                Pedidos
               </Link>
             </li>
             <li tabIndex={1}>
-              <Link
-                className="text-lg"
-                href={"/admin/usuarios"}
-              >
+              <Link className="text-lg" href={"/admin/usuarios"}>
                 Usuarios
               </Link>
             </li>
@@ -99,7 +81,7 @@ const NavAdmin = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default NavAdmin
+export default NavAdmin;
