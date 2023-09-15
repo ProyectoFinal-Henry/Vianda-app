@@ -117,10 +117,9 @@ const Detalle = ({ data }) => {
             )}
             <Link
               href={"/catalog/checkout"}
-              className="btn btn-primary btn-block"
+              className="btn btn-primary btn-block text-gray-700 font-bolder text-xl"
             >
-              {" "}
-              Pidelo en tu menu semanal
+              {lunes || martes || miercoles || jueves || viernes || sabado || domingo ? "Arma tu menu semanal" : "Arma tu menu ahora"}
             </Link>
           </div>
         </div>
