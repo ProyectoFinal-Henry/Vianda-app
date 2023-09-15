@@ -1,7 +1,10 @@
-"use client";
-import Link from "next/link";
+"use client"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export const ModalUserExit = (props) => {
+  const currentPath = usePathname()
+
   return (
     <dialog
       id="my_modal_1"
@@ -9,24 +12,37 @@ export const ModalUserExit = (props) => {
     >
       <div className="modal-box">
         <h3 className="font-bold text-lg">Hello!</h3>
-        <p className="py-4 text-slate-700 text-center pt-16">
-          El usuario se ha creado exitosamente
-        </p>
+        <p className="py-4 text-slate-700 text-center pt-16">El usuario se ha creado exitosamente</p>
         <div className="modal-action">
           <form method="dialog">
-            <Link href="/catalog/login">
-              <button
-                className="btn bg-accent/80"
-                onClick={() => {
-                  props.setModalExit(false);
-                }}
-              >
-                Close
-              </button>
-            </Link>
+            {currentPath.includes("/admin") ? (
+              <Link href={"/admin/usuarios"}>
+                <button
+                  className="btn bg-accent/80"
+                  onClick={() => {
+                    props.setModalExit(false)
+                  }}
+                >
+                  Ver Usuarios
+                </button>
+              </Link>
+            ) : (
+              currentPath.includes("/catalog") && (
+                <Link href="/catalog/login">
+                  <button
+                    className="btn bg-accent/80"
+                    onClick={() => {
+                      props.setModalExit(false)
+                    }}
+                  >
+                    Close
+                  </button>
+                </Link>
+              )
+            )}
           </form>
         </div>
       </div>
     </dialog>
-  );
-};
+  )
+}
