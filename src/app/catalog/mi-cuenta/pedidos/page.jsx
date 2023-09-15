@@ -1,18 +1,31 @@
+"use client"
 import React from 'react';
+import { useEffect, useState } from "react";
 import MisPedidos from '@/components/mi-cuenta/MisPedidos';
 import axios from "axios";
 
-async function Pedidos() {
+function Pedidos() {
 
-  const resPedido = await axios.get(`${process.env.LOCALHOST}/api/pedidos`);
-  const dataPedido = resPedido.data[4];
+  const [userData, setUserData] = useState({
+    id: null,
+  });
 
-  const resDetalle = await axios.get(`${process.env.LOCALHOST}/api/pedidos`);
-  const dataDetalle = resDetalle.data[4]["detallePedido"];
+  useEffect(() => {
+    try {
+      //la petición get a /check lo que hace es traer todos los datos de la sesión que están guardadas en el token
+      axios.get("/api/auth/check").then((res) => {
+        setUserData({
+          id: res.data.id,
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <>
-      <MisPedidos dataPedido={dataPedido} dataDetalle={dataDetalle} />
+      <MisPedidos userData={userData}/>
     </>
   );
 }
