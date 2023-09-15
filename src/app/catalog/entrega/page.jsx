@@ -1,7 +1,7 @@
-import { CardsPedidos } from "@/components/entregaRepartidor/CardsPedidos";
-import { EstadoPedidos } from "@/components/entregaRepartidor/EstadoPedidos";
+import CardsPedidos from "@/components/entregaRepartidor/CardsPedidos";
+import EstadoPedidos from "@/components/entregaRepartidor/EstadoPedidos";
 
-const page = () => {
+const EntregaPage = () => {
   return (
     <>
       <CardsPedidos />
@@ -10,4 +10,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default EntregaPage;

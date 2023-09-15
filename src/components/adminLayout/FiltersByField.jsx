@@ -65,7 +65,7 @@ function FiltersByField() {
         <td>
           <form onSubmit={handleSubmit}>
             <input
-              className="border border-accent px-1 rounded-md"
+              className="input input-xs input-accent"
               type="text"
               onChange={handleChange}
               value={inputNombre}
@@ -77,7 +77,7 @@ function FiltersByField() {
         <td>
           <form onSubmit={handleSubmit}>
             <input
-              className="border border-accent px-1 rounded-md"
+              className="input input-xs input-accent"
               type="text"
               onChange={handleChange}
               value={inputDescripcion}
@@ -88,7 +88,7 @@ function FiltersByField() {
         <td>
           <form onSubmit={handleSubmit}>
             <input
-              className="border border-accent px-1 rounded-md"
+              className="input input-xs input-accent"
               type="text"
               onChange={handleChange}
               value={inputIngredientes}
