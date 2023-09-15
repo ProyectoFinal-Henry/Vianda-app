@@ -1,4 +1,5 @@
 import axios from "axios"
+import Link from "next/link"
 import { BsFillBoxSeamFill } from "react-icons/bs"
 
 async function CardRecomend() {
@@ -24,7 +25,9 @@ async function CardRecomend() {
       </div>
       <div className="min-w-full flex flex-row flex-wrap  justify-between  my-6 gap-y-4">
         {randomViandas.map((vianda, index) => (
-          <div
+          <Link
+            href={`/catalog?modal=${vianda.id}`}
+            scroll={false}
             key={index}
             className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px] md:min-w-[265px]    shadow-xl cursor-default rounded-xl md:min-h-[360px]
           "
@@ -58,7 +61,7 @@ async function CardRecomend() {
 
               <div className="card-actions justify-end"></div>
             </div>
-          </div>
+          </Link>
         ))}{" "}
       </div>
     </>
