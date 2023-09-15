@@ -44,6 +44,9 @@ const NavAdmin = () => {
               <li>
                 <Link href={"/admin/usuarios/"}>Usuarios</Link>
               </li>
+              <li>
+                <Link href={"/admin/menu/"}>Menu Semanal</Link>
+              </li>
             </ul>
           </div>
           <Link
@@ -70,7 +73,7 @@ const NavAdmin = () => {
                 Viandas
               </Link>
             </li>
-            <li tabIndex={1}>
+            <li tabIndex={2}>
               <Link
                 className="text-lg"
                 href={"/admin/viandas/"}
@@ -78,12 +81,20 @@ const NavAdmin = () => {
                 Menu Diario
               </Link>
             </li>
-            <li tabIndex={1}>
+            <li tabIndex={3}>
               <Link
                 className="text-lg"
                 href={"/admin/usuarios"}
               >
                 Usuarios
+              </Link>
+            </li>
+            <li tabIndex={4}>
+              <Link
+                className="text-lg"
+                href={"/admin/menu/"}
+              >
+                Menu Semanal
               </Link>
             </li>
           </ul>
