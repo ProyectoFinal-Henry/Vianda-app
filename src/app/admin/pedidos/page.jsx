@@ -102,7 +102,7 @@ async function ListaPedidos({ searchParams }) {
 
                         <td>
                           <div className=" h-full w-full flex flex-col  justify-center items-center gap-y-2 ">
-                            <Link href={`/admin/pedidos/${id}`}>Ver</Link>
+                            <Link href={`admin/pedidos/${id}`}>Ver</Link>
                           </div>
                         </td>
                       </tr>
