@@ -13,8 +13,11 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { GiSandsOfTime } from "react-icons/gi";
+import { useCarrito } from '@/context/CarritoContext'
+
 
 const LoginCatalogPage = () => {
+  const {setUserId, setFlagLogeed} = useCarrito() //contexto global
   const router = useRouter();
   const [visible, setVisible] = useState(false);
   const [loadingUp, setLoadingUp] = useState(false);
@@ -36,6 +39,7 @@ const LoginCatalogPage = () => {
       await new Promise((resolve) => setTimeout(resolve, 3000));
       const response = await axios.post("/api/auth/login", formData);
       if (response.data.rol === "cliente") {
+        setFlagLogeed(true);
         router.refresh();
         router.push("/catalog/mi-cuenta");
       } else if (response.data.rol === "administrador") {
