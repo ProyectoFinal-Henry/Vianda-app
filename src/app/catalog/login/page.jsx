@@ -10,8 +10,10 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import { GiSandsOfTime } from "react-icons/gi"
 import RowResponsive from "@/components/formaters/RowResponsive"
+import { useCarrito } from "@/context/CarritoContext"
 
 const LoginCatalogPage = () => {
+  const { setUserId, setFlagLogeed } = useCarrito() //contexto global
   const router = useRouter()
   const [visible, setVisible] = useState(false)
   const [loadingUp, setLoadingUp] = useState(false)
