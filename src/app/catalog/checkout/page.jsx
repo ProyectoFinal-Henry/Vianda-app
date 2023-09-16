@@ -14,10 +14,12 @@ import React, { useEffect, useState } from "react";
 import { useCarrito } from "@/context/CarritoContext";
 import LoadingComponentApp from "@/app/loading";
 import pedidosFormater from "@/libs/utils/pedidosFormater";
+import { useRouter } from "next/navigation";
 
 /*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
 const CatalogRegisterPage = () => {
-  const { precioTotal, viandas } = useCarrito();
+  const router = useRouter(); 
+  const { precioTotal, viandas, setViandas } = useCarrito();
   const [semana, setSemana] = useState([]);
   const [ready, setReady] = useState(false);
 
@@ -73,8 +75,26 @@ const CatalogRegisterPage = () => {
       );
       const pedidoDB = await axios.post(`/api/pedidos`, respuesta);
       window.alert(pedidoDB.data.message);
+      setViandas([]);
+      carritoPUT(fk_usuarioId);
+      const response = await axios.post("/api/auth/logout")
+      router.refresh()
+      router.push("/catalog")
     }
   };
+
+  const carritoPUT = async (id) => {
+    const carritoCampo = {
+        carrito: "[]",
+    };
+    try {
+        const respuesta = await axios.put(`/api/usuarios/${id}`, carritoCampo);
+        // Manejo de éxito
+    } catch (error) {
+        console.error("Error en la solicitud PUT:", error);
+        throw new Error("Algo salió mal en el PUT de la DB");
+    }
+};
 
   return (
     <>
@@ -85,6 +105,7 @@ const CatalogRegisterPage = () => {
             className="flex  flex-col md:flex-row min-h-[80vh] items-center  gap-8"
           >
             <main className="md:max-w-[80%] " id="grid">
+              
               <h1
                 id="title"
                 className="font-bold text-lg text-center mx-4

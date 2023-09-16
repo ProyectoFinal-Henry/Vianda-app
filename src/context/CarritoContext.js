@@ -7,10 +7,11 @@ export const CarritoContext = createContext();
 export const useCarrito = () => {
     const context = useContext(CarritoContext);
     if (!context) {
-        throw new Error("Error en el contexto, quizas no este dentro de un provider.")
+        throw new Error("Error en el contexto, quizás no esté dentro de un provider.");
     }
     return context;
-}
+};
+
 export const CarritoProvider = ({ children }) => {
     const [viandas, setViandas] = useState([]);
     const [cantidadTotal, setCantidadTotal] = useState(0);
@@ -19,52 +20,50 @@ export const CarritoProvider = ({ children }) => {
     const [flagLogeed, setFlagLogeed] = useState(false);
     let savedData = [];
 
-    useEffect(() => {
+    const cargarViandasDesdeLocalStorage = () => {
         const viandasGuardadas = localStorage.getItem("viandas");
         const viandasGuardadasArray = JSON.parse(viandasGuardadas);
-        if (viandasGuardadas) {
+        if (viandasGuardadasArray) {
             setViandas(viandasGuardadasArray);
         }
-    }, [])
+    };
 
-    useEffect(() => {
-        const contadorCantidad = viandas.reduce((total, producto) => total + producto.cantidad, 0);
+    const actualizarCarrito = () => {
+        const contadorCantidad = viandas.reduce(
+            (total, producto) => total + producto.cantidad,
+            0
+        );
         setCantidadTotal(contadorCantidad || 0);
-        const contadorPrecio = viandas.reduce((total, producto) => Number(total) + (Number(producto.precio) * Number(producto.cantidad)), 0);
-        setPrecioTotal(contadorPrecio || 0)
+
+        const contadorPrecio = viandas.reduce(
+            (total, producto) =>
+                Number(total) + Number(producto.precio) * Number(producto.cantidad),
+            0
+        );
+        setPrecioTotal(contadorPrecio || 0);
+
         localStorage.setItem("viandas", JSON.stringify(viandas));
-        if (flagLogeed === true) {
+
+        if (flagLogeed) {
             const carritoString = JSON.stringify(viandas);
             if (carritoString.length > 5) {
                 carritoPUT(carritoString);
             }
         }
-    }, [viandas])
-
-
+    };
 
     const carritoPUT = async (carritoString) => {
         const carritoCampo = {
-            carrito: carritoString
-        }
+            carrito: carritoString,
+        };
+
         try {
             const respuesta = await axios.put(`/api/usuarios/${userId}`, carritoCampo);
         } catch (error) {
-            throw new Error("algo salio mal en el put de la DB!")
+            console.error("Error en la solicitud PUT:", error);
+            throw new Error("Algo salió mal en el PUT de la DB");
         }
-    }
-
-    useEffect(() => {
-        identificacion().then((flag) => {
-            if (flag === true) {
-                checkSavedData().then((flag) => {
-                    if (flag === true) {
-                        setViandas(savedData);
-                    };
-                });
-            };
-        })
-    }, [flagLogeed])
+    };
 
     const identificacion = async () => {
         const usuario = await axios.get("/api/auth/check");
@@ -74,7 +73,7 @@ export const CarritoProvider = ({ children }) => {
             return true;
         }
         return false;
-    }
+    };
 
     const checkSavedData = async () => {
         if (userId !== 0) {
@@ -82,30 +81,33 @@ export const CarritoProvider = ({ children }) => {
             const carrito = respuesta.data.carrito;
             if (carrito && carrito.length > 5) {
                 const carritoParseado = JSON.parse(carrito);
-                savedData = carritoParseado
-                return true;
+                savedData = carritoParseado;
+                return { success: true, viandas: carritoParseado }; // Retorna también el array de viandas
             }
-            return false;
+            return { success: false };
         }
-    }
+    };
+
 
     const agregarVianda = async (nuevaVianda) => {
         const busqueda = await viandas.find((vianda) => vianda.id === nuevaVianda.id);
         if (!busqueda) {
             setViandas([...viandas, nuevaVianda]);
         }
-    }
+    };
+
     const quitarVianda = async (id) => {
         const busqueda = await viandas.find((vianda) => vianda.id === id);
         if (busqueda) {
             const resultado = viandas.filter((vianda) => vianda.id !== id);
             setViandas(resultado);
-            localStorage.setItem("viandas", JSON.stringify(viandas));
+            localStorage.setItem("viandas", JSON.stringify(resultado));
         } else {
-            throw new Error("No se pudo encontrar la vianda en el carrito de compras.")
+            throw new Error("No se pudo encontrar la vianda en el carrito de compras.");
         }
         return true;
-    }
+    };
+
     const modificarCantidad = (id, valor) => {
         const busqueda = viandas.find((vianda) => vianda.id === id);
         if (busqueda) {
@@ -113,12 +115,48 @@ export const CarritoProvider = ({ children }) => {
             contador = contador + valor;
             busqueda.cantidad = valor;
             setCantidadTotal(contador);
+        } else {
+            throw new Error("No se pudo encontrar la vianda en el carrito de compras.");
         }
-        else {
-            throw new Error("No se pudo encontrar la vianda en el carrito de compras.")
-        }
-    }
+    };
 
-    return <CarritoContext.Provider value={{ viandas, cantidadTotal, precioTotal, agregarVianda, quitarVianda, modificarCantidad, setFlagLogeed, setUserId }}>{children}</CarritoContext.Provider>
-}
+    useEffect(() => {
+        cargarViandasDesdeLocalStorage();
+    }, []);
 
+    useEffect(() => {
+        actualizarCarrito();
+    }, [viandas, flagLogeed]);
+
+    useEffect(() => {
+        identificacion().then((flag) => {
+            if (flag === true) {
+                checkSavedData().then((result) => {
+                    if (result && result.success) {
+                        setViandas(result.viandas);
+                        localStorage.setItem("viandas", JSON.stringify(result.viandas));
+                    }
+                });
+            }
+        });
+    }, [flagLogeed]);
+
+
+    return (
+        <CarritoContext.Provider
+            value={{
+                viandas,
+                cantidadTotal,
+                precioTotal,
+                setViandas,
+                agregarVianda,
+                quitarVianda,
+                modificarCantidad,
+                setFlagLogeed,
+                setUserId,
+            }}
+        >
+            {children}
+        </CarritoContext.Provider>
+    );
+};
