@@ -9,8 +9,14 @@ import { FiMenu } from "react-icons/fi";
 import { FaAngellist } from "react-icons/fa"
 import axios from "axios";
 import Link from "next/link";
+import { UserAuth } from "@/context/AuthContext"
+import LoadingComponentApp from "@/app/loading";
 
 function MisDatos() {
+  const {user} = UserAuth()
+  console.log(user)
+  const [isLoading, setIsLoading] = useState(true);
+
   const {
     register,
     handleSubmit,
@@ -39,7 +45,13 @@ function MisDatos() {
 
   useEffect(() => {
     try {
-      //la petición get a /check lo que hace es traer todos los datos de la sesión que están guardadas en el token
+      //si hay usuario de google, que traiga los datos de google
+      if (user){
+        setValue("nombre", user.displayName)
+        setValue("email", user.email)
+      }
+      else{
+        //sino, que traiga los datos del token
       axios.get("/api/auth/check").then((res) => {
         setValue("nombre", res.data.nombre);
         setValue("email", res.data.email);
@@ -55,10 +67,20 @@ function MisDatos() {
           id: res.data.id,
         });
       });
+      }
+      
     } catch (error) {
       console.log(error);
     }
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timeoutId);
   }, []);
+
+  useEffect(() => {
+   setIsLoading(true)
+  }, [user]);
 
   const onSubmit = handleSubmit(async (data) => {
     const {id, nombre, email, dni, telefono, direccion } = data
@@ -74,6 +96,7 @@ function MisDatos() {
 
       try {
     const updateUser = await axios.put(`/api/usuarios/${userData.id}`, formData);
+    const updateToken = await axios.put('/api/auth/modify', formData)
     setSuccess(true);
 
     await new Promise((resolve) => setTimeout(resolve, 2500))
@@ -87,6 +110,11 @@ function MisDatos() {
 
   return (
     <>
+    {isLoading ? (
+        <div className="min-h-screen">
+          <LoadingComponentApp />
+        </div>
+      ) : (
       <div className="flex flex-col md:flex-row items-start">
         <div
           id="NavAdmin"
@@ -186,6 +214,7 @@ function MisDatos() {
                   type="text"
                   placeholder="Nombre Completo"
                   className="input input-bordered input-sm w-full max-w-[95%] ml-3"
+                  disabled={user !== null}
                   {...register("nombre", {
                     maxLength: {
                       value: 30,
@@ -235,6 +264,7 @@ function MisDatos() {
                   type="text"
                   placeholder="DNI"
                   className="appearance-none input input-bordered input-sm w-full max-w-[95%] ml-3 "
+                  disabled={user !== null}
                   {...register("dni", {
                     maxLength: {
                       value: 12,
@@ -271,6 +301,7 @@ function MisDatos() {
                   type="tel"
                   placeholder="Teléfono"
                   className="input input-bordered input-sm w-full max-w-[95%] ml-3"
+                  disabled={user !== null}
                   {...register("telefono", {
                     pattern: {
                       value: /^[0-9]+$/,
@@ -296,6 +327,7 @@ function MisDatos() {
                   type="text"
                   placeholder="Dirección"
                   className="input input-bordered input-sm w-full max-w-[95%] ml-3"
+                  disabled={user !== null}
                   {...register("direccion", {
                     maxLength: {
                       value: 30,
@@ -316,15 +348,25 @@ function MisDatos() {
               </div>
             </div>
 
-            <button
+           {!user? (<button
               type="submit"
-              className="flex items-center gap-x-2 first-letter:font-bold btn-accent bg-opacity-80 px-10 py-1 rounded-md ml-3 mt-6 mb-0"
+              className="flex items-center gap-x-2 first-letter:font-bold btn-accent px-10 py-1 rounded-md ml-3 mt-6 mb-0"
+            >
+              Guardar Cambios
+            </button>) : (
+              <button
+              type="submit"
+              className="flex items-center opacity-50 gap-x-2 first-letter:font-bold bg-accent bg-opacity-30 px-10 py-1 rounded-md ml-3 mt-6 mb-0"
+              disabled='true'
             >
               Guardar Cambios
             </button>
+            )}         
+            
           </form>
         </div>
       </div>
+      )}
     </>
   );
 }
