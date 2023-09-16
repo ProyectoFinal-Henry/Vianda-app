@@ -29,7 +29,7 @@ function Pagination({ data }) {
 
   return (
     <>
-      <div className="flex justify-center w-full">
+      <div className="flex justify-center w-full px-2">
         <h1 className="mt-10 py-5   w-full text-center  text-3xl font-bold">Menu:</h1>
       </div>
       <div className="inline-flex items-start gap-8 mt-6">

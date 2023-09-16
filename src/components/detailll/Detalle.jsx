@@ -46,11 +46,13 @@ const Detalle = ({ data }) => {
         <div
           id="contenedorPrincipal"
           className=" max-w-[380px] min-w-[380px] flex flex-col items-center justify-center  md:max-w-[35%] md:min-w-[35%] 
-             bg-base-100  px-2 pb-6 pt-3  rounded-3xl "
+             bg-base-100  px-2 pb-6 pt-3 md:p-6 rounded-3xl "
           onClick={handleClickInsideModal}
         >
-          <div className="flex  flex-row items-start justify-between gap-x-2 min-w-full pl-2">
-            <h1 className="text-center text-2xl font-semibold tracking-wider text-base-100   bg-accent px-8  rounded-lg">{nombre}</h1>{" "}
+          <div className="flex  flex-row items-center justify-between gap-x-2 min-w-full pl-2">
+            <h1 className="text-center text-xl md:text-2xl font-semibold tracking-wider text-base-100   bg-accent px-8  rounded-lg">
+              {nombre}
+            </h1>{" "}
             <Link
               href="/catalog"
               className=" "
@@ -105,7 +107,7 @@ const Detalle = ({ data }) => {
               <p className="bg-accent/30 w-30 px-2  rounded ">{stock}</p>
             </div>
             {(lunes || martes || miercoles || jueves || viernes || sabado || domingo) && (
-              <div className="avatar  max-h-35 mb-6 mx-auto">
+              <div className="avatar  max-h-35 mb-6 mx-auto -mt-8 md:mt-0">
                 <Image
                   alt="asi funciona la app imagen"
                   width={347}

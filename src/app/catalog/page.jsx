@@ -15,10 +15,10 @@ async function Homepage() {
   return (
     <>
       <Detalle data={data} />
-      <FullWidthHeader />
       <RowResponsive>
+        <FullWidthHeader />
         <CardViandasRecommended />
-        <div className="flex justify-center min-w-full">
+        <div className="flex justify-center min-w-full px-2">
           <Link
             href={"/catalog/checkout"}
             className="btn btn-accent  text-white  btn-block  font-bold text-xl"
@@ -31,7 +31,7 @@ async function Homepage() {
           className="w-full 
        flex flex-col justify-center min-h-[40vh] mt-12"
         >
-          <div className="flex flex-col items-center justify-around gap-8 md:gap-12  ">
+          <div className="flex flex-col items-center justify-around gap-8 md:gap-12 px-2 ">
             <h2 className="text-slate-700 font-extrabold text-2xl md:text-4xl text-left md:min-w-fit mt-12 md:mt-0">
               Comé según tu estilo:
             </h2>
