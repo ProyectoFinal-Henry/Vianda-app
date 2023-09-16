@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import FormResponsiveContainer from "@/components/formaters/FormResponsiveContainer";
 import RowResponsive from "@/components/formaters/RowResponsive"
+import { useCarrito } from "@/context/CarritoContext"
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -18,6 +19,7 @@ import { UserAuth } from "@/context/AuthContext"
 
 
 const LoginCatalogPage = () => {
+  const { setFlagLogeed } = useCarrito() //contexto global
   const {user, googleLogin} = UserAuth()
   const router = useRouter();
   const [visible, setVisible] = useState(false);
