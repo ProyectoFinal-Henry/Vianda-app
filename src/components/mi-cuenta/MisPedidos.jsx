@@ -94,13 +94,13 @@ async function MisPedidos({ userData }) {
 
           {Array.isArray(dataPedido) ? (
             dataPedido.map(
-              ({ totalVenta, idTransaccion, fecha, id, detallePedido}) => {
+              ({ totalVenta, idTransaccion, fecha, id, metodoPago, detallePedido}) => {
                 return (
                   <div key={id}>
                     <div
-                      className="flex flex-col md:flex-row md:justify-between w-full items-center"
+                      className="flex bg-base-200 flex-col md:flex-row md:justify-between w-full items-center rounded md:mr-5"
                     >
-                      <div className="flex flex-col md:flex-row justify-start w-full items-start ml-6 md:ml-3 mb-3 md:mb-0">
+                      <div className="flex flex-col md:flex-row justify-evenly w-full items-start ml-6 md:ml-3 mb-3 md:mb-0">
                         <h1 className="md:mr-10">
                           <strong>Pedido No: </strong> {idTransaccion}
                         </h1>
@@ -110,11 +110,14 @@ async function MisPedidos({ userData }) {
                         <h1 className="md:mr-10">
                           <strong>Total: </strong> ${totalVenta}
                         </h1>
+                        <h1 className="md:mr-5">
+                          <strong>Metodo de pago </strong> ${metodoPago}
+                        </h1>
                       </div>
 
-                      <button className="flex justify-center items-center gap-x-2 first-letter:font-bold btn-accent bg-opacity-80 px-16 py-1 rounded w-60 md:mr-3  ">
+                      {/* <button className="flex justify-center items-center gap-x-2 first-letter:font-bold btn-accent bg-opacity-80 px-16 py-1 rounded w-60 ">
                         Ver pedido
-                      </button>
+                      </button> */}
                     </div>
 
                     <div className="flex flex-col md:flex-row md:justify-between mt-1 mb-5">
