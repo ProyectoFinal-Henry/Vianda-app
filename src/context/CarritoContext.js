@@ -1,7 +1,6 @@
 "use client"
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { set } from "react-hook-form";
 
 export const CarritoContext = createContext();
 
@@ -69,7 +68,6 @@ export const CarritoProvider = ({ children }) => {
 
     const identificacion = async () => {
         const usuario = await axios.get("/api/auth/check");
-        //setTimeout(() => { }, 8000);
         const id = usuario.data.id;
         setUserId(Number(id));
         if (id) {
@@ -81,7 +79,6 @@ export const CarritoProvider = ({ children }) => {
     const checkSavedData = async () => {
         if (userId !== 0) {
             const respuesta = await axios.get(`/api/usuarios/${userId}`);
-            //setTimeout(() => { }, 8000);
             const carrito = respuesta.data.carrito;
             if (carrito && carrito.length > 5) {
                 const carritoParseado = JSON.parse(carrito);
