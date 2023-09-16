@@ -51,7 +51,7 @@ const Stylebadges = () => {
               >
                 <div className="avatar mb-10">
                   <div className="w-54 rounded-full">
-                    <img src="/images/sin_harinas__.png" />
+                    <img src="/images/sin_harinas_card.png" />
                   </div>
                 </div>
 
@@ -63,7 +63,7 @@ const Stylebadges = () => {
               >
                 <div className="avatar mb-10">
                   <div className="w-54 rounded-full">
-                    <img src="/images/vegetariano__.png" />
+                    <img src="/images/vegetariano_card.png" />
                   </div>
                 </div>
 
