@@ -29,7 +29,7 @@ function CardTipes() {
           <figure>
             <img
               className="rounded-t-xl"
-              src="/images/vegetariano.png"
+              src="/images/vegetariano_card.png"
               alt="vegetariano"
             />
           </figure>
@@ -47,7 +47,7 @@ function CardTipes() {
           <figure>
             <img
               className="rounded-t-xl"
-              src="/images/sin_harinas.png"
+              src="/images/sin_harinas_card.png"
               alt="sin_harinas"
             />
           </figure>
