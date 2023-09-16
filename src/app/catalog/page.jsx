@@ -71,7 +71,7 @@ async function Homepage() {
               >
                 <div className="avatar mb-10">
                   <div className="w-54 rounded-full">
-                    <img src="/images/sin_harinas.PNG" />
+                    <img src="/images/sin_harinas__.png" />
                   </div>
                 </div>
 
@@ -83,7 +83,7 @@ async function Homepage() {
               >
                 <div className="avatar mb-10">
                   <div className="w-54 rounded-full">
-                    <img src="/images/vegetariano.PNG" />
+                    <img src="/images/vegetariano__.png" />
                   </div>
                 </div>
 
