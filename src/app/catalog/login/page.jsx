@@ -13,7 +13,7 @@ import RowResponsive from "@/components/formaters/RowResponsive"
 import { useCarrito } from "@/context/CarritoContext"
 
 const LoginCatalogPage = () => {
-  const { setUserId, setFlagLogeed } = useCarrito() //contexto global
+  const { setFlagLogeed } = useCarrito() //contexto global
   const router = useRouter()
   const [visible, setVisible] = useState(false)
   const [loadingUp, setLoadingUp] = useState(false)
@@ -37,6 +37,7 @@ const LoginCatalogPage = () => {
       if (response.data.rol === "cliente") {
         router.refresh()
         router.push("/catalog/mi-cuenta")
+        setFlagLogeed(true)
       } else if (response.data.rol === "administrador") {
         router.refresh()
         router.push("/admin")
