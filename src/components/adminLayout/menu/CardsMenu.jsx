@@ -40,8 +40,8 @@ const CardsMenu = ({ viandas, dia, tipo }) => {
     try {
       const menuItem = await axios.post(`/api/menu`, { dia: dia, viandaId: e.target.value, tipo: tipo })
       setLoader("success")
-      await new Promise((resolve) => setTimeout(resolve, 500))
       e.target.value !== "" && setViandaSeleccionada(viandasPorTipo.find((vianda) => vianda.id === Number(e.target.value)))
+      await new Promise((resolve) => setTimeout(resolve, 1500))
       setLoader("off")
     } catch (error) {
       setLoader("error")
@@ -80,7 +80,7 @@ const CardsMenu = ({ viandas, dia, tipo }) => {
                             rounded-t-xl"
                 >
                   <img
-                    className="object-cover"
+                    className={`object-cover ${loader === "success" && "animate-pulse" }`}
                     src={viandaSeleccionada.imagen}
                   />
                 </div>
