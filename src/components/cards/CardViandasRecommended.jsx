@@ -18,12 +18,12 @@ async function CardRecomend() {
 
   return (
     <>
-      <div className="flex justify-center w-full my-12">
+      <div className="flex justify-center w-full my-12 px-2">
         <h2 className="text-slate-700 font-extrabold text-2xl md:text-4xl text-left md:min-w-fit mt-12 md:mt-0">
           Recomendados de la semana
         </h2>
       </div>
-      <div className="min-w-full flex flex-row flex-wrap  justify-between  my-6 gap-y-4">
+      <div className="min-w-full flex flex-row flex-wrap  justify-between  my-6 gap-y-4 px-2">
         {randomViandas.map((vianda, index) => (
           <Link
             href={`/catalog?modal=${vianda.id}`}

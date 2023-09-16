@@ -87,10 +87,10 @@ const CardsMenu = ({ viandas, dia, tipo }) => {
 
                 <div
                   id="typeWrapper"
-                  className="mx-auto mb-2 px-6"
+                  className="mx-auto mb-1 px-1"
                 >
                   <select
-                    className="select select-accent select-bordered rounded w-full max-w-xs "
+                    className="select select-accent select-bordered rounded-md w-full max-w-xs "
                     onChange={updateVianda}
                   >
                     Escoger Vianda
