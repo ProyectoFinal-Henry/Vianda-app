@@ -7,15 +7,18 @@ import {
 } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormResponsiveContainer from "@/components/formaters/FormResponsiveContainer";
+import RowResponsive from "@/components/formaters/RowResponsive"
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { GiSandsOfTime } from "react-icons/gi"
+import { UserAuth } from "@/context/AuthContext"
 
 
 const LoginCatalogPage = () => {
+  const {user, googleLogin} = UserAuth()
   const router = useRouter();
   const [visible, setVisible] = useState(false);
   const [loadingUp, setLoadingUp] = useState(false)
@@ -31,6 +34,14 @@ const LoginCatalogPage = () => {
 
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState)
+  }
+
+  const handleGoogleLogin = async () => {
+    try {
+      await googleLogin()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const {
@@ -136,18 +147,20 @@ const LoginCatalogPage = () => {
                 Iniciar sesión segura
               </button>
             </div>
-            <div className="flex mt-5 text-sm underline justify-center">
-              <Link href="">Olvidé mi contraseña</Link>
+          <p className="mt-4 flex text-sm justify-center">¿No tienes cuenta?</p>
+            <div className="flex text-sm underline justify-center">
+              <Link href="/catalog/registro">Registrate</Link>
             </div>
             <div className="divider"></div>
           </form>
           <p>O ingresa con</p>
-          <button className="items-center gap-x-1.5 mt-4 mb-16 flex font-bold border-solid border-neutral border-2 rounded-sm px-4 py-0.5 border-opacity-30">
+          <button onClick={handleGoogleLogin} className="items-center gap-x-1.5 mt-4 mb-16 flex font-bold border-solid border-neutral border-2 rounded-sm px-4 py-0.5 border-opacity-30">
             <FcGoogle className="text-2xl px-0 mx-0" />
             Google
           </button>
         </div>
       </FormResponsiveContainer>
+      </RowResponsive>
     </>
   )
 }

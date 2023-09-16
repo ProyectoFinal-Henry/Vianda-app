@@ -44,4 +44,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default page;
+export default AdminDashboard;

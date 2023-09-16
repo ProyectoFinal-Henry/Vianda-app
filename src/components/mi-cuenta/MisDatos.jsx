@@ -10,14 +10,13 @@ import { FaAngellist } from "react-icons/fa"
 import axios from "axios";
 import Link from "next/link";
 import { UserAuth } from "@/context/AuthContext"
+import LoadingComponentApp from "@/app/loading";
 
-<<<<<<< Updated upstream
 function MisDatos() {
-=======
-function MisDatos({ usuarioId }) {
   const {user} = UserAuth()
+  console.log(user)
+  const [isLoading, setIsLoading] = useState(true);
 
->>>>>>> Stashed changes
   const {
     register,
     handleSubmit,
@@ -33,7 +32,6 @@ function MisDatos({ usuarioId }) {
     },
   });
 
-<<<<<<< Updated upstream
   const [success, setSuccess] = useState(false)
   const [userData, setUserData] = useState({
     nombre: "",
@@ -45,24 +43,21 @@ function MisDatos({ usuarioId }) {
   });
 
 
-=======
->>>>>>> Stashed changes
   useEffect(() => {
     try {
-      //si tengo "user" quiere decir que estoy logeado con Google (me traigo sus datos)
-      if (user) {
+      //si hay usuario de google, que traiga los datos de google
+      if (user){
         setValue("nombre", user.displayName)
         setValue("email", user.email)
       }
-      else{ 
-      //caso contrario, me traigo los datos del Token
+      else{
+        //sino, que traiga los datos del token
       axios.get("/api/auth/check").then((res) => {
         setValue("nombre", res.data.nombre);
         setValue("email", res.data.email);
         setValue("dni", res.data.dni);
         setValue("telefono", res.data.telefono);
         setValue("direccion", res.data.direccion);
-<<<<<<< Updated upstream
         setUserData({
           nombre: res.data.nombre,
           email: res.data.email,
@@ -72,14 +67,20 @@ function MisDatos({ usuarioId }) {
           id: res.data.id,
         });
       });
-=======
       }
-  )}
->>>>>>> Stashed changes
+      
     } catch (error) {
       console.log(error);
     }
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timeoutId);
   }, []);
+
+  useEffect(() => {
+   setIsLoading(true)
+  }, [user]);
 
   const onSubmit = handleSubmit(async (data) => {
     const {id, nombre, email, dni, telefono, direccion } = data
@@ -93,9 +94,9 @@ function MisDatos({ usuarioId }) {
       id: id
     }
 
-<<<<<<< Updated upstream
       try {
     const updateUser = await axios.put(`/api/usuarios/${userData.id}`, formData);
+    const updateToken = await axios.put('/api/auth/modify', formData)
     setSuccess(true);
 
     await new Promise((resolve) => setTimeout(resolve, 2500))
@@ -105,14 +106,15 @@ function MisDatos({ usuarioId }) {
     console.log(error);
   }
 
-=======
-      await axios.put(`/api/usuarios/${usuarioId}`, formData)
-      await axios.put('/api/auth/modify', formData)
->>>>>>> Stashed changes
   });
 
   return (
     <>
+    {isLoading ? (
+        <div className="min-h-screen">
+          <LoadingComponentApp />
+        </div>
+      ) : (
       <div className="flex flex-col md:flex-row items-start">
         <div
           id="NavAdmin"
@@ -212,6 +214,7 @@ function MisDatos({ usuarioId }) {
                   type="text"
                   placeholder="Nombre Completo"
                   className="input input-bordered input-sm w-full max-w-[95%] ml-3"
+                  disabled={user !== null}
                   {...register("nombre", {
                     maxLength: {
                       value: 30,
@@ -261,6 +264,7 @@ function MisDatos({ usuarioId }) {
                   type="text"
                   placeholder="DNI"
                   className="appearance-none input input-bordered input-sm w-full max-w-[95%] ml-3 "
+                  disabled={user !== null}
                   {...register("dni", {
                     maxLength: {
                       value: 12,
@@ -297,6 +301,7 @@ function MisDatos({ usuarioId }) {
                   type="tel"
                   placeholder="Teléfono"
                   className="input input-bordered input-sm w-full max-w-[95%] ml-3"
+                  disabled={user !== null}
                   {...register("telefono", {
                     pattern: {
                       value: /^[0-9]+$/,
@@ -322,6 +327,7 @@ function MisDatos({ usuarioId }) {
                   type="text"
                   placeholder="Dirección"
                   className="input input-bordered input-sm w-full max-w-[95%] ml-3"
+                  disabled={user !== null}
                   {...register("direccion", {
                     maxLength: {
                       value: 30,
@@ -342,15 +348,25 @@ function MisDatos({ usuarioId }) {
               </div>
             </div>
 
-            <button
+           {!user? (<button
               type="submit"
-              className="flex items-center gap-x-2 first-letter:font-bold btn-accent bg-opacity-80 px-10 py-1 rounded-md ml-3 mt-6 mb-0"
+              className="flex items-center gap-x-2 first-letter:font-bold btn-accent px-10 py-1 rounded-md ml-3 mt-6 mb-0"
+            >
+              Guardar Cambios
+            </button>) : (
+              <button
+              type="submit"
+              className="flex items-center opacity-50 gap-x-2 first-letter:font-bold bg-accent bg-opacity-30 px-10 py-1 rounded-md ml-3 mt-6 mb-0"
+              disabled='true'
             >
               Guardar Cambios
             </button>
+            )}         
+            
           </form>
         </div>
       </div>
+      )}
     </>
   );
 }
