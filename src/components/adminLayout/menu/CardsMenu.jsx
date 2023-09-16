@@ -1,9 +1,13 @@
 "use client"
+import { MdOutlineError } from "react-icons/md"; 
+import { FcOk } from "react-icons/fc"
 import { currencyFormater } from "@/libs/utils/currencyFormater"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { set } from "react-hook-form"
 
 const CardsMenu = ({ viandas, dia, tipo }) => {
+  const [loader, setLoader] = useState("off")
   const viandaVacia = {
     id: 0,
     nombre: "Selecciona tipo",
@@ -29,9 +33,21 @@ const CardsMenu = ({ viandas, dia, tipo }) => {
 
   const updateVianda = async (e) => {
     e.target.value === "" && setViandaSeleccionada(viandaVacia)
-    e.target.value !== "" && setViandaSeleccionada(viandasPorTipo.find((vianda) => vianda.id === Number(e.target.value)))
-    // establecer esta vianda true en ese dia en la base de DATOS y borrar las demas en ese dia y con ese tipo
-    const menuItem = await axios.post(`/api/menu`, { dia: dia, viandaId: e.target.value, tipo: tipo })
+   
+  
+    setLoader("on")
+
+    try {
+      const menuItem = await axios.post(`/api/menu`, { dia: dia, viandaId: e.target.value, tipo: tipo })
+      setLoader("success")
+      await new Promise((resolve) => setTimeout(resolve, 500))
+      e.target.value !== "" && setViandaSeleccionada(viandasPorTipo.find((vianda) => vianda.id === Number(e.target.value)))
+      setLoader("off")
+    } catch (error) {
+      setLoader("error")
+      await new Promise((resolve) => setTimeout(resolve, 2500))
+      setLoader("off")
+    }
   }
 
   // !===============================================================
@@ -58,7 +74,7 @@ const CardsMenu = ({ viandas, dia, tipo }) => {
             id="card"
           >
             <div className="flex flex-col items-center justify-center gap-y-1">
-              <div className="avatar max-h-44">
+              <div className="avatar max-h-44  flex flex-col items-center justify-center">
                 <div
                   className="w-full
                             rounded-t-xl"
@@ -86,9 +102,25 @@ const CardsMenu = ({ viandas, dia, tipo }) => {
                 )}
 
                 <div
-                  id="typeWrapper"
-                  className="mx-auto mb-1 px-1"
+                  id="typeWrapper  "
+                  className="mx-auto mb-1 px-1 relative"
                 >
+                  {loader === "on" && (
+                    <div className="flex flex-row justify-center items-center success w-[97%] bg-slate-50/90 absolute top-0 left-0 rounded-md mx-1 mr-8 h-12">
+                      <span className="loading loading-infinity loading-lg min-w-[45px] text-accent  "></span>
+                    </div>
+                  )}
+                  {loader === "success" && (
+                    <div className="min-w-full flex flex-row justify-center items-center h-12 absolute top-0 left-0">
+                      <FcOk className="text-4xl animate-ping " />
+                    </div>
+                  )}
+                  {loader === "error" && (
+                    <div className="min-w-full flex flex-row justify-center items-center h-16 -mt-1 absolute top-0 left-0 bg-red-300 rounded-md">
+                      <MdOutlineError  className="text-4xl   text-red-600 " /> <span>ERROR!</span>
+                    </div>
+                  )}
+
                   <select
                     className="select select-accent select-bordered rounded-md w-full max-w-xs "
                     onChange={updateVianda}
