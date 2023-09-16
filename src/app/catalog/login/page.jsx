@@ -1,23 +1,33 @@
 "use client"
 
-import { AiFillLock, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
-import { FcGoogle } from "react-icons/fc"
-import Link from "next/link"
-import { useState } from "react"
-import FormResponsiveContainer from "@/components/formaters/FormResponsiveContainer"
-import { useForm } from "react-hook-form"
-import axios from "axios"
-import { useRouter } from "next/navigation"
+import {
+  AiFillLock,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+} from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
+import Link from "next/link";
+import { useState } from "react";
+import FormResponsiveContainer from "@/components/formaters/FormResponsiveContainer";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { GiSandsOfTime } from "react-icons/gi"
-import RowResponsive from "@/components/formaters/RowResponsive"
-import { useCarrito } from "@/context/CarritoContext"
+
 
 const LoginCatalogPage = () => {
-  const { setFlagLogeed } = useCarrito() //contexto global
-  const router = useRouter()
-  const [visible, setVisible] = useState(false)
+  const router = useRouter();
+  const [visible, setVisible] = useState(false);
   const [loadingUp, setLoadingUp] = useState(false)
   const [error, setError] = useState("")
+
+  useEffect(() => {
+    if (user){
+      axios.post('/api/auth/loginGoogle').then(() => {
+      router.push('/catalog/mi-cuenta')
+    })
+  }
+}), [user]
 
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState)
@@ -48,7 +58,7 @@ const LoginCatalogPage = () => {
       console.log(error)
     }
     setLoadingUp(false)
-  })
+  });
 
   return (
     <>
@@ -114,32 +124,30 @@ const LoginCatalogPage = () => {
                   ) : (
                     <span className="mt-4 text-xs">
                       <br></br>
-                    </span>
-                  )}
-                </div>
+                      </span>) }
               </div>
-              <div className="flex mt-5 justify-center">
-                <button
-                  type="submit"
-                  className="items-center flex gap-x-2 first-letter:font-bold btn-accent bg-opacity-80 px-8 py-1 rounded-md mt-0"
-                >
-                  <AiFillLock className="text-xl" />
-                  Iniciar sesión segura
-                </button>
-              </div>
-              <div className="flex mt-5 text-sm underline justify-center">
-                <Link href="">Olvidé mi contraseña</Link>
-              </div>
-              <div className="divider"></div>
-            </form>
-            <p>O ingresa con</p>
-            <button className="items-center gap-x-1.5 mt-4 mb-16 flex font-bold border-solid border-neutral border-2 rounded-sm px-4 py-0.5 border-opacity-30">
-              <FcGoogle className="text-2xl px-0 mx-0" />
-              Google
-            </button>
-          </div>
-        </FormResponsiveContainer>
-      </RowResponsive>
+            </div>
+            <div className="flex mt-5 justify-center">
+              <button
+                type="submit"
+                className="items-center flex gap-x-2 first-letter:font-bold btn-accent bg-opacity-80 px-8 py-1 rounded-md mt-0"
+              >
+                <AiFillLock className="text-xl" />
+                Iniciar sesión segura
+              </button>
+            </div>
+            <div className="flex mt-5 text-sm underline justify-center">
+              <Link href="">Olvidé mi contraseña</Link>
+            </div>
+            <div className="divider"></div>
+          </form>
+          <p>O ingresa con</p>
+          <button className="items-center gap-x-1.5 mt-4 mb-16 flex font-bold border-solid border-neutral border-2 rounded-sm px-4 py-0.5 border-opacity-30">
+            <FcGoogle className="text-2xl px-0 mx-0" />
+            Google
+          </button>
+        </div>
+      </FormResponsiveContainer>
     </>
   )
 }

@@ -9,8 +9,15 @@ import { FiMenu } from "react-icons/fi";
 import { FaAngellist } from "react-icons/fa"
 import axios from "axios";
 import Link from "next/link";
+import { UserAuth } from "@/context/AuthContext"
 
+<<<<<<< Updated upstream
 function MisDatos() {
+=======
+function MisDatos({ usuarioId }) {
+  const {user} = UserAuth()
+
+>>>>>>> Stashed changes
   const {
     register,
     handleSubmit,
@@ -26,6 +33,7 @@ function MisDatos() {
     },
   });
 
+<<<<<<< Updated upstream
   const [success, setSuccess] = useState(false)
   const [userData, setUserData] = useState({
     nombre: "",
@@ -37,15 +45,24 @@ function MisDatos() {
   });
 
 
+=======
+>>>>>>> Stashed changes
   useEffect(() => {
     try {
-      //la petición get a /check lo que hace es traer todos los datos de la sesión que están guardadas en el token
+      //si tengo "user" quiere decir que estoy logeado con Google (me traigo sus datos)
+      if (user) {
+        setValue("nombre", user.displayName)
+        setValue("email", user.email)
+      }
+      else{ 
+      //caso contrario, me traigo los datos del Token
       axios.get("/api/auth/check").then((res) => {
         setValue("nombre", res.data.nombre);
         setValue("email", res.data.email);
         setValue("dni", res.data.dni);
         setValue("telefono", res.data.telefono);
         setValue("direccion", res.data.direccion);
+<<<<<<< Updated upstream
         setUserData({
           nombre: res.data.nombre,
           email: res.data.email,
@@ -55,6 +72,10 @@ function MisDatos() {
           id: res.data.id,
         });
       });
+=======
+      }
+  )}
+>>>>>>> Stashed changes
     } catch (error) {
       console.log(error);
     }
@@ -72,6 +93,7 @@ function MisDatos() {
       id: id
     }
 
+<<<<<<< Updated upstream
       try {
     const updateUser = await axios.put(`/api/usuarios/${userData.id}`, formData);
     setSuccess(true);
@@ -83,6 +105,10 @@ function MisDatos() {
     console.log(error);
   }
 
+=======
+      await axios.put(`/api/usuarios/${usuarioId}`, formData)
+      await axios.put('/api/auth/modify', formData)
+>>>>>>> Stashed changes
   });
 
   return (

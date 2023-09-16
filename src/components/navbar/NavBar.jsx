@@ -11,17 +11,49 @@ import Link from "next/link"
 import Image from "next/image"
 
 import { useCarrito } from "@/context/CarritoContext"
+import { UserAuth } from "@/context/AuthContext"
 
 function NavBar() {
+  const {user} = UserAuth()
+
+  const {googleLogout} = UserAuth()
+
   const { cantidadTotal, precioTotal } = useCarrito()
 
   const [logeado, setLogeado] = useState(false)
 
   const router = useRouter()
 
+<<<<<<< Updated upstream
   useEffect(() => {
     const loginstatus = async () => {
       const response = await axios.get("/api/auth/check")
+=======
+  const handleGoogleLogout = async () => {
+    try {
+      const response = await axios.post('/api/auth/logout')
+      if (response.status === 200) await googleLogout()
+      setLogeado(false)
+      router.push('/catalog/login')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    axios.get("/api/auth/check").then((res) => {
+      if (res.status === 200){
+        setLogeado(true)
+      }
+      else{
+        setLogeado(false)
+      }
+    })
+
+}), [handleGoogleLogout]
+
+    
+>>>>>>> Stashed changes
 
       response.data.error && setLogeado(false)
       response.data.id && setLogeado(true)
@@ -49,15 +81,27 @@ function NavBar() {
             />
           </Link>
         </div>
+<<<<<<< Updated upstream
         <div className="flex flex-row-reverse items-center justify-between gap-x-2 ">
+=======
+        <div className="flex-none">
+        <p>{user && user.displayName}</p>
+>>>>>>> Stashed changes
           <div className="dropdown dropdown-end">
             <label
               tabIndex={0}
               className="btn btn-ghost btn-circle"
             >
+<<<<<<< Updated upstream
               <div className="indicator ">
                 <span className="badge badge-sm badge-primary indicator-item">{cantidadTotal}</span>
                 <BiCartAdd className="text-4xl text-warning" />
+=======
+
+              <div className="indicator">
+                <span className="badge badge-sm indicator-item">{cantidadTotal}</span>
+                <BiCartAdd className="text-2xl" />
+>>>>>>> Stashed changes
               </div>
             </label>
             <div
@@ -99,8 +143,23 @@ function NavBar() {
                   Mi Cuenta
                 </Link>
               </li>
+<<<<<<< Updated upstream
 
               <li>{logeado ? <button onClick={logout}>Cerrar Sesion</button> : <Link href={"/catalog/login"}>Iniciar Sesion</Link>}</li>
+=======
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                {!user && !logeado ? (<Link href="/catalog/login">
+              Iniciar Sesión
+              </Link>) : 
+              (
+              <button onClick={handleGoogleLogout}>
+              Cerrar Sesión
+              </button>)}
+              </li>
+>>>>>>> Stashed changes
             </ul>
           </div>
         </div>

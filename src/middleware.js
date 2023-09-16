@@ -3,7 +3,13 @@ import  { jwtVerify } from 'jose'
 import NotAdmin from "./components/adminLayout/NotAdmin";
 
 export async function middleware(request) {
+  
   const token = request.cookies.get("myToken");
+
+  const {payload} = await jwtVerify(token.value, new TextEncoder().encode('secret')) 
+
+  console.log(payload)
+
 
   if (request.nextUrl.pathname.includes("/admin") || request.nextUrl.pathname.includes("/mi-cuenta")) {
     if (token === undefined) {
