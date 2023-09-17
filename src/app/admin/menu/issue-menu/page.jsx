@@ -1,7 +1,7 @@
 "use client"
 import LoadingComponentApp from "@/app/loading"
 import { useSearchParams } from "next/navigation"
-
+import QRCode from "react-qr-code"
 import CardsMenuIssue from "@/components/adminLayout/menu/CardsMenuIssue"
 import RowResponsive from "@/components/formaters/RowResponsive"
 import axios from "axios"
@@ -53,11 +53,11 @@ const MenuIssuePageAdmin = () => {
         </div>
       )}
       <RowResponsive>
-        <div className="overflow-x-auto max-w-full">
+        <div className="overflow-x-auto max-w-full  ">
           {viandas.length !== 0 && (
-            <div className=" text-center">
+            <div className=" min-w-full flex flex-row justify-center">
               <button
-                className="btn btn-primary  btn-block btn-sm max-w-[90%] mr-auto"
+                className="btn btn-primary  btn-block btn-sm max-w-[90%] mx-auto"
                 onClick={menuExporter}
               >
                 Exportar menu
@@ -67,14 +67,15 @@ const MenuIssuePageAdmin = () => {
           <div
             id="menu"
             ref={elementToExportRef}
-            className={`min-w-[72rem]  bg-base-100 ${diaSolo && "max-w-[500px] min-w-[500px]"}`}
+            className={`  bg-base-100  min-w-[1100px]
+            ${diaSolo && " min-w-[460px]  max-w-[600px] "}`}
           >
             {viandas.length !== 0 ? (
               <>
                 {semana.map((dia) => (
                   <div
                     key={dia}
-                    className={` bg-primary-100  rounded-xl shadow-xl p-4  w-full `}
+                    className={` bg-primary-100  rounded-xl shadow-xl p-4  w-full ${diaSolo && " min-w-[490px] max-w-[500px] "}`}
                   >
                     {diaSolo && (
                       <div
@@ -87,9 +88,7 @@ const MenuIssuePageAdmin = () => {
                     )}
                     <div
                       id="menuRow"
-                      className={`flex flex-row justify-left flex-wrap gap-4 items-stretch min-w-full  rounded-xl  p-4  w-full ${
-                        diaSolo && "max-w-[450px] min-w-[450px]"
-                      } `}
+                      className={`flex flex-row justify-left flex-wrap gap-4 items-stretch min-w-full  rounded-xl  p-4  w-full  `}
                     >
                       {!diaSolo && (
                         <div
@@ -123,6 +122,19 @@ const MenuIssuePageAdmin = () => {
                     </div>
                   </div>
                 ))}
+                <div className={`flex flex-row justify-between gap-4 rounded-xl p-4   ${diaSolo && "max-w-[480px]"} justify-start`}>
+                  <div className="flex flex-col items-start justify-center ">
+                    <h2>Restaurante El Rincon Cordóbez</h2>
+                    <h3>Av. San Martin 1234</h3>
+                    <h3>Telefono: 351 1234567</h3>
+                    <a href={"https://vianda-app.vercel.app/"}>https://vianda-app.vercel.app/</a>
+                  </div>
+                  <QRCode
+                    value={String.toString(process.env.LOCALHOST)}
+                    size={"130"}
+                    bgColor="#F3FAED"
+                  />
+                </div>
               </>
             ) : (
               <LoadingComponentApp />
