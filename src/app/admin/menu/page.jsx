@@ -15,7 +15,9 @@ const MenuPageAdmin = () => {
     setViandas(res.data)
   }
   useEffect(() => {
-    viandasGetter()
+    if(viandas.length === 0){
+      viandasGetter()
+    }
   }, [])
   const semana = ["lunes", "martes", "miercoles", "jueves", "viernes"]
   return (
@@ -55,21 +57,25 @@ const MenuPageAdmin = () => {
                     viandas={viandas}
                     dia={dia}
                     tipo={"vegetariano"}
+                    setViandas={setViandas}
                   />
                   <CardsMenu
                     viandas={viandas}
                     dia={dia}
                     tipo={"sinHarinas"}
+                    setViandas={setViandas}
                   />
                   <CardsMenu
                     viandas={viandas}
                     dia={dia}
                     tipo={"dieta"}
+                    setViandas={setViandas}
                   />
                   <CardsMenu
                     viandas={viandas}
                     dia={dia}
                     tipo={"clasico"}
+                    setViandas={setViandas}
                   />
                 </div>
               </div>
