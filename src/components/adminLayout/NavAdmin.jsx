@@ -5,9 +5,21 @@ import Link from "next/link"
 import { FiMenu } from "react-icons/fi"
 import axios from "axios"
 import { useRouter } from "next/navigation"
+import {useState, useEffect} from 'react'
 
 const NavAdmin = () => {
+  const [rol, setRol] = useState();
+  const [userToken, setUserToken] = useState();
   const router = useRouter()
+
+  useEffect(() => {
+    axios.get("/api/auth/check").then((res) => {
+      if (res.status === 200) {
+        setUserToken(res.data.nombre);
+        setRol(res.data.rol)
+      }
+    });
+  }),[];
 
   const logout = async () => {
     const response = await axios.post("/api/auth/logout")
@@ -101,10 +113,11 @@ const NavAdmin = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end flex items-center h-fit">
+          <p className="text-neutral font-bold mx-6 text-xl">{userToken} &#40;{rol}&#41;</p>
           <button
             onClick={logout}
-            className="ink link-primary font-extrabold mr-0 md:mr-10 "
+            className="ink link-primary font-extrabold mr-0 md:mr-10"
             href={"/"}
           >
             Salir Del Admin
