@@ -1,8 +1,5 @@
 "use client"
-import { MdOutlineError } from "react-icons/md"
-import { FcOk } from "react-icons/fc"
-import { currencyFormater } from "@/libs/utils/currencyFormater"
-import axios from "axios"
+
 import { useEffect, useState } from "react"
 
 const CardsMenuIssue = ({ viandas, dia, tipo }) => {
@@ -27,7 +24,7 @@ const CardsMenuIssue = ({ viandas, dia, tipo }) => {
     }
   }, [])
   //cargar viandas por tipo
-  const viandasPorTipo = viandas.filter((vianda) => vianda.tipo === tipo)
+  
 
   // !===============================================================
   return (
@@ -35,7 +32,7 @@ const CardsMenuIssue = ({ viandas, dia, tipo }) => {
       <div
         id="card"
         className=" 
-          w-[95%] max-w-[250px] md:max-w-[210px]   
+          w-[95%] max-w-[200px]   
           card card-compact flex flex-col justify-start
           bg-base-100 shadow-xl   rounded-xl border-slate900/10
         "
