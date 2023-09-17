@@ -3,6 +3,7 @@ import LoadingComponentApp from "@/app/loading"
 import CardsMenu from "@/components/adminLayout/menu/CardsMenu"
 import RowResponsive from "@/components/formaters/RowResponsive"
 import axios from "axios"
+import Link from "next/link"
 import { useState, useEffect } from "react"
 
 const MenuPageAdmin = () => {
@@ -19,6 +20,7 @@ const MenuPageAdmin = () => {
   return (
     <>
       <RowResponsive>
+        <Link href={'/admin/menu/issue-menu'} className="btn btn-primary mr-auto">EXPORTAR ESTE MENU COMO IMAGEN</Link>
         {viandas.length !== 0 ? (
           <>
             {semana.map((dia) => (
