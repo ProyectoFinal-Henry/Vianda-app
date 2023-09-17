@@ -6,7 +6,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { set } from "react-hook-form"
 
-const CardsMenu = ({ viandas, dia, tipo }) => {
+const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
   const [loader, setLoader] = useState("off")
   const viandaVacia = {
     id: 0,
@@ -33,7 +33,7 @@ const CardsMenu = ({ viandas, dia, tipo }) => {
 
   const updateVianda = async (e) => {
     e.target.value === "" && setViandaSeleccionada(viandaVacia)
-   
+
   
     setLoader("on")
 
@@ -41,6 +41,8 @@ const CardsMenu = ({ viandas, dia, tipo }) => {
       const menuItem = await axios.post(`/api/menu`, { dia: dia, viandaId: e.target.value, tipo: tipo })
       setLoader("success")
       e.target.value !== "" && setViandaSeleccionada(viandasPorTipo.find((vianda) => vianda.id === Number(e.target.value)))
+      const viandasFilter = viandas.filter((vianda)=> vianda.id !== Number(e.target.value));
+      setViandas(viandasFilter)
       await new Promise((resolve) => setTimeout(resolve, 1500))
       setLoader("off")
     } catch (error) {
@@ -126,6 +128,7 @@ const CardsMenu = ({ viandas, dia, tipo }) => {
                     onChange={updateVianda}
                   >
                     Escoger Vianda
+                    <option key={0} value={"sinSeleccion"}>Sin seleccion</option>
                     {viandasPorTipo.map(({ id, nombre }) => (
                       <option
                         key={id}
