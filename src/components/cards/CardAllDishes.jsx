@@ -13,13 +13,13 @@ function CardAllDishes(props) {
 
   return (
     <>
-      <div className="min-w-full flex flex-row flex-wrap  justify-start  my-6 gap-4">
+      <div className="min-w-full flex flex-row flex-wrap  justify-start  my-6 gap-4 px-2">
         {data.map(({ id, imagen, nombre, tipo, descripcion, ingredientes, stock, precio }) => {
           return (
             <Link
               href={`/catalog?modal=${id}`}
               key={id}
-              className="card-compact bg-amber-300 max-w-[47%]   md:max-w-[273px]  md:min-w-[273px]   shadow-xl cursor-default rounded-xl "
+              className="card-compact bg-amber-300 max-w-[47%]   md:max-w-[270px]  md:min-w-[270px]   shadow-xl cursor-default rounded-xl "
               scroll={false}
             >
               <figure>

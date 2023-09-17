@@ -48,6 +48,7 @@ model Usuario {
   direccion      String
   activo         Boolean  @default(true)
   pedidos        Pedido[] @relation("UsuarioPedidos")
+  carrito        String?  @default("[]")
 }
 
 enum Rol {

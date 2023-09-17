@@ -3,13 +3,13 @@ import React from "react"
 function CardTipes() {
   return (
     <>
-      <div className="flex justify-center w-full">
+      <div className="flex justify-center w-full px-2">
         <h1 className="text-slate-700 font-extrabold text-2xl md:text-4xl text-center md:min-w-fit mt-12 md:mt-0 mb-12">
           Categorias <br className="md:hidden" /> en nuestro Menu
         </h1>
       </div>
 
-      <div className=" min-w-full flex flex-row flex-wrap  justify-between  my-6 gap-y-4">
+      <div className=" min-w-full flex flex-row flex-wrap  justify-between  my-6 gap-y-4 px-2">
         <div className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px]    shadow-xl cursor-default rounded-xl md:min-h-[360px]">
           <figure>
             <img
@@ -29,7 +29,7 @@ function CardTipes() {
           <figure>
             <img
               className="rounded-t-xl"
-              src="/images/vegetariano.png"
+              src="/images/vegetariano_card.png"
               alt="vegetariano"
             />
           </figure>
@@ -47,7 +47,7 @@ function CardTipes() {
           <figure>
             <img
               className="rounded-t-xl"
-              src="/images/sin_harinas.png"
+              src="/images/sin_harinas_card.png"
               alt="sin_harinas"
             />
           </figure>

@@ -12,10 +12,10 @@ const FullWidthHeader = () => {
       <Link
         href={"/catalog/checkout"}
         className="w-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-500
-       flex flex-col justify-center min-h-[50vh] "
+       flex flex-col justify-center min-h-[50vh] md:min-h-[30vh] -mt-5 "
       >
         <div className="flex flex-col md:flex-row items-center justify-around ">
-          <h2 className="text-white font-extrabold text-4xl md:text-7xl text-center min-w-full md:min-w-fit ">
+          <h2 className="text-white font-extrabold text-4xl md:text-5xl text-center min-w-full md:min-w-fit ">
             Con hambre
             <br className=" hidden md:block" /> y sin tiempo?
           </h2>
@@ -27,7 +27,7 @@ const FullWidthHeader = () => {
             width={"300"}
             alt="banner image"
           />
-          <h2 className="text-slate-900 font-extrabold text-2xl md:text-7xl text-center min-w-full md:min-w-fit">
+          <h2 className="text-slate-900 font-extrabold text-2xl md:text-5xl text-center min-w-full md:min-w-fit">
             Te llevamos
             <br className=" hidden md:block" /> el almuerzo.
           </h2>
@@ -39,7 +39,7 @@ const FullWidthHeader = () => {
        flex flex-col justify-center min-h-[40vh] "
       >
         <div className="flex flex-col items-center justify-around md:items-center md:justify-center gap-8 md:gap-12 ">
-          <h2 className="text-slate-700 font-extrabold text-2xl md:text-6xl text-center  md:min-w-fit mt-8 md:mt-0">Cómo Funciona?</h2>
+          <h2 className="text-slate-700 font-extrabold text-4xl md:text-4xl text-center  md:min-w-fit mt-8 md:mt-6">Cómo Funciona?</h2>
 
           <div
             className="flex flex-row flex-wrap justify-around gap-4 md:gap-x-12"

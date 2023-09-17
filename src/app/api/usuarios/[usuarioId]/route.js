@@ -54,7 +54,7 @@ export async function DELETE(request, { params }) {
 
 export async function PUT(request, { params }) {
   const { usuarioId } = params
-  const { rol, nombreCompleto, telefono, email, dni, password, direccion } = await request.json()
+  const { rol, nombreCompleto, telefono, email, dni, password, direccion, carrito } = await request.json()
   try {
     const usuario = await prisma.usuario.findUnique({
       where: {
@@ -77,6 +77,7 @@ export async function PUT(request, { params }) {
         dni,
         password,
         direccion,
+        carrito,
       },
     })
 
