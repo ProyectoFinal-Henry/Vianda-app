@@ -1,6 +1,5 @@
 import Footer from "@/components/footer/Footer";
 import NavBar from "@/components/navbar/NavBar";
-import { Toaster, toast } from "sonner";
 
 const layoutAdmin = ({ children }) => {
   return (
@@ -8,7 +7,7 @@ const layoutAdmin = ({ children }) => {
       <NavBar />
       {children}
       <Footer />
-      <Toaster />
+     
     </div>
   );
 };
