@@ -5,7 +5,7 @@ import { useState } from "react";
 import ClearFilters from "../ClearFilters";
 
 function FilterUsers() {
-  const [inputNombreCliente, setInputNombreCliente] = useState("");
+  const [InputUsuario, setInputUsuario] = useState("");
   const [InputEmail, setInputEmail] = useState("");
   const [InputDNI, setInputDNI] = useState("");
 
@@ -15,7 +15,7 @@ function FilterUsers() {
   const handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;
-    if (name === "nombre") setInputNombreCliente(value);
+    if (name === "usuario") setInputUsuario(value);
     if (name === "email") setInputEmail(value);
     if (name === "dni") setInputDNI(value);
   };
@@ -24,10 +24,10 @@ function FilterUsers() {
     event.preventDefault();
 
     const params = new URLSearchParams(searchParams);
-    if (inputNombreCliente) {
-      params.set("nombre", inputNombreCliente);
+    if (InputUsuario) {
+      params.set("usuario", InputUsuario);
     } else {
-      params.delete("nombre");
+      params.delete("usuario");
     }
     if (InputEmail) {
       params.set("email", InputEmail);
@@ -48,7 +48,7 @@ function FilterUsers() {
     <>
       <tr>
         <td colSpan={2} className="b font-bold text-center">
-          Filtros
+          Busqueda
         </td>
         <td>
           <form onSubmit={handleSubmit}>
@@ -56,8 +56,8 @@ function FilterUsers() {
               className="input input-xs input-accent"
               type="text"
               onChange={handleChange}
-              value={inputNombreCliente}
-              name="nombre"
+              value={InputUsuario}
+              name="usuario"
             />
           </form>
         </td>
@@ -88,7 +88,11 @@ function FilterUsers() {
         <td></td>
         <td></td>
         <td>
-          <ClearFilters />
+          <ClearFilters
+            setInputUsuario={setInputUsuario}
+            setInputDNI={setInputDNI}
+            setInputEmail={setInputEmail}
+          />
         </td>
       </tr>
     </>

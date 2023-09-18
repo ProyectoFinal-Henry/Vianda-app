@@ -5,33 +5,58 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   if (searchParams.toString().length > 0) {
     try {
-      const nombre = searchParams.get("nombre");
+      const nombre = searchParams.get("usuario");
       const email = searchParams.get("email");
       const dni = searchParams.get("dni");
+      let where = {};
 
-      let value = "";
-      let key = "";
       if (nombre) {
-        value = nombre;
-        key = "nombreCompleto";
+        where.nombreCompleto = {
+          contains: nombre,
+          mode: "insensitive",
+        };
       }
       if (email) {
-        value = email;
-        key = "email";
+        where.email = {
+          contains: email,
+          mode: "insensitive",
+        };
       }
       if (dni) {
-        value = dni;
-        key = "dni";
+        where.dni = {
+          contains: dni,
+          mode: "insensitive",
+        };
       }
 
-      const usuario = await prisma.usuario.findUnique({
-        where: {
-          email: email,
-        },
-      });
-      if (usuario) return NextResponse.json(usuario);
+      if (dni || email) {
+        const usuario = await prisma.usuario.findFirst({
+          where,
+        });
+
+        if (usuario) {
+          return NextResponse.json(usuario);
+        } else {
+          return NextResponse.json({
+            message: "No se encontron ningun usuario con esa informacion",
+          });
+        }
+      }
+      if (nombre) {
+        const usuarios = await prisma.usuario.findMany({
+          where,
+        });
+        console.log(usuarios);
+        if (usuarios) {
+          return NextResponse.json(usuarios);
+        } else {
+          return NextResponse.json({
+            message: "No se encontron ningun usuario con esa informacion",
+          });
+        }
+      }
     } catch (error) {
-      return NextResponse.json(error);
+      return NextResponse.json({ error: error.message });
     }
   } else {
     try {

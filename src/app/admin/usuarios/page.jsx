@@ -24,7 +24,12 @@ const UsuariosPageAdmin = async ({ searchParams }) => {
   try {
     const url = `${process.env.LOCALHOST}/api/usuarios${querytosend}`;
     const res = await axios.get(url);
-    data = res.data;
+
+    if (res.data.message) {
+      data = res.data.message;
+    } else {
+      data = Array.isArray(res.data) ? res.data : [res.data];
+    }
   } catch (error) {
     data = error;
   }
