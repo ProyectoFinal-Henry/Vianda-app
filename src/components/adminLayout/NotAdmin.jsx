@@ -33,7 +33,7 @@ const NotAdmin = () => {
   return (
     <>
       {isLoading ? (
-        <div className="min-h-screen">
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-accent-500/40 z-50">
           <LoadingComponentApp />
         </div>
       ) : (

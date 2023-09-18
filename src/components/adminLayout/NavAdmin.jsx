@@ -6,20 +6,31 @@ import { FiMenu } from "react-icons/fi"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import {useState, useEffect} from 'react'
+import LoadingComponentApp from "@/app/loading";
 
 const NavAdmin = () => {
   const [rol, setRol] = useState();
   const [userToken, setUserToken] = useState();
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Realizamos la lógica para obtener el token y el rol
     axios.get("/api/auth/check").then((res) => {
       if (res.status === 200) {
         setUserToken(res.data.nombre);
-        setRol(res.data.rol)
+        setRol(res.data.rol);
       }
     });
-  }),[];
+
+    // Configuramos un temporizador para cambiar isLoading después de 1000ms
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    // Limpieza del temporizador si el componente se desmonta antes de que se cumpla el tiempo
+    return () => clearTimeout(timeoutId);
+  }, []); 
 
   const logout = async () => {
     const response = await axios.post("/api/auth/logout")
@@ -31,7 +42,7 @@ const NavAdmin = () => {
 
   return (
     <>
-      <div
+    {!isLoading? (<div
         id="NavAdmin"
         className="navbar bg-accent text-white z-10 text-lg"
       >
@@ -123,7 +134,13 @@ const NavAdmin = () => {
             Salir Del Admin
           </button>
         </div>
-      </div>
+      </div>): (<div
+          className="fixed top-0 left-0 w-full h-full"
+          style={{ zIndex: 9999 }}
+        >
+          <LoadingComponentApp />
+        </div>)}
+      
     </>
   )
 }
