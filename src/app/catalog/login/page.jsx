@@ -26,6 +26,7 @@ const LoginCatalogPage = () => {
   const [loadingUp, setLoadingUp] = useState(false)
   const [error, setError] = useState("")
 
+
   useEffect(() => {
     if (user){
       axios.post('/api/auth/loginGoogle').then(() => {
@@ -57,14 +58,20 @@ const LoginCatalogPage = () => {
       setLoadingUp(true)
       await new Promise((resolve) => setTimeout(resolve, 3000))
       const response = await axios.post("/api/auth/login", formData)
-      if (response.data.rol === "cliente") {
-        router.refresh()
-        router.push("/catalog/mi-cuenta")
-        setFlagLogeed(true)
-      } else{
-        router.refresh()
-        router.push("/admin")
-      } 
+      if (response.data.status === 200){
+        if (response.data.rol === "cliente") {
+          router.refresh()
+          router.push("/catalog/mi-cuenta")
+          setFlagLogeed(true)
+        } else{
+          router.refresh()
+          router.push("/admin")
+        } 
+      }
+      else{
+        setError(response.data.error)
+      }
+      
     } catch (error) {
       console.log(error)
     }
