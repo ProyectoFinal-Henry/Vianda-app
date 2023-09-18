@@ -45,3 +45,29 @@ export async function POST(request) {
     return NextResponse.json({ message: error.message });
   }
 }
+
+
+
+export async function DELETE(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const reset = searchParams.get("reset");
+
+    if (reset) {
+      const semanaReset = await prisma.vianda.updateMany({
+        data: {
+          lunes: false,
+          martes: false,
+          miercoles: false,
+          jueves: false,
+          viernes: false,
+          sabado: false,
+          domingo: false,
+        }
+      })
+      return NextResponse.json("Reset de semana ok!");
+    }
+  } catch (error) {
+    return NextResponse.json({ message: error.message });
+  }
+}

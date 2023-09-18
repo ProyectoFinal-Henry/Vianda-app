@@ -9,7 +9,7 @@ import { useState, useEffect } from "react"
 
 const MenuPageAdmin = () => {
   const [viandas, setViandas] = useState([])
-
+  
   const viandasGetter = async () => {
     const res = await axios.get(`/api/menu?all=true`)
     setViandas(res.data)
@@ -19,6 +19,17 @@ const MenuPageAdmin = () => {
       viandasGetter()
     }
   }, [])
+  
+  const handleResetViandas = async() => {
+    const objetoReset = {}
+  try {
+    const res = await axios.delete(`/api/menu?reset=true`)
+  } catch (error) {
+      throw new Error(error.message)
+  }
+  window.location.reload() //!OJO CON ESTO!
+  }
+  
   const semana = ["lunes", "martes", "miercoles", "jueves", "viernes"]
   return (
     <>
@@ -26,6 +37,7 @@ const MenuPageAdmin = () => {
         {viandas.length !== 0 ? (
           <>
             <div className="flex flex-row justify-end flex-wrap gap-4 items-right w-full md:max-w-[896px] ">
+              <button onClick={handleResetViandas}>Boton Feo</button>
               <Link
                 href={"/admin/menu/issue-menu"}
                 className="btn btn-sm btn-primary rounded-md "
@@ -36,7 +48,6 @@ const MenuPageAdmin = () => {
             {semana.map((dia) => (
               <div key={dia}>
                 {dia !== "lunes" && <div className={"divider"}></div>}
-
                 <div className="flex flex-row justify-start items-center gap-8 ">
                   <h1 className="text-3xl  font-bold   ">
                     Viandas para el <span className="capitalize">{dia}</span>{" "}
@@ -48,7 +59,6 @@ const MenuPageAdmin = () => {
                     exportar {dia} <GiFoodTruck className=" text-2xl" />
                   </Link>
                 </div>
-
                 <div
                   id="menuRow"
                   className="flex flex-row justify-center flex-wrap gap-4 items-center min-w-full"
