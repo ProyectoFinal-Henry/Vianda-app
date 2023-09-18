@@ -48,7 +48,7 @@ function FilterUsers() {
     <>
       <tr>
         <td colSpan={2} className="b font-bold text-center">
-          Busqueda
+          Buscar
         </td>
         <td>
           <form onSubmit={handleSubmit}>
