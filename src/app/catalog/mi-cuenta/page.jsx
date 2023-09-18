@@ -1,6 +1,6 @@
 import MisDatos from "@/components/mi-cuenta/MisDatos";
 
-async function MiCuenta() {
+function MiCuenta() {
 
   return (
     <>
