@@ -61,12 +61,10 @@ const LoginCatalogPage = () => {
         router.refresh()
         router.push("/catalog/mi-cuenta")
         setFlagLogeed(true)
-      } else if (response.data.rol === "administrador") {
+      } else{
         router.refresh()
         router.push("/admin")
-      } else {
-        setError(response.data.error)
-      }
+      } 
     } catch (error) {
       console.log(error)
     }

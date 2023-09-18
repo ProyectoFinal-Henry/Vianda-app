@@ -14,7 +14,7 @@ import LoadingComponentApp from "@/app/loading";
 
 function MisDatos() {
   const { user } = UserAuth();
-
+  // console.log(user)
   const [isLoading, setIsLoading] = useState(true);
 
   const {
