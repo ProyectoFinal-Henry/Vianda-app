@@ -12,6 +12,9 @@ const ClearFilters = ({
   setInputMetodoPago,
   setInputNombreCliente,
   setInputFecha,
+  setInputUsuario,
+  setInputEmail,
+  setInputDNI,
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -25,6 +28,9 @@ const ClearFilters = ({
   const estado = searchParams.get("estado");
   const metodo = searchParams.get("metodo");
   const fecha = searchParams.get("fecha");
+  const usuario = searchParams.get("usuario");
+  const email = searchParams.get("email");
+  const dni = searchParams.get("dni");
 
   const cleanInputs = () => {
     if (search || descripcion || ing1 || ing2 || ing3) {
@@ -40,6 +46,12 @@ const ClearFilters = ({
       setInputMetodoPago("");
       router.push("/admin/pedidos");
     }
+    if (usuario || email || dni) {
+      setInputEmail("");
+      setInputUsuario("");
+      setInputDNI("");
+      router.push("/admin/usuarios");
+    }
   };
 
   return (
@@ -52,7 +64,10 @@ const ClearFilters = ({
         nombre ||
         estado ||
         metodo ||
-        fecha) && (
+        fecha ||
+        email ||
+        dni ||
+        usuario) && (
         <button className=" btn btn-warning btn-sm" onClick={cleanInputs}>
           <LuFilterX className="text-xl text-white" />
         </button>
