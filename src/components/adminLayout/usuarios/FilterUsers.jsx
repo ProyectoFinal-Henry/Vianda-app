@@ -4,11 +4,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import ClearFilters from "../ClearFilters";
 
-function FiltersPedidos() {
+function FilterUsers() {
   const [inputNombreCliente, setInputNombreCliente] = useState("");
-  const [inputEstado, setInputEstado] = useState("");
-  const [InputMetodoPago, setInputMetodoPago] = useState("");
-  const [InputFecha, setInputFecha] = useState("");
+  const [InputEmail, setInputEmail] = useState("");
+  const [InputDNI, setInputDNI] = useState("");
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -16,11 +16,8 @@ function FiltersPedidos() {
     const value = event.target.value;
     const name = event.target.name;
     if (name === "nombre") setInputNombreCliente(value);
-    if (name === "estado") setInputEstado(value);
-    if (name === "metodoPago") setInputMetodoPago(value);
-    if (name === "fecha") {
-      setInputFecha(value);
-    }
+    if (name === "email") setInputEmail(value);
+    if (name === "dni") setInputDNI(value);
   };
 
   const handleSubmit = (event) => {
@@ -32,20 +29,15 @@ function FiltersPedidos() {
     } else {
       params.delete("nombre");
     }
-    if (inputEstado) {
-      params.set("estado", inputEstado);
+    if (InputEmail) {
+      params.set("email", InputEmail);
     } else {
-      params.delete("estado");
+      params.delete("email");
     }
-    if (InputMetodoPago) {
-      params.set("metodo", InputMetodoPago);
+    if (InputDNI) {
+      params.set("dni", InputDNI);
     } else {
-      params.delete("metodo");
-    }
-    if (InputFecha) {
-      params.set("fecha", InputFecha);
-    } else {
-      params.delete("fecha");
+      params.delete("dni");
     }
 
     const queryString = params.toString();
@@ -55,7 +47,9 @@ function FiltersPedidos() {
   return (
     <>
       <tr>
-        <td className="b font-bold text-center">Filtros</td>
+        <td colSpan={2} className="b font-bold text-center">
+          Filtros
+        </td>
         <td>
           <form onSubmit={handleSubmit}>
             <input
@@ -67,52 +61,38 @@ function FiltersPedidos() {
             />
           </form>
         </td>
+        <td></td>
         <td>
           <form onSubmit={handleSubmit}>
             <input
               className="input input-xs input-accent"
               type="text"
               onChange={handleChange}
-              value={inputEstado}
-              name="estado"
+              value={InputEmail}
+              name="email"
             />
           </form>
         </td>
         <td>
           <form onSubmit={handleSubmit}>
             <input
-              className="input input-xs input-accent"
+              className="input input-xs input-accent max-w-[100px]"
               type="text"
               onChange={handleChange}
-              value={InputMetodoPago}
-              name="metodoPago"
+              value={InputDNI}
+              name="dni"
             />
           </form>
         </td>
-        <td>
-          <form onSubmit={handleSubmit}>
-            <input
-              className="input input-xs input-accent"
-              type="text"
-              onChange={handleChange}
-              //   value={InputFecha}
-              name="fecha"
-            />
-          </form>
-        </td>
+
         <td></td>
         <td></td>
         <td>
-          <ClearFilters
-            setInputEstado={setInputEstado}
-            setInputMetodoPago={setInputMetodoPago}
-            setInputNombreCliente={setInputNombreCliente}
-            setInputFecha={setInputFecha}
-          />
+          <ClearFilters />
         </td>
       </tr>
     </>
   );
 }
 
-export default FiltersPedidos;
+export default FilterUsers;
