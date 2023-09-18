@@ -7,7 +7,6 @@ export async function middleware(request) {
 
   if (token){
     const {payload} = await jwtVerify(token.value, new TextEncoder().encode('secret')) 
-    console.log(payload)
   }
   
   if (request.nextUrl.pathname.includes("/admin") || request.nextUrl.pathname.includes("/mi-cuenta")) {
