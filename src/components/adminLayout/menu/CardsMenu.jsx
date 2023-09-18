@@ -4,7 +4,7 @@ import { FcOk } from "react-icons/fc"
 import { currencyFormater } from "@/libs/utils/currencyFormater"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { set } from "react-hook-form"
+
 
 const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
   const [loader, setLoader] = useState("off")
@@ -33,8 +33,6 @@ const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
 
   const updateVianda = async (e) => {
     e.target.value === "" && setViandaSeleccionada(viandaVacia)
-
-  
     setLoader("on")
 
     try {
@@ -128,7 +126,7 @@ const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
                     onChange={updateVianda}
                   >
                     Escoger Vianda
-                    <option key={0} value={"sinSeleccion"}>Sin seleccion</option>
+                    <option key={0} value={"sinSeleccion"}>Seleccionar</option>
                     {viandasPorTipo.map(({ id, nombre }) => (
                       <option
                         key={id}

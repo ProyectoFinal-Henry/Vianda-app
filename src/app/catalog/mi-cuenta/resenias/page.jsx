@@ -126,9 +126,11 @@ function Resenias() {
             <div className="flex flex-col md:flex-col justify-evenly w-full items-start mb-3 md:mb-3">
               <div className="flex flex-col md:flex-row justify-start w-full items-start md:mt-3">
                 <h1 className="ml-3 md:ml-6 w-44">
-                  <strong>Tu comentario: </strong>
+                  <strong>Mis comentarios: </strong>
                 </h1>
-                <textarea className="textarea textarea-bordered textarea-lg h-40 w-72 md:w-full max-w-full ml-3 md:mr-6 p-2"></textarea>
+                <textarea className="textarea bg-white textarea-bordered textarea-lg h-40 w-72 md:w-full max-w-full ml-3 md:mr-6 p-2"
+                defaultValue={"Esta aplicación es simplemente increíble. Desde la variedad de opciones gastronómicas hasta la facilidad de uso, es una experiencia excepcional. ¡Bravo al equipo detrás de esta aplicación!"}
+                ></textarea>
               </div>
             </div>
           </div>
