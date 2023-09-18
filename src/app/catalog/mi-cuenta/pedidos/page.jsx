@@ -8,14 +8,13 @@ import { BsFillPersonLinesFill } from "react-icons/bs"
 import { FiMenu } from "react-icons/fi"
 import Link from "next/link"
 import axios from "axios";
+import LoadingComponentApp from "@/app/loading";
 
 function Pedidos() {
 
-  const [userData, setUserData] = useState({
-    id: null,
-  });
-
+  const [userData, setUserData] = useState({id: null});
   const [dataPedido, setDataPedido] = useState({})
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -35,13 +34,20 @@ function Pedidos() {
       const resPedido = await axios.get(`/api/pedidos/${userData.id}`);
       const dataPedido = resPedido.data.pedidos;
       setDataPedido(dataPedido)
+      if(dataPedido)
+        setIsLoading(false)           
     } catch (error) {
-      console.error("Se produjo un error al realizar la solicitud HTTP:", error);
+      console.error("Se produjo un error al realizar la solicitud HTTP:");
     }
-  }, 100);
+  }, 10);
 
   return (
     <>
+    {isLoading ? (
+        <div className="min-h-screen">
+          <LoadingComponentApp />
+        </div>
+      ) : (
       <div className="flex flex-col md:flex-row items-start">
         <div
           id="NavAdmin"
@@ -197,6 +203,7 @@ function Pedidos() {
           )}
         </div>
       </div>
+      )}
     </>
   );
 }
