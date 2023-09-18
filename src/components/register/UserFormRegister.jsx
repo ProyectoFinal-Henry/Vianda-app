@@ -1,84 +1,106 @@
-"use client"
+"use client";
 
-import FormResponsiveContainer from "../formaters/FormResponsiveContainer"
-import bcrypt from "bcryptjs"
-import { useForm } from "react-hook-form"
-import { useEffect, useState } from "react"
-import { AiFillLock, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
-import { FcGoogle } from "react-icons/fc"
-import axios from "axios"
+import FormResponsiveContainer from "../formaters/FormResponsiveContainer";
+import bcrypt from "bcryptjs";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import {
+  AiFillLock,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+} from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
+import { ModalUserError } from "./ModalUserError";
+import { ModalUserExit } from "./ModalUserExit";
+import { usePathname } from "next/navigation"; // ver url-david
+import { welcome } from "@/app/api/email/templates";
 
-import { ModalUserError } from "./ModalUserError"
-import { ModalUserExit } from "./ModalUserExit"
-import { usePathname } from "next/navigation" // ver url-david
 export const UserFormRegister = () => {
-  const [visible, setVisible] = useState(false)
-  const [toastEmail, setToastEmail] = useState(false)
-  const [modalErroCreateUser, setModalErrorCreateUser] = useState(false)
-  const [modalExit, setModalExit] = useState(false)
-  const [email, setEmail] = useState("")
+  const [visible, setVisible] = useState(false);
+  const [toastEmail, setToastEmail] = useState(false);
+  const [modalErroCreateUser, setModalErrorCreateUser] = useState(false);
+  const [modalExit, setModalExit] = useState(false);
+  const [email, setEmail] = useState("");
 
   //si es admin dejarlo ver el campo rol
-  const currentPath = usePathname()
-  const [isAdmin, setIsadmin] = useState(false)
+  const currentPath = usePathname();
+  const [isAdmin, setIsadmin] = useState(false);
   const userPriviledge = async () => {
-    const res = await axios(`/api/auth/check`)
-    const permissions = res.data
+    const res = await axios(`/api/auth/check`);
+    const permissions = res.data;
     // si es admin y es adminsitrador puede ver el campo rol
-    permissions.rol === "administrador" && currentPath.includes("/admin") && setIsadmin(true)
+    permissions.rol === "administrador" &&
+      currentPath.includes("/admin") &&
+      setIsadmin(true);
     //ademas solo puede crear con rol en el panel de admin
-  }
+  };
 
   useEffect(() => {
-    userPriviledge()
-  }, [])
+    userPriviledge();
+  }, []);
   const passwordVisibility = () => {
-    setVisible((prevState) => !prevState)
-  }
-
+    setVisible((prevState) => !prevState);
+  };
+  const enviarCorreoBienvenida = async (infoRegistro) => {
+    try {
+      const body = {
+        to: infoRegistro.email,
+        subject: "Bienvenido/a a Viandapp",
+        text: "Version texto",
+        html: welcome(infoRegistro.nombre),
+      };
+      const res = await axios.post("/api/email", body);
+    } catch (error) {}
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm()
+  } = useForm();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      setToastEmail(false)
-      let emailIngresado = data.email
-      setEmail(emailIngresado)
-      let contraseñaIngresada = data.password
-      const saltRounds = 10
+      setToastEmail(false);
+      let emailIngresado = data.email;
+      setEmail(emailIngresado);
+      let contraseñaIngresada = data.password;
+      const saltRounds = 10;
       const passwordHashed = await new Promise((resolve, reject) => {
         bcrypt.hash(contraseñaIngresada, saltRounds, function (err, hash) {
           if (err) {
-            console.error(err)
-            reject(err)
-            return
+            console.error(err);
+            reject(err);
+            return;
           }
-          resolve(hash)
-        })
-      })
-      let newData = data
-      newData.password = passwordHashed
+          resolve(hash);
+        });
+      });
+      let newData = data;
+      newData.password = passwordHashed;
 
-      const res = await axios.post("/api/usuarios/registro", newData)
-      const resMessage = res.data.message
+      const res = await axios.post("/api/usuarios/registro", newData);
+      const resMessage = res.data.message;
 
       if (resMessage.includes("ya existe")) {
-        setToastEmail(true)
+        setToastEmail(true);
       } else if (resMessage.includes("error creando el usuario")) {
-        setModalErrorCreateUser(true)
+        setModalErrorCreateUser(true);
       } else {
-        setModalExit(true)
+        const infoUsuario = {
+          nombre: newData.nombreCompleto,
+          email: newData.email,
+        };
+        setModalExit(true);
+        enviarCorreoBienvenida(infoUsuario);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
 
-    reset()
-  })
+    reset();
+  });
 
   return (
     <>
@@ -87,10 +109,7 @@ export const UserFormRegister = () => {
           id="contenedorPrincipal"
           className=" flex flex-col items-center justify-center min-w-full px-10 py-5"
         >
-          <div
-            id="contenedorH1"
-            className="justify-center "
-          >
+          <div id="contenedorH1" className="justify-center ">
             <h1 className="text-center text-lg">CREAR CUENTA</h1>
           </div>
           <div
@@ -104,11 +123,10 @@ export const UserFormRegister = () => {
           >
             <div className="flex flex-col md:flex-row   min-w-full gap-x-9  ">
               <div className="form-control w-full pb-2 ">
-                <label
-                  className="label"
-                  htmlFor="nombreCompleto"
-                >
-                  <span className="label-text font-medium ">Nombre Completo</span>
+                <label className="label" htmlFor="nombreCompleto">
+                  <span className="label-text font-medium ">
+                    Nombre Completo
+                  </span>
                 </label>
                 <input
                   type="text"
@@ -134,14 +152,15 @@ export const UserFormRegister = () => {
                   })}
                 />
 
-                {errors.nombreCompleto && <span className="mt-1 text-xs text-warning">{errors.nombreCompleto.message}</span>}
+                {errors.nombreCompleto && (
+                  <span className="mt-1 text-xs text-warning">
+                    {errors.nombreCompleto.message}
+                  </span>
+                )}
               </div>
 
               <div className="form-control  w-full pb-2 ">
-                <label
-                  className="label"
-                  htmlFor="email"
-                >
+                <label className="label" htmlFor="email">
                   <span className="label-text font-medium">Email</span>
                 </label>
                 <input
@@ -160,17 +179,20 @@ export const UserFormRegister = () => {
                     },
                   })}
                 />
-                {errors.email && <span className="mt-1 text-xs text-warning">{errors.email.message}</span>}
-                {toastEmail && <div>{`El email ingresado ${email} ya existe`} </div>}
+                {errors.email && (
+                  <span className="mt-1 text-xs text-warning">
+                    {errors.email.message}
+                  </span>
+                )}
+                {toastEmail && (
+                  <div>{`El email ingresado ${email} ya existe`} </div>
+                )}
               </div>
             </div>
 
             <div className="flex flex-col md:flex-row   min-w-full gap-x-9">
               <div className="form-control w-full pb-2 ">
-                <label
-                  className="label"
-                  htmlFor="telefono"
-                >
+                <label className="label" htmlFor="telefono">
                   <span className="label-text font-medium ">Teléfono</span>
                 </label>
                 <input
@@ -188,13 +210,14 @@ export const UserFormRegister = () => {
                     },
                   })}
                 />
-                {errors.telefono && <span className="mt-1 text-xs text-warning">{errors.telefono.message}</span>}
+                {errors.telefono && (
+                  <span className="mt-1 text-xs text-warning">
+                    {errors.telefono.message}
+                  </span>
+                )}
               </div>
               <div className="form-control  w-full pb-2 ">
-                <label
-                  className="label"
-                  htmlFor="dni"
-                >
+                <label className="label" htmlFor="dni">
                   <span className="label-text font-medium ">DNI</span>
                 </label>
                 <input
@@ -220,7 +243,11 @@ export const UserFormRegister = () => {
                     },
                   })}
                 />
-                {errors.dni && <span className="mt-1 text-xs text-warning">{errors.dni.message}</span>}
+                {errors.dni && (
+                  <span className="mt-1 text-xs text-warning">
+                    {errors.dni.message}
+                  </span>
+                )}
               </div>
             </div>
             <div className="flex flex-col  items-center justify-center md:flex-row   min-w-full gap-x-9">
@@ -240,11 +267,13 @@ export const UserFormRegister = () => {
                       },
                       minLength: {
                         value: 6,
-                        message: "La contraseña debe tener al menos 6 caracteres",
+                        message:
+                          "La contraseña debe tener al menos 6 caracteres",
                       },
                       pattern: {
                         value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-                        message: "La contraseña debe contener minúsculas,mayúsculas y numeros",
+                        message:
+                          "La contraseña debe contener minúsculas,mayúsculas y numeros",
                       },
                     })}
                   />
@@ -254,18 +283,23 @@ export const UserFormRegister = () => {
                     className="relative min-w-min   ml-3  right-9"
                     onClick={passwordVisibility}
                   >
-                    {visible ? <AiOutlineEye className="text-xl mr-0" /> : <AiOutlineEyeInvisible className="text-xl mr-0" />}
+                    {visible ? (
+                      <AiOutlineEye className="text-xl mr-0" />
+                    ) : (
+                      <AiOutlineEyeInvisible className="text-xl mr-0" />
+                    )}
                   </button>
                 </div>
 
-                {errors.password && <span className="mt-1 text-xs text-warning">{errors.password.message}</span>}
+                {errors.password && (
+                  <span className="mt-1 text-xs text-warning">
+                    {errors.password.message}
+                  </span>
+                )}
               </div>
 
               <div className="form-control  w-full pb-2 ">
-                <label
-                  className="label"
-                  htmlFor="direccion"
-                >
+                <label className="label" htmlFor="direccion">
                   <span className="label-text font-medium ">Dirección</span>
                 </label>
                 <input
@@ -283,7 +317,11 @@ export const UserFormRegister = () => {
                     },
                   })}
                 />
-                {errors.direccion && <span className="mt-1 text-xs text-warning">{errors.direccion.message}</span>}
+                {errors.direccion && (
+                  <span className="mt-1 text-xs text-warning">
+                    {errors.direccion.message}
+                  </span>
+                )}
               </div>
             </div>
             {/* !================================= mostrar condicionalmente si es admin INICIO*/}
@@ -291,12 +329,17 @@ export const UserFormRegister = () => {
               <div className="flex flex-col  items-center justify-center md:flex-row   min-w-full gap-x-9">
                 <div className="form-control  w-full ">
                   <label className="label ml-3  pb-1">
-                    <span className="label-text font-medium capitalize">rol</span>
+                    <span className="label-text font-medium capitalize">
+                      rol
+                    </span>
                   </label>
                   {/* ============= */}
                   <select
                     {...register("rol", {
-                      required: { value: true, message: "el campo es requerido" },
+                      required: {
+                        value: true,
+                        message: "el campo es requerido",
+                      },
                     })}
                     className="select select-sm   select-bordered w-full h-7 bg-neutral-50 "
                   >
@@ -305,7 +348,11 @@ export const UserFormRegister = () => {
                     <option value="cocina">cocina</option>
                     <option value="administrador">administrador</option>
                   </select>
-                  {errors.rol && <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">{errors.rol.message}</div>}
+                  {errors.rol && (
+                    <div className=" ml-10 mt-2 capitalize text-red-500 gap-2">
+                      {errors.rol.message}
+                    </div>
+                  )}
                 </div>
 
                 <div className="form-control  w-full pb-2 "></div>
@@ -318,7 +365,9 @@ export const UserFormRegister = () => {
                 className="flex items-center py-1  btn-accent bg-accent px-12 rounded-md mt-3"
               >
                 <AiFillLock className="text-xl text-white" />
-                <span className="pl-2 text-white font-semibold">Completar registro</span>
+                <span className="pl-2 text-white font-semibold">
+                  Completar registro
+                </span>
               </button>
             </div>
             <div
@@ -334,8 +383,10 @@ export const UserFormRegister = () => {
           </button>
         </div>
       </FormResponsiveContainer>
-      {modalErroCreateUser && <ModalUserError setModalErrorCreateUser={setModalErrorCreateUser} />}
+      {modalErroCreateUser && (
+        <ModalUserError setModalErrorCreateUser={setModalErrorCreateUser} />
+      )}
       {modalExit && <ModalUserExit setModalExit={setModalExit} />}
     </>
-  )
-}
+  );
+};
