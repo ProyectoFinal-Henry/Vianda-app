@@ -6,14 +6,20 @@ import LoadingComponentApp from "@/app/loading";
 import axios from 'axios'
 import { useRouter } from "next/navigation";
 import { UserAuth } from "@/context/AuthContext"
+import { usePathname } from 'next/navigation'
 
 const NotAdmin = () => {
   const {user, googleLogout} = UserAuth()
   const router = useRouter()
+  const pathname = usePathname()
 
   const [isLoading, setIsLoading] = useState(true);
+  const [roleText, setRoleText] = useState("");
 
   useEffect(() => {
+    if (pathname === "/admin") setRoleText("Administrador")
+    if (pathname === "/cocina") setRoleText("Cocina")
+    if (pathname === "/repartidor") setRoleText("Repartidor")
     const timeoutId = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
@@ -24,6 +30,7 @@ const NotAdmin = () => {
     try {
       const response = await axios.post("/api/auth/logout")
       if (response.status === 200) await googleLogout()
+      router.refresh()
       router.push('/catalog/login')
     } catch (error) {
       console.log(error)
@@ -49,7 +56,7 @@ const NotAdmin = () => {
               <button
               onClick={logout}
               className="mt-10 bg-accent text-white px-6 py-3 rounded-3xl text-[14px] transition-transform hover:scale-110 text-lg font-semibold ">
-                Ingresar como Administrador
+                Ingresar como {roleText}
               </button>
             </Link>
           </div>
