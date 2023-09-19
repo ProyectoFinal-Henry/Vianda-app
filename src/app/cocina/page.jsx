@@ -12,7 +12,7 @@ const CocinaDashboard = () => {
   useEffect(() => {
 
       axios.get("/api/auth/check").then((res) => {
-        if (res.data.rol !== "cocina") {
+        if (res.data.rol !== "cocina" && res.data.rol !== "administrador") {
           setAuth(false);
         } else {
           setAuth(true);

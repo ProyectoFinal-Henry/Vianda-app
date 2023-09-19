@@ -12,7 +12,7 @@ const RepartidorDashboard = () => {
   useEffect(() => {
 
       axios.get("/api/auth/check").then((res) => {
-        if (res.data.rol !== "repartidor") {
+        if (res.data.rol !== "repartidor" && res.data.rol !== "administrador") {
           setAuth(false);
         } else {
           setAuth(true);

@@ -12,7 +12,7 @@ const AdminDashboard = () => {
   useEffect(() => {
 
       axios.get("/api/auth/check").then((res) => {
-        if (res.data.rol === "cliente") {
+        if (res.data.rol !== "administrador") {
           setAuth(false);
         } else {
           setAuth(true);
