@@ -7,6 +7,7 @@ import ButtonCTAOrderBlock from "@/components/home/ButtonCTAOrderBlock"
 import FullWidthHeader from "@/components/home/FullWidthHeader"
 import Stylebadges from "@/components/home/Stylebadges"
 import axios from "axios"
+import WhatsappBubbleComponent from "@/components/footer/WhatsappBubble"
 
 import Link from "next/link"
 
@@ -48,6 +49,7 @@ async function Homepage() {
           className="min-w-full"
         />
       </Link>
+      <WhatsappBubbleComponent />
     </>
   )
 }
