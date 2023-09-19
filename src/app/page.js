@@ -47,7 +47,7 @@ export default function LandingPage() {
             <span className="text-accent ml-3 ">ViandApp</span>
           </h2>
           <div className="mt-8 min-w-full">
-            <p className="text-gray-700 text-xl  font-semibold mt-3 min-w-full text-center   md:ml-24   ">
+            <p className="text-gray-700 text-xl  font-semibold mt-3 min-w-full text-center  md:text-left md:ml-32   ">
               El sabor de tu semana a tu gusto
             </p>
           </div>
@@ -68,7 +68,9 @@ export default function LandingPage() {
           <img
             src={data[currentSlide].image}
             alt="image"
-            className="object-cover   -ml-3 mb-12"
+            className="object-cover   -ml-3 mb-12 
+            max-h-[320px] min-h-[320px] max-w-[320px] min-w-[320px] 
+            md:max-h-[400px] md:min-h-[400px]  md:max-w-[400px] md:min-w-[400px]"
           />
         </div>
       </div>
