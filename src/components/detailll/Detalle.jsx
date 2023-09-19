@@ -45,12 +45,13 @@ const Detalle = ({ data }) => {
       >
         <div
           id="contenedorPrincipal"
-          className=" max-w-[380px] min-w-[380px] flex flex-col items-center justify-center  md:max-w-[35%] md:min-w-[35%] 
+          className=" max-w-[380px] min-w-[380px] max-h-screen flex flex-col items-center justify-center 
+        md:max-w-[420px] md:min-w-[420px]
              bg-base-100  px-2 pb-6 pt-3 md:p-6 rounded-3xl "
           onClick={handleClickInsideModal}
         >
           <div className="flex  flex-row items-center justify-between gap-x-2 min-w-full pl-2">
-            <h1 className="text-center text-xl md:text-2xl font-semibold tracking-wider text-base-100   bg-accent px-8  rounded-lg">
+            <h1 className="text-center text-xl md:text-xl font-semibold tracking-wider text-base-100   bg-accent px-8  rounded-lg">
               {nombre}
             </h1>{" "}
             <Link
@@ -62,7 +63,7 @@ const Detalle = ({ data }) => {
             </Link>
           </div>
 
-          <div className="avatar relative  min-w-full pt-4 rounded-xl ">
+          <div className="avatar relative  min-w-full mt-2 rounded-xl ">
             <img
               src={imagen}
               className="object-cover rounded-xl max-h-64"
@@ -72,7 +73,7 @@ const Detalle = ({ data }) => {
 
           <div
             id="contenedorTexto"
-            className=" flex flex-col items-start justify-center gap-2 tracking-wide pt-5  min-w-full px-4  text-neutral-800 font-normal mt-6"
+            className=" flex flex-col items-start justify-center gap-2 tracking-wide pt-2  min-w-full px-4  text-neutral-800 font-normal "
           >
             <div className="flex flex-row gap-2">
               <p className="font-semibold  ">Descripcion:</p>
@@ -98,18 +99,20 @@ const Detalle = ({ data }) => {
               </div>
             )}
 
-            <div className="flex flex-row gap-2">
-              <p className="font-semibold  ">Precio:</p>
-              <p className="bg-accent/30 w-30 px-2  rounded font-medium"> {precio}</p>
-            </div>
-            <div className="flex flex-row gap-2">
-              <p className="font-semibold  ">Stock:</p>
-              <p className="bg-accent/30 w-30 px-2  rounded ">{stock}</p>
+            <div className="flex flex-row gap-x-4">
+              <div className="flex flex-row gap-2">
+                <p className="font-semibold  ">Precio:</p>
+                <p className="bg-accent/30 w-30 px-2  rounded font-medium"> {precio}</p>
+              </div>
+              <div className="flex flex-row gap-2">
+                <p className="font-semibold  ">Stock:</p>
+                <p className="bg-accent/30 w-30 px-2  rounded ">{stock}</p>
+              </div>
             </div>
             {(lunes || martes || miercoles || jueves || viernes || sabado || domingo) && (
               <div className="avatar  max-h-35 mb-6 mx-auto -mt-8 md:mt-0">
                 <Image
-                  alt="asi funciona la app imagen"
+                  alt="available this week"
                   width={347}
                   height={150}
                   className="object-cover"
