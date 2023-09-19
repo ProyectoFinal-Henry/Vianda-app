@@ -18,7 +18,7 @@ function Pedidos() {
 
   useEffect(() => {
     try {
-      //la petición get a /check lo que hace es traer todos los datos de la sesión que están guardadas en el token
+      // la petición get a /check lo que hace es traer todos los datos de la sesión que están guardadas en el token
       axios.get("/api/auth/check").then((res) => {
         setUserData({
           id: res.data.id,
@@ -27,19 +27,23 @@ function Pedidos() {
     } catch (error) {
       console.log(error);
     }
-  }, []);
-
-  setTimeout(async () => {
-    try {
-      const resPedido = await axios.get(`/api/pedidos/${userData.id}`);
-      const dataPedido = resPedido.data.pedidos;
-      setDataPedido(dataPedido)
-      if(dataPedido)
-        setIsLoading(false)           
-    } catch (error) {
-      console.error("Se produjo un error al realizar la solicitud HTTP:");
+  
+    // Mueve el setTimeout aquí y usa userData.id como dependencia
+    if (userData.id) {
+      setTimeout(async () => {
+        try {
+          const resPedido = await axios.get(`/api/pedidos/${userData.id}`);
+          const dataPedido = resPedido.data.pedidos;
+          setDataPedido(dataPedido);
+          if (dataPedido) {
+            setIsLoading(false);
+          }
+        } catch (error) {
+          console.error("Se produjo un error al realizar la solicitud HTTP:");
+        }
+      }, 10);
     }
-  }, 10);
+  }, [userData.id]);
 
   return (
     <>
