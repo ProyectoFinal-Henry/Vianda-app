@@ -15,8 +15,7 @@ import { useRouter } from "next/navigation";
 
 function MisDatos() {
   const router = useRouter()
-  const { user } = UserAuth();
-  // console.log(user)
+  const { user, googleLogout } = UserAuth();
   const [isLoading, setIsLoading] = useState(true);
 
   const {
@@ -103,6 +102,16 @@ function MisDatos() {
     }
   });
 
+  const handleGoogleLogout = async () => {
+    try {
+      const response = await axios.post("/api/auth/logout")
+      if (response.status === 200) await googleLogout()
+      router.push("/catalog/login")
+    } catch (error) {
+      await googleLogout()
+    }
+  }
+
   return (
     <>
       {isLoading ? (
@@ -143,10 +152,11 @@ function MisDatos() {
                   </li>
                   <hr className="bg-black" />
                   <li>
-                    <Link href={"/"}>
+                    <button
+                    onClick={handleGoogleLogout}>
                       <CgLogOff className="text-base text-accent" /> Cerrar
                       sesion
-                    </Link>
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -183,9 +193,9 @@ function MisDatos() {
                 </li>
                 <hr className="bg-black" />
                 <li tabIndex={1}>
-                  <Link className="text-base" href={"/"}>
-                    <CgLogOff className="text-2xl text-accent" /> Cerrar sesion
-                  </Link>
+                  <button onClick={handleGoogleLogout}>
+                    <CgLogOff className="text-2xl text-accent" /> Cerrar Sesión
+                  </button>
                 </li>
               </ul>
             </div>

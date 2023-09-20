@@ -211,7 +211,7 @@ export const UserFormRegister = () => {
                   </span>
                 )}
                 {toastEmail && (
-                  <div>{`El email ingresado ${email} ya existe`} </div>
+                  <div>{`El email ingresado ya existe`} </div>
                 )}
               </div>
             </div>
