@@ -45,21 +45,32 @@ function MisDatos() {
 
   useEffect(() => {
     try {  
-        axios.get("/api/auth/check").then((res) => {
-          setValue("nombre", res.data.nombre);
-          setValue("email", res.data.email);
-          setValue("dni", res.data.dni);
-          setValue("telefono", res.data.telefono);
-          setValue("direccion", res.data.direccion);
-          setUserData({
-            nombre: res.data.nombre,
-            email: res.data.email,
-            dni: res.data.dni,
-            telefono: res.data.telefono,
-            direccion: res.data.direccion,
-            id: res.data.id,
-          });
+      fetch("/api/auth/check")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setValue("nombre", data.nombre);
+        setValue("email", data.email);
+        setValue("dni", data.dni);
+        setValue("telefono", data.telefono);
+        setValue("direccion", data.direccion);
+        setUserData({
+          nombre: data.nombre,
+          email: data.email,
+          dni: data.dni,
+          telefono: data.telefono,
+          direccion: data.direccion,
+          id: data.id,
         });
+      })
+      .catch((error) => {
+        console.error("Fetch Error:", error);
+      });
       }
       catch (error) {
       console.log(error);
