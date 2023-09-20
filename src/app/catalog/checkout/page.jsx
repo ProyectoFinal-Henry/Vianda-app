@@ -153,7 +153,7 @@ const CatalogRegisterPage = () => {
                   <div className="divider my-0"></div>
                   <Image
                     className="mx-auto my-4 hidden md:block"
-                    src={"/images/corporate/100seguro.png"}
+                    src={"https://res.cloudinary.com/deezwetqk/image/upload/v1695171791/100seguro_egyiqx.png"}
                     alt="seguro"
                     height={"46"}
                     width={"155"}
