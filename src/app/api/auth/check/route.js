@@ -4,6 +4,7 @@ import { jwtVerify } from "jose";
 export async function GET(request) {
   try {
     const token = request.cookies.get('myToken')
+    console.log(token)
       const { payload } = await jwtVerify(
         token.value,
         new TextEncoder().encode("secret")
