@@ -166,12 +166,12 @@ const CatalogRegisterPage = () => {
                   )}
                   {loader === "success" && (
                     <div className="min-w-full flex flex-row justify-center items-center h-12 absolute top-0 left-0">
-                      <FcOk className="text-4xl animate-ping " />
+                      {/* <FcOk className="text-4xl animate-ping " /> */}
                     </div>
                   )}
                   {loader === "error" && (
                     <div className="min-w-full flex flex-row justify-center items-center h-16 -mt-1 absolute top-0 left-0 bg-red-300 rounded-md">
-                      <MdOutlineError  className="text-4xl   text-red-600 " /> <span>ERROR!</span>
+                      {/* <MdOutlineError  className="text-4xl   text-red-600 " /> <span>ERROR!</span> */}
                     </div>
                   )}
 
