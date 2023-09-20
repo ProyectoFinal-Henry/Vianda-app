@@ -22,10 +22,11 @@ const CatalogRegisterPage = () => {
   const { precioTotal, viandas, setViandas } = useCarrito();
   const [semana, setSemana] = useState([]);
   const [ready, setReady] = useState(false);
+  let idPedido = 0;
 
   //!-------------------------------------------------
   const metodoPago = "MercadoPago";
-  const estado = "pagado";
+  const estado = "pendiente";
   //!-------------------------------------------------
 
   const semanal = async () => {
@@ -59,37 +60,49 @@ const CatalogRegisterPage = () => {
   }, []);
 
   const handleClick = async (e) => {
-    const usuario = await axios.get("/api/auth/check");
+
+    if(precioTotal !== 0){
+      const usuario = await axios.get("/api/auth/check");
     if (usuario.data.error === "no token") {
       window.alert(
         "Es necesario estar LOGUEADO para poder finalizar el pedido."
       );
     } else {
-      const fk_usuarioId = usuario.data.id;
-      const respuesta = await pedidosFormater(
-        fk_usuarioId,
-        precioTotal,
-        metodoPago,
-        estado,
-        viandas
-      );
-      const pedidoDB = await axios.post(`/api/pedidos`, respuesta);
-      window.alert(pedidoDB.data.message);
-      setViandas([]);
-      carritoPUT(fk_usuarioId);
-      const response = await axios.post("/api/auth/logout")
-      router.refresh()
-      router.push("/catalog")
+        const fk_usuarioId = usuario.data.id;
+        const respuesta = await pedidosFormater(
+            fk_usuarioId,
+            precioTotal,
+            metodoPago,
+            estado,                                               //!creacion de objeto pedido
+            viandas
+            );
+        try {
+            const pedidoDB = await axios.post(`/api/pedidos`, respuesta)    //!registro de pedido en DB
+            idPedido = pedidoDB.data.data.id                      
+            if (idPedido){
+            setViandas([]);                               //!Vaciado de viandas y localStorage
+            carritoPUT(fk_usuarioId);                     //!Llamado a funcion para borrar carrito en tabla usuario
+            //const response = await axios.post("/api/auth/logout")
+            }
+        } catch (error) {
+            window.alert("No se pudo registar el pedido. Pongase en contacto con el administrador.")
+        }
+        try {
+            const result = await axios.post("/api/pagos", {precioTotal:precioTotal, idPedido:idPedido})
+            router.push(`${result.data}`)                          //!Creacion de orden de pago y redireccion a MP
+        } catch (error) {
+            throw new Error(error.message)
+        }
+      
+  };}
     }
-  };
 
   const carritoPUT = async (id) => {
     const carritoCampo = {
         carrito: "[]",
-    };
+    };                                            //!borrado de campo "carrito en tabla user"
     try {
         const respuesta = await axios.put(`/api/usuarios/${id}`, carritoCampo);
-        // Manejo de éxito
     } catch (error) {
         console.error("Error en la solicitud PUT:", error);
         throw new Error("Algo salió mal en el PUT de la DB");

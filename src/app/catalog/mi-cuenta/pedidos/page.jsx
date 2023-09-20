@@ -9,6 +9,7 @@ import { FiMenu } from "react-icons/fi"
 import Link from "next/link"
 import axios from "axios";
 import LoadingComponentApp from "@/app/loading";
+import Image from 'next/image';
 
 function Pedidos() {
 
@@ -28,18 +29,19 @@ function Pedidos() {
       console.log(error);
     }
   
-    // Mueve el setTimeout aquí y usa userData.id como dependencia
     if (userData.id) {
       setTimeout(async () => {
         try {
           const resPedido = await axios.get(`/api/pedidos/${userData.id}`);
           const dataPedido = resPedido.data.pedidos;
+          // console.log(dataPedido);
           setDataPedido(dataPedido);
-          if (dataPedido) {
+          if (resPedido) {
             setIsLoading(false);
           }
         } catch (error) {
-          console.error("Se produjo un error al realizar la solicitud HTTP:");
+          console.error("Se produjo un error al realizar la solicitud HTTP");
+          setIsLoading(false);
         }
       }, 10);
     }
@@ -140,7 +142,7 @@ function Pedidos() {
         <div className="flex flex-col justify-start md:justify-start items-center bg-base-100 w-[90%] mx-[5%] mb-[5%] md:w-[300%] md:mx-[0%] mr-0 md:mr-[8%] md:my-[10vh] rounded-2xl border-2 border-neutral/30 drop-shadow-lg px-2 pt-2 pb-3 ">
           <h1 className="w-full font-bold ml-3 p-2">MIS PEDIDOS</h1>
 
-          {Array.isArray(dataPedido) ? (
+          {(dataPedido) ? (
             dataPedido.map(({ totalVenta, idTransaccion, fecha, id, metodoPago, detallePedido }) => {
               return (
                 <div key={id}>
@@ -150,23 +152,23 @@ function Pedidos() {
                         <strong>Pedido No: </strong> {idTransaccion}
                       </h1>
                       <h1 className="md:mr-10">
-                        <strong>Comprado el: </strong> {fecha}
+                        <strong>Comprado el: </strong> {fecha.slice(0, 10)}
                       </h1>
                       <h1 className="md:mr-10">
                         <strong>Total: </strong> ${totalVenta}
                       </h1>
                       <h1 className="md:mr-5">
-                        <strong>Metodo de pago </strong> ${metodoPago}
+                        <strong>Metodo de pago </strong> {metodoPago}
                       </h1>
                     </div>
 
                     {/* <button className="flex justify-center items-center gap-x-2 first-letter:font-bold btn-accent bg-opacity-80 px-16 py-1 rounded w-60 ">
                         Ver pedido
                       </button> */}
+                      
                   </div>
-
                   <div className="flex flex-col md:flex-row md:justify-between mt-1 mb-5">
-                    {Array.isArray(detallePedido) ? (
+                    {(detallePedido) ? (
                       detallePedido.map(({ viandaId, viandaImagen, viandaNombre, precio, cantidad, total }) => {
                         return (
                           <div
@@ -176,7 +178,10 @@ function Pedidos() {
                             <div className="flex md:flex-col flex-row justify-start items-start">
                               <div className="avatar">
                                 <div className="w-36 max-h-48 md:w-full rounded-3xl md:rounded-b-none">
-                                  <img
+                                  <Image
+                                    width={200}
+                                    height={200}
+                                    alt="imagen de la vianda"
                                     className="object-cover"
                                     src={viandaImagen}
                                   />
@@ -196,14 +201,14 @@ function Pedidos() {
                         )
                       })
                     ) : (
-                      <p>No hay detalles disponibles</p>
+                      <p>Sin datos</p>
                     )}
                   </div>
                 </div>
               )
             })
           ) : (
-            <p>No hay detalles disponibles</p>
+            <p>Sin datos para mostrar</p>
           )}
         </div>
       </div>

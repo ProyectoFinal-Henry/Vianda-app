@@ -24,27 +24,37 @@ const LoginCatalogPage = () => {
   const [visible, setVisible] = useState(false);
   const [loadingUp, setLoadingUp] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (user) {
-      axios.post("/api/auth/loginGoogle").then(() => {
-        router.push("/catalog/mi-cuenta");
-      });
-    }
-  }),
-    [user];
+  const [google, setGoogle] = useState(false)
 
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState);
   };
 
+
+
   const handleGoogleLogin = async () => {
-    try {
-      await googleLogin();
-    } catch (error) {
-      console.log(error);
-    }
+    await googleLogin();
+    router.refresh()
   };
+
+  useEffect(() => {
+    if (user) {
+      const googleData = { nombreCompleto: user.displayName, email: user.email };
+      try {
+        axios.post("/api/auth/loginGoogle", googleData).then((res) => {
+          if (res.status === 200) {
+            router.refresh();
+            router.push("/catalog/mi-cuenta");
+          } else if (res.status === 202) {
+            router.refresh();
+            router.push("/catalog/registro");
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [user]);
 
   const {
     register,
@@ -53,12 +63,14 @@ const LoginCatalogPage = () => {
   } = useForm();
 
   const onSubmit = handleSubmit(async (formData) => {
+    
     try {
       setLoadingUp(true);
       await new Promise((resolve) => setTimeout(resolve, 3000));
       const response = await axios.post("/api/auth/login", formData);
+      
       if (response.status === 200) {
-        console.log('tamo bien')
+        
         if (response.data.rol === "cliente") {
           router.refresh();
           router.push("/catalog/mi-cuenta");
@@ -70,13 +82,12 @@ const LoginCatalogPage = () => {
           router.refresh();
           router.push("/repartidor");
         } else {
-          
           router.refresh();
           router.push("/admin");
         }
       } else {
         setError(response.data.error);
-        console.log('tamo aca')
+        
       }
     } catch (error) {
       console.log(error);

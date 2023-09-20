@@ -22,7 +22,7 @@ const FullWidthHeader = () => {
 
           <Image
             className="avatar w-60 md:w-96 "
-            src={"/about-background-image.png"}
+            src={"https://res.cloudinary.com/deezwetqk/image/upload/v1695169213/dgpfodji4vd4ttnh6uma.png"}
             height={"300"}
             width={"300"}
             alt="banner image"

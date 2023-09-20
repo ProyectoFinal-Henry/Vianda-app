@@ -2,26 +2,22 @@
 import { BiCartAdd } from "react-icons/bi"
 import { BsFillCartCheckFill } from "react-icons/bs"
 import { BsPersonCircle } from "react-icons/bs"
-
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-
 import Link from "next/link"
-import Image from "next/image"
-
 import { useCarrito } from "@/context/CarritoContext"
 import { UserAuth } from "@/context/AuthContext"
+import Image from "next/image"
 
 function NavBar() {
   const [userToken, setUserToken] = useState()
+  const [logeado, setLogeado] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [carritoOpen, setCarritoOpen] = useState(false)
 
   const { user, googleLogout } = UserAuth()
-
   const { cantidadTotal, precioTotal } = useCarrito()
-
-  const [logeado, setLogeado] = useState(false)
-
   const router = useRouter()
 
   const handleGoogleLogout = async () => {
@@ -31,7 +27,7 @@ function NavBar() {
       setLogeado(false)
       router.push("/catalog/login")
     } catch (error) {
-      console.log(error)
+      await googleLogout()
     }
   }
 
@@ -53,8 +49,10 @@ function NavBar() {
       <div className="navbar bg-base-100 shadow md:max-w-[98%] md:mx-auto shadowl-xl px-4">
         <div className="flex-1">
           <Link href="/catalog">
-            <img
-              src="/images/corporate/logogreen.png"
+            <Image
+              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695171792/logogreen_msunlg.png"
+              height={100}
+              width={250}
               alt="imagen logo"
               className="  max-w-[180px] md:max-w-[250px] "
             />
@@ -62,7 +60,10 @@ function NavBar() {
         </div>
 
         <div className="flex flex-row-reverse items-center justify-between gap-x-2 ">
-          <div className="dropdown dropdown-end">
+          <div
+            className="dropdown dropdown-end "
+            onClick={() => setCarritoOpen(!carritoOpen)}
+          >
             <label
               tabIndex={0}
               className="btn btn-ghost btn-circle"
@@ -74,7 +75,7 @@ function NavBar() {
             </label>
             <div
               tabIndex={0}
-              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+              className={`mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow ${carritoOpen ? "hidden" : ""}`}
             >
               <div className="card-body">
                 <span className="font-bold text-lg">{`${cantidadTotal} Items`}</span>
@@ -89,7 +90,10 @@ function NavBar() {
               </div>
             </div>
           </div>
-          <div className="dropdown dropdown-end items-center">
+          <div
+            className="dropdown dropdown-end items-center block "
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             <label
               tabIndex={0}
               className="btn btn-ghost btn-circle avatar mt-1"
@@ -106,7 +110,7 @@ function NavBar() {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 ${menuOpen ? "hidden" : ""}`}
             >
               <li>
                 <Link
@@ -126,7 +130,7 @@ function NavBar() {
               </li>
             </ul>
           </div>
-          <p className="mx-4 ">{user ? user.displayName : userToken}</p>
+          <p className="mx-4 ">{userToken}</p>
         </div>
       </div>
     </>

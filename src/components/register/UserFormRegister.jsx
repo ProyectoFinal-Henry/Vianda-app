@@ -15,13 +15,15 @@ import { ModalUserError } from "./ModalUserError";
 import { ModalUserExit } from "./ModalUserExit";
 import { usePathname } from "next/navigation"; // ver url-david
 import { welcome } from "@/app/api/email/templates";
+import { UserAuth } from "@/context/AuthContext";
 
 export const UserFormRegister = () => {
+  const { user } = UserAuth();
   const [visible, setVisible] = useState(false);
   const [toastEmail, setToastEmail] = useState(false);
   const [modalErroCreateUser, setModalErrorCreateUser] = useState(false);
   const [modalExit, setModalExit] = useState(false);
-  const [email, setEmail] = useState("");
+  const [google, setGoogle] = useState(false)
 
   //si es admin dejarlo ver el campo rol
   const currentPath = usePathname();
@@ -38,17 +40,23 @@ export const UserFormRegister = () => {
 
   useEffect(() => {
     userPriviledge();
+      if (user){
+        setGoogle(true)
+      }
+      else{
+        setGoogle(false)
+      }
   }, []);
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState);
   };
-  const enviarCorreoBienvenida = async (infoRegistro) => {
+  const enviarCorreoBienvenida = async (infoUsuario) => {
     try {
       const body = {
-        to: infoRegistro.email,
+        to: infoUsuario.email,
         subject: "Bienvenido/a a Viandapp",
         text: "Version texto",
-        html: welcome(infoRegistro.nombre),
+        html: welcome(infoUsuario.nombre),
       };
       const res = await axios.post("/api/email", body);
     } catch (error) {}
@@ -63,31 +71,35 @@ export const UserFormRegister = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setToastEmail(false);
-      let emailIngresado = data.email;
-      setEmail(emailIngresado);
-      let contraseñaIngresada = data.password;
       const saltRounds = 10;
       const passwordHashed = await new Promise((resolve, reject) => {
-        bcrypt.hash(contraseñaIngresada, saltRounds, function (err, hash) {
-          if (err) {
-            console.error(err);
-            reject(err);
-            return;
-          }
-          resolve(hash);
-        });
+      bcrypt.hash(data.password, saltRounds, function (err, hash) {
+        if (err) {
+          console.error(err);
+          reject(err);
+          return;
+        }
+        resolve(hash);
+      });
       });
       let newData = data;
-      newData.password = passwordHashed;
+      if (google) {
+        newData.nombreCompleto = user.displayName
+        newData.email = user.email
+        newData.password = "ContraseñaFalsaQueEsperemosNuncaNadieAdivine"
+      }
+      else{
+        newData.password = passwordHashed;
+      }
+      
+      const response = await axios.post("/api/usuarios/registro", newData);
 
-      const res = await axios.post("/api/usuarios/registro", newData);
-      const resMessage = res.data.message;
-
-      if (resMessage.includes("ya existe")) {
+      if (response.status === 202) {
         setToastEmail(true);
-      } else if (resMessage.includes("error creando el usuario")) {
+      } else if (response.status === 203) {
         setModalErrorCreateUser(true);
       } else {
+        //si todo sale bien, crear el token aqui mismo
         const infoUsuario = {
           nombre: newData.nombreCompleto,
           email: newData.email,
@@ -110,7 +122,7 @@ export const UserFormRegister = () => {
           className=" flex flex-col items-center justify-center min-w-full px-10 py-5"
         >
           <div id="contenedorH1" className="justify-center ">
-            <h1 className="text-center text-lg">CREAR CUENTA</h1>
+            {google? (<h1 className="text-center text-lg">COMPLETAR REGISTRO</h1>) : (<h1 className="text-center text-lg">CREAR CUENTA</h1>)}
           </div>
           <div
             className="divider  
@@ -128,7 +140,14 @@ export const UserFormRegister = () => {
                     Nombre Completo
                   </span>
                 </label>
-                <input
+                {google? (
+                  <input
+                  type="text"
+                  className="input min-w-full input-bordered w-full  input-sm rounded h-7 bg-neutral-50"
+                  value={user?.displayName}
+                  disabled="true"
+                   />
+                ) : (<input
                   type="text"
                   placeholder="nombre"
                   className="input min-w-full input-bordered w-full  input-sm rounded h-7 bg-neutral-50"
@@ -150,8 +169,7 @@ export const UserFormRegister = () => {
                       message: "No debe contener números ni símbolos",
                     },
                   })}
-                />
-
+                />)}
                 {errors.nombreCompleto && (
                   <span className="mt-1 text-xs text-warning">
                     {errors.nombreCompleto.message}
@@ -163,10 +181,16 @@ export const UserFormRegister = () => {
                 <label className="label" htmlFor="email">
                   <span className="label-text font-medium">Email</span>
                 </label>
-                <input
+                {google? (<input
+                  type="email"
+                  value={user?.email}
+                  disabled="true"
+                  className="input input-bordered w-full  input-sm  bg-neutral-50  rounded h-7 "
+                />): (
+                  <input
                   type="email"
                   placeholder="email@example.com"
-                  className="input input-bordered w-full  input-sm  bg-neutral-50  rounded h-7  "
+                  className="input input-bordered w-full  input-sm  bg-neutral-50  rounded h-7 "
                   {...register("email", {
                     required: {
                       value: true,
@@ -179,13 +203,15 @@ export const UserFormRegister = () => {
                     },
                   })}
                 />
+                )}
+                
                 {errors.email && (
                   <span className="mt-1 text-xs text-warning">
                     {errors.email.message}
                   </span>
                 )}
                 {toastEmail && (
-                  <div>{`El email ingresado ${email} ya existe`} </div>
+                  <div>{`El email ingresado ya existe`} </div>
                 )}
               </div>
             </div>
@@ -250,35 +276,46 @@ export const UserFormRegister = () => {
                 )}
               </div>
             </div>
-            <div className="flex flex-col  items-center justify-center md:flex-row   min-w-full gap-x-9">
-              <div className="form-control w-full pb-2 ">
-                <label className="label">
-                  <span className="label-text font-medium ">Contraseña</span>
-                </label>
-                <div className="flex flex-row">
-                  <input
-                    type={visible ? "text" : "password"}
-                    placeholder="contraseña"
-                    className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
-                    {...register("password", {
-                      required: {
-                        value: true,
-                        message: "Este campo es requerido",
-                      },
-                      minLength: {
-                        value: 6,
-                        message:
-                          "La contraseña debe tener al menos 6 caracteres",
-                      },
-                      pattern: {
-                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-                        message:
-                          "La contraseña debe contener minúsculas,mayúsculas y numeros",
-                      },
-                    })}
-                  />
+            <div className={`flex flex-col items-center md:flex-row min-w-full ${google ? 'justify-start' : 'justify-center'} gap-x-9`}>
+            
 
-                  <button
+              <div className="form-control w-full pb-2 ">
+              <label className="label">
+                <span className="label-text font-medium ">Contraseña</span>
+              </label>
+              <div className="flex flex-row">
+                {google? (
+                  <input
+                  type="password"
+                  className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
+                  disabled="true"
+                  />
+                ) : (
+                  <input
+                  type={visible ? "text" : "password"}
+                  placeholder="contraseña"
+                  className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Este campo es requerido",
+                    },
+                    minLength: {
+                      value: 6,
+                      message:
+                        "La contraseña debe tener al menos 6 caracteres",
+                    },
+                    pattern: {
+                      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+                      message:
+                        "La contraseña debe contener minúsculas,mayúsculas y numeros",
+                    },
+                  })}
+                />
+                )}
+                
+                  {google? (null) : (
+                    <button
                     type="button"
                     className="relative min-w-min   ml-3  right-9"
                     onClick={passwordVisibility}
@@ -289,18 +326,22 @@ export const UserFormRegister = () => {
                       <AiOutlineEyeInvisible className="text-xl mr-0" />
                     )}
                   </button>
-                </div>
-
-                {errors.password && (
-                  <span className="mt-1 text-xs text-warning">
-                    {errors.password.message}
-                  </span>
-                )}
+                  )}
+                
               </div>
 
-              <div className="form-control  w-full pb-2 ">
+              {errors.password && (
+                <span className="mt-1 text-xs text-warning">
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
+
+              
+
+              <div className="form-control w-full pb-2 ">
                 <label className="label" htmlFor="direccion">
-                  <span className="label-text font-medium ">Dirección</span>
+                  <span className="label-text font-medium">Dirección</span>
                 </label>
                 <input
                   type="text"
@@ -365,9 +406,8 @@ export const UserFormRegister = () => {
                 className="flex items-center py-1  btn-accent bg-accent px-12 rounded-md mt-3"
               >
                 <AiFillLock className="text-xl text-white" />
-                <span className="pl-2 text-white font-semibold">
-                  Completar registro
-                </span>
+                {google? (<span className="pl-2 text-white font-semibold">Registrarse</span>) 
+              : (<span className="pl-2 text-white font-semibold">Completar registro</span>)}
               </button>
             </div>
             <div
@@ -375,12 +415,6 @@ export const UserFormRegister = () => {
         "
             ></div>
           </form>
-
-          <p className="font-medium ">O ingresa con</p>
-          <button className="items-center gap-x-1.5 mt-4 flex font-bold border-solid border-neutral border-2 rounded-sm px-4 py-0.5 border-opacity-30">
-            <FcGoogle className="text-2xl px-0 mx-0" />
-            Google
-          </button>
         </div>
       </FormResponsiveContainer>
       {modalErroCreateUser && (

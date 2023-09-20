@@ -11,10 +11,11 @@ import axios from "axios";
 import Link from "next/link";
 import { UserAuth } from "@/context/AuthContext";
 import LoadingComponentApp from "@/app/loading";
+import { useRouter } from "next/navigation";
 
 function MisDatos() {
-  const { user } = UserAuth();
-  // console.log(user)
+  const router = useRouter()
+  const { user, googleLogout } = UserAuth();
   const [isLoading, setIsLoading] = useState(true);
 
   const {
@@ -43,13 +44,7 @@ function MisDatos() {
   });
 
   useEffect(() => {
-    try {
-      //si hay usuario de google, que traiga los datos de google
-      if (user) {
-        setValue("nombre", user.displayName);
-        setValue("email", user.email);
-      } else {
-        //sino, que traiga los datos del token
+    try {  
         axios.get("/api/auth/check").then((res) => {
           setValue("nombre", res.data.nombre);
           setValue("email", res.data.email);
@@ -66,7 +61,7 @@ function MisDatos() {
           });
         });
       }
-    } catch (error) {
+      catch (error) {
       console.log(error);
     }
     const timeoutId = setTimeout(() => {
@@ -97,6 +92,7 @@ function MisDatos() {
         formData
       );
       const updateToken = await axios.put("/api/auth/modify", formData);
+      router.refresh()
       setSuccess(true);
 
       await new Promise((resolve) => setTimeout(resolve, 2500));
@@ -105,6 +101,16 @@ function MisDatos() {
       console.log(error);
     }
   });
+
+  const handleGoogleLogout = async () => {
+    try {
+      const response = await axios.post("/api/auth/logout")
+      if (response.status === 200) await googleLogout()
+      router.push("/catalog/login")
+    } catch (error) {
+      await googleLogout()
+    }
+  }
 
   return (
     <>
@@ -146,10 +152,11 @@ function MisDatos() {
                   </li>
                   <hr className="bg-black" />
                   <li>
-                    <Link href={"/"}>
+                    <button
+                    onClick={handleGoogleLogout}>
                       <CgLogOff className="text-base text-accent" /> Cerrar
                       sesion
-                    </Link>
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -186,9 +193,9 @@ function MisDatos() {
                 </li>
                 <hr className="bg-black" />
                 <li tabIndex={1}>
-                  <Link className="text-base" href={"/"}>
-                    <CgLogOff className="text-2xl text-accent" /> Cerrar sesion
-                  </Link>
+                  <button onClick={handleGoogleLogout}>
+                    <CgLogOff className="text-2xl text-accent" /> Cerrar Sesión
+                  </button>
                 </li>
               </ul>
             </div>
@@ -217,7 +224,6 @@ function MisDatos() {
                     type="text"
                     placeholder="Nombre Completo"
                     className="input input-bordered input-sm w-full max-w-[95%] ml-3"
-                    disabled={user !== null}
                     {...register("nombre", {
                       maxLength: {
                         value: 30,
@@ -269,7 +275,6 @@ function MisDatos() {
                     type="text"
                     placeholder="DNI"
                     className="appearance-none input input-bordered input-sm w-full max-w-[95%] ml-3 "
-                    disabled={user !== null}
                     {...register("dni", {
                       maxLength: {
                         value: 12,
@@ -306,7 +311,6 @@ function MisDatos() {
                     type="tel"
                     placeholder="Teléfono"
                     className="input input-bordered input-sm w-full max-w-[95%] ml-3"
-                    disabled={user !== null}
                     {...register("telefono", {
                       pattern: {
                         value: /^[0-9]+$/,
@@ -335,7 +339,6 @@ function MisDatos() {
                     type="text"
                     placeholder="Dirección"
                     className="input input-bordered input-sm w-full max-w-[95%] ml-3"
-                    disabled={user !== null}
                     {...register("direccion", {
                       maxLength: {
                         value: 30,
@@ -356,22 +359,12 @@ function MisDatos() {
                 </div>
               </div>
 
-              {!user ? (
                 <button
                   type="submit"
                   className="flex items-center gap-x-2 first-letter:font-bold btn-accent px-10 py-1 rounded-md ml-3 mt-6 mb-0"
                 >
                   Guardar Cambios
                 </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="flex items-center opacity-50 gap-x-2 first-letter:font-bold bg-accent bg-opacity-30 px-10 py-1 rounded-md ml-3 mt-6 mb-0"
-                  disabled="true"
-                >
-                  Guardar Cambios
-                </button>
-              )}
             </form>
           </div>
         </div>

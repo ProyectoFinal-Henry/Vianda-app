@@ -52,7 +52,7 @@ export async function POST(request) {
       // Contraseña incorrecta, deniega el acceso
       return NextResponse.json(
         { error: "Contraseña incorrecta" },
-        { status: 200 }
+        { status: 202 }
       );
     }
   } catch (error) {
