@@ -10,7 +10,7 @@ const data = [
   {
     id: 1,
     title: " Ahorra tiempo come sano ahora en ViandApp",
-    image: "/about-background-image.png",
+    image: "https://res.cloudinary.com/deezwetqk/image/upload/v1695169213/dgpfodji4vd4ttnh6uma.png",
   },
   {
     id: 2,

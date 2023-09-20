@@ -29,7 +29,10 @@ async function CardRecomend() {
             href={`/catalog?modal=${vianda.id}`}
             scroll={false}
             key={index}
-            className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px] md:min-w-[265px]    shadow-xl cursor-default rounded-xl md:min-h-[360px]
+            className="card-compact bg-amber-300 max-w-[49%] min-w-[49%]  
+             md:max-w-[265px] md:min-w-[265px] md:min-h-[360px] 
+                 shadow-xl cursor-default rounded-xl 
+            active:transform active:scale-105 active:shadow-md active:bg-amber-400
           "
           >
             {/* <div className="avatar">
