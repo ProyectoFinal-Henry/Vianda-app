@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useEffect, useState } from "react"
 
 const CardsMenuIssue = ({ viandas, dia, tipo }) => {
@@ -43,7 +44,10 @@ const CardsMenuIssue = ({ viandas, dia, tipo }) => {
             className="w-full
                             rounded-t-xl"
           >
-            <img
+            <Image
+              width={200}
+              height={200}
+              alt="imagen de la vianda"
             
               src={viandaSeleccionada.imagen}
             />

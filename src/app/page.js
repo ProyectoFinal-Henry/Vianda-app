@@ -15,12 +15,12 @@ const data = [
   {
     id: 2,
     title: "Elegí calidad, elgí ViandApp",
-    image: "/home-banner-image (1).png",
+    image: "https://res.cloudinary.com/deezwetqk/image/upload/v1695172747/home-banner-image_1_p19o0n.png",
   },
   {
     id: 3,
     title: "Elegí calidad, elgí ViandApp",
-    image: "/home-banner-image (1).png",
+    image: "https://res.cloudinary.com/deezwetqk/image/upload/v1695172747/home-banner-image_1_p19o0n.png",
   },
 ]
 
@@ -65,9 +65,11 @@ export default function LandingPage() {
           id="container-image "
           className="text-center w-[80%] mx-auto mt-12 avatar flex flex-col justify-center items-center min-h-[321px]"
         >
-          <img
+          <Image
             src={data[currentSlide].image}
             alt="image"
+            width={400}
+            height={400}
             className="object-cover   -ml-3 mb-12 
             max-h-[320px] min-h-[320px] max-w-[320px] min-w-[320px] 
             md:max-h-[400px] md:min-h-[400px]  md:max-w-[400px] md:min-w-[400px]"

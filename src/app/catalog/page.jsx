@@ -39,7 +39,7 @@ async function Homepage() {
             alt="cta desktop"
             width={1100}
             height={300}
-            src="/images/CTA.png"
+            src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169710/CTA_sep7jg.png"
             className="min-w-full"
           />
         </Link>
@@ -52,7 +52,7 @@ async function Homepage() {
           alt="cta mobile"
           width={300}
           height={300}
-          src="/images/ctamobil.png"
+          src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169713/ctamobil_zqw0or.png"
           className="min-w-full"
         />
       </Link>

@@ -1,27 +1,28 @@
-import axios from "axios";
-import Image from "next/image";
-import { FaShoppingCart } from "react-icons/fa";
+import axios from "axios"
+import Image from "next/image"
+import { FaShoppingCart } from "react-icons/fa"
 const page = async ({ params }) => {
-  const res = await axios.get(
-    `${process.env.LOCALHOST}/api/viandas/${params.detailID}`
-  );
-  const vianda = res.data;
+  const res = await axios.get(`${process.env.LOCALHOST}/api/viandas/${params.detailID}`)
+  const vianda = res.data
   return (
     <div className="flex justify-center items-center h-screen">
       {" "}
       <div className=" flex flex-row gap-x-12">
         <div id="contenedorImg">
-          <img
+          <Image
+            width={400}
+            height={400}
             src={vianda.imagen}
             className="max-w-md rounded-lg shadow-2xl"
             alt="imagen comida"
           />
         </div>
-        <div id="contenedorText" className="flex flex-col gap-3">
+        <div
+          id="contenedorText"
+          className="flex flex-col gap-3"
+        >
           <div>
-            <h2 className="text-center font-bold text-4xl w-[30rem] tracking-widest">
-              {vianda.nombre}
-            </h2>
+            <h2 className="text-center font-bold text-4xl w-[30rem] tracking-widest">{vianda.nombre}</h2>
           </div>
           <div
             className="divider  
@@ -75,7 +76,7 @@ const page = async ({ params }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page

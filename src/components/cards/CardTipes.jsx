@@ -1,3 +1,4 @@
+import Image from "next/image"
 import React from "react"
 
 function CardTipes() {
@@ -12,9 +13,11 @@ function CardTipes() {
       <div className=" min-w-full flex flex-row flex-wrap  justify-between  my-6 gap-y-4 px-2">
         <div className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px]    shadow-xl cursor-default rounded-xl md:min-h-[360px]">
           <figure>
-            <img
+            <Image
+              height={"300"}
+              width={"300"}
               className="rounded-t-xl"
-              src="/images/clasico.png"
+              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169713/clasico_rxpd8k.png"
               alt="clasico"
             />
           </figure>
@@ -27,9 +30,11 @@ function CardTipes() {
 
         <div className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px]   shadow-xl cursor-default  rounded-xl md:min-h-[360px]">
           <figure>
-            <img
+            <Image
+              height={"300"}
+              width={"300"}
               className="rounded-t-xl"
-              src="/images/vegetariano_card.png"
+              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169711/vegetariano_card_caypy4.png"
               alt="vegetariano"
             />
           </figure>
@@ -45,9 +50,11 @@ function CardTipes() {
 
         <div className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px]   shadow-xl cursor-default rounded-xl md:min-h-[360px]">
           <figure>
-            <img
+            <Image
+              height={"300"}
+              width={"300"}
               className="rounded-t-xl"
-              src="/images/sin_harinas_card.png"
+              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169710/sin_harinas_card_tahoug.png"
               alt="sin_harinas"
             />
           </figure>
@@ -63,9 +70,11 @@ function CardTipes() {
 
         <div className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px]   shadow-xl cursor-default rounded-xl md:min-h-[360px]">
           <figure>
-            <img
+            <Image
+              height={"300"}
+              width={"300"}
               className="rounded-t-xl"
-              src="/images/dieta.png"
+              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169709/dieta_zd9erw.png"
               alt="dieta"
             />
           </figure>

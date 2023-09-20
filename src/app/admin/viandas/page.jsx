@@ -110,7 +110,10 @@ const AdminViandasPage = async ({ searchParams }) => {
                       <td>
                         <div className="avatar p-1 relative">
                           <div className="w-24 rounded-full">
-                            <img
+                            <Image
+                              width={100}
+                              height={100}
+                              alt="imagen de la vianda"
                               src={imagen}
                               className={!estado ? "filter grayscale" : ""}
                             />

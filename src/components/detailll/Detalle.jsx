@@ -66,7 +66,10 @@ const Detalle = ({ data }) => {
             </div>
 
             <div className="avatar relative  min-w-full mt-2 rounded-xl ">
-              <img
+              <Image
+                width={400}
+                height={400}
+                alt="imagen de la vianda"
                 src={imagen}
                 className="object-cover rounded-xl max-h-64"
               />
@@ -79,7 +82,7 @@ const Detalle = ({ data }) => {
                   height={150}
                   className=" absolute top-0 left-0
                   max-w-[180px] max-h-[180px]"
-                  src="/images/modal/availableLabel.png"
+                  src="https://res.cloudinary.com/deezwetqk/image/upload/v1695174355/availableLabel_ekvsh4.png"
                 />
               )}
             </div>
