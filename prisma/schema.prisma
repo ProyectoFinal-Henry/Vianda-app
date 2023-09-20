@@ -71,6 +71,7 @@ model Pedido {
 }
 
 enum Estado {
+  pendiente
   pagado
   despachado
   entregado
