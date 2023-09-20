@@ -126,8 +126,7 @@ const NavAdmin = () => {
             </ul>
           </div>
           <div className="navbar-end flex items-center h-fit">
-            <p className="text-neutral font-bold text-xl">{userToken}</p>
-            <p className="text-neutral mx-4 text-xl">&#40;{rol}&#41;</p>
+            <p className="text-neutral text-xl mx-5">{userToken}</p>
             <button
               onClick={logout}
               className="ink link-primary font-extrabold mr-0 md:mr-10"

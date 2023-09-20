@@ -38,21 +38,20 @@ export async function GET(request) {
           return NextResponse.json(usuario);
         } else {
           return NextResponse.json({
-            message: "No se encontron ningun usuario con esa informacion",
-          });
+            message: "No se encontró ningún usuario con esa informacion"},
+            {status: 202});
         }
       }
       if (nombre) {
         const usuarios = await prisma.usuario.findMany({
           where,
         });
-        console.log(usuarios);
-        if (usuarios) {
+        if (usuarios.length > 0) {
           return NextResponse.json(usuarios);
         } else {
           return NextResponse.json({
-            message: "No se encontron ningun usuario con esa informacion",
-          });
+            message: "No se encontró ningún usuario con esa informacion"},
+            {status: 202})
         }
       }
     } catch (error) {
@@ -66,7 +65,7 @@ export async function GET(request) {
       return NextResponse.json({
         message: "Error obteniendo la lista de usuarios",
         error: error.message,
-      });
+      }, {status: 202});
     }
   }
 }

@@ -22,7 +22,7 @@ const AdminDashboard = () => {
 
   return (
     <RowResponsive>
-      {/* {auth ? (
+     {auth ? (
         <>
           <div
             className="w-full min-h-[85vh] hidden md:block bg-contain bg-no-repeat overflow-scroll"
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
         </>
       ) : (
         <NotAdmin />
-      )} */}
+      )} 
     </RowResponsive>
   )
 }

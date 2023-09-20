@@ -27,7 +27,7 @@ function NavBar() {
       setLogeado(false)
       router.push("/catalog/login")
     } catch (error) {
-      console.log(error)
+      await googleLogout()
     }
   }
 
@@ -130,7 +130,7 @@ function NavBar() {
               </li>
             </ul>
           </div>
-          <p className="mx-4 ">{user ? user.displayName : userToken}</p>
+          <p className="mx-4 ">{userToken}</p>
         </div>
       </div>
     </>
