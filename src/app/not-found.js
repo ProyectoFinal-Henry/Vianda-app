@@ -9,7 +9,7 @@ const NotFound = () => {
       <div className="flex flex-col items-center justify-center text-center min-h-screen min-w-screen text-4xl">
         ¡Ups!
         <Image
-          src="/notFound.png"
+          src="https://res.cloudinary.com/deezwetqk/image/upload/v1695174257/notFound_t5weml.png"
           className="mt-12 mb-12"
           alt="notFound"
           width={500}

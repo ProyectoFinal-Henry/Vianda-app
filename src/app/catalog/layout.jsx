@@ -1,6 +1,5 @@
-import Footer from "@/components/footer/Footer"
-import NavBar from "@/components/navbar/NavBar"
-// import { Toaster, toast } from 'sonner'
+import Footer from "@/components/footer/Footer";
+import NavBar from "@/components/navbar/NavBar";
 
 const layoutAdmin = ({ children }) => {
   return (
@@ -8,9 +7,9 @@ const layoutAdmin = ({ children }) => {
       <NavBar />
       {children}
       <Footer />
-      {/* <Toaster/> */}
+     
     </div>
-  )
-}
+  );
+};
 
-export default layoutAdmin
+export default layoutAdmin;

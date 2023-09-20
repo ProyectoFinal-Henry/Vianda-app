@@ -2,6 +2,7 @@
 import { currencyFormater } from "@/libs/utils/currencyFormater"
 import { useCarrito } from "@/context/CarritoContext"
 import { useEffect, useState } from "react"
+import Image from "next/image"
 
 let id = {
   lunes: 0,
@@ -34,7 +35,7 @@ const CardsCheckout = ({ viandasDia, dia }) => {
     tipo: "Sin tipo.",
     descripcion: "Sin descricion.",
     ingredientes: "Sin ingredientes.",
-    imagen: "/images/corporate/food-placeholder.jpeg",
+    imagen: "https://res.cloudinary.com/deezwetqk/image/upload/v1695171791/food-placeholder_lswewp.jpg",
     stock: "Sin Stock",
     cantidad: 0,
     precio: 0,
@@ -145,9 +146,12 @@ const CardsCheckout = ({ viandasDia, dia }) => {
               <div className="avatar max-h-36">
                 <div
                   className="w-full
-                            rounded-t-3xl"
+                            rounded-t-xl"
                 >
-                  <img
+                  <Image
+                    width={200}
+                    height={200}
+                    alt="imagen de la vianda"
                     className="object-cover"
                     src={viandaSeleccionada.imagen}
                   />

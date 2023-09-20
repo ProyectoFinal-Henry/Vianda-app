@@ -34,7 +34,7 @@ const SearchBarViandas = () => {
           className="input input-bordered input-md w-full max-w-xl"
           value={searchValue}
         />
-        <Link href={{ search: buildQueryString() }} className="-ml-10">
+        <Link href={{ search: buildQueryString() }} className="-ml-12">
           <button className=" btn btn-warning text-white ">
             <FaSearch />
           </button>

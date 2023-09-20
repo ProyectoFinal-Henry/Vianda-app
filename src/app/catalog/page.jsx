@@ -7,8 +7,10 @@ import ButtonCTAOrderBlock from "@/components/home/ButtonCTAOrderBlock"
 import FullWidthHeader from "@/components/home/FullWidthHeader"
 import Stylebadges from "@/components/home/Stylebadges"
 import axios from "axios"
+import WhatsappBubbleComponent from "@/components/footer/WhatsappBubble"
 
 import Link from "next/link"
+import Image from "next/image"
 
 async function Homepage() {
   const res = await axios.get(`${process.env.LOCALHOST}/api/viandas`)
@@ -33,8 +35,11 @@ async function Homepage() {
           href={"/catalog/checkout"}
           className="hidden md:block"
         >
-          <img
-            src="/images/CTA.png"
+          <Image
+            alt="cta desktop"
+            width={1100}
+            height={300}
+            src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169710/CTA_sep7jg.png"
             className="min-w-full"
           />
         </Link>
@@ -43,11 +48,15 @@ async function Homepage() {
         href={"/catalog/checkout"}
         className="md:hidden mt-12"
       >
-        <img
-          src="/images/ctamobil.png"
+        <Image
+          alt="cta mobile"
+          width={300}
+          height={300}
+          src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169713/ctamobil_zqw0or.png"
           className="min-w-full"
         />
       </Link>
+      <WhatsappBubbleComponent />
     </>
   )
 }

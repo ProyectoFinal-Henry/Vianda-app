@@ -4,6 +4,7 @@ import { FcOk } from "react-icons/fc"
 import { currencyFormater } from "@/libs/utils/currencyFormater"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import Image from "next/image";
 
 
 const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
@@ -14,7 +15,7 @@ const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
     tipo: tipo,
     descripcion: "Sin descricion.",
     ingredientes: "Sin ingredientes.",
-    imagen: "/images/corporate/food-placeholder.jpeg",
+    imagen: "https://res.cloudinary.com/deezwetqk/image/upload/v1695171791/food-placeholder_lswewp.jpg",
     stock: "Sin Stock",
     cantidad: 0,
     precio: 0,
@@ -79,7 +80,10 @@ const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
                   className="w-full
                             rounded-t-xl"
                 >
-                  <img
+                  <Image
+                    width={200}
+                    height={200}
+                    alt="imagen de la vianda"
                     className={`object-cover ${loader === "success" && "animate-pulse" }`}
                     src={viandaSeleccionada.imagen}
                   />

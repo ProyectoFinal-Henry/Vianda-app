@@ -1,5 +1,6 @@
 // .
 // .
+<<<<<<< HEAD
 import { FaMapMarkerAlt, FaWhatsapp, FaHome } from "react-icons/fa";
 import { AiTwotonePhone } from "react-icons/ai";
 import Modallisto from "./Modallisto";
@@ -12,11 +13,21 @@ const CardsPedidos = ({ pedidos }) => {
         id="contenedorPrincipal"
         className="flex flex-col gap-4 items-center justify-center font-medium mt-2 px-2 "
       >
+=======
+const CardsPedidos = ({ pedidos, setPedidos }) => {
+  return (
+    <div
+      id="contenedorPrincipal"
+      className="flex flex-col items-center justify-center"
+    >
+      <div id="contenedorDatosPedidos">
+>>>>>>> develop
         {pedidos.map((ele) => {
           return (
             <div
               id="Datos"
               key={ele.id}
+<<<<<<< HEAD
               className={`flex flex-col  gap-1 border-4 p-2 text-2xl font-bold    min-w-full min-h-full rounded-xl ${
                 ele.estado === "pagado"
                   ? "bg-[#FFACAC] border-[#FF0000] "
@@ -104,11 +115,49 @@ const CardsPedidos = ({ pedidos }) => {
                   </Link>
                 </div>
               </div>
+=======
+              className="flex flex-col gap-2 border border-solid p-3 mt-3 rounded border-neutral-600"
+            >
+              <div id="Pedido">
+                <p>{`PEDIDO:# ${ele.idTransaccion}`}</p>
+              </div>
+
+              <div id="direccion">
+                <p>Dirección:</p>
+                <p>{ele.usuario.direccion}</p>
+              </div>
+
+              <div id="cliente">
+                <p>Cliente:</p>
+                <p> {ele.usuario.nombreCompleto}</p>
+              </div>
+
+              {ele.detallePedido.map((element) => (
+                <div key={element.pedidoId}>
+                  <span>Vianda:</span>
+                  <p>{element.viandaNombre}</p>
+                  <div className="flex flex-row gap-1">
+                    <span>Cantidad de viandas :</span>
+                    <p>{element.cantidad}</p>
+                  </div>
+                </div>
+              ))}
+>>>>>>> develop
             </div>
           );
         })}
       </div>
+<<<<<<< HEAD
     </>
+=======
+      <div id="contenedorBotones">
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+      </div>
+    </div>
+>>>>>>> develop
   );
 };
 export default CardsPedidos;

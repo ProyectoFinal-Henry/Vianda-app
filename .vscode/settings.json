@@ -9,15 +9,6 @@
       "driver": "PostgreSQL",
       "name": "viandapp",
       "connectString": "postgres://henry_user:iex1AGkmPpkxn2UeManNYxEOpbh0497a@dpg-cjp2u861208c73callag-a.oregon-postgres.render.com/henry"
-    },
-    {
-      "previewLimit": 50,
-      "server": "localhost",
-      "port": 5432,
-      "driver": "PostgreSQL",
-      "name": "pruebaviandas",
-      "database": "postgres",
-      "username": "postgres"
     }
   ]
 }

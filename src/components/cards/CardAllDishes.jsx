@@ -2,6 +2,7 @@
 import { BsFillBoxSeamFill } from "react-icons/bs"
 
 import Link from "next/link"
+import Image from "next/image"
 
 function CardAllDishes(props) {
   const { data } = props
@@ -19,14 +20,17 @@ function CardAllDishes(props) {
             <Link
               href={`/catalog?modal=${id}`}
               key={id}
-              className="card-compact bg-amber-300 max-w-[47%]   md:max-w-[270px]  md:min-w-[270px]   shadow-xl cursor-default rounded-xl "
+              className="card-compact bg-amber-300 max-w-[47%] min-w-[47%]   
+              md:max-w-[270px]  md:min-w-[270px]   shadow-xl cursor-default rounded-xl active:transform active:scale-105 active:shadow-md active:bg-amber-400"
               scroll={false}
             >
               <figure>
-                <img
+                <Image
                   className="rounded-t-xl object-cover min-w-full min-h-[150px] max-h-[150px] md:min-h-[200px] md:max-h-[200px]"
                   src={imagen}
                   alt={nombre}
+                  width={300}
+                  height={200}
                 />
               </figure>
               <div className="card-body p-5">

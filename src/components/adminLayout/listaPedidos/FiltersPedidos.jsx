@@ -15,7 +15,6 @@ function FiltersPedidos() {
   const handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;
-    console.log(value);
     if (name === "nombre") setInputNombreCliente(value);
     if (name === "estado") setInputEstado(value);
     if (name === "metodoPago") setInputMetodoPago(value);
@@ -23,7 +22,6 @@ function FiltersPedidos() {
       setInputFecha(value);
     }
   };
-  console.log(InputFecha);
 
   const handleSubmit = (event) => {
     event.preventDefault();

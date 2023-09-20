@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 const CallToAction = () => {
@@ -6,8 +7,11 @@ const CallToAction = () => {
       <div className="flex flex-col justify-center items-center">
         <div className="hero  bg-base hidden  ">
           <div className="hero-content flex-col lg:flex-row-reverse">
-            <img
-              src="/pexels-photo-1618913.jpeg"
+            <Image
+              width={400}
+              height={400}
+              alt="imagen de la vianda"
+              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695173696/pexels-photo-1618913_k3zghi.jpg"
               className="max-w-md rounded-lg shadow-2xl"
             />
             <div>

@@ -1,28 +1,28 @@
-"use client";
+"use client"
 
-import React from "react";
-import { FiAward } from "react-icons/fi";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import NotAdmin from "@/components/adminLayout/NotAdmin";
-
+import React from "react"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import NotAdmin from "@/components/adminLayout/NotAdmin"
+import { useRouter } from "next/navigation"
+import RowResponsive from "@/components/formaters/RowResponsive"
 const AdminDashboard = () => {
-  const [auth, setAuth] = useState(false);
+  const router = useRouter()
+  const [auth, setAuth] = useState(false)
 
   useEffect(() => {
-
-      axios.get("/api/auth/check").then((res) => {
-        if (res.data.rol === "cliente") {
-          setAuth(false);
-        } else {
-          setAuth(true);
-        }
-      });
-  }, []);
+    axios.get("/api/auth/check").then((res) => {
+      if (res.data.rol !== "administrador") {
+        setAuth(false)
+      } else {
+        setAuth(true)
+      }
+    })
+  }, [])
 
   return (
-    <div>
-      {auth ? (
+    <RowResponsive>
+      {/* {auth ? (
         <>
           <div
             className="w-full min-h-[85vh] hidden md:block bg-contain bg-no-repeat overflow-scroll"
@@ -39,9 +39,9 @@ const AdminDashboard = () => {
         </>
       ) : (
         <NotAdmin />
-      )}
-    </div>
-  );
-};
+      )} */}
+    </RowResponsive>
+  )
+}
 
-export default AdminDashboard;
+export default AdminDashboard

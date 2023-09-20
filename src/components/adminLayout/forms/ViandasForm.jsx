@@ -1,6 +1,7 @@
 "use client"
 import FormResponsiveContainer from "@/components/formaters/FormResponsiveContainer"
 import axios from "axios"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -238,15 +239,15 @@ const ViandasForm = ({ viandaId }) => {
               <div className="w-[60%] mx-auto  rounded">
                 {/* cunado se entre a new que muestre una imagen demo */}
                 {imagenTmp === "" && (
-                  <img
-                    src="/images/corporate/imagePlaceholder.png" //todo:cuando no hay mostrar un skeleton, cunado se actualie mostrar el nuevo valor
+                  <Image
+                    src="https://res.cloudinary.com/deezwetqk/image/upload/v1695171792/imagePlaceholder_sy51to.png" //todo:cuando no hay mostrar un skeleton, cunado se actualie mostrar el nuevo valor
                     alt={"vianda to show"}
                     width={300}
                     height={300}
                   />
                 )}
                 {/* cunado se traiga de update que e comporte como ahora */}
-                <img
+                <Image
                   src={imagenTmp} //todo:cuando no hay mostrar un skeleton, cunado se actualie mostrar el nuevo valor
                   alt={"vianda to show"}
                   width={300}
