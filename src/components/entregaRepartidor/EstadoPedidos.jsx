@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import CardsPedidos from "./CardsPedidos";
-import EntregaPage from "@/app/catalog/entrega/page";
 import axios from "axios";
 
 const EstadoPedidos = ({ data }) => {
@@ -82,7 +81,6 @@ const EstadoPedidos = ({ data }) => {
   );
 };
 export default EstadoPedidos;
-
 // "use client";
 
 // import { useEffect, useState } from "react";
