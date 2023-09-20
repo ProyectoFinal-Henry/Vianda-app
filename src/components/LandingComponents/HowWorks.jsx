@@ -5,7 +5,7 @@ export const HowWorks = () => {
       <h1 className="font-bold text-4xl mb-3 min-w-full text-center">Como funciona</h1>
       <div className="flex flex-col items-center my-4  ">
         <Image
-          src="/AABARAAA-removebg-preview.png"
+          src="https://res.cloudinary.com/deezwetqk/image/upload/v1695172242/AABARAAA-removebg-preview_ke95sx.png"
           alt="barra"
           width={200}
           height={50}
@@ -25,7 +25,7 @@ export const HowWorks = () => {
           "
         >
           <Image
-            src="/img1Landing.png"
+            src="https://res.cloudinary.com/deezwetqk/image/upload/v1695171986/img1Landing_v2lxyz.png"
             alt="asi funciona la app imagen"
             width={350}
             height={350}
@@ -43,7 +43,7 @@ export const HowWorks = () => {
           className="bg-white  rounded-2xl shadow-2xl md:min-w-[30%] md:max-w-[30%]  flex flex-col justify-between items-center"
         >
           <Image
-            src="/img2Landing.png"
+            src="https://res.cloudinary.com/deezwetqk/image/upload/v1695171987/img2Landing_k1j38q.png"
             alt="asi funciona la app imagen"
             width={350}
             height={350}
@@ -64,7 +64,7 @@ export const HowWorks = () => {
           className="bg-white  rounded-2xl shadow-2xl md:min-w-[30%] md:max-w-[30%]  flex flex-col justify-between items-center"
         >
           <Image
-            src="/img4Landing.png"
+            src="https://res.cloudinary.com/deezwetqk/image/upload/v1695171986/img1Landing_v2lxyz.png"
             alt="asi funciona la app imagen"
             width={350}
             height={350}

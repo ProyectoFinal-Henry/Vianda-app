@@ -53,8 +53,11 @@ function NavBar() {
       <div className="navbar bg-base-100 shadow md:max-w-[98%] md:mx-auto shadowl-xl px-4">
         <div className="flex-1">
           <Link href="/catalog">
-            <img
-              src="/images/corporate/logogreen.png"
+            <Image
+              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695171792/logogreen_msunlg.png"
+              height={100}
+              width={250}
+
               alt="imagen logo"
               className="  max-w-[180px] md:max-w-[250px] "
             />

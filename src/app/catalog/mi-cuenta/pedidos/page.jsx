@@ -9,6 +9,7 @@ import { FiMenu } from "react-icons/fi"
 import Link from "next/link"
 import axios from "axios";
 import LoadingComponentApp from "@/app/loading";
+import Image from 'next/image';
 
 function Pedidos() {
 
@@ -176,7 +177,10 @@ function Pedidos() {
                             <div className="flex md:flex-col flex-row justify-start items-start">
                               <div className="avatar">
                                 <div className="w-36 max-h-48 md:w-full rounded-3xl md:rounded-b-none">
-                                  <img
+                                  <Image
+                                    width={200}
+                                    height={200}
+                                    alt="imagen de la vianda"
                                     className="object-cover"
                                     src={viandaImagen}
                                   />

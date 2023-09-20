@@ -2,6 +2,7 @@
 import { currencyFormater } from "@/libs/utils/currencyFormater"
 import { useCarrito } from "@/context/CarritoContext"
 import { useEffect, useState } from "react"
+import Image from "next/image"
 
 let id = {
   lunes: 0,
@@ -147,7 +148,10 @@ const CardsCheckout = ({ viandasDia, dia }) => {
                   className="w-full
                             rounded-t-3xl"
                 >
-                  <img
+                  <Image
+                    width={200}
+                    height={200}
+                    alt="imagen de la vianda"
                     className="object-cover"
                     src={viandaSeleccionada.imagen}
                   />
