@@ -1,4 +1,4 @@
-import CardsPedidos from "@/components/entregaRepartidor/CardsPedidos";
+/* import CardsPedidos from "@/components/entregaRepartidor/CardsPedidos";
 import EstadoPedidos from "@/components/entregaRepartidor/EstadoPedidos";
 
 import axios from "axios";
@@ -15,4 +15,4 @@ const EntregaPage = async () => {
   );
 };
 
-export default EntregaPage;
+export default EntregaPage; */
