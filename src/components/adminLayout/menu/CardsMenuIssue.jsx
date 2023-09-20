@@ -10,7 +10,7 @@ const CardsMenuIssue = ({ viandas, dia, tipo }) => {
     tipo: tipo,
     descripcion: "Sin descricion.",
     ingredientes: "Sin ingredientes.",
-    imagen: "/images/corporate/food-placeholder.jpeg",
+    imagen: "https://res.cloudinary.com/deezwetqk/image/upload/v1695171791/food-placeholder_lswewp.jpg",
     stock: "Sin Stock",
     cantidad: 0,
     precio: 0,
@@ -25,7 +25,6 @@ const CardsMenuIssue = ({ viandas, dia, tipo }) => {
     }
   }, [])
   //cargar viandas por tipo
-  
 
   // !===============================================================
   return (
@@ -48,7 +47,6 @@ const CardsMenuIssue = ({ viandas, dia, tipo }) => {
               width={200}
               height={200}
               alt="imagen de la vianda"
-            
               src={viandaSeleccionada.imagen}
             />
           </div>
@@ -64,7 +62,9 @@ const CardsMenuIssue = ({ viandas, dia, tipo }) => {
           id="cardBody"
           className="flex flex-col justify-start gap-1 mt-1  p-2  "
         >
-          <h2 className="font-semibold text-xl leading-5  min-w-full text-left border-b border-b-accent pb-1 ">{viandaSeleccionada.nombre}</h2>
+          <h2 className="font-semibold text-xl leading-5  min-w-full text-left border-b border-b-accent pb-1 ">
+            {viandaSeleccionada.nombre}
+          </h2>
 
           <h3 className="min-w-full font-semibold text-gray-800/60 text-left tracking-wider leading-4">
             <span className="font-bold text-gray-800">Ingr: </span>
