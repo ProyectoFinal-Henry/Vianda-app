@@ -86,7 +86,6 @@ const LoginCatalogPage = () => {
           router.push("/admin");
         }
       } else {
-        console.log('sarasa')
         setError(response.data.error);
         
       }
