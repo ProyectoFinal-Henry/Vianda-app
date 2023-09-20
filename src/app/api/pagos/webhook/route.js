@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 
 
 export async function POST(request) {
-    console.log("🚀 ~ file: route.js:8 ~ POST ~ request:", request)
     const url = request.url
     const { searchParams } = new URL(request.url);
     const paymentId = Number(searchParams.get("data.id"))
