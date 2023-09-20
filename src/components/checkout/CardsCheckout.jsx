@@ -146,7 +146,7 @@ const CardsCheckout = ({ viandasDia, dia }) => {
               <div className="avatar max-h-36">
                 <div
                   className="w-full
-                            rounded-t-3xl"
+                            rounded-t-xl"
                 >
                   <Image
                     width={200}
