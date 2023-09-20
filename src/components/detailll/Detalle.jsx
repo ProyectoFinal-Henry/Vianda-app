@@ -38,7 +38,7 @@ const Detalle = ({ data }) => {
 
   return (
     <>
-      {nombre.length ? (
+      {nombre ? (
         <div
           id="modal producto"
           className={` fixed top-0 left-0 min-h-screen min-w-full  bg-slate-900/50  flex flex-col justify-center items-center z-30

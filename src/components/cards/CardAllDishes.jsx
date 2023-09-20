@@ -2,6 +2,7 @@
 import { BsFillBoxSeamFill } from "react-icons/bs"
 
 import Link from "next/link"
+import Image from "next/image"
 
 function CardAllDishes(props) {
   const { data } = props
@@ -24,10 +25,12 @@ function CardAllDishes(props) {
               scroll={false}
             >
               <figure>
-                <img
+                <Image
                   className="rounded-t-xl object-cover min-w-full min-h-[150px] max-h-[150px] md:min-h-[200px] md:max-h-[200px]"
                   src={imagen}
                   alt={nombre}
+                  width={300}
+                  height={200}
                 />
               </figure>
               <div className="card-body p-5">
