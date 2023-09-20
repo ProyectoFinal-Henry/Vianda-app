@@ -15,7 +15,7 @@ const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
     tipo: tipo,
     descripcion: "Sin descricion.",
     ingredientes: "Sin ingredientes.",
-    imagen: "/images/corporate/food-placeholder.jpeg",
+    imagen: "https://res.cloudinary.com/deezwetqk/image/upload/v1695171791/food-placeholder_lswewp.jpg",
     stock: "Sin Stock",
     cantidad: 0,
     precio: 0,
