@@ -43,7 +43,7 @@ model Usuario {
   nombreCompleto String
   telefono       String
   email          String   @unique
-  dni            String
+  dni            String   @unique
   password       String
   direccion      String
   activo         Boolean  @default(true)

@@ -45,7 +45,7 @@ const LoginCatalogPage = () => {
           if (res.status === 200) {
             router.refresh();
             router.push("/catalog/mi-cuenta");
-          } else {
+          } else if (res.status === 202) {
             router.refresh();
             router.push("/catalog/registro");
           }
@@ -63,11 +63,14 @@ const LoginCatalogPage = () => {
   } = useForm();
 
   const onSubmit = handleSubmit(async (formData) => {
+    
     try {
       setLoadingUp(true);
       await new Promise((resolve) => setTimeout(resolve, 3000));
       const response = await axios.post("/api/auth/login", formData);
+      
       if (response.status === 200) {
+        
         if (response.data.rol === "cliente") {
           router.refresh();
           router.push("/catalog/mi-cuenta");
@@ -84,7 +87,7 @@ const LoginCatalogPage = () => {
         }
       } else {
         setError(response.data.error);
-        console.log("tamo aca");
+        
       }
     } catch (error) {
       console.log(error);
