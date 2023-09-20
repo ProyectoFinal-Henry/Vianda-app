@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
-import jwt from 'jsonwebtoken'
+import { jwtVerify } from "jose";
 
 export async function GET(request) {
   try {
-    const myToken = request.cookies.get('myToken')
-    
-    const data = jwt.verify(myToken.value, 'secret')
-    return NextResponse.json({id: data.id, nombre: data.nombre, email: data.email,
-       dni: data.dni, direccion: data.direccion, telefono: data.telefono, rol: data.rol},
+    const token = request.cookies.get('myToken')
+      const { payload } = await jwtVerify(
+        token.value,
+        new TextEncoder().encode("secret")
+      );
+    return NextResponse.json({id: payload.id, nombre: payload.nombre, email: payload.email,
+       dni: payload.dni, direccion: payload.direccion, telefono: payload.telefono, rol: payload.rol},
        {status: 200});
 
   } catch (error) {
