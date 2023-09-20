@@ -30,6 +30,7 @@
     "html-to-image": "^1.11.11",
     "jose": "^4.14.6",
     "jsonwebtoken": "^9.0.2",
+    "mercadopago": "^1.5.17",
     "next": "13.4.19",
     "postcss": "8.4.28",
     "react": "18.2.0",

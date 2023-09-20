@@ -141,3 +141,24 @@ export async function POST(request) {
     });
   }
 }
+
+
+export async function PUT(request) {
+  const { idPedido, estado } = await request.json();
+
+  try {
+    const pedidoActualizado = await prisma.pedido.update({
+      where: { id: idPedido },
+      data: {
+        estado: estado
+      }
+    });
+    return pedidoActualizado;
+  } catch (error) {
+    return NextResponse.json({
+      message: "Ocurrio un error al actualizar el estado del pedido.",
+      error: error.message,
+    });
+
+  }
+}
