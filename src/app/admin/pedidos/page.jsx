@@ -1,3 +1,4 @@
+import { BsFileEarmarkPdfFill } from "react-icons/bs"
 import axios from "axios"
 import Link from "next/link"
 import RowResponsive from "@/components/formaters/RowResponsive"
@@ -5,6 +6,7 @@ import OrderByField from "@/components/adminLayout/OrderByField"
 import PaginationAdmin from "@/components/adminLayout/PaginationAdmin"
 import { currencyFormater } from "@/libs/utils/currencyFormater"
 import FiltersPedidos from "@/components/adminLayout/listaPedidos/FiltersPedidos"
+import ExporterPdf from "@/components/adminLayout/pedidos/exporterPdf"
 
 async function ListaPedidos({ searchParams }) {
   let data = []
@@ -80,8 +82,19 @@ async function ListaPedidos({ searchParams }) {
                       <td className="text-center">{currencyFormater(totalVenta)}</td>
 
                       <td>
-                        <div className=" h-full w-full flex flex-col  justify-center items-center gap-y-2 ">
-                          <Link href={`/admin/pedidos/${id}`}>Ver</Link>
+                        <div className="  flex flex-row  justify-center items-center ">
+                          <Link
+                            className="link mr-6"
+                            href={`/admin/pedidos/${id}`}
+                          >
+                            Ver
+                          </Link>
+                          <div
+                            className="tooltip tooltip-primary tooltip-left "
+                            data-tip="exportar en PDF"
+                          >
+                            <ExporterPdf pedidoId={id} />
+                          </div>
                         </div>
                       </td>
                     </tr>
