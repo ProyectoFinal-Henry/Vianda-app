@@ -38,7 +38,7 @@ export async function POST(request) {
       const serialized = serialize("myToken", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "strict",
         maxAge: 1000 * 3600 * 24 * 30,
         path: "/",
       });
@@ -49,7 +49,7 @@ export async function POST(request) {
         },
       });
     } else {
-      // Contraseña incorrecta, deniega el acceso
+      // Contraseña incorrecta, deniega el acceso.
       return NextResponse.json(
         { error: "Contraseña incorrecta" },
         { status: 202 }
