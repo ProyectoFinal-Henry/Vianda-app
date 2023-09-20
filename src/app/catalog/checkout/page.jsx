@@ -22,6 +22,7 @@ const CatalogRegisterPage = () => {
   const { precioTotal, viandas, setViandas } = useCarrito();
   const [semana, setSemana] = useState([]);
   const [ready, setReady] = useState(false);
+  const [loader, setLoader] = useState("off");
   let idPedido = 0;
 
   //!-------------------------------------------------
@@ -62,6 +63,7 @@ const CatalogRegisterPage = () => {
   const handleClick = async (e) => {
 
     if(precioTotal !== 0){
+      setLoader("on");
       const usuario = await axios.get("/api/auth/check");
     if (usuario.data.error === "no token") {
       window.alert(
@@ -157,6 +159,22 @@ const CatalogRegisterPage = () => {
                 </div>
                 <div className="divider my-0"></div>
                 <div id="btnWrapper" className="min-w-full p-2">
+                {loader === "on" && (
+                    <div className="flex flex-row justify-center items-center success w-[97%] bg-slate-50/90 absolute top-25 left-0 rounded-md mx-1 mr-8 h-12">
+                      <span className="loading loading-infinity loading-lg min-w-[45px] text-accent  "></span>
+                    </div>
+                  )}
+                  {loader === "success" && (
+                    <div className="min-w-full flex flex-row justify-center items-center h-12 absolute top-0 left-0">
+                      <FcOk className="text-4xl animate-ping " />
+                    </div>
+                  )}
+                  {loader === "error" && (
+                    <div className="min-w-full flex flex-row justify-center items-center h-16 -mt-1 absolute top-0 left-0 bg-red-300 rounded-md">
+                      <MdOutlineError  className="text-4xl   text-red-600 " /> <span>ERROR!</span>
+                    </div>
+                  )}
+
                   <button
                     onClick={handleClick}
                     className="btn  btn-warning btn-wide min-w-full text-white text-xl tracking-wider  "
