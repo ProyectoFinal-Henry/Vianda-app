@@ -104,6 +104,7 @@ const CatalogRegisterPage = () => {
             const sendMail = await axios.post("/api/email", pedidoCreadoMail);*/
             
             
+            
             router.push(`${result.data}`)                          //!Creacion de orden de pago y redireccion a MP
         } catch (error) {
             throw new Error(error.message)
