@@ -19,7 +19,8 @@ function CardAllDishes(props) {
             <Link
               href={`/catalog?modal=${id}`}
               key={id}
-              className="card-compact bg-amber-300 max-w-[47%]   md:max-w-[270px]  md:min-w-[270px]   shadow-xl cursor-default rounded-xl "
+              className="card-compact bg-amber-300 max-w-[47%] min-w-[47%]   
+              md:max-w-[270px]  md:min-w-[270px]   shadow-xl cursor-default rounded-xl active:transform active:scale-105 active:shadow-md active:bg-amber-400"
               scroll={false}
             >
               <figure>
