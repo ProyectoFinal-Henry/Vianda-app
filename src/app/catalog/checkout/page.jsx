@@ -15,6 +15,7 @@ import { useCarrito } from "@/context/CarritoContext";
 import LoadingComponentApp from "@/app/loading";
 import pedidosFormater from "@/libs/utils/pedidosFormater";
 import { useRouter } from "next/navigation";
+import { creation } from "@/app/api/email/templates";
 
 /*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
 const CatalogRegisterPage = () => {
@@ -70,6 +71,8 @@ const CatalogRegisterPage = () => {
         "Es necesario estar LOGUEADO para poder finalizar el pedido."
       );
     } else {
+        const usuarioNombre = usuario.data.nombre;
+        const usuarioEmail = usuario.data.email;
         const fk_usuarioId = usuario.data.id;
         const respuesta = await pedidosFormater(
             fk_usuarioId,
@@ -79,18 +82,28 @@ const CatalogRegisterPage = () => {
             viandas
             );
         try {
+          
             const pedidoDB = await axios.post(`/api/pedidos`, respuesta)    //!registro de pedido en DB
             idPedido = pedidoDB.data.data.id                      
             if (idPedido){
             setViandas([]);                               //!Vaciado de viandas y localStorage
             carritoPUT(fk_usuarioId);                     //!Llamado a funcion para borrar carrito en tabla usuario
-            //const response = await axios.post("/api/auth/logout")
-            }
+          }
         } catch (error) {
             window.alert("No se pudo registar el pedido. Pongase en contacto con el administrador.")
         }
         try {
             const result = await axios.post("/api/pagos", {precioTotal:precioTotal, idPedido:idPedido})
+            
+            /*const pedidoCreadoMail = {
+              to: usuarioEmail,
+              subject: "Creaste tu pedido!",
+              text: "Version texto",
+              html: creation(usuarioNombre, result.data),
+            };
+            const sendMail = await axios.post("/api/email", pedidoCreadoMail);*/
+            
+            
             router.push(`${result.data}`)                          //!Creacion de orden de pago y redireccion a MP
         } catch (error) {
             throw new Error(error.message)
@@ -164,17 +177,6 @@ const CatalogRegisterPage = () => {
                       <span className="loading loading-infinity loading-lg min-w-[45px] text-accent  "></span>
                     </div>
                   )}
-                  {loader === "success" && (
-                    <div className="min-w-full flex flex-row justify-center items-center h-12 absolute top-0 left-0">
-                      <FcOk className="text-4xl animate-ping " />
-                    </div>
-                  )}
-                  {loader === "error" && (
-                    <div className="min-w-full flex flex-row justify-center items-center h-16 -mt-1 absolute top-0 left-0 bg-red-300 rounded-md">
-                      <MdOutlineError  className="text-4xl   text-red-600 " /> <span>ERROR!</span>
-                    </div>
-                  )}
-
                   <button
                     onClick={handleClick}
                     className="btn  btn-warning btn-wide min-w-full text-white text-xl tracking-wider  "
