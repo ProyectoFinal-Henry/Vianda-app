@@ -66,6 +66,7 @@ const CatalogRegisterPage = () => {
     if(precioTotal !== 0){
       setLoader("on");
       const usuario = await axios.get("/api/auth/check");
+      console.log("🚀 ~ file: page.jsx:69 ~ handleClick ~ usuario:", usuario)
     if (usuario.data.error === "no token") {
       window.alert(
         "Es necesario estar LOGUEADO para poder finalizar el pedido."
@@ -83,8 +84,9 @@ const CatalogRegisterPage = () => {
             );
         try {
           
-            const pedidoDB = await axios.post(`/api/pedidos`, respuesta)    //!registro de pedido en DB
-            idPedido = pedidoDB.data.data.id                      
+            const pedidoDB = await axios.post(`/api/pedidos`, respuesta);    //!registro de pedido en DB
+            idPedido = pedidoDB.data.data.id   
+            await new Promise((resolve)=>{setTimeout(resolve, 2000 );});                   
             if (idPedido){
             setViandas([]);                               //!Vaciado de viandas y localStorage
             carritoPUT(fk_usuarioId);                     //!Llamado a funcion para borrar carrito en tabla usuario
