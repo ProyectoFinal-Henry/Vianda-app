@@ -10,6 +10,7 @@ export function GET(request) {
        {status: 200});
 
   } catch (error) {
+    console.log(error)
     return NextResponse.json({error: 'no token'}, {status: 202})
   }
 }
