@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/libs/prisma";
+import prisma from "@/libs/prisma";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -17,16 +17,10 @@ export async function GET(request) {
         };
       }
       if (email) {
-        where.email = {
-          contains: email,
-          mode: "insensitive",
-        };
+        where.email = email;
       }
       if (dni) {
-        where.dni = {
-          contains: dni,
-          mode: "insensitive",
-        };
+        where.dni = dni;
       }
 
       if (dni || email) {
@@ -37,9 +31,12 @@ export async function GET(request) {
         if (usuario) {
           return NextResponse.json(usuario);
         } else {
-          return NextResponse.json({
-            message: "No se encontró ningún usuario con esa informacion"},
-            {status: 202});
+          return NextResponse.json(
+            {
+              message: "No se encontró ningún usuario con esa informacion",
+            },
+            { status: 202 }
+          );
         }
       }
       if (nombre) {
@@ -49,9 +46,12 @@ export async function GET(request) {
         if (usuarios.length > 0) {
           return NextResponse.json(usuarios);
         } else {
-          return NextResponse.json({
-            message: "No se encontró ningún usuario con esa informacion"},
-            {status: 202})
+          return NextResponse.json(
+            {
+              message: "No se encontró ningún usuario con esa informacion",
+            },
+            { status: 202 }
+          );
         }
       }
     } catch (error) {
@@ -62,10 +62,13 @@ export async function GET(request) {
       const usuarios = await prisma.usuario.findMany();
       return NextResponse.json(usuarios);
     } catch (error) {
-      return NextResponse.json({
-        message: "Error obteniendo la lista de usuarios",
-        error: error.message,
-      }, {status: 202});
+      return NextResponse.json(
+        {
+          message: "Error obteniendo la lista de usuarios",
+          error: error.message,
+        },
+        { status: 202 }
+      );
     }
   }
 }
