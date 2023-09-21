@@ -61,6 +61,7 @@ const CatalogRegisterPage = () => {
     semanal();
   }, []);
 
+
   const handleClick = async (e) => {
 
     if(precioTotal !== 0){
@@ -74,38 +75,28 @@ const CatalogRegisterPage = () => {
         const usuarioNombre = usuario.data.nombre;
         const usuarioEmail = usuario.data.email;
         const fk_usuarioId = usuario.data.id;
-        const respuesta = await pedidosFormater(
-            fk_usuarioId,
-            precioTotal,
-            metodoPago,
-            estado,                                               //!creacion de objeto pedido
-            viandas
-            );
+        const nuevoPedido = pedidosFormater(fk_usuarioId, precioTotal, metodoPago, estado, viandas);
         try {
-          
-            const pedidoDB = await axios.post(`/api/pedidos`, respuesta)    //!registro de pedido en DB
-            idPedido = pedidoDB.data.data.id                      
+            const pedidoCreado = await axios.post(`/api/pedidos`, nuevoPedido)    
+            idPedido = pedidoCreado.data.data.id                      
             if (idPedido){
-            setViandas([]);                               //!Vaciado de viandas y localStorage
-            carritoPUT(fk_usuarioId);                     //!Llamado a funcion para borrar carrito en tabla usuario
+              setViandas([]);                    
+              carritoPUT(fk_usuarioId);           
           }
         } catch (error) {
-            window.alert("No se pudo registar el pedido. Pongase en contacto con el administrador.")
+            window.alert("No se pudo registar el pedido. Intentelo nuevamente en unos minutos. Si el problema persiste pongase en contacto con el administrador.")
         }
         try {
-            const result = await axios.post("/api/pagos", {precioTotal:precioTotal, idPedido:idPedido})
-            
-            /*const pedidoCreadoMail = {
+            const creacionOrdenMP = await axios.post("/api/pagos", {precioTotal:precioTotal, idPedido:idPedido, usuarioNombre:usuarioNombre, usuarioEmail:usuarioEmail})
+            const linkPago = creacionOrdenMP.data;
+            const pedidoCreadoMail = {
               to: usuarioEmail,
               subject: "Creaste tu pedido!",
               text: "Version texto",
-              html: creation(usuarioNombre, result.data),
+              html: creation(usuarioNombre, linkPago),
             };
-            const sendMail = await axios.post("/api/email", pedidoCreadoMail);*/
-            
-
-            
-            router.push(`${result.data}`)                          //!Creacion de orden de pago y redireccion a MP
+            const sendMail = await axios.post("/api/email", pedidoCreadoMail);
+            router.push(`${linkPago}`)                          //!Creacion de orden de pago y redireccion a MP
         } catch (error) {
             throw new Error(error.message)
         }

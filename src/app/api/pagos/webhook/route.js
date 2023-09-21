@@ -1,6 +1,8 @@
 import axios from "axios";
 import mercadopago from "mercadopago";
 import { NextResponse } from "next/server";
+import { payed } from "@/app/api/email/templates";
+
 
 
 
@@ -20,11 +22,21 @@ export async function POST(request) {
             })
             const status = result.data.status;
             const idPedido = result.data.metadata.id_pedido;
+            const usuarioNombre = result.data.metadata.usuario_nombre;
+            const usuarioEmail = result.data.metadata.usuario_email;
             const estado = "pagado";
             //!put a la db
             try {
                 if (status === "approved") {
+                    const pedidoPagadoMail = {
+                        to: usuarioEmail,
+                        subject: "Recibimos tu pago!",
+                        text: "Version texto",
+                        html: payed(usuarioNombre),
+                    };
+                    const sendMail = await axios.post(`${process.env.LOCALHOST}/api/email`, pedidoPagadoMail);
                     const resultado = await axios.put(`${process.env.LOCALHOST}/api/pedidos`, { idPedido, estado })
+                    console.log("🚀 ~ file: route.js:39 ~ POST ~ sendMail:", sendMail)
                 }
             } catch (error) {
                 return NextResponse.json(error.message);
