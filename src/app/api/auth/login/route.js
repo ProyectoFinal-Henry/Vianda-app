@@ -33,7 +33,7 @@ export async function POST(request) {
           direccion: usuario.direccion,
           telefono: usuario.telefono
         },
-        "estoEsunSecretoReLoco"
+        "secret"
       );
       const serialized = serialize("myToken", token, {
         httpOnly: true,

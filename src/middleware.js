@@ -2,13 +2,13 @@ import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 export async function middleware(request) {
-const token = request.cookies.get("myToken");
+/* const token = request.cookies.get("myToken");
   
 try {
   if (token) {
     const { payload } = await jwtVerify(
       token.value,
-      new TextEncoder().encode("estoEsunSecretoReLoco")
+      new TextEncoder().encode("secret")
     );
   }
 } catch (error) {
@@ -27,5 +27,5 @@ try {
     }
   }
 
-  return NextResponse.next();
+  return NextResponse.next(); */
 }
