@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
 import { NextResponse } from "next/server";
-import { prisma } from "@/libs/prisma";
+import prisma from "@/libs/prisma";
 
 export async function POST(request) {
   const { email } = await request.json();
@@ -13,11 +13,13 @@ export async function POST(request) {
     });
 
     if (!usuario) {
-      console.log('202')
-      return NextResponse.json({ error: "Correo electronico incorrecto" }, {status: 202});
-    }
-    else{
-      console.log('200')
+      console.log("202");
+      return NextResponse.json(
+        { error: "Correo electronico incorrecto" },
+        { status: 202 }
+      );
+    } else {
+      console.log("200");
       const token = jwt.sign(
         {
           exp: Math.floor(Date.now() / 1000) * 3600 * 24 * 30,
@@ -27,7 +29,7 @@ export async function POST(request) {
           id: usuario.id,
           dni: usuario.dni,
           direccion: usuario.direccion,
-          telefono: usuario.telefono
+          telefono: usuario.telefono,
         },
         "secret"
       );
@@ -38,27 +40,28 @@ export async function POST(request) {
         maxAge: 1000 * 3600 * 24 * 30,
         path: "/",
       });
-      return new Response(JSON.stringify({ message: 'success', rol: usuario.rol }), {
-        status: 200,
-        headers: {
-          "Set-Cookie": serialized,
-        },
-      });
-    }  
+      return new Response(
+        JSON.stringify({ message: "success", rol: usuario.rol }),
+        {
+          status: 200,
+          headers: {
+            "Set-Cookie": serialized,
+          },
+        }
+      );
+    }
   } catch (error) {
-    console.log(error)
-    return NextResponse.json({
-      message: "Ocurrio un error en el inicio de sesion",
-      error: error.message,
-    }, {status: 203});
+    console.log(error);
+    return NextResponse.json(
+      {
+        message: "Ocurrio un error en el inicio de sesion",
+        error: error.message,
+      },
+      { status: 203 }
+    );
   }
 
-
-
-
-
-
-    /* try {
+  /* try {
       const token = jwt.sign(
         {
           exp: Math.floor(Date.now() / 1000) * 3600 * 24 * 30,

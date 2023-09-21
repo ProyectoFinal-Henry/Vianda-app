@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/libs/prisma";
+import prisma from "@/libs/prisma";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -51,6 +51,7 @@ export async function GET(request) {
 
         include: {
           usuario: true,
+          detallePedido: true,
         },
       });
       if (!pedidos || pedidos.length === 0) {

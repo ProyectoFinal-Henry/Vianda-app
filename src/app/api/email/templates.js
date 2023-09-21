@@ -1190,3 +1190,277 @@ export const readyForMessenger = (messengerName) => {
     `
   return bodyEmail
 }
+
+
+export const creation = (usuarioNombre, linkPago) => {
+  return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+  
+  <head>
+      <meta charset="UTF-8">
+      <meta content="width=device-width, initial-scale=1" name="viewport">
+      <meta name="x-apple-disable-message-reformatting">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta content="telephone=no" name="format-detection">
+      <title></title>
+  
+  </head>
+  
+  <body>
+      <div class="es-wrapper-color">
+  
+          <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0">
+              <tbody>
+                  <tr>
+                      <td class="esd-email-paddings" valign="top">
+                          <table class="esd-header-popover es-header" cellspacing="0" cellpadding="0" align="center">
+                              <tbody>
+                                  <tr>
+                                      <td class="esd-stripe" align="center">
+                                          <table class="es-header-body" width="640" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center">
+                                              <tbody>
+                                                  <tr>
+                                                      <td class="es-p20t es-p20r es-p20l esd-structure" align="left">
+                                                          <table cellspacing="0" cellpadding="0" width="100%">
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td class="esd-container-frame" width="600" align="left">
+                                                                          <table width="100%" cellspacing="0" cellpadding="0">
+                                                                              <tbody>
+                                                                                  <tr>
+                                                                                      <td align="center" class="esd-block-image" style="font-size: 0px;"><a target="_blank"><img class="adapt-img" src="https://xqbllj.stripocdn.email/content/guids/CABINET_838d958a8401c5a3088df6e3b373c359fe8ca7a53be6ffcd8b8416c9a4bb3379/images/verde_cca.png" alt style="display: block;" width="600"></a></td>
+                                                                                  </tr>
+                                                                              </tbody>
+                                                                          </table>
+                                                                      </td>
+                                                                  </tr>
+                                                              </tbody>
+                                                          </table>
+                                                      </td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <table class="es-content" cellspacing="0" cellpadding="0" align="center">
+                              <tbody>
+                                  <tr>
+                                      <td class="esd-stripe" align="center">
+                                          <table class="es-content-body" width="640" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center">
+                                              <tbody>
+                                                  <tr>
+                                                      <td class="es-p20t es-p20r es-p20l esd-structure" align="left">
+                                                          <table width="100%" cellspacing="0" cellpadding="0">
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td class="esd-container-frame" width="600" valign="top" align="center">
+                                                                          <table width="100%" cellspacing="0" cellpadding="0">
+                                                                              <tbody>
+                                                                                  <tr>
+                                                                                      <td align="left" class="esd-block-text">
+                                                                                          <p style="font-size: 16px; font-family: verdana, geneva, sans-serif;"><strong>Estimado/a ${usuarioNombre},</strong></p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;"><br></p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">&nbsp; &nbsp; &nbsp;&nbsp;Queremos expresar nuestro más sincero agradecimiento por elegir Viandapp como su proveedor de viandas. Valoramos profundamente su confianza en nosotros para satisfacer sus necesidades alimenticias.</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">Nos complace informarle que <strong>su pedido de viandas ha sido registrado</strong> en nuestro sistema y se encuentra en proceso de preparación.</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;"><strong>Si ya ha realizado el pago,</strong> le agradecemos por su pronta respuesta<strong>. En breve, recibirá un nuevo correo electrónico con la confirmación de su transacción.</strong></p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">&nbsp;<strong>Si aún no ha realizado el pago</strong>, le facilitamos un enlace seguro para que pueda efectuarlo de manera rápida y sencilla:<br>${linkPago}.</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;"><strong>Una vez que recibamos la confirmación de su pago, procederemos con la preparación y entrega de sus deliciosas viandas.</strong></p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">En Viandapp, nos esforzamos por brindarle un servicio de calidad y una experiencia gastronómica excepcional. Si tiene alguna pregunta, solicitud especial o necesita asistencia adicional, nuestro equipo de atención al cliente está a su disposición para ayudarlo en cualquier momento.</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">Nuevamente, le agradecemos por confiar en nosotros para satisfacer sus necesidades alimenticias y esperamos que disfrute de nuestras viandas de alta calidad.</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">Gracias por elegir Viandapp</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">Atentamente,</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">Viandapp.</p>
+                                                                                      </td>
+                                                                                  </tr>
+                                                                              </tbody>
+                                                                          </table>
+                                                                      </td>
+                                                                  </tr>
+                                                              </tbody>
+                                                          </table>
+                                                      </td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <table class="esd-footer-popover es-footer" cellspacing="0" cellpadding="0" align="center">
+                              <tbody>
+                                  <tr>
+                                      <td class="esd-stripe" align="center">
+                                          <table class="es-footer-body" width="640" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center">
+                                              <tbody>
+                                                  <tr>
+                                                      <td class="esd-structure es-p20t es-p20b es-p20r es-p20l" align="left">
+                                                          <table cellspacing="0" cellpadding="0" width="100%">
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td class="esd-container-frame" width="600" align="left">
+                                                                          <table width="100%" cellspacing="0" cellpadding="0">
+                                                                              <tbody>
+                                                                                  <tr>
+                                                                                      <td align="center" class="esd-block-image" style="font-size: 0px;"><a target="_blank"><img class="adapt-img" src="https://xqbllj.stripocdn.email/content/guids/CABINET_838d958a8401c5a3088df6e3b373c359fe8ca7a53be6ffcd8b8416c9a4bb3379/images/mail1.jpg" alt style="display: block;" width="600"></a></td>
+                                                                                  </tr>
+                                                                              </tbody>
+                                                                          </table>
+                                                                      </td>
+                                                                  </tr>
+                                                              </tbody>
+                                                          </table>
+                                                      </td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </body>
+  
+  </html>`
+}
+
+
+export const payed = (usuarioNombre) => {
+  return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+  
+  <head>
+      <meta charset="UTF-8">
+      <meta content="width=device-width, initial-scale=1" name="viewport">
+      <meta name="x-apple-disable-message-reformatting">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta content="telephone=no" name="format-detection">
+      <title></title>
+  
+  </head>
+  
+  <body>
+      <div class="es-wrapper-color">
+  
+          <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0">
+              <tbody>
+                  <tr>
+                      <td class="esd-email-paddings" valign="top">
+                          <table class="esd-header-popover es-header" cellspacing="0" cellpadding="0" align="center">
+                              <tbody>
+                                  <tr>
+                                      <td class="esd-stripe" align="center">
+                                          <table class="es-header-body" width="600" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center">
+                                              <tbody>
+                                                  <tr>
+                                                      <td class="es-p20t es-p20r es-p20l esd-structure" align="left">
+                                                          <table cellspacing="0" cellpadding="0" width="100%">
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td class="esd-container-frame" width="560" align="left">
+                                                                          <table width="100%" cellspacing="0" cellpadding="0">
+                                                                              <tbody>
+                                                                                  <tr>
+                                                                                      <td align="center" class="esd-block-image" style="font-size: 0px;"><a target="_blank"><img class="adapt-img" src="https://xqbllj.stripocdn.email/content/guids/CABINET_462138f1df60ae7b6ee3a52db93d7495efe697c0e577f2870c2d3b4206fd59d9/images/verde.png" alt style="display: block;" width="560"></a></td>
+                                                                                  </tr>
+                                                                              </tbody>
+                                                                          </table>
+                                                                      </td>
+                                                                  </tr>
+                                                              </tbody>
+                                                          </table>
+                                                      </td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <table class="es-content" cellspacing="0" cellpadding="0" align="center">
+                              <tbody>
+                                  <tr>
+                                      <td class="esd-stripe" align="center">
+                                          <table class="es-content-body" width="600" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center">
+                                              <tbody>
+                                                  <tr>
+                                                      <td class="es-p20t es-p20r es-p20l esd-structure" align="left">
+                                                          <table width="100%" cellspacing="0" cellpadding="0">
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td class="esd-container-frame" width="560" valign="top" align="center">
+                                                                          <table width="100%" cellspacing="0" cellpadding="0">
+                                                                              <tbody>
+                                                                                  <tr>
+                                                                                      <td align="left" class="esd-block-text">
+                                                                                          <p style="font-size: 18px; font-family: verdana, geneva, sans-serif;">Estimado/a ${usuarioNombre},</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">Esperamos que se encuentre bien. Queremos expresar nuestro sincero agradecimiento por haber elegido Viandapp para satisfacer sus necesidades alimenticias.</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">Nos complace informarle que <strong>hemos registrado con éxito el pago</strong> correspondiente a su pedido de viandas.<strong>&nbsp;Esto significa que su pedido está completamente procesado.</strong></p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">En Viandapp, trabajamos diligentemente para garantizar que sus pedidos se gestionen de manera eficiente y que reciba nuestras deliciosas viandas a tiempo. Su satisfacción es nuestra principal prioridad, y estamos encantados de haber completado exitosamente su transacción.</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;"><strong>Si en algún momento tiene alguna pregunta, inquietud o necesita asistencia adicional, nuestro equipo de atención al cliente estará encantado de ayudarlo.</strong> Estamos aquí para asegurarnos de que su experiencia con Viandapp sea excepcional en todos los sentidos.</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">Nuevamente, le agradecemos por su confianza en nosotros y esperamos que disfrute de nuestras viandas de alta calidad.</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;"><br></p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">Gracias por elegir Viandapp.</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">Atentamente,</p>
+                                                                                          <p style="font-family: verdana, geneva, sans-serif;">Viandapp</p>
+                                                                                      </td>
+                                                                                  </tr>
+                                                                              </tbody>
+                                                                          </table>
+                                                                      </td>
+                                                                  </tr>
+                                                              </tbody>
+                                                          </table>
+                                                      </td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <table class="esd-footer-popover es-footer" cellspacing="0" cellpadding="0" align="center">
+                              <tbody>
+                                  <tr>
+                                      <td class="esd-stripe" align="center">
+                                          <table class="es-footer-body" width="600" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center">
+                                              <tbody>
+                                                  <tr>
+                                                      <td class="esd-structure es-p20t es-p20b es-p20r es-p20l" align="left">
+                                                          <table cellspacing="0" cellpadding="0" width="100%">
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td class="esd-container-frame" width="560" align="left">
+                                                                          <table width="100%" cellspacing="0" cellpadding="0">
+                                                                              <tbody>
+                                                                                  <tr>
+                                                                                      <td align="center" class="esd-block-image" style="font-size: 0px;"><a target="_blank"><img class="adapt-img" src="https://xqbllj.stripocdn.email/content/guids/CABINET_462138f1df60ae7b6ee3a52db93d7495efe697c0e577f2870c2d3b4206fd59d9/images/mail2.jpg" alt style="display: block;" width="560"></a></td>
+                                                                                  </tr>
+                                                                              </tbody>
+                                                                          </table>
+                                                                      </td>
+                                                                  </tr>
+                                                              </tbody>
+                                                          </table>
+                                                      </td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </body>
+  
+  </html>`
+}

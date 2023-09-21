@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
 
-    const { precioTotal, idPedido } = await request.json()
+    const { precioTotal, idPedido, usuarioNombre, usuarioEmail } = await request.json()
 
     mercadopago.configure({
         access_token: process.env.MERCADOPAGO_API_KEY
@@ -23,7 +23,9 @@ export async function POST(request) {
             },
             notification_url: `${process.env.LOCALHOST}/api/pagos/webhook`,
             metadata: {
-                idPedido: idPedido
+                idPedido: idPedido,
+                usuarioNombre: usuarioNombre,
+                usuarioEmail: usuarioEmail,
             },
         })
         return NextResponse.json(result.body.init_point);
