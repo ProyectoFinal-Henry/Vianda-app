@@ -3,7 +3,7 @@ import { jwtVerify } from "jose";
 
 export async function GET(request) {
   try {
-    const token = request.cookies.get('myToken')
+    const token = request.cookies.get('Viandapp')
     console.log(request.cookies)
       const { payload } = await jwtVerify(
         token.value,
