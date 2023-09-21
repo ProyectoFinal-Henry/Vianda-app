@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import jwt from 'jsonwebtoken'
 
-export async function GET(request) {
+export default function GET(request) {
   try {
-    const myToken = request.cookies.get('myToken')
+    const {myToken} = request.cookies
     
     const data = jwt.verify(myToken.value, 'secret')
     return NextResponse.json({id: data.id, nombre: data.nombre, email: data.email,
