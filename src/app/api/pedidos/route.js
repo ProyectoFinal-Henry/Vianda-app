@@ -51,6 +51,7 @@ export async function GET(request) {
 
         include: {
           usuario: true,
+          detallePedido: true,
         },
       });
       if (!pedidos || pedidos.length === 0) {
