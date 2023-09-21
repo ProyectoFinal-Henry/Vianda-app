@@ -33,9 +33,9 @@ export async function POST(request) {
           direccion: usuario.direccion,
           telefono: usuario.telefono
         },
-        "estoEsUnSecreto"
+        "estoEsunSecretoReLoco"
       );
-      const serialized = serialize("Viandapp", token, {
+      const serialized = serialize("myToken", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",

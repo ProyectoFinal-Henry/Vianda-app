@@ -3,11 +3,10 @@ import { jwtVerify } from "jose";
 
 export async function GET(request) {
   try {
-    const token = request.cookies.get('Viandapp')
-    console.log(request.cookies)
+    const token = request.cookies.get('myToken')
       const { payload } = await jwtVerify(
         token.value,
-        new TextEncoder().encode("secret")
+        new TextEncoder().encode("estoEsunSecretoReLoco")
       );
     return NextResponse.json({id: payload.id, nombre: payload.nombre, email: payload.email,
        dni: payload.dni, direccion: payload.direccion, telefono: payload.telefono, rol: payload.rol},
