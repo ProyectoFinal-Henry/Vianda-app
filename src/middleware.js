@@ -8,7 +8,7 @@ try {
   if (token) {
     const { payload } = await jwtVerify(
       token.value,
-      new TextEncoder().encode("secret")
+      new TextEncoder().encode("estoEsUnSecreto")
     );
   }
 } catch (error) {
