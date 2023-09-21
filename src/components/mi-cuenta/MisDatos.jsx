@@ -45,7 +45,7 @@ function MisDatos() {
 
   useEffect(() => {
     try {  
-        axios.get("/api/auth/check").then((res) => {
+      axios.get("/api/auth/check", { withCredentials: true }).then((res) => {
           setValue("nombre", res.data.nombre);
           setValue("email", res.data.email);
           setValue("dni", res.data.dni);
