@@ -34,12 +34,9 @@ const CardsPedidos = ({ pedidos }) => {
                       </p>
                     </div>
 
-                    <div id="cliente" className="flex flex-row gap-1">
-                      <p className="tracking-wide">Cliente:</p>
-                      <p className="tracking-normal">
-                        {" "}
-                        {ele.usuario.nombreCompleto}
-                      </p>
+                    <div id="cliente" className="flex flex-row gap-1 text-xl">
+                      <p className="">Cliente:</p>
+                      <p className=""> {ele.usuario.nombreCompleto}</p>
                     </div>
                     {/* {ele.detallePedido.map((element, i) => (
                       
@@ -91,7 +88,7 @@ const CardsPedidos = ({ pedidos }) => {
                   <div className="py-2">
                     <Link
                       key={ele.id}
-                      href={`/repartidor?modalentrega=${ele.idTransaccion}`}
+                      href={`/repartidor?modalentrega=${ele.fk_usuarioId}`}
                     >
                       <button className="bg-white p-2 py-4 rounded transform transition-transform hover:scale-110 ">
                         <FaHome

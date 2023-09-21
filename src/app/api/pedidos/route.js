@@ -142,7 +142,6 @@ export async function POST(request) {
   }
 }
 
-
 export async function PUT(request) {
   const { idPedido, estado } = await request.json();
 
@@ -150,15 +149,14 @@ export async function PUT(request) {
     const pedidoActualizado = await prisma.pedido.update({
       where: { id: idPedido },
       data: {
-        estado: estado
-      }
+        estado: estado,
+      },
     });
-    return pedidoActualizado;
+    return NextResponse.json(pedidoActualizado);
   } catch (error) {
     return NextResponse.json({
       message: "Ocurrio un error al actualizar el estado del pedido.",
       error: error.message,
     });
-
   }
 }

@@ -29,10 +29,10 @@ const RepartidorDashboard = () => {
   const params = new URLSearchParams(searchParams);
   const queryOrden = params.get("estado-orden");
 
-  const cantidadTotal = pedidos.length;
   const cantidadListos = listos.length;
   const cantidadPendientes = pendientes.length;
-
+  const cantidadTotal = cantidadListos + cantidadPendientes;
+  listos.length < 0 && setPedidos(cantidadTotal);
   // !=============================================
 
   useEffect(() => {
