@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/libs/prisma";
+import prisma from "@/libs/prisma";
 
 export async function GET(request) {
   try {
@@ -46,8 +46,6 @@ export async function POST(request) {
   }
 }
 
-
-
 export async function DELETE(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -63,8 +61,8 @@ export async function DELETE(request) {
           viernes: false,
           sabado: false,
           domingo: false,
-        }
-      })
+        },
+      });
       return NextResponse.json("Reset de semana ok!");
     }
   } catch (error) {

@@ -1,5 +1,5 @@
-import { prisma } from "@/libs/prisma";
 import { NextResponse } from "next/server";
+import prisma from "@/libs/prisma";
 import { v2 as cloudinary } from "cloudinary";
 
 export async function GET(request) {
