@@ -6,22 +6,25 @@ import { useRouter } from "next/navigation";
 import { FaTimes } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 
-const Modallisto = ({ data }) => {
+const Modallisto = ({ pendientes }) => {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const modalentrega = params.get("modalentrega");
-  const router = useRouter();
+  // const router = useRouter();
   if (!modalentrega) return null;
+
+  //-----
+  const pendiente = pendientes.find((p) => p.idTransaccion === modalentrega);
 
   const {
     idTransaccion,
     usuario: { nombreCompleto, direccion },
-  } = data[modalentrega - 1];
+  } = pendiente;
 
   return (
     <>
       <div className="  ">
-        <div className=" flex flex-col gap-1 items-center font-medium bg-accent/70 p-3 pb-6 rounded">
+        {/* <div className=" flex flex-col gap-1 items-center font-medium bg-accent/70 p-3 pb-6 rounded">
           <div className="text-3xl flex flex-row gap-1 ">
             <p>#Pedido:</p>
             <p>{idTransaccion}</p>
@@ -46,7 +49,27 @@ const Modallisto = ({ data }) => {
           <button className="btn bg-warning">
             <FaTimes className="text-xl" />
           </button>
-        </div>
+        </div> */}
+        <button
+          className="btn"
+          onClick={() => document.getElementById("my_modal_1").showModal()}
+        >
+          open modal
+        </button>
+        <dialog id="my_modal_1" className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Hello!</h3>
+            <p className="py-4">
+              Press ESC key or click the button below to close
+            </p>
+            <div className="modal-action">
+              <form method="dialog">
+                {/* if there is a button in form, it will close the modal */}
+                <button className="btn">Close</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
     </>
   );
