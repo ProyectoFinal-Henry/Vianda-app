@@ -31,23 +31,26 @@ export async function POST(request) {
           id: usuario.id,
           dni: usuario.dni,
           direccion: usuario.direccion,
-          telefono: usuario.telefono
+          telefono: usuario.telefono,
         },
         "secret"
       );
       const serialized = serialize("myToken", token, {
-        httpOnly: true,
+        httpOnly: false,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         maxAge: 1000 * 3600 * 24 * 30,
         path: "/",
       });
-      return new Response(JSON.stringify({ message: 'success', rol: usuario.rol }), {
-        status: 200,
-        headers: {
-          "Set-Cookie": serialized,
-        },
-      });
+      return new Response(
+        JSON.stringify({ message: "success", rol: usuario.rol }),
+        {
+          status: 200,
+          headers: {
+            "Set-Cookie": serialized,
+          },
+        }
+      );
     } else {
       // Contraseña incorrecta, deniega el acceso
       return NextResponse.json(
