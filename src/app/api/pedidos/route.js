@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/libs/prisma";
+import prisma from "@/libs/prisma";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -51,6 +51,7 @@ export async function GET(request) {
 
         include: {
           usuario: true,
+          detallePedido: true,
         },
       });
       if (!pedidos || pedidos.length === 0) {
@@ -142,7 +143,6 @@ export async function POST(request) {
   }
 }
 
-
 export async function PUT(request) {
   const { idPedido, estado } = await request.json();
 
@@ -150,10 +150,10 @@ export async function PUT(request) {
     const pedidoActualizado = await prisma.pedido.update({
       where: { id: idPedido },
       data: {
-        estado: estado
-      }
+        estado: estado,
+      },
     });
-    return NextResponse(pedidoActualizado);
+    return NextResponse.json(NextResponse(pedidoActualizado));
   } catch (error) {
     return NextResponse.json({
       message: "Ocurrio un error al actualizar el estado del pedido.",

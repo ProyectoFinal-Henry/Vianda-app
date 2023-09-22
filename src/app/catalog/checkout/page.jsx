@@ -1,113 +1,136 @@
-"use client";
-import { BsBox2Heart } from "react-icons/bs";
-import { BsBox2HeartFill } from "react-icons/bs";
-import { BiSupport } from "react-icons/bi";
-import { BsShieldCheck } from "react-icons/bs";
-import { BsShieldShaded } from "react-icons/bs";
-import CardsCheckout from "@/components/checkout/CardsCheckout";
-import RowResponsive from "@/components/formaters/RowResponsive";
-import { currencyFormater } from "@/libs/utils/currencyFormater";
-import axios from "axios";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useCarrito } from "@/context/CarritoContext";
-import LoadingComponentApp from "@/app/loading";
-import pedidosFormater from "@/libs/utils/pedidosFormater";
-import { useRouter } from "next/navigation";
+"use client"
+import { BsBox2Heart } from "react-icons/bs"
+import { BsBox2HeartFill } from "react-icons/bs"
+import { BiSupport } from "react-icons/bi"
+import { BsShieldCheck } from "react-icons/bs"
+import { BsShieldShaded } from "react-icons/bs"
+import CardsCheckout from "@/components/checkout/CardsCheckout"
+import RowResponsive from "@/components/formaters/RowResponsive"
+import { currencyFormater } from "@/libs/utils/currencyFormater"
+import axios from "axios"
+import Image from "next/image"
+import Link from "next/link"
+import React, { useEffect, useState } from "react"
+import { useCarrito } from "@/context/CarritoContext"
+import LoadingComponentApp from "@/app/loading"
+import pedidosFormater from "@/libs/utils/pedidosFormater"
+import { useRouter } from "next/navigation"
+import { creation } from "@/app/api/email/templates"
 
-/*========== solo mientras hay acceso al local storage voy a traer las viandas por request INICIO ==========*/
 const CatalogRegisterPage = () => {
-  const router = useRouter(); 
+  const router = useRouter()
   const { precioTotal, viandas, setViandas } = useCarrito();
-  const [semana, setSemana] = useState([]);
-  const [ready, setReady] = useState(false);
-  let idPedido = 0;
+  const [semana, setSemana] = useState([])
+  const [ready, setReady] = useState(false)
+  const [loader, setLoader] = useState("off")
+  let idPedido = 0
 
   //!-------------------------------------------------
-  const metodoPago = "MercadoPago";
-  const estado = "pendiente";
+  const metodoPago = "MercadoPago"
+  const estado = "pendiente"
   //!-------------------------------------------------
 
   const semanal = async () => {
-    const week = [];
+    //Esta funcion carga en el array week, 5 arrays de objetos, en el que cada array
+    //contiene las 4 viandas asignadas a ese dia.
+    const week = []
     const respuestaLunes = await axios.get(`/api/viandas?dia=lunes`);
-    const viandasLunes = respuestaLunes.data;
-    week.push(viandasLunes);
+    const viandasLunes = respuestaLunes.data
+    week.push(viandasLunes)
 
     const respuestaMartes = await axios.get(`/api/viandas?dia=martes`);
-    const viandasMartes = respuestaMartes.data;
-    week.push(viandasMartes);
+    const viandasMartes = respuestaMartes.data
+    week.push(viandasMartes)
 
     const respuestaMiercoles = await axios.get(`/api/viandas?dia=miercoles`);
-    const viandasMiercoles = await respuestaMiercoles.data;
-    week.push(viandasMiercoles);
+    const viandasMiercoles = await respuestaMiercoles.data
+    week.push(viandasMiercoles)
 
     const respuestaJueves = await axios.get(`/api/viandas?dia=jueves`);
-    const viandasJueves = await respuestaJueves.data;
-    week.push(viandasJueves);
+    const viandasJueves = await respuestaJueves.data
+    week.push(viandasJueves)
 
     const respuestaViernes = await axios.get(`/api/viandas?dia=viernes`);
-    const viandasViernes = await respuestaViernes.data;
+    const viandasViernes = await respuestaViernes.data
 
-    week.push(viandasViernes);
-    setReady(true);
-    setSemana(week);
+    week.push(viandasViernes)
+    setReady(true)
+    setSemana(week)
   };
 
   useEffect(() => {
-    semanal();
-  }, []);
+    semanal()
+  }, [])
+
 
   const handleClick = async (e) => {
-
     if(precioTotal !== 0){
-      const usuario = await axios.get("/api/auth/check");
-    if (usuario.data.error === "no token") {
-      window.alert(
-        "Es necesario estar LOGUEADO para poder finalizar el pedido."
-      );
-    } else {
-        const fk_usuarioId = usuario.data.id;
-        const respuesta = await pedidosFormater(
-            fk_usuarioId,
-            precioTotal,
-            metodoPago,
-            estado,                                               //!creacion de objeto pedido
-            viandas
-            );
-        try {
-            const pedidoDB = await axios.post(`/api/pedidos`, respuesta)    //!registro de pedido en DB
-            idPedido = pedidoDB.data.data.id                      
-            if (idPedido){
-            setViandas([]);                               //!Vaciado de viandas y localStorage
-            carritoPUT(fk_usuarioId);                     //!Llamado a funcion para borrar carrito en tabla usuario
-            //const response = await axios.post("/api/auth/logout")
-            }
-        } catch (error) {
-            window.alert("No se pudo registar el pedido. Pongase en contacto con el administrador.")
-        }
-        try {
-            const result = await axios.post("/api/pagos", {precioTotal:precioTotal, idPedido:idPedido})
-            router.push(`${result.data}`)                          //!Creacion de orden de pago y redireccion a MP
-        } catch (error) {
-            throw new Error(error.message)
-        }
       
-  };}
+      setLoader("on");
+      const usuario = await axios.get("/api/auth/check")
+    
+      if (usuario.data.error === "no token") {
+        window.alert("Es necesario estar LOGUEADO para poder finalizar el pedido.")
+      
+      } else {
+          //Desestructuracion de los datos del usuario logueado.
+          const usuarioNombre = usuario.data.nombre
+          const usuarioEmail = usuario.data.email
+          const fk_usuarioId = usuario.data.id
+          //Formateo del un objeto para que coincida con el modelo de la DB.
+          const nuevoPedido = pedidosFormater(fk_usuarioId, precioTotal, metodoPago, estado, viandas);
+          
+          try {
+              //Creacion del pedido en base de datos.
+              const pedidoCreado = await axios.post(`/api/pedidos`, nuevoPedido)
+              //Recuperacion y guardado del ID del pedido creado recientemente.
+              idPedido = pedidoCreado.data.data.id
+              if (idPedido){
+                //Vaciado del estado del contexto y del localstorage.
+                setViandas([])
+                //Vaciado del campo "carrito" en el usuario.
+                carritoPUT(fk_usuarioId)       
+              }
+          } catch (error) {
+            window.alert("No se pudo registar el pedido. Intentelo nuevamente en unos minutos. Si el problema persiste pongase en contacto con el administrador.")
+            }
+          try {
+              //Creacion de una orden de Mercado pago. La orden se envia al back de MP con la informacion.
+              //Mercado pago responde con un body que tiene un propiedad initPoint que es una url generada para el pago.
+              const creacionOrdenMP = await axios.post("/api/pagos", {precioTotal:precioTotal, idPedido:idPedido, usuarioNombre:usuarioNombre, usuarioEmail:usuarioEmail})
+              //Se guarda la url obtenida en la respuesta de /api/pagos.
+              const linkPago = creacionOrdenMP.data
+              //Creacion del objeto para la notificacion.
+              const pedidoCreadoMail = {
+                  to: usuarioEmail,
+                  subject: "Creaste tu pedido!",
+                  text: "Version texto",
+                  html: creation(usuarioNombre, linkPago),
+              }
+              //Envio de notificacion.
+              const sendMail = await axios.post("/api/email", pedidoCreadoMail)
+              //Redireccion al link de pago.
+              router.push(`${linkPago}`)                          
+          } catch (error) {
+              throw new Error(error.message)
+            }
+        }
+    }else{
+        window.alert("Para poder generar un pedido se requiere como minimo una vianda seleccionada.")
     }
+  }
 
   const carritoPUT = async (id) => {
     const carritoCampo = {
         carrito: "[]",
-    };                                            //!borrado de campo "carrito en tabla user"
+    }                                           
     try {
-        const respuesta = await axios.put(`/api/usuarios/${id}`, carritoCampo);
+        const respuesta = await axios.put(`/api/usuarios/${id}`, carritoCampo)
     } catch (error) {
-        console.error("Error en la solicitud PUT:", error);
-        throw new Error("Algo salió mal en el PUT de la DB");
-    }
-};
+        console.error("Error en la solicitud PUT:", error)
+        throw new Error("Algo salió mal en el PUT de la DB")
+      }
+  }
 
   return (
     <>
@@ -125,7 +148,7 @@ const CatalogRegisterPage = () => {
               md:mt-8 md:text-left"
               >
                 MIS VIANDAS PARA LA SEMANA DEL:
-                <br className="md:hidden" /> 18 AL 22 DE SEPTIEMBRE:
+                <br className="md:hidden" /> 02 AL 06 DE OCTUBRE:
               </h1>
               <div className="divider my-0"></div>
 
@@ -157,6 +180,11 @@ const CatalogRegisterPage = () => {
                 </div>
                 <div className="divider my-0"></div>
                 <div id="btnWrapper" className="min-w-full p-2">
+                {loader === "on" && (
+                    <div className="flex flex-row justify-center items-center success w-[97%] bg-slate-50/90 absolute top-25 left-0 rounded-md mx-1 mr-8 h-12">
+                      <span className="loading loading-infinity loading-lg min-w-[45px] text-accent  "></span>
+                    </div>
+                  )}
                   <button
                     onClick={handleClick}
                     className="btn  btn-warning btn-wide min-w-full text-white text-xl tracking-wider  "
@@ -166,7 +194,7 @@ const CatalogRegisterPage = () => {
                   <div className="divider my-0"></div>
                   <Image
                     className="mx-auto my-4 hidden md:block"
-                    src={"/images/corporate/100seguro.png"}
+                    src={"https://res.cloudinary.com/deezwetqk/image/upload/v1695171791/100seguro_egyiqx.png"}
                     alt="seguro"
                     height={"46"}
                     width={"155"}
