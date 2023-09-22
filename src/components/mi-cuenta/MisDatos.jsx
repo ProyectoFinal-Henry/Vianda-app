@@ -13,6 +13,7 @@ import { UserAuth } from "@/context/AuthContext";
 import LoadingComponentApp from "@/app/loading";
 import { useRouter } from "next/navigation";
 
+
 function MisDatos() {
   const router = useRouter()
   const { user, googleLogout } = UserAuth();
