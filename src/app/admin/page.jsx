@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   const router = useRouter()
   const [auth, setAuth] = useState(true)
 
-  /* useEffect(() => {
+  useEffect(() => {
     axios.get("/api/auth/check").then((res) => {
       if (res.data.rol !== "administrador") {
         setAuth(false)
@@ -18,7 +18,7 @@ const AdminDashboard = () => {
         setAuth(true)
       }
     })
-  }, []) */
+  }, [])
 
   return (
     <RowResponsive>
