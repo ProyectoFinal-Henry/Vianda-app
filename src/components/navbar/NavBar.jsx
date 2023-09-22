@@ -11,11 +11,10 @@ import { UserAuth } from "@/context/AuthContext"
 import Image from "next/image"
 
 function NavBar({tokenData}) {
-  const [userToken, setUserToken] = useState()
+  const [name, setName] = useState()
   const [logeado, setLogeado] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [carritoOpen, setCarritoOpen] = useState(false)
-  const [name, setName] = useState("");
 
   const { user, googleLogout } = UserAuth()
   const { cantidadTotal, precioTotal, setFlagLogeed, setUserDataCarrito, setViandas } = useCarrito()
@@ -31,6 +30,7 @@ function NavBar({tokenData}) {
       setLogeado(false)
       setName("")
       router.push("/catalog/login")
+      router.refresh()
     } catch (error) {
       await googleLogout()
     }
@@ -43,7 +43,7 @@ function NavBar({tokenData}) {
         setName(tokenData.nombre)
       } else {
         setLogeado(false)
-        setUserToken("")
+        setName("")
       }
   }),
     [tokenData]
@@ -126,7 +126,7 @@ function NavBar({tokenData}) {
               </li>
 
               <li>
-                {!user && !logeado ? (
+                {!logeado ? (
                   <Link href="/catalog/login">Iniciar Sesión</Link>
                 ) : (
                   <button onClick={handleGoogleLogout}>Cerrar Sesión</button>
@@ -134,7 +134,7 @@ function NavBar({tokenData}) {
               </li>
             </ul>
           </div>
-          <p className="mx-4 ">{userToken}</p>
+          <p className="mx-4 ">{name}</p>
         </div>
       </div>
     </>
