@@ -107,6 +107,7 @@ const PedidosCocina = ({ dataPedido }) => {
   };
   const despacharPedido = async (idPedido, estado) => {
     const resultado = await axios.put(`/api/pedidos/`, { idPedido, estado });
+    alert('Pedido despachado con éxito.'); 
   };
 
   const calcularEstadisticas = () => {

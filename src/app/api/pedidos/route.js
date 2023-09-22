@@ -153,12 +153,11 @@ export async function PUT(request) {
         estado: estado
       }
     });
-    return pedidoActualizado;
+    return NextResponse(pedidoActualizado);
   } catch (error) {
     return NextResponse.json({
       message: "Ocurrio un error al actualizar el estado del pedido.",
       error: error.message,
     });
-
   }
 }
