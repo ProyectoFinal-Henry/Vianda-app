@@ -144,18 +144,18 @@ function MisDatos({tokenData}) {
                   <li>
                     <Link href={`/catalog/mi-cuenta/`}>
                       <BsFillPersonLinesFill className="text-accent" /> Mis
-                      datos Personales
+                      Datos Personales
                     </Link>
                   </li>
                   <li>
                     <Link href={"/catalog/mi-cuenta/pedidos"}>
                       <RiShoppingBasketFill className="text-accent" /> Mis
-                      pedidos
+                      Pedidos
                     </Link>
                   </li>
                   <li>
                     <Link href={"/catalog/mi-cuenta/resenias"}>
-                      <MdRateReview className="text-accent" /> Mis reseñas
+                      <MdRateReview className="text-accent" /> Mis Reseñas
                     </Link>
                   </li>
                   <hr className="bg-black" />
@@ -163,7 +163,7 @@ function MisDatos({tokenData}) {
                     <button
                     onClick={handleGoogleLogout}>
                       <CgLogOff className="text-base text-accent" /> Cerrar
-                      sesion
+                      Sesión
                     </button>
                   </li>
                 </ul>
@@ -188,7 +188,7 @@ function MisDatos({tokenData}) {
                     href={"/catalog/mi-cuenta/pedidos"}
                   >
                     <RiShoppingBasketFill className="text-xl text-accent" /> Mis
-                    pedidos
+                    Pedidos
                   </Link>
                 </li>
                 <li tabIndex={1}>
@@ -196,7 +196,7 @@ function MisDatos({tokenData}) {
                     className="text-base"
                     href={"/catalog/mi-cuenta/resenias"}
                   >
-                    <MdRateReview className="text-xl text-accent" /> Mis reseñas
+                    <MdRateReview className="text-xl text-accent" /> Mis Reseñas
                   </Link>
                 </li>
                 <hr className="bg-black" />
