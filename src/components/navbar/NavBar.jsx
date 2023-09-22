@@ -10,7 +10,7 @@ import { useCarrito } from "@/context/CarritoContext"
 import { UserAuth } from "@/context/AuthContext"
 import Image from "next/image"
 
-function NavBar() {
+function NavBar({tokenData}) {
   const [userToken, setUserToken] = useState()
   const [logeado, setLogeado] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -31,18 +31,17 @@ function NavBar() {
     }
   }
 
-  useEffect(() => {
-    axios.get("/api/auth/check").then((res) => {
-      if (res.status === 200) {
+/*   useEffect(() => {
+    
+      if (tokenData) {
         setLogeado(true)
-        setUserToken(res.data.nombre)
+        setName(tokenData.nombre)
       } else {
         setLogeado(false)
         setUserToken("")
       }
-    })
   }),
-    [handleGoogleLogout]
+    [tokenData] */
 
   return (
     <>
