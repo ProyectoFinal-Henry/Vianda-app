@@ -33,22 +33,22 @@ export async function POST(request) {
         },
         "secret"
       );
-      const serialized = serialize("myToken", token, {
+      const response = NextResponse.json(
+        {
+          message: "login succesful",
+          rol: usuario.rol,
+        },
+        { status: 200 }
+      )
+      response.cookies.set({
+        name: "myToken",
+        value: token,
+        path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 1000 * 3600 * 24 * 30,
-        path: "/",
-      });
-      return new Response(
-        JSON.stringify({ message: "success", rol: usuario.rol }),
-        {
-          status: 200,
-          headers: {
-            "Set-Cookie": serialized,
-          },
-        }
-      );
+        sameSite: "strict"
+      })
+      return response
     }
   } catch (error) {
     console.log(error);
@@ -60,35 +60,4 @@ export async function POST(request) {
       { status: 203 }
     );
   }
-
-  /* try {
-      const token = jwt.sign(
-        {
-          exp: Math.floor(Date.now() / 1000) * 3600 * 24 * 30,
-            rol: 'cliente',
-            telefono: '',
-            direccion: '',
-            dni: ''
-        },
-        "secret"
-      );
-      const serialized = serialize("myToken", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 1000 * 3600 * 24 * 30,
-        path: "/",
-      });
-      return new Response(JSON.stringify({ message: 'success' }), {
-        status: 200,
-        headers: {
-          "Set-Cookie": serialized,
-        },
-      });
-  } catch (error) {
-    return NextResponse.json({
-      message: "Ocurrio un error en el inicio de sesion",
-      error: error.message,
-    });
-  } */
 }
