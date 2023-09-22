@@ -14,7 +14,7 @@ export async function POST(request) {
     });
 
     if (!usuario) {
-      return NextResponse.json({ error: "Correo electronico incorrecto" });
+      return NextResponse.json({ error: "Correo electronico incorrecto" }, {status: 203});
     }
 
     // comparacion contraseña ingresada con la almacenada en base de datos
