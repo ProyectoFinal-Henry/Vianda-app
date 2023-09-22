@@ -11,37 +11,42 @@ import { UserAuth } from "@/context/AuthContext"
 import Image from "next/image"
 
 function NavBar({tokenData}) {
-  const [userToken, setUserToken] = useState()
+  const [name, setName] = useState()
   const [logeado, setLogeado] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [carritoOpen, setCarritoOpen] = useState(false)
 
   const { user, googleLogout } = UserAuth()
-  const { cantidadTotal, precioTotal } = useCarrito()
+  const { cantidadTotal, precioTotal, setFlagLogeed, setUserDataCarrito, setViandas } = useCarrito()
   const router = useRouter()
 
   const handleGoogleLogout = async () => {
+    setUserDataCarrito({id:0})
+    setFlagLogeed(false)
+    setViandas([])
     try {
       const response = await axios.post("/api/auth/logout")
       if (response.status === 200) await googleLogout()
       setLogeado(false)
+      setName("")
       router.push("/catalog/login")
+      router.refresh()
     } catch (error) {
       await googleLogout()
     }
   }
 
-/*   useEffect(() => {
+   useEffect(() => {
     
       if (tokenData) {
         setLogeado(true)
         setName(tokenData.nombre)
       } else {
         setLogeado(false)
-        setUserToken("")
+        setName("")
       }
   }),
-    [tokenData] */
+    [tokenData]
 
   return (
     <>
@@ -121,7 +126,7 @@ function NavBar({tokenData}) {
               </li>
 
               <li>
-                {!user && !logeado ? (
+                {!logeado ? (
                   <Link href="/catalog/login">Iniciar Sesión</Link>
                 ) : (
                   <button onClick={handleGoogleLogout}>Cerrar Sesión</button>
@@ -129,7 +134,7 @@ function NavBar({tokenData}) {
               </li>
             </ul>
           </div>
-          <p className="mx-4 ">{userToken}</p>
+          <p className="mx-4 ">{name}</p>
         </div>
       </div>
     </>
