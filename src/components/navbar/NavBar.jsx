@@ -15,23 +15,28 @@ function NavBar({tokenData}) {
   const [logeado, setLogeado] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [carritoOpen, setCarritoOpen] = useState(false)
+  const [name, setName] = useState("");
 
   const { user, googleLogout } = UserAuth()
-  const { cantidadTotal, precioTotal } = useCarrito()
+  const { cantidadTotal, precioTotal, setFlagLogeed, setUserDataCarrito, setViandas } = useCarrito()
   const router = useRouter()
 
   const handleGoogleLogout = async () => {
+    setUserDataCarrito({id:0})
+    setFlagLogeed(false)
+    setViandas([])
     try {
       const response = await axios.post("/api/auth/logout")
       if (response.status === 200) await googleLogout()
       setLogeado(false)
+      setName("")
       router.push("/catalog/login")
     } catch (error) {
       await googleLogout()
     }
   }
 
-/*   useEffect(() => {
+   useEffect(() => {
     
       if (tokenData) {
         setLogeado(true)
@@ -41,7 +46,7 @@ function NavBar({tokenData}) {
         setUserToken("")
       }
   }),
-    [tokenData] */
+    [tokenData]
 
   return (
     <>

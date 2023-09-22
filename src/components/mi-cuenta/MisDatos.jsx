@@ -107,10 +107,9 @@ function MisDatos({tokenData}) {
   });
 
   const handleGoogleLogout = async () => {
-    localStorage.setItem("viandas", JSON.stringify([]));
     setUserDataCarrito({id:0})    
-    setViandas([])
     setFlagLogeed(false)
+    setViandas([])
     
     try {
       const response = await axios.post("/api/auth/logout")
