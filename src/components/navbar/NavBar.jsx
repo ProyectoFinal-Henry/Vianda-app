@@ -31,7 +31,7 @@ function NavBar({tokenData}) {
     }
   }
 
-  useEffect(() => {
+/*   useEffect(() => {
     
       if (tokenData) {
         setLogeado(true)
@@ -41,7 +41,7 @@ function NavBar({tokenData}) {
         setUserToken("")
       }
   }),
-    [tokenData]
+    [tokenData] */
 
   return (
     <>
