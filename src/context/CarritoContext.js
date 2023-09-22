@@ -16,7 +16,7 @@ export const CarritoProvider = ({ children }) => {
     const [viandas, setViandas] = useState([]);
     const [cantidadTotal, setCantidadTotal] = useState(0);
     const [precioTotal, setPrecioTotal] = useState(0);
-    const [userId, setUserId] = useState(0);
+    const [userDataCarrito, setUserDataCarrito] = useState({});
     const [flagLogeed, setFlagLogeed] = useState(false);
     let savedData = [];
 
@@ -29,17 +29,11 @@ export const CarritoProvider = ({ children }) => {
     };
 
     const actualizarCarrito = () => {
-        const contadorCantidad = viandas.reduce(
-            (total, producto) => total + producto.cantidad,
-            0
-        );
+        const contadorCantidad = viandas.reduce((total, producto) => total + producto.cantidad, 0);
         setCantidadTotal(contadorCantidad || 0);
 
         const contadorPrecio = viandas.reduce(
-            (total, producto) =>
-                Number(total) + Number(producto.precio) * Number(producto.cantidad),
-            0
-        );
+            (total, producto) => Number(total) + Number(producto.precio) * Number(producto.cantidad), 0);
         setPrecioTotal(contadorPrecio || 0);
 
         localStorage.setItem("viandas", JSON.stringify(viandas));
@@ -58,31 +52,22 @@ export const CarritoProvider = ({ children }) => {
         };
 
         try {
-            const respuesta = await axios.put(`/api/usuarios/${userId}`, carritoCampo);
+            const respuesta = await axios.put(`/api/usuarios/${userDataCarrito.id}`, carritoCampo);
         } catch (error) {
             console.error("Error en la solicitud PUT:", error);
             throw new Error("Algo salió mal en el PUT de la DB");
         }
     };
 
-    const identificacion = async () => {
-        const usuario = await axios.get("/api/auth/check");
-        const id = usuario.data.id;
-        setUserId(Number(id));
-        if (id) {
-            return true;
-        }
-        return false;
-    };
 
     const checkSavedData = async () => {
-        if (userId !== 0) {
-            const respuesta = await axios.get(`/api/usuarios/${userId}`);
+        if (userDataCarrito.id !== 0) {
+            const respuesta = await axios.get(`/api/usuarios/${userDataCarrito.id}`);
             const carrito = respuesta.data.carrito;
             if (carrito && carrito.length > 5) {
                 const carritoParseado = JSON.parse(carrito);
                 savedData = carritoParseado;
-                return { success: true, viandas: carritoParseado }; // Retorna también el array de viandas
+                return { success: true, viandas: carritoParseado };
             }
             return { success: false };
         }
@@ -126,17 +111,13 @@ export const CarritoProvider = ({ children }) => {
 
     useEffect(() => {
         actualizarCarrito();
-    }, [viandas, flagLogeed]);
+    }, [viandas]);
 
     useEffect(() => {
-        identificacion().then((flag) => {
-            if (flag === true) {
-                checkSavedData().then((result) => {
-                    if (result && result.success) {
-                        setViandas(result.viandas);
-                        localStorage.setItem("viandas", JSON.stringify(result.viandas));
-                    }
-                });
+        checkSavedData().then((result) => {
+            if (result && result.success) {
+                setViandas(result.viandas);
+                localStorage.setItem("viandas", JSON.stringify(result.viandas));
             }
         });
     }, [flagLogeed]);
@@ -153,7 +134,7 @@ export const CarritoProvider = ({ children }) => {
                 quitarVianda,
                 modificarCantidad,
                 setFlagLogeed,
-                setUserId,
+                setUserDataCarrito,
             }}
         >
             {children}

@@ -12,12 +12,21 @@ import Link from "next/link";
 import { UserAuth } from "@/context/AuthContext";
 import LoadingComponentApp from "@/app/loading";
 import { useRouter } from "next/navigation";
+import { useCarrito } from "@/context/CarritoContext";
+
 
 
 function MisDatos({tokenData}) {
+  const {setFlagLogeed, setUserDataCarrito, setViandas} = useCarrito()
   const router = useRouter()
   const { user, googleLogout } = UserAuth();
   const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(()=>{
+    setUserDataCarrito(tokenData)
+    setFlagLogeed(true)
+
+  },[])
 
   const {
     register,
@@ -98,6 +107,11 @@ function MisDatos({tokenData}) {
   });
 
   const handleGoogleLogout = async () => {
+    localStorage.setItem("viandas", JSON.stringify([]));
+    setUserDataCarrito({id:0})    
+    setViandas([])
+    setFlagLogeed(false)
+    
     try {
       const response = await axios.post("/api/auth/logout")
       if (response.status === 200) await googleLogout()

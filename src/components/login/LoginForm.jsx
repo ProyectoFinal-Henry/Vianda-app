@@ -13,13 +13,11 @@ import {
 } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
-import { useCarrito } from "@/context/CarritoContext";
 import { useRouter } from "next/navigation";
 import { UserAuth } from "@/context/AuthContext";
 
 export const LoginForm = () => {
 
-  const { setFlagLogeed } = useCarrito(); //contexto global
   const { user, googleLogin } = UserAuth();
   const router = useRouter();
   const [visible, setVisible] = useState(false);
@@ -50,7 +48,6 @@ export const LoginForm = () => {
         if (response.data.rol === "cliente") {
           router.refresh();
           router.push("/catalog/mi-cuenta");
-          setFlagLogeed(true);
         } else if (response.data.rol === "cocina") {
           router.refresh();
           router.push("/cocina");
