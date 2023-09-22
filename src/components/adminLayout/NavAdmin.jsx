@@ -8,27 +8,18 @@ import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import LoadingComponentApp from "@/app/loading"
 
-const NavAdmin = () => {
-  const [rol, setRol] = useState()
-  const [userToken, setUserToken] = useState()
+const NavAdmin = ({tokenData}) => {
+  const [name, setName] = useState()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Realizamos la lógica para obtener el token y el rol
-    axios.get("/api/auth/check").then((res) => {
-      if (res.status === 200) {
-        setUserToken(res.data.nombre)
-        setRol(res.data.rol)
+      if (tokenData) {
+        setName(tokenData.nombre)
       }
-    })
-
-    // Configuramos un temporizador para cambiar isLoading después de 1000ms
     const timeoutId = setTimeout(() => {
       setIsLoading(false)
     }, 1000)
-
-    // Limpieza del temporizador si el componente se desmonta antes de que se cumpla el tiempo
     return () => clearTimeout(timeoutId)
   }, [])
 
@@ -126,7 +117,7 @@ const NavAdmin = () => {
             </ul>
           </div>
           <div className="navbar-end flex items-center h-fit">
-            <p className="text-neutral text-xl mx-5">{userToken}</p>
+            <p className="text-neutral text-xl mx-5">{name}</p>
             <button
               onClick={logout}
               className="ink link-primary font-extrabold mr-0 md:mr-10"
