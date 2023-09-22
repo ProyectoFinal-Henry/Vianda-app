@@ -142,7 +142,7 @@ const AdminViandasPage = async ({ searchParams }) => {
                         </td>
                         <td className="b font-bold">{nombre}</td>
                         <td className="">
-                          <div className="badge badge-neutral">{tipo}</div>
+                          <div className="badge badge-neutral">{tipo === "sinHarina" ? "sin harina" : tipo}</div>
                         </td>
                         <td className=" ">{descripcion}</td>
                         <td className=" ">{ingredientes}</td>
@@ -182,7 +182,7 @@ const AdminViandasPage = async ({ searchParams }) => {
                     <div className="flex flex-col justify-center items-center ">
                       <Image />
                     </div>
-                    mostarr imagen de que no hay viandas
+                    mostar imagen de que no hay viandas
                     <h1 className=" w-full text-2xl md:text-3xl text-center">
                       {data}
                     </h1>

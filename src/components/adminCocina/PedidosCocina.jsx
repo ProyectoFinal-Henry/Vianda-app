@@ -100,9 +100,24 @@ const PedidosCocina = ({ dataPedido }) => {
       return "cocinado"
     }
   }
+
   const despacharPedido = async (idPedido, estado) => {
-    const resultado = await axios.put(`/api/pedidos/`, { idPedido, estado })
-    alert("Pedido despachado con éxito.")
+    try {
+      const resultado = await axios.put(`/api/pedidos/`, { idPedido, estado })
+      if (resultado.status === 200) {
+        alert("Pedido despachado con éxito.")
+
+        // Actualiza dataPedido, por ejemplo, volviendo a cargar los datos
+        // dataPedido = await cargarDataPedido(); // Donde cargarDataPedido() es una función que carga los datos nuevamente
+
+        // Calcula y actualiza las estadísticas después de despachar el pedido
+        await calcularYActualizarEstadisticas()
+      } else {
+        alert("Error al despachar el pedido.")
+      }
+    } catch (error) {
+      console.error("Error al despachar el pedido:", error)
+    }
   }
 
   const calcularEstadisticas = () => {
@@ -117,7 +132,19 @@ const PedidosCocina = ({ dataPedido }) => {
     })
   }
   useEffect(() => {
-    calcularEstadisticas()
+    const calcularYActualizarEstadisticas = async () => {
+      const totalPedidos = dataPedido.length
+      const pedidosPagados = dataPedido.filter((pedido) => pedido.estado === "pagado").length
+      const pedidosCocinados = dataPedido.filter((pedido) => pedido.estado === "despachado").length
+
+      setEstadisticas({
+        totalPedidos,
+        pedidosPagados,
+        pedidosCocinados,
+      })
+    }
+
+    calcularYActualizarEstadisticas()
   }, [filtro, dataPedido])
 
   return (
@@ -213,7 +240,7 @@ const PedidosCocina = ({ dataPedido }) => {
               <div className="flex flex-col md:flex-row md:justify-around mt-5 px-2">
                 {pedido.detallePedido.map((detalle, index) => (
                   <div
-                    className="flex mr-4 shadow-xl border rounded-3xl border-slate900/10 my-6  w-10 md:w-48 bg-zinc-50"
+                    className="flex mr-4 shadow-xl border rounded-3xl border-slate900/10 my-6  w-10 md:w-48 bg-base-100"
                     key={index}
                   >
                     <div className="flex md:flex-col flex-row items-center">
@@ -226,23 +253,25 @@ const PedidosCocina = ({ dataPedido }) => {
                         </div>
                       </div>
 
-                      <div className="flex flex-col justify-between items-center gap-1 p-1 ml-2 mr-2 w-full">
-                        <h1 className="font-bold leading-4 my-1"> {detalle.viandaNombre} </h1>
+                      <div className="flex flex-col justify-center items-center gap-1 p-1 ml-2 mr-2 w-full">
+                        <h1 className="font-bold leading-4 my-1 text-center"> {detalle.viandaNombre} </h1>
                         <h1>Cantidad: {detalle.cantidad}</h1>
-                        <button
-                          className={`flex justify-center items-center px-6 py-5 font-bold rounded m-auto mt-5 border-2 border-neutral/30 drop-shadow-lg ${
-                            filtro === "despachado"
-                              ? "bg-green-500 text-white"
-                              : detallesEstado[`${pedido.id}-${detalle.viandaId}`] === "pendiente"
-                              ? "bg-red-500 text-white"
-                              : detallesEstado[`${pedido.id}-${detalle.viandaId}`] === "en proceso"
-                              ? "bg-yellow-500 text-white"
-                              : "bg-green-500 text-white"
-                          }`}
-                          onClick={() => cambiarEstadoDetalle(pedido.id, detalle.viandaId)}
-                        >
-                          {filtro === "despachado" ? "Cocinado" : detallesEstado[`${pedido.id}-${detalle.viandaId}`]}
-                        </button>
+                        <div>
+                          <button
+                            className={`flex justify-center items-center px-6 py-5 font-bold rounded m-auto mt-5 border-2 border-neutral/30 drop-shadow-lg ${
+                              filtro === "despachado"
+                                ? "bg-green-500 text-white"
+                                : detallesEstado[`${pedido.id}-${detalle.viandaId}`] === "pendiente"
+                                ? "bg-red-500 text-white"
+                                : detallesEstado[`${pedido.id}-${detalle.viandaId}`] === "en proceso"
+                                ? "bg-yellow-500 text-white"
+                                : "bg-green-500 text-white"
+                            }`}
+                            onClick={() => cambiarEstadoDetalle(pedido.id, detalle.viandaId)}
+                          >
+                            {filtro === "despachado" ? "Cocinado" : detallesEstado[`${pedido.id}-${detalle.viandaId}`]}
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
