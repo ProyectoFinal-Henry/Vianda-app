@@ -23,7 +23,7 @@ export const UserFormRegister = () => {
   const [toastEmail, setToastEmail] = useState(false);
   const [modalErroCreateUser, setModalErrorCreateUser] = useState(false);
   const [modalExit, setModalExit] = useState(false);
-  const [google, setGoogle] = useState(false)
+  const [google, setGoogle] = useState(false);
 
   //si es admin dejarlo ver el campo rol
   const currentPath = usePathname();
@@ -40,12 +40,11 @@ export const UserFormRegister = () => {
 
   useEffect(() => {
     userPriviledge();
-      if (user){
-        setGoogle(true)
-      }
-      else{
-        setGoogle(false)
-      }
+    if (user) {
+      setGoogle(true);
+    } else {
+      setGoogle(false);
+    }
   }, []);
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState);
@@ -73,25 +72,24 @@ export const UserFormRegister = () => {
       setToastEmail(false);
       const saltRounds = 10;
       const passwordHashed = await new Promise((resolve, reject) => {
-      bcrypt.hash(data.password, saltRounds, function (err, hash) {
-        if (err) {
-          console.error(err);
-          reject(err);
-          return;
-        }
-        resolve(hash);
-      });
+        bcrypt.hash(data.password, saltRounds, function (err, hash) {
+          if (err) {
+            console.error(err);
+            reject(err);
+            return;
+          }
+          resolve(hash);
+        });
       });
       let newData = data;
       if (google) {
-        newData.nombreCompleto = user.displayName
-        newData.email = user.email
-        newData.password = "ContraseñaFalsaQueEsperemosNuncaNadieAdivine"
-      }
-      else{
+        newData.nombreCompleto = user.displayName;
+        newData.email = user.email;
+        newData.password = "ContraseñaFalsaQueEsperemosNuncaNadieAdivine";
+      } else {
         newData.password = passwordHashed;
       }
-      
+
       const response = await axios.post("/api/usuarios/registro", newData);
 
       if (response.status === 202) {
@@ -122,7 +120,11 @@ export const UserFormRegister = () => {
           className=" flex flex-col items-center justify-center min-w-full px-10 py-5"
         >
           <div id="contenedorH1" className="justify-center ">
-            {google? (<h1 className="text-center text-lg">COMPLETAR REGISTRO</h1>) : (<h1 className="text-center text-lg">CREAR CUENTA</h1>)}
+            {google ? (
+              <h1 className="text-center text-lg">COMPLETAR REGISTRO</h1>
+            ) : (
+              <h1 className="text-center text-lg">CREAR CUENTA</h1>
+            )}
           </div>
           <div
             className="divider  
@@ -140,36 +142,38 @@ export const UserFormRegister = () => {
                     Nombre Completo
                   </span>
                 </label>
-                {google? (
+                {google ? (
                   <input
-                  type="text"
-                  className="input min-w-full input-bordered w-full  input-sm rounded h-7 bg-neutral-50"
-                  value={user?.displayName}
-                  disabled="true"
-                   />
-                ) : (<input
-                  type="text"
-                  placeholder="nombre"
-                  className="input min-w-full input-bordered w-full  input-sm rounded h-7 bg-neutral-50"
-                  {...register("nombreCompleto", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                    minLength: {
-                      value: 3,
-                      message: "El nombre debe tener al menos 3 caracteres",
-                    },
-                    maxLength: {
-                      value: 30,
-                      message: "Se ha excedido del maximo de 30 caracteres",
-                    },
-                    pattern: {
-                      value: /^[A-Za-z\s]+$/,
-                      message: "No debe contener números ni símbolos",
-                    },
-                  })}
-                />)}
+                    type="text"
+                    className="input min-w-full input-bordered w-full  input-sm rounded h-7 bg-neutral-50"
+                    value={user?.displayName}
+                    disabled="true"
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    placeholder="nombre"
+                    className="input min-w-full input-bordered w-full  input-sm rounded h-7 bg-neutral-50"
+                    {...register("nombreCompleto", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                      minLength: {
+                        value: 3,
+                        message: "El nombre debe tener al menos 3 caracteres",
+                      },
+                      maxLength: {
+                        value: 30,
+                        message: "Se ha excedido del maximo de 30 caracteres",
+                      },
+                      pattern: {
+                        value: /^[A-Za-z\s]+$/,
+                        message: "No debe contener números ni símbolos",
+                      },
+                    })}
+                  />
+                )}
                 {errors.nombreCompleto && (
                   <span className="mt-1 text-xs text-warning">
                     {errors.nombreCompleto.message}
@@ -181,38 +185,38 @@ export const UserFormRegister = () => {
                 <label className="label" htmlFor="email">
                   <span className="label-text font-medium">Email</span>
                 </label>
-                {google? (<input
-                  type="email"
-                  value={user?.email}
-                  disabled="true"
-                  className="input input-bordered w-full  input-sm  bg-neutral-50  rounded h-7 "
-                />): (
+                {google ? (
                   <input
-                  type="email"
-                  placeholder="email@example.com"
-                  className="input input-bordered w-full  input-sm  bg-neutral-50  rounded h-7 "
-                  {...register("email", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                    pattern: {
-                      value: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
-                      // value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                      message: "Correo no válido",
-                    },
-                  })}
-                />
+                    type="email"
+                    value={user?.email}
+                    disabled="true"
+                    className="input input-bordered w-full  input-sm  bg-neutral-50  rounded h-7 "
+                  />
+                ) : (
+                  <input
+                    type="email"
+                    placeholder="email@example.com"
+                    className="input input-bordered w-full  input-sm  bg-neutral-50  rounded h-7 "
+                    {...register("email", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                      pattern: {
+                        value: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
+                        // value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                        message: "Correo no válido",
+                      },
+                    })}
+                  />
                 )}
-                
+
                 {errors.email && (
                   <span className="mt-1 text-xs text-warning">
                     {errors.email.message}
                   </span>
                 )}
-                {toastEmail && (
-                  <div>{`El email ingresado ya existe`} </div>
-                )}
+                {toastEmail && <div>{`El email ingresado ya existe`} </div>}
               </div>
             </div>
 
@@ -276,68 +280,67 @@ export const UserFormRegister = () => {
                 )}
               </div>
             </div>
-            <div className={`flex flex-col items-center md:flex-row min-w-full ${google ? 'justify-start' : 'justify-center'} gap-x-9`}>
-            
-
+            <div
+              className={`flex flex-col items-center md:flex-row min-w-full ${
+                google ? "justify-start" : "justify-center"
+              } gap-x-9`}
+            >
               <div className="form-control w-full pb-2 ">
-              <label className="label">
-                <span className="label-text font-medium ">Contraseña</span>
-              </label>
-              <div className="flex flex-row">
-                {google? (
-                  <input
-                  type="password"
-                  className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
-                  disabled="true"
-                  />
-                ) : (
-                  <input
-                  type={visible ? "text" : "password"}
-                  placeholder="contraseña"
-                  className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
-                  {...register("password", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                    minLength: {
-                      value: 6,
-                      message:
-                        "La contraseña debe tener al menos 6 caracteres",
-                    },
-                    pattern: {
-                      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-                      message:
-                        "La contraseña debe contener minúsculas,mayúsculas y numeros",
-                    },
-                  })}
-                />
-                )}
-                
-                  {google? (null) : (
-                    <button
-                    type="button"
-                    className="relative min-w-min   ml-3  right-9"
-                    onClick={passwordVisibility}
-                  >
-                    {visible ? (
-                      <AiOutlineEye className="text-xl mr-0" />
-                    ) : (
-                      <AiOutlineEyeInvisible className="text-xl mr-0" />
-                    )}
-                  </button>
+                <label className="label">
+                  <span className="label-text font-medium ">Contraseña</span>
+                </label>
+                <div className="flex flex-row">
+                  {google ? (
+                    <input
+                      type="password"
+                      className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
+                      disabled="true"
+                    />
+                  ) : (
+                    <input
+                      type={visible ? "text" : "password"}
+                      placeholder="contraseña"
+                      className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
+                      {...register("password", {
+                        required: {
+                          value: true,
+                          message: "Este campo es requerido",
+                        },
+                        minLength: {
+                          value: 6,
+                          message:
+                            "La contraseña debe tener al menos 6 caracteres",
+                        },
+                        pattern: {
+                          value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+                          message:
+                            "La contraseña debe contener minúsculas,mayúsculas y numeros",
+                        },
+                      })}
+                    />
                   )}
-                
+
+                  {google ? null : (
+                    <button
+                      type="button"
+                      className="relative min-w-min   ml-3  right-9"
+                      onClick={passwordVisibility}
+                    >
+                      {visible ? (
+                        <AiOutlineEye className="text-xl mr-0" />
+                      ) : (
+                        <AiOutlineEyeInvisible className="text-xl mr-0" />
+                      )}
+                    </button>
+                  )}
+                </div>
+
+                {errors.password && (
+                  <span className="mt-1 text-xs text-warning">
+                    {errors.password.message}
+                  </span>
+                )}
               </div>
-
-              {errors.password && (
-                <span className="mt-1 text-xs text-warning">
-                  {errors.password.message}
-                </span>
-              )}
-            </div>
-
-              
 
               <div className="form-control w-full pb-2 ">
                 <label className="label" htmlFor="direccion">
@@ -406,8 +409,15 @@ export const UserFormRegister = () => {
                 className="flex items-center py-1  btn-accent bg-accent px-12 rounded-md mt-3"
               >
                 <AiFillLock className="text-xl text-white" />
-                {google? (<span className="pl-2 text-white font-semibold">Registrarse</span>) 
-              : (<span className="pl-2 text-white font-semibold">Completar registro</span>)}
+                {google ? (
+                  <span className="pl-2 text-white font-semibold">
+                    Registrarse
+                  </span>
+                ) : (
+                  <span className="pl-2 text-white font-semibold">
+                    Completar registro
+                  </span>
+                )}
               </button>
             </div>
             <div
