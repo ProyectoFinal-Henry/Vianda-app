@@ -1,7 +1,7 @@
-import { FaMapMarkerAlt, FaWhatsapp, FaHome } from "react-icons/fa"
-import { AiTwotonePhone } from "react-icons/ai"
+import { FaMapMarkerAlt, FaWhatsapp, FaHome } from "react-icons/fa";
+import { AiTwotonePhone } from "react-icons/ai";
 // import Modallisto from "./Modallisto"
-import Link from "next/link"
+import Link from "next/link";
 
 const CardsPedidos = ({ pedidos }) => {
   return (
@@ -17,7 +17,9 @@ const CardsPedidos = ({ pedidos }) => {
                 id="Datos"
                 key={ele.id}
                 className={`flex flex-col  gap-1 border-4 p-2 text-2xl font-bold    min-w-full min-h-full rounded-xl ${
-                  ele.estado === "despachado" ? "bg-[#FFACAC] border-[#FF0000] " : "bg-accent border-green-600"
+                  ele.estado === "despachado"
+                    ? "bg-[#FFACAC] border-[#FF0000] "
+                    : "bg-[#8EFA8B] border-[#0F9903]"
                 } `}
               >
                 <div className="flex flex-row gap-2 font-bold items-center pb-2 mb-3">
@@ -27,15 +29,14 @@ const CardsPedidos = ({ pedidos }) => {
                       className="flex flex-col font-extabold  "
                     >
                       <p className="tracking-wide">Dirección:</p>
-                      <p className="font-extrabold text-3xl ">{ele.usuario.direccion}</p>
+                      <p className="font-extrabold text-3xl ">
+                        {ele.usuario.direccion}
+                      </p>
                     </div>
 
-                    <div
-                      id="cliente"
-                      className="flex flex-row gap-1"
-                    >
-                      <p className="tracking-wide">Cliente:</p>
-                      <p className="tracking-normal"> {ele.usuario.nombreCompleto}</p>
+                    <div id="cliente" className="flex flex-row gap-1 text-xl">
+                      <p className="">Cliente:</p>
+                      <p className=""> {ele.usuario.nombreCompleto}</p>
                     </div>
                     {/* {ele.detallePedido.map((element, i) => (
                       
@@ -50,17 +51,16 @@ const CardsPedidos = ({ pedidos }) => {
                     ))} */}
                   </div>
 
-                  <div
-                    id="Pedido"
-                    className="flex flex-col items-center"
-                  >
+                  <div id="Pedido" className="flex flex-col items-center">
                     <p className="text-xl font-black">#PEDIDO:</p>
                     <p>{ele.idTransaccion}</p>
                   </div>
                 </div>
 
                 <div className="flex flex-row justify-center items-center gap-2 p-1 h-14 pb-4 mb-3">
-                  <Link href={`https://api.whatsapp.com/send?phone=${ele.usuario.telefono}`}>
+                  <Link
+                    href={`https://api.whatsapp.com/send?phone=${ele.usuario.telefono}`}
+                  >
                     <button
                       className="bg-white  py-2 px-3 rounded-lg transform transition-transform hover:scale-110 
                   "
@@ -88,20 +88,26 @@ const CardsPedidos = ({ pedidos }) => {
                   <div className="py-2">
                     <Link
                       key={ele.id}
-                      href={`/admin/entrega?modalentrega=${ele.id}`}
+                      href={`/repartidor?modalentrega=${ele.fk_usuarioId}`}
                     >
                       <button className="bg-white p-2 py-4 rounded transform transition-transform hover:scale-110 ">
-                        <FaHome className={`text-6xl bg ${ele.estado === "pagado" ? "text-warning" : "text-accent"}`} />
+                        <FaHome
+                          className={`text-6xl bg ${
+                            ele.estado === "despachado"
+                              ? "text-[#FF0000]"
+                              : "text-[#0F9903]"
+                          }`}
+                        />
                       </button>
                     </Link>
                   </div>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       )}
     </>
-  )
-}
-export default CardsPedidos
+  );
+};
+export default CardsPedidos;
