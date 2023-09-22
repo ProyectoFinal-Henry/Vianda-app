@@ -14,7 +14,7 @@ import LoadingComponentApp from "@/app/loading";
 import { useRouter } from "next/navigation";
 
 
-function MisDatos() {
+function MisDatos({tokenData}) {
   const router = useRouter()
   const { user, googleLogout } = UserAuth();
   const [isLoading, setIsLoading] = useState(true);
@@ -45,31 +45,25 @@ function MisDatos() {
   });
 
   useEffect(() => {
-    try {  
-      axios.get("/api/auth/check", { withCredentials: true }).then((res) => {
-          setValue("nombre", res.data.nombre);
-          setValue("email", res.data.email);
-          setValue("dni", res.data.dni);
-          setValue("telefono", res.data.telefono);
-          setValue("direccion", res.data.direccion);
+    console.log(tokenData)
+          setValue("nombre", tokenData.nombre);
+          setValue("email", tokenData.email);
+          setValue("dni", tokenData.dni);
+          setValue("telefono", tokenData.telefono);
+          setValue("direccion", tokenData.direccion);
           setUserData({
-            nombre: res.data.nombre,
-            email: res.data.email,
-            dni: res.data.dni,
-            telefono: res.data.telefono,
-            direccion: res.data.direccion,
-            id: res.data.id,
+            nombre: tokenData.nombre,
+            email: tokenData.email,
+            dni: tokenData.dni,
+            telefono: tokenData.telefono,
+            direccion: tokenData.direccion,
+             id: tokenData.id,
           });
-        });
-      }
-      catch (error) {
-      console.log(error);
-    }
     const timeoutId = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
     return () => clearTimeout(timeoutId);
-  }, []);
+  }, []); 
 
   useEffect(() => {
     setIsLoading(true);
