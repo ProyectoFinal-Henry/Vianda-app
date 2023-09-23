@@ -14,7 +14,10 @@ export async function POST(request) {
     });
 
     if (!usuario) {
-      return NextResponse.json({ error: "Correo electronico incorrecto" }, {status: 203});
+      return NextResponse.json(
+        { error: "Correo electronico incorrecto" },
+        { status: 203 }
+      );
     }
 
     // comparacion contraseña ingresada con la almacenada en base de datos
@@ -39,18 +42,19 @@ export async function POST(request) {
         {
           message: "login succesful",
           rol: usuario.rol,
+          id: usuario.id,
         },
         { status: 200 }
-      )
+      );
       response.cookies.set({
         name: "myToken",
         value: token,
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict"
-      })
-      return response
+        sameSite: "strict",
+      });
+      return response;
     } else {
       // Contraseña incorrecta, deniega el acceso
       return NextResponse.json(
@@ -63,6 +67,5 @@ export async function POST(request) {
       message: "Ocurrio un error en el inicio de sesion",
       error: error.message,
     });
-    
   }
 }
