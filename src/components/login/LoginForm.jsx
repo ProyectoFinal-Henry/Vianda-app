@@ -15,6 +15,7 @@ import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { UserAuth } from "@/context/AuthContext";
+import { useSearchParams } from "next/navigation";
 
 export const LoginForm = () => {
   const { user, googleLogin } = UserAuth();
@@ -22,12 +23,17 @@ export const LoginForm = () => {
   const [visible, setVisible] = useState(false);
   const [loadingUp, setLoadingUp] = useState(false);
   const [error, setError] = useState("");
+  // const [rol, setRol] = useState("")
+
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const rol = params.get("rol");
 
   const clientRedirect = async (id, rol) => {
     if (rol === "cliente") {
       router.refresh();
       const hayPedido = await axios.get(`/api/usuarios/${id}`);
-      console.log("hay pedido?: ", hayPedido);
+
       if (hayPedido.data.carrito !== "[]") {
         router.push("/catalog/checkout");
       } else {
@@ -112,8 +118,14 @@ export const LoginForm = () => {
           )}
           <div className="min-w-full flex flex-col items-center">
             <form onSubmit={onSubmit}>
+              {/* {rol ? (
+                <h1 className="text-xl text-neutral text-center">
+                  {""}
+                </h1>
+              ) : null} */}
               <h1 className="text-xl text-neutral text-center">
-                INICIAR SESIÓN
+                INICIAR SESION <br />
+                {rol ? `COMO ${rol.toUpperCase()}` : null}
               </h1>
               <div className="divider mt-2"></div>
               <div className="flex flex-col mt-6 gap-4 justify-center">
