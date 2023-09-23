@@ -17,12 +17,24 @@ import { useRouter } from "next/navigation";
 import { UserAuth } from "@/context/AuthContext";
 
 export const LoginForm = () => {
-
   const { user, googleLogin } = UserAuth();
   const router = useRouter();
   const [visible, setVisible] = useState(false);
   const [loadingUp, setLoadingUp] = useState(false);
   const [error, setError] = useState("");
+
+  const clientRedirect = async (id, rol) => {
+    if (rol === "cliente") {
+      router.refresh();
+      const hayPedido = await axios.get(`/api/usuarios/${id}`);
+      console.log("hay pedido?: ", hayPedido);
+      if (hayPedido.data.carrito !== "[]") {
+        router.push("/catalog/checkout");
+      } else {
+        router.push("/catalog");
+      }
+    }
+  };
 
   const passwordVisibility = () => {
     setVisible((prevState) => !prevState);
@@ -44,20 +56,20 @@ export const LoginForm = () => {
       setLoadingUp(true);
       await new Promise((resolve) => setTimeout(resolve, 3000));
       const response = await axios.post("/api/auth/login", formData);
+
       if (response.status === 200) {
-        if (response.data.rol === "cliente") {
-          router.refresh();
-          router.push("/catalog/mi-cuenta");
-        } else if (response.data.rol === "cocina") {
+        clientRedirect(response.data.id, response.data.rol);
+        if (response.data.rol === "cocina") {
           router.refresh();
           router.push("/cocina");
-        } else if (response.data.rol === "repartidor") {
+        }
+        if (response.data.rol === "repartidor") {
           router.refresh();
           router.push("/repartidor");
-        } else {
-
+        }
+        if (response.data.rol === "administrador") {
           router.refresh();
-          router.push("/admin");
+          router.push("/admin/viandas");
         }
       } else {
         setError(response.data.error);
@@ -70,22 +82,21 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (user) {
-      const googleData = { nombreCompleto: user.displayName, email: user.email };
+      const googleData = {
+        nombreCompleto: user.displayName,
+        email: user.email,
+      };
       try {
         axios.post("/api/auth/loginGoogle", googleData).then((res) => {
           if (res.status === 200) {
-            router.refresh();
-            router.push("/catalog/mi-cuenta");
-          } else {
-            router.refresh();
-            router.push("/catalog/registro");
+            clientRedirect(res.data.id, res.data.rol);
           }
         });
       } catch (error) {
         console.log(error);
       }
     }
-  }, [user]); 
+  }, [user]);
 
   return (
     <>

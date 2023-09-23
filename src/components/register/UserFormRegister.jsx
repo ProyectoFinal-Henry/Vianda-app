@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation"; // ver url-david
 import { welcome } from "@/app/api/email/templates";
 import { UserAuth } from "@/context/AuthContext";
 
-export const UserFormRegister = () => {
+export const UserFormRegister = ({ rol }) => {
   const { user } = UserAuth();
   const [visible, setVisible] = useState(false);
   const [toastEmail, setToastEmail] = useState(false);
@@ -29,13 +29,10 @@ export const UserFormRegister = () => {
   const currentPath = usePathname();
   const [isAdmin, setIsadmin] = useState(false);
   const userPriviledge = async () => {
-    const res = await axios(`/api/auth/check`);
-    const permissions = res.data;
-    // si es admin y es adminsitrador puede ver el campo rol
-    permissions.rol === "administrador" &&
-      currentPath.includes("/admin") &&
+    if (rol === "administrador" && currentPath.includes("/admin")) {
+      console.log(tokenData);
       setIsadmin(true);
-    //ademas solo puede crear con rol en el panel de admin
+    }
   };
 
   useEffect(() => {

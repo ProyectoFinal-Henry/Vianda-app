@@ -37,18 +37,19 @@ export async function POST(request) {
         {
           message: "login succesful",
           rol: usuario.rol,
+          id: usuario.id,
         },
         { status: 200 }
-      )
+      );
       response.cookies.set({
         name: "myToken",
         value: token,
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict"
-      })
-      return response
+        sameSite: "strict",
+      });
+      return response;
     }
   } catch (error) {
     console.log(error);

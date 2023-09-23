@@ -14,19 +14,16 @@ import LoadingComponentApp from "@/app/loading";
 import { useRouter } from "next/navigation";
 import { useCarrito } from "@/context/CarritoContext";
 
-
-
-function MisDatos({tokenData}) {
-  const {setFlagLogeed, setUserDataCarrito, setViandas} = useCarrito()
-  const router = useRouter()
+function MisDatos({ tokenData }) {
+  const { setFlagLogeed, setUserDataCarrito, setViandas } = useCarrito();
+  const router = useRouter();
   const { user, googleLogout } = UserAuth();
   const [isLoading, setIsLoading] = useState(true);
-  
-  useEffect(()=>{
-    setUserDataCarrito(tokenData)
-    setFlagLogeed(true)
 
-  },[])
+  useEffect(() => {
+    setUserDataCarrito(tokenData);
+    setFlagLogeed(true);
+  }, []);
 
   const {
     register,
@@ -54,25 +51,24 @@ function MisDatos({tokenData}) {
   });
 
   useEffect(() => {
-    console.log(tokenData)
-          setValue("nombre", tokenData.nombre);
-          setValue("email", tokenData.email);
-          setValue("dni", tokenData.dni);
-          setValue("telefono", tokenData.telefono);
-          setValue("direccion", tokenData.direccion);
-          setUserData({
-            nombre: tokenData.nombre,
-            email: tokenData.email,
-            dni: tokenData.dni,
-            telefono: tokenData.telefono,
-            direccion: tokenData.direccion,
-             id: tokenData.id,
-          });
+    setValue("nombre", tokenData.nombre);
+    setValue("email", tokenData.email);
+    setValue("dni", tokenData.dni);
+    setValue("telefono", tokenData.telefono);
+    setValue("direccion", tokenData.direccion);
+    setUserData({
+      nombre: tokenData.nombre,
+      email: tokenData.email,
+      dni: tokenData.dni,
+      telefono: tokenData.telefono,
+      direccion: tokenData.direccion,
+      id: tokenData.id,
+    });
     const timeoutId = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
     return () => clearTimeout(timeoutId);
-  }, []); 
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -96,7 +92,7 @@ function MisDatos({tokenData}) {
         formData
       );
       const updateToken = await axios.put("/api/auth/modify", formData);
-      router.refresh()
+      router.refresh();
       setSuccess(true);
 
       await new Promise((resolve) => setTimeout(resolve, 2500));
@@ -107,18 +103,18 @@ function MisDatos({tokenData}) {
   });
 
   const handleGoogleLogout = async () => {
-    setUserDataCarrito({id:0})    
-    setFlagLogeed(false)
-    setViandas([])
-    
+    setUserDataCarrito({ id: 0 });
+    setFlagLogeed(false);
+    setViandas([]);
+
     try {
-      const response = await axios.post("/api/auth/logout")
-      if (response.status === 200) await googleLogout()
-      router.push("/catalog/login")
+      const response = await axios.post("/api/auth/logout");
+      if (response.status === 200) await googleLogout();
+      router.push("/catalog/login");
     } catch (error) {
-      await googleLogout()
+      await googleLogout();
     }
-  }
+  };
 
   return (
     <>
@@ -160,8 +156,7 @@ function MisDatos({tokenData}) {
                   </li>
                   <hr className="bg-black" />
                   <li>
-                    <button
-                    onClick={handleGoogleLogout}>
+                    <button onClick={handleGoogleLogout}>
                       <CgLogOff className="text-base text-accent" /> Cerrar
                       sesion
                     </button>
@@ -367,12 +362,12 @@ function MisDatos({tokenData}) {
                 </div>
               </div>
 
-                <button
-                  type="submit"
-                  className="flex items-center gap-x-2 first-letter:font-bold btn-accent px-10 py-1 rounded-md ml-3 mt-6 mb-0"
-                >
-                  Guardar Cambios
-                </button>
+              <button
+                type="submit"
+                className="flex items-center gap-x-2 first-letter:font-bold btn-accent px-10 py-1 rounded-md ml-3 mt-6 mb-0"
+              >
+                Guardar Cambios
+              </button>
             </form>
           </div>
         </div>

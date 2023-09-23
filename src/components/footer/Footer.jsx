@@ -1,17 +1,17 @@
-import Link from "next/link"
-import LinkToogleAdminCatalog from "./LinkToogleAdminCatalog"
-import LoginOptions from "./LoginOptions"
+import Link from "next/link";
+import LinkToogleAdminCatalog from "./LinkToogleAdminCatalog";
+import LoginOptions from "./LoginOptions";
 
 // saber si mi base es admin o catalog
 
-function Footer() {
+function Footer({ tokenData }) {
   return (
     <>
       <footer className="footer md:grid-flow-col footer-center p-5 bg-base-200 text-base-content gap-4">
         <nav className="grid grid-flow-col  gap-2 md:order-1">
           <LinkToogleAdminCatalog />
 
-          <LoginOptions />
+          <LoginOptions tokenData={tokenData} />
         </nav>
         <nav>
           <div className="grid grid-flow-col gap-4 md:order-2">
@@ -52,11 +52,13 @@ function Footer() {
         </nav>
 
         <aside>
-          <p className="text-center md:order-3">Copyright © 2023 - All right reserved by ViandAapp Ltd</p>
+          <p className="text-center md:order-3">
+            Copyright © 2023 - All right reserved by ViandAapp Ltd
+          </p>
         </aside>
       </footer>
     </>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

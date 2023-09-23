@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-const LoginOptions = () => {
+const LoginOptions = ({ tokenData }) => {
   const currentPath = usePathname();
   const { user, googleLogout } = UserAuth();
   const [logueado, setLogueado] = useState(false);
@@ -24,13 +24,11 @@ const LoginOptions = () => {
     }
   };
   useEffect(() => {
-    axios.get("/api/auth/check").then((res) => {
-      if (res.status === 200) {
-        setLogueado(true);
-      } else {
-        setLogueado(false);
-      }
-    });
+    if (tokenData) {
+      setLogueado(true);
+    } else {
+      setLogueado(false);
+    }
   }),
     [handleGoogleLogout];
 
