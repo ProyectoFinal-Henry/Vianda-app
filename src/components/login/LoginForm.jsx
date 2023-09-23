@@ -60,7 +60,7 @@ export const LoginForm = () => {
   const onSubmit = handleSubmit(async (formData) => {
     try {
       setLoadingUp(true);
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 400));
       const response = await axios.post("/api/auth/login", formData);
 
       if (response.status === 200) {
