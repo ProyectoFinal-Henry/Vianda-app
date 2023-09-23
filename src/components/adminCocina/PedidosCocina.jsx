@@ -25,7 +25,7 @@ const PedidosCocina = ({ dataPedido }) => {
 
   const filtrarPorEstado = (estado) => {
     setFiltro(estado)
-    router.push(`/admin/cocina?estado=${estado}`)
+    router.push(`/cocina?estado=${estado}`)
   }
 
   const pedidosFiltrados =
