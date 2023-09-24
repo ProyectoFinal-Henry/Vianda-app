@@ -5,7 +5,7 @@ function CardTipes() {
   return (
     <>
       <div className="flex justify-center w-full px-2">
-        <h1 className="text-slate-700 font-extrabold text-2xl md:text-4xl text-center md:min-w-fit mt-12 md:mt-0 mb-12">
+        <h1 className="text-slate-700 font-extrabold text-2xl md:text-4xl text-center md:min-w-fit mt-8 md:mt-0 mb-8">
           Categorias <br className="md:hidden" /> en nuestro Menu
         </h1>
       </div>

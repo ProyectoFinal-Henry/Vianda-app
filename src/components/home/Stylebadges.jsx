@@ -5,15 +5,16 @@ const Stylebadges = () => {
   return (
     <>
       <Link
+        id="styleeat"
         href={"/catalog/checkout"}
         className="w-full 
        flex flex-col justify-center my-12"
       >
         <div className="flex flex-col items-center justify-around gap-8 md:gap-12 px-2 ">
-          <h2 className="text-slate-700 font-extrabold text-2xl md:text-4xl text-left md:min-w-fit mt-12 md:mt-0">Comé según tu estilo:</h2>
+          <h2 className="text-slate-700 font-extrabold text-2xl md:text-4xl text-left md:min-w-fit mt-10 md:mt-0">Comé según tu estilo:</h2>
 
           <div
-            className="flex flex-row flex-wrap justify-between items-stretch md:min-w-[90%]"
+            className="flex flex-row flex-wrap justify-between items-stretch md:min-w-[90%] px-2"
             id="badgeWrapper"
           >
             <div
