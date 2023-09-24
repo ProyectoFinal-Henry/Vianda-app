@@ -13,7 +13,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 async function Homepage() {
-  const res = await axios.get(`${process.env.LOCALHOST}/api/viandas`)
+  const res = await axios.get(`${process.env.LOCALHOST}/api/menu?all=true`)
   const data = res.data
 
   return (

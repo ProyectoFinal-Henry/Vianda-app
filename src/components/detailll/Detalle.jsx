@@ -15,8 +15,8 @@ const Detalle = ({ data }) => {
 
   const handleGoBack = () => {
     // Navegar hacia atrás en la historia del navegador
-    router.back();
-  };
+    router.back()
+  }
 
   const {
     id,
@@ -35,7 +35,7 @@ const Detalle = ({ data }) => {
     viernes,
     sabado,
     domingo,
-  } = data[modal - 1]
+  } = data.find((item) => item.id === Number(modal))
   const handleClickInsideModal = (e) => {
     // Evita que el clic dentro del modal se propague al contenedor principal
     e.stopPropagation()
@@ -58,10 +58,11 @@ const Detalle = ({ data }) => {
             onClick={handleClickInsideModal}
           >
             <div className="flex  flex-row items-center justify-between gap-x-2 min-w-full pl-2">
-              <h1 className="text-left text-xl md:text-xl font-semibold tracking-wider text-black    px-8  rounded-lg">
-                {nombre}
-              </h1>{" "}
-              <button onClick={handleGoBack} className=" ">
+              <h1 className="text-left text-xl md:text-xl font-semibold tracking-wider text-black    px-8  rounded-lg">{nombre}</h1>{" "}
+              <button
+                onClick={handleGoBack}
+                className=" "
+              >
                 <CgCloseO className="btn btn-accent rounded-full p-1 text-base-100 hover:text-warning text-5xl" />
               </button>
             </div>
