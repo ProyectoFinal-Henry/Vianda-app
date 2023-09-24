@@ -166,35 +166,40 @@ function Pedidos({tokenData}) {
                     {(detallePedido) ? (
                       detallePedido.map(({ viandaId, viandaImagen, viandaNombre, precio, cantidad, total }) => {
                         return (
-                          <div
-                            className="md:items-stretch bg-base-100 shadow-xl border rounded-3xl border-slate900/10 my-3 md:m-4 w-80 md:w-40"
+                          <Link
+                            href={`/catalog/mi-cuenta/pedidos?modal=${viandaId}`}
                             key={viandaId}
+                            className="transform transition-transform hover:scale-105"
+                            scroll={false}
                           >
-                            <div className="flex md:flex-col flex-row justify-start items-start">
-                              <div className="avatar">
-                                <div className="w-36 max-h-48 md:w-full rounded-3xl md:rounded-b-none">
-                                  <Image
-                                    width={200}
-                                    height={200}
-                                    alt="imagen de la vianda"
-                                    className="object-cover"
-                                    src={viandaImagen}
-                                  />
+                            <div
+                              className="md:items-stretch bg-base-100 shadow-xl border rounded-3xl border-slate900/10 my-3 md:m-4 w-80 md:w-40"
+                              key={viandaId}
+                            >                              
+                              <div className="flex md:flex-col flex-row justify-start items-start">
+                                <div className="avatar">
+                                  <div className="w-36 max-h-48 md:w-full rounded-3xl md:rounded-b-none">
+                                    <Image
+                                      width={200}
+                                      height={200}
+                                      alt="imagen de la vianda"
+                                      className="object-cover"
+                                      src={viandaImagen}
+                                    />
+                                  </div>
                                 </div>
-                              </div>
 
-                              <div className="flex flex-col justify-start items-start gap-1 p-1 ml-2 mr-2 w-full">
-                                <h1 className="font-bold leading-4 my-1 w-36 md:h-9">{viandaNombre}</h1>
-                                <h1><strong>${parseFloat(precio).toFixed(2)}</strong></h1>
-                                <h1>Cantidad: {cantidad}</h1>
-                                <h1 className="flex justify-center badge-lg my-2 bg-accent/50 rounded border-none">
-                                  Total:  ${parseFloat(total).toFixed(2)}
-                                </h1>
-                              </div>
+                                <div className="flex flex-col justify-start items-start gap-1 p-1 ml-2 mr-2 w-full">
+                                  <h1 className="font-bold leading-4 my-1 w-36 md:h-9">{viandaNombre}</h1>
+                                  <h1><strong>${parseFloat(precio).toFixed(2)}</strong></h1>
+                                  <h1>Cantidad: {cantidad}</h1>
+                                  <h1 className="flex justify-center badge-lg my-2 bg-accent/50 rounded border-none">
+                                    Total:  ${parseFloat(total).toFixed(2)}
+                                  </h1>
+                                </div>
+                              </div>                            
                             </div>
-                            
-                          </div>
-                          
+                          </Link>                          
                         )
                       })
                     ) : (

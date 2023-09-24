@@ -1,8 +1,10 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import Pedidos from "@/components/mi-cuenta/Pedidos";
+import Detalle from "@/components/detailll/Detalle";
+import axios from "axios";
 
-function MisPedidos() {
+async function MisPedidos() {
   const cookieStore = cookies();
   const token = cookieStore.get("myToken");
   let tokenData = null;
@@ -16,8 +18,12 @@ function MisPedidos() {
     }
   }
 
+  const res = await axios.get(`${process.env.LOCALHOST}/api/viandas`)
+  const data = res.data
+
   return (
     <>
+      <Detalle data={data} />
       <Pedidos tokenData={tokenData} />
     </>
   );
