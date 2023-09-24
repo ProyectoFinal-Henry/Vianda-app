@@ -17,7 +17,7 @@ function CardTipes() {
               height={"300"}
               width={"300"}
               className="rounded-t-xl"
-              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169713/clasico_rxpd8k.png"
+              src="https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_450/v1695169713/clasico_rxpd8k.png"
               alt="clasico"
             />
           </figure>
@@ -34,7 +34,7 @@ function CardTipes() {
               height={"300"}
               width={"300"}
               className="rounded-t-xl"
-              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169711/vegetariano_card_caypy4.png"
+              src="https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_450/v1695169711/vegetariano_card_caypy4.png"
               alt="vegetariano"
             />
           </figure>
@@ -54,7 +54,7 @@ function CardTipes() {
               height={"300"}
               width={"300"}
               className="rounded-t-xl"
-              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169710/sin_harinas_card_tahoug.png"
+              src="https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_450/v1695169710/sin_harinas_card_tahoug.png"
               alt="sin_harinas"
             />
           </figure>
@@ -74,7 +74,7 @@ function CardTipes() {
               height={"300"}
               width={"300"}
               className="rounded-t-xl"
-              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169709/dieta_zd9erw.png"
+              src="https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_450/v1695169709/dieta_zd9erw.png"
               alt="dieta"
             />
           </figure>
