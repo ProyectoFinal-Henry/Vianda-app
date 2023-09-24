@@ -13,7 +13,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 async function Homepage() {
-  const res = await axios.get(`${process.env.LOCALHOST}/api/viandas`)
+  const res = await axios.get(`${process.env.LOCALHOST}/api/menu?all=true`)
   const data = res.data
 
   return (
@@ -26,7 +26,7 @@ async function Homepage() {
         <ButtonCTAOrderBlock />
         <Stylebadges />
       </RowResponsive>
-      <RowResponsive>
+      <div className=" max-w-6xl flex flex-col justify-center mx-auto ">
         <CardTipes />
 
         <Pagination data={data} />
@@ -39,11 +39,11 @@ async function Homepage() {
             alt="cta desktop"
             width={1100}
             height={300}
-            src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169710/CTA_sep7jg.png"
+            src="https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_1100/v1695169710/CTA_sep7jg.png"
             className="min-w-full"
           />
         </Link>
-      </RowResponsive>
+      </div>
       <Link
         href={"/catalog/checkout"}
         className="md:hidden mt-12"
@@ -52,7 +52,7 @@ async function Homepage() {
           alt="cta mobile"
           width={300}
           height={300}
-          src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169713/ctamobil_zqw0or.png"
+          src="https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_450/v1695169713/ctamobil_zqw0or.png"
           className="min-w-full"
         />
       </Link>
