@@ -1,7 +1,7 @@
-import AdminDashboard from "@/components/adminLayout/AdminDashboard";
-import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
-import NotAdmin from "@/components/adminLayout/NotAdmin";
+import AdminDashboard from "@/components/adminLayout/AdminDashboard"
+import { cookies } from "next/headers"
+import jwt from "jsonwebtoken"
+import NotAdmin from "@/components/adminLayout/NotAdmin"
 
 const AdminPage = () => {
   // const cookieStore = cookies();
@@ -20,7 +20,7 @@ const AdminPage = () => {
   return (
     // <>{tokenData.rol === "administrador" ? <AdminDashboard /> : <NotAdmin />}</>
     <AdminDashboard />
-  );
-};
+  )
+}
 
-export default AdminPage;
+export default AdminPage

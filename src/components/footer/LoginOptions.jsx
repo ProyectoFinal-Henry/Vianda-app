@@ -1,36 +1,37 @@
-"use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { UserAuth } from "@/context/AuthContext";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
+"use client"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { UserAuth } from "@/context/AuthContext"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import axios from "axios"
 
 const LoginOptions = ({ tokenData }) => {
-  const currentPath = usePathname();
-  const { user, googleLogout } = UserAuth();
-  const [logueado, setLogueado] = useState(false);
-  const router = useRouter();
+  const currentPath = usePathname()
+  const { user, googleLogout } = UserAuth()
+  const [logueado, setLogueado] = useState(false)
+  const router = useRouter()
 
   const handleGoogleLogout = async () => {
     try {
-      const response = await axios.post("/api/auth/logout");
-      if (response.status === 200) await googleLogout();
-      setLogueado(false);
-      router.push("/catalog/login");
-      router.refresh();
+      const response = await axios.post("/api/auth/logout")
+      if (response.status === 200) await googleLogout()
+      setLogueado(false)
+      router.push("/catalog/login")
+      router.refresh()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
+
   useEffect(() => {
     if (tokenData) {
-      setLogueado(true);
+      setLogueado(true)
     } else {
-      setLogueado(false);
+      setLogueado(false)
     }
   }),
-    [handleGoogleLogout];
+    [handleGoogleLogout]
 
   return (
     <>
@@ -45,7 +46,10 @@ const LoginOptions = ({ tokenData }) => {
               Cerrar Sesion
             </Link>
           ) : (
-            <Link href={"/catalog/login"} className="link link-hover">
+            <Link
+              href={"/catalog/login"}
+              className="link link-hover"
+            >
               Iniciar Sesion
             </Link>
           )}
@@ -60,7 +64,7 @@ const LoginOptions = ({ tokenData }) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default LoginOptions;
+export default LoginOptions

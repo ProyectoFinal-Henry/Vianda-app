@@ -12,7 +12,7 @@ const FullWidthHeader = () => {
       <Link
         href={"/catalog/checkout"}
         className="w-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-500
-       flex flex-col justify-center min-h-[50vh] md:min-h-[30vh] -mt-5 "
+       flex flex-col justify-center   -mt-5 py-8 "
       >
         <div className="flex flex-col md:flex-row items-center justify-around ">
           <h2 className="text-white font-extrabold text-4xl md:text-5xl text-center min-w-full md:min-w-fit ">
@@ -36,7 +36,7 @@ const FullWidthHeader = () => {
       <Link
         href={"/catalog/checkout"}
         className="w-full bg-gradient-to-b from-primary via-amber-2 to-base-100
-       flex flex-col justify-center min-h-[40vh] "
+       flex flex-col justify-center  "
       >
         <div className="flex flex-col items-center justify-around md:items-center md:justify-center gap-8 md:gap-12 ">
           <h2 className="text-slate-700 font-extrabold text-4xl md:text-4xl text-center  md:min-w-fit mt-8 md:mt-6">Cómo Funciona?</h2>

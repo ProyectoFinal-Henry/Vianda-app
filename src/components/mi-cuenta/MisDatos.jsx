@@ -123,10 +123,10 @@ function MisDatos({ tokenData }) {
           <LoadingComponentApp />
         </div>
       ) : (
-        <div className="flex flex-col md:flex-row items-start">
+        <div className="flex flex-col md:flex-row items-start max-w-full lg:max-w-6xl lg:mx-auto min-h-[90vh]">
           <div
             id="NavAdmin"
-            className="navbar text-black z-10 text-lg md:m-10 md:my-[10vh]"
+            className="navbar text-black z-10 text-lg md:m-10 md:my-[10vh]" 
           >
             <div className="navbar-start ">
               <div className="dropdown">

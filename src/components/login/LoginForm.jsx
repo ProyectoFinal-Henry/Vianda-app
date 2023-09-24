@@ -1,108 +1,106 @@
-"use client";
+"use client"
 
-import RowResponsive from "../formaters/RowResponsive";
-import FormResponsiveContainer from "../formaters/FormResponsiveContainer";
-import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { GiSandsOfTime } from "react-icons/gi";
-import {
-  AiFillLock,
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-} from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { UserAuth } from "@/context/AuthContext";
-import { useSearchParams } from "next/navigation";
+import RowResponsive from "../formaters/RowResponsive"
+import FormResponsiveContainer from "../formaters/FormResponsiveContainer"
+import { useForm } from "react-hook-form"
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { GiSandsOfTime } from "react-icons/gi"
+import { AiFillLock, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import { FcGoogle } from "react-icons/fc"
+import axios from "axios"
+import { useRouter } from "next/navigation"
+import { UserAuth } from "@/context/AuthContext"
+import { useSearchParams } from "next/navigation"
+import { useCarrito } from "@/context/CarritoContext"
 
 export const LoginForm = () => {
-  const { user, googleLogin } = UserAuth();
-  const router = useRouter();
-  const [visible, setVisible] = useState(false);
-  const [loadingUp, setLoadingUp] = useState(false);
-  const [error, setError] = useState("");
+  const { viandas } = useCarrito()
+  const { user, googleLogin } = UserAuth()
+  const router = useRouter()
+  const [visible, setVisible] = useState(false)
+  const [loadingUp, setLoadingUp] = useState(false)
+  const [error, setError] = useState("")
   // const [rol, setRol] = useState("")
 
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
-  const rol = params.get("rol");
+  const searchParams = useSearchParams()
+  const params = new URLSearchParams(searchParams)
+  const rol = params.get("rol")
 
   const clientRedirect = async (id, rol) => {
     if (rol === "cliente") {
-      router.refresh();
-      const hayPedido = await axios.get(`/api/usuarios/${id}`);
+      router.refresh()
+      const hayPedido = await axios.get(`/api/usuarios/${id}`)
 
-      if (hayPedido.data.carrito !== "[]") {
-        router.push("/catalog/checkout");
+      if (hayPedido.data.carrito !== "[]" || viandas.length !== 0) {
+        router.push("/catalog/checkout")
       } else {
-        router.push("/catalog");
+        router.push("/catalog")
       }
     }
-  };
+  }
 
   const passwordVisibility = () => {
-    setVisible((prevState) => !prevState);
-  };
+    setVisible((prevState) => !prevState)
+  }
 
   const handleGoogleLogin = async () => {
-    await googleLogin();
-    router.refresh();
-  };
+    await googleLogin()
+    router.refresh()
+  }
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
   const onSubmit = handleSubmit(async (formData) => {
     try {
-      setLoadingUp(true);
-      await new Promise((resolve) => setTimeout(resolve, 400));
-      const response = await axios.post("/api/auth/login", formData);
+      setLoadingUp(true)
+      // await new Promise((resolve) => setTimeout(resolve, 3000));
+      const response = await axios.post("/api/auth/login", formData)
 
       if (response.status === 200) {
-        clientRedirect(response.data.id, response.data.rol);
+        clientRedirect(response.data.id, response.data.rol)
         if (response.data.rol === "cocina") {
-          router.refresh();
-          router.push("/cocina");
+          router.refresh()
+          router.push("/cocina")
         }
         if (response.data.rol === "repartidor") {
-          router.refresh();
-          router.push("/repartidor");
+          router.refresh()
+          router.push("/repartidor")
         }
         if (response.data.rol === "administrador") {
-          router.refresh();
-          router.push("/admin/viandas");
+          router.refresh()
+          router.push("/admin/viandas")
         }
       } else {
-        setError(response.data.error);
+        setError(response.data.error)
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-    setLoadingUp(false);
-  });
+    setLoadingUp(false)
+  })
 
   useEffect(() => {
     if (user) {
       const googleData = {
         nombreCompleto: user.displayName,
         email: user.email,
-      };
+      }
       try {
         axios.post("/api/auth/loginGoogle", googleData).then((res) => {
           if (res.status === 200) {
-            clientRedirect(res.data.id, res.data.rol);
+            clientRedirect(res.data.id, res.data.rol)
           }
-        });
+        })
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     }
-  }, [user]);
+  }, [user])
 
   return (
     <>
@@ -130,9 +128,7 @@ export const LoginForm = () => {
               <div className="divider mt-2"></div>
               <div className="flex flex-col mt-6 gap-4 justify-center">
                 <div className="flex flex-col ">
-                  <span className="label-text text-sm font-medium mb-1">
-                    Email
-                  </span>
+                  <span className="label-text text-sm font-medium mb-1">Email</span>
                   <input
                     className="input input-bordered input-sm w-full min-w-full rounded h-7"
                     type="text"
@@ -149,9 +145,7 @@ export const LoginForm = () => {
                     })}
                   />
                   {errors.email ? (
-                    <span className="mt-1 text-xs text-warning">
-                      {errors.email.message}
-                    </span>
+                    <span className="mt-1 text-xs text-warning">{errors.email.message}</span>
                   ) : (
                     <span className="mt-1 text-xs">
                       <br></br>
@@ -159,9 +153,7 @@ export const LoginForm = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <span className="label-text text-sm font-medium mb-1">
-                    Contraseña
-                  </span>
+                  <span className="label-text text-sm font-medium mb-1">Contraseña</span>
                   <div className="flex items-center">
                     <input
                       className="relative input input-bordered input-sm w-full min-w-full rounded h-7"
@@ -174,17 +166,11 @@ export const LoginForm = () => {
                       className="relative flex right-8 items-center ml-2 h-full mr-10"
                       onClick={passwordVisibility}
                     >
-                      {visible ? (
-                        <AiOutlineEye className="text-xl" />
-                      ) : (
-                        <AiOutlineEyeInvisible className="text-xl" />
-                      )}
+                      {visible ? <AiOutlineEye className="text-xl" /> : <AiOutlineEyeInvisible className="text-xl" />}
                     </button>
                   </div>
                   {error ? (
-                    <span className="mt-4 text-xs text-warning text-center">
-                      {error}
-                    </span>
+                    <span className="mt-4 text-xs text-warning text-center">{error}</span>
                   ) : (
                     <span className="mt-4 text-xs">
                       <br></br>
@@ -201,9 +187,7 @@ export const LoginForm = () => {
                   Iniciar sesión segura
                 </button>
               </div>
-              <p className="mt-4 flex text-sm justify-center">
-                ¿No tienes cuenta?
-              </p>
+              <p className="mt-4 flex text-sm justify-center">¿No tienes cuenta?</p>
               <div className="flex text-sm underline justify-center">
                 <Link href="/catalog/registro">Registrate</Link>
               </div>
@@ -221,5 +205,5 @@ export const LoginForm = () => {
         </FormResponsiveContainer>
       </RowResponsive>
     </>
-  );
-};
+  )
+}

@@ -145,63 +145,68 @@ function Pedidos({tokenData}) {
               return (
                 <div key={id}>
                   <div className="flex bg-base-200 flex-col md:flex-row md:justify-between w-full items-center rounded md:mr-5">
-                    <div className="flex flex-col md:flex-row justify-evenly w-full items-start ml-6 md:ml-3 mb-3 md:mb-0">
+                    <div className="flex flex-col md:flex-row justify-evenly w-full items-start ml-6 mt-3 md:ml-3 mb-3 md:mb-0 md:mt-0">
                       <h1 className="md:mr-10">
                         <strong>Pedido No: </strong> {idTransaccion}
                       </h1>
                       <h1 className="md:mr-10">
-                        <strong>Comprado el: </strong> {fecha.slice(0, 10)}
+                        <strong>Fecha de compra: </strong> {fecha.slice(0, 10)}
                       </h1>
                       <h1 className="md:mr-10">
-                        <strong>Total: </strong> ${totalVenta}
+                        <strong>Total compra: </strong> ${parseFloat(totalVenta).toFixed(2)}
                       </h1>
                       <h1 className="md:mr-5">
-                        <strong>Metodo de pago </strong> {metodoPago}
+                        <strong>Metodo de pago: </strong> {metodoPago}
                       </h1>
-                    </div>
-
-                    {/* <button className="flex justify-center items-center gap-x-2 first-letter:font-bold btn-accent bg-opacity-80 px-16 py-1 rounded w-60 ">
-                        Ver pedido
-                      </button> */}
-                      
+                    </div>                      
                   </div>
-                  <div className="flex flex-col md:flex-row md:justify-between mt-1 mb-5">
+
+
+                  <div className="flex flex-col md:flex-row md:justify-around md:items-stretch mt-1 mb-5">
                     {(detallePedido) ? (
                       detallePedido.map(({ viandaId, viandaImagen, viandaNombre, precio, cantidad, total }) => {
                         return (
-                          <div
-                            className="bg-base-100 shadow-xl border rounded-3xl border-slate900/10 my-3 md:m-4 w-80 md:w-40"
+                          <Link
+                            href={`/catalog/mi-cuenta/pedidos?modal=${viandaId}`}
                             key={viandaId}
+                            className="transform transition-transform hover:scale-105"
+                            scroll={false}
                           >
-                            <div className="flex md:flex-col flex-row justify-start items-start">
-                              <div className="avatar">
-                                <div className="w-36 max-h-48 md:w-full rounded-3xl md:rounded-b-none">
-                                  <Image
-                                    width={200}
-                                    height={200}
-                                    alt="imagen de la vianda"
-                                    className="object-cover"
-                                    src={viandaImagen}
-                                  />
+                            <div
+                              className="md:items-stretch bg-base-100 shadow-xl border rounded-3xl border-slate900/10 my-3 md:m-4 w-80 md:w-40"
+                              key={viandaId}
+                            >                              
+                              <div className="flex md:flex-col flex-row justify-start items-start">
+                                <div className="avatar">
+                                  <div className="w-36 max-h-48 md:w-full rounded-3xl md:rounded-b-none">
+                                    <Image
+                                      width={200}
+                                      height={200}
+                                      alt="imagen de la vianda"
+                                      className="object-cover"
+                                      src={viandaImagen}
+                                    />
+                                  </div>
                                 </div>
-                              </div>
 
-                              <div className="flex flex-col justify-start items-start gap-1 p-1 ml-2 mr-2 w-full">
-                                <h1 className="font-bold leading-4 my-1">{viandaNombre}</h1>
-                                <h1>Precio: ${precio}</h1>
-                                <h1>Cantidad: {cantidad}</h1>
-                                <h1 className="badge my-2 bg-accent/50 rounded border-none">
-                                  <strong>Total: </strong> ${total}
-                                </h1>
-                              </div>
+                                <div className="flex flex-col justify-start items-start gap-1 p-1 ml-2 mr-2 w-full">
+                                  <h1 className="font-bold leading-4 my-1 w-36 md:h-9">{viandaNombre}</h1>
+                                  <h1><strong>${parseFloat(precio).toFixed(2)}</strong></h1>
+                                  <h1>Cantidad: {cantidad}</h1>
+                                  <h1 className="flex justify-center badge-lg my-2 bg-accent/50 rounded border-none">
+                                    Total:  ${parseFloat(total).toFixed(2)}
+                                  </h1>
+                                </div>
+                              </div>                            
                             </div>
-                          </div>
+                          </Link>                          
                         )
                       })
                     ) : (
                       <p>Sin datos</p>
                     )}
                   </div>
+                  <hr className="bg-neutral/30 mb-7 mt-0 h-0.5" />
                 </div>
               )
             })
