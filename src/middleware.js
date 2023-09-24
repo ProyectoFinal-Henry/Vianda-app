@@ -22,7 +22,7 @@ export async function middleware(request) {
       if (rol === "administrador") {
         return NextResponse.next()
       } else {
-        return NextResponse.redirect(new URL(`/catalog/role-redirect?from=${rol}&to=administrador`, request.url))
+        return NextResponse.redirect(new URL(`/role-redirect?from=${rol}&to=administrador`, request.url))
       }
     }
 
@@ -30,14 +30,14 @@ export async function middleware(request) {
       if (rol === "cocina" || rol === "administrador") {
         return NextResponse.next()
       } else {
-        return NextResponse.redirect(new URL(`/catalog/role-redirect?from=${rol}&to=cocina`, request.url))
+        return NextResponse.redirect(new URL(`/role-redirect?from=${rol}&to=cocina`, request.url))
       }
     }
     if (request.nextUrl.pathname.includes("/repartidor")) {
       if (rol === "repartidor" || rol === "administrador") {
         return NextResponse.next()
       } else {
-        return NextResponse.redirect(new URL(`/catalog/role-redirect?from=${rol}&to=repartidor`, request.url))
+        return NextResponse.redirect(new URL(`/role-redirect?from=${rol}&to=repartidor`, request.url))
       }
     }
   }
