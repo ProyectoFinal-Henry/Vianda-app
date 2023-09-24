@@ -51,7 +51,7 @@ const RoleRedirectPage = () => {
             Volver al Home
           </Link>
           <Link
-            href={`/catalog/role-redirect?from=${from}&to=${to}&logout=true`}
+            href={`/role-redirect?from=${from}&to=${to}&logout=true`}
             className=" bg-accent text-white px-6 py-3 rounded-3xl text-[14px] transition-transform hover:scale-110 text-lg font-semibold "
           >
             Ingresar como {to}
