@@ -157,9 +157,8 @@ const CardsCheckout = ({ viandasDia, dia }) => {
                   />
                 </div>
               </div>
-              <span className="badge m-1 bg-accent/50 rounded border-none">{viandaSeleccionada.tipo}</span>
+              <span className="badge m-1 bg-accent/50 rounded border-none">{viandaSeleccionada.tipo === "sinHarinas" ? "sin harina" : viandaSeleccionada.tipo}</span>
             </div>
-
             <div
               id="cardBody"
               className="flex flex-col justify-between gap-1 p-1 min-h-[165px]"
