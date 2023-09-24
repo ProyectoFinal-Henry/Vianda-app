@@ -12,8 +12,10 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import { UserAuth } from "@/context/AuthContext"
 import { useSearchParams } from "next/navigation"
+import { useCarrito } from "@/context/CarritoContext"
 
 export const LoginForm = () => {
+  const { viandas } = useCarrito()
   const { user, googleLogin } = UserAuth()
   const router = useRouter()
   const [visible, setVisible] = useState(false)
@@ -30,7 +32,7 @@ export const LoginForm = () => {
       router.refresh()
       const hayPedido = await axios.get(`/api/usuarios/${id}`)
 
-      if (hayPedido.data.carrito !== "[]") {
+      if (hayPedido.data.carrito !== "[]" || viandas.length !== 0) {
         router.push("/catalog/checkout")
       } else {
         router.push("/catalog")

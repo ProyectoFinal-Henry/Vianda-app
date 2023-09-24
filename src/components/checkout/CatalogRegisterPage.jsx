@@ -19,7 +19,7 @@ import { creation } from "@/app/api/email/templates"
 
 const CatalogRegisterPage = ({tokenData}) => {
   const router = useRouter()
-  const { precioTotal, viandas, setViandas } = useCarrito();
+  const { precioTotal, viandas, setViandas, setFlagLogeed, setUserDataCarrito } = useCarrito();
   const [semana, setSemana] = useState([])
   const [ready, setReady] = useState(false)
   const [loader, setLoader] = useState("off")
@@ -60,6 +60,10 @@ const CatalogRegisterPage = ({tokenData}) => {
 
   useEffect(() => {
     semanal()
+    if(tokenData.rol === "cliente"){
+      setUserDataCarrito(tokenData)
+      setFlagLogeed(true)
+    }
   }, [])
 
 
@@ -67,7 +71,6 @@ const CatalogRegisterPage = ({tokenData}) => {
     if(precioTotal !== 0){
       
       setLoader("on");
-
       if (tokenData.rol !== "cliente") {
         setLoader("off")
         window.alert("Es necesario estar LOGUEADO como cliente para poder finalizar el pedido.")
