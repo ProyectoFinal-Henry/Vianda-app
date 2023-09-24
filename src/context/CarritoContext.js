@@ -31,16 +31,13 @@ export const CarritoProvider = ({ children }) => {
     const actualizarCarrito = () => {
         const contadorCantidad = viandas.reduce((total, producto) => total + producto.cantidad, 0);
         setCantidadTotal(contadorCantidad || 0);
-
         const contadorPrecio = viandas.reduce(
             (total, producto) => Number(total) + Number(producto.precio) * Number(producto.cantidad), 0);
         setPrecioTotal(contadorPrecio || 0);
-
         localStorage.setItem("viandas", JSON.stringify(viandas));
-
-        if (flagLogeed) {
+        if (flagLogeed === true) {
             const carritoString = JSON.stringify(viandas);
-            if (carritoString.length > 5) {
+            if (carritoString.length > 1) {
                 carritoPUT(carritoString);
             }
         }
@@ -114,12 +111,27 @@ export const CarritoProvider = ({ children }) => {
     }, [viandas]);
 
     useEffect(() => {
-        checkSavedData().then((result) => {
-            if (result && result.success) {
-                setViandas(result.viandas);
-                localStorage.setItem("viandas", JSON.stringify(result.viandas));
-            }
-        });
+        if (flagLogeed === true) {
+            checkSavedData().then((result) => {
+                console.log("🚀 ~ file: CarritoContext.js:117 ~ checkSavedData ~ result:", result)
+                if (result && result.success) {
+                    if (result.viandas.length > viandas.length) {
+                        setViandas(result.viandas)
+                    } else {
+                        const carritoString = JSON.stringify(viandas);
+                        if (carritoString.length > 1) {
+                            carritoPUT(carritoString);
+                        }
+                    }
+                }
+                if (result.success === false) {
+                    const carritoString = JSON.stringify(viandas);
+                    if (carritoString.length > 1) {
+                        carritoPUT(carritoString);
+                    }
+                }
+            });
+        }
     }, [flagLogeed]);
 
 
