@@ -13,6 +13,11 @@ const Detalle = ({ data }) => {
   const router = useRouter()
   if (!modal) return null
 
+  const handleGoBack = () => {
+    // Navegar hacia atrás en la historia del navegador
+    router.back();
+  };
+
   const {
     id,
     imagen,
@@ -56,13 +61,9 @@ const Detalle = ({ data }) => {
               <h1 className="text-left text-xl md:text-xl font-semibold tracking-wider text-black    px-8  rounded-lg">
                 {nombre}
               </h1>{" "}
-              <Link
-                href="/catalog"
-                className=" "
-                scroll={false}
-              >
-                <CgCloseO className=" btn btn-accent rounded-full p-1 text-base-100 hover:text-warning  text-5xl " />
-              </Link>
+              <button onClick={handleGoBack} className=" ">
+                <CgCloseO className="btn btn-accent rounded-full p-1 text-base-100 hover:text-warning text-5xl" />
+              </button>
             </div>
 
             <div className="avatar relative  min-w-full mt-2 rounded-xl ">

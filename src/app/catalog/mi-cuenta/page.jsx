@@ -17,10 +17,8 @@ function MiCuenta() {
   }
 
   return (
-    <>
-      <RowResponsive>
-        <MisDatos tokenData={tokenData} />
-      </RowResponsive>
+    <>      
+        <MisDatos tokenData={tokenData} />      
     </>
   );
 }
