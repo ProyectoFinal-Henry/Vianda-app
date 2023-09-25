@@ -1,7 +1,7 @@
 import { cookies } from "next/headers"
 import jwt from "jsonwebtoken"
 import Pedidos from "@/components/mi-cuenta/Pedidos"
-import Detalle from "@/components/detailll/Detalle"
+import DetallePedido from "@/components/mi-cuenta/DetallePedidos"
 import axios from "axios"
 
 async function MisPedidos() {
@@ -23,7 +23,7 @@ async function MisPedidos() {
 
   return (
     <>
-      <Detalle data={data} />
+      <DetallePedido data={data} />
       <Pedidos tokenData={tokenData} />
     </>
   )
