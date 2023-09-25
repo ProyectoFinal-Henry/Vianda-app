@@ -38,22 +38,20 @@ const CardsPedidos = ({ pedidos }) => {
                       <p className="">Cliente:</p>
                       <p className=""> {ele.usuario.nombreCompleto}</p>
                     </div>
-                    {/* {ele.detallePedido.map((element, i) => (
-                      
-                        <div
-                          key={i}
-                          className="flex flex-row gap-1"
-                        >
-                          <p className="font-semibold">{element.cantidad}</p>
-                          <p>{element.viandaNombre.charAt(0).toUpperCase() + element.viandaNombre.slice(1)}</p>
-                        </div>
-                      
-                    ))} */}
+                    {ele.detallePedido.map((element, i) => (
+                      <div key={i} className="flex flex-row gap-1 text-xl">
+                        <p className="font-semibold">{element.cantidad}</p>
+                        <p>
+                          {element.viandaNombre.charAt(0).toUpperCase() +
+                            element.viandaNombre.slice(1)}
+                        </p>
+                      </div>
+                    ))}
                   </div>
 
                   <div id="Pedido" className="flex flex-col items-center">
                     <p className="text-xl font-black">#PEDIDO:</p>
-                    <p>{ele.idTransaccion}</p>
+                    <p>{ele.id}</p>
                   </div>
                 </div>
 
@@ -88,7 +86,7 @@ const CardsPedidos = ({ pedidos }) => {
                   <div className="py-2">
                     <Link
                       key={ele.id}
-                      href={`/repartidor?modalentrega=${ele.fk_usuarioId}`}
+                      href={`/repartidor?modalentrega=${ele.id}`}
                     >
                       <button className="bg-white p-2 py-4 rounded transform transition-transform hover:scale-110 ">
                         <FaHome

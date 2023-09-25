@@ -16,9 +16,7 @@ const Modallisto = ({ pendientes }) => {
   if (!modalentrega) return null;
 
   //-----
-  const pendiente = pendientes.find(
-    (p) => p.fk_usuarioId === parseInt(modalentrega)
-  );
+  const pendiente = pendientes.find((p) => p.id === parseInt(modalentrega));
 
   const {
     idTransaccion,
@@ -45,7 +43,7 @@ const Modallisto = ({ pendientes }) => {
             <div className=" flex flex-col  items-center font-medium  p-3 pb-6 rounded gap-3 ">
               <div className="text-6xl flex flex-row gap-1  ">
                 <p>#Pedido:</p>
-                <p className="text-6xl">{idTransaccion}</p>
+                <p className="text-6xl">{id}</p>
               </div>
 
               <div className=" flex flex-row gap-1 mt-2  text-[23px] font-extrabold">
