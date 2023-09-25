@@ -116,7 +116,8 @@ function NavBar({tokenData}) {
               tabIndex={0}
               className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 ${menuOpen ? "hidden" : ""}`}
             >
-              <li>
+              {logeado? (
+                <li>
                 <Link
                   href={"/catalog/mi-cuenta"}
                   className="justify-between"
@@ -124,6 +125,8 @@ function NavBar({tokenData}) {
                   Mi Cuenta
                 </Link>
               </li>
+              ) : (null)}
+              
 
               <li>
                 {!logeado ? (

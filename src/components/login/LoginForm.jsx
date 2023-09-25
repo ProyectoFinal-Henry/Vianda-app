@@ -21,7 +21,6 @@ export const LoginForm = () => {
   const [visible, setVisible] = useState(false)
   const [loadingUp, setLoadingUp] = useState(false)
   const [error, setError] = useState("")
-  // const [rol, setRol] = useState("")
 
   const searchParams = useSearchParams()
   const params = new URLSearchParams(searchParams)
@@ -58,7 +57,6 @@ export const LoginForm = () => {
   const onSubmit = handleSubmit(async (formData) => {
     try {
       setLoadingUp(true)
-      // await new Promise((resolve) => setTimeout(resolve, 3000));
       const response = await axios.post("/api/auth/login", formData)
 
       if (response.status === 200) {
