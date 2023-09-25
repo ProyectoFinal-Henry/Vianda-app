@@ -89,7 +89,7 @@ function NavBar({ tokenData }) {
           </Link>
         </div>
         <div className="flex flex-row items-center justify-between gap-x-2">
-          <p className="mx-4 ">{name}</p>
+          <p className="mx-2">{name}</p>
           <details className="dropdown dropdown-end">
             <summary className="btn bg-opacity-0 border-0 px-0 py-0 w-12 h-12 rounded-full">
               {user ? (
