@@ -143,18 +143,7 @@ const CardsCheckout = ({ viandasDia, dia }) => {
             id="card"
           >
             <div className="flex flex-col items-center justify-center gap-y-1">
-              {/* <div className="avatar max-h-36"> */}
-              {/*   <div
-                  className="w-full
-                            rounded-t-xl"
-                > */}
-                  {/* <Image
-                    width={200}
-                    height={200}
-                    alt="imagen de la vianda"
-                    className="object-cover w-auto h-auto "
-                    src={viandaSeleccionada.imagen}
-                    /> */}
+       
                       <figure>
               <Image
               width={200}
@@ -164,8 +153,7 @@ const CardsCheckout = ({ viandasDia, dia }) => {
                 alt={viandaSeleccionada.nombre}
               />
             </figure>
-                {/* </div> */}
-              {/* </div> */}
+              
               <span className="badge m-1 bg-accent/50 rounded border-none">
                 {viandaSeleccionada.tipo === "sinHarinas" ? "sin harina" : viandaSeleccionada.tipo}
               </span>
