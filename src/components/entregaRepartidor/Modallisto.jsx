@@ -19,7 +19,6 @@ const Modallisto = ({ pendientes }) => {
   const pendiente = pendientes.find((p) => p.id === parseInt(modalentrega));
 
   const {
-    idTransaccion,
     id,
     usuario: { nombreCompleto, direccion },
   } = pendiente;
