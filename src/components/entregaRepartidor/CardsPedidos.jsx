@@ -83,21 +83,37 @@ const CardsPedidos = ({ pedidos }) => {
                       <FaMapMarkerAlt className="text-6xl text-red-700" />
                     </button>
                   </Link>
-                  <div className="py-2">
+                  {/* <div className="py-2">
                     <Link
                       key={ele.id}
                       href={`/repartidor?modalentrega=${ele.id}`}
                     >
-                      <button className="bg-white p-2 py-4 rounded transform transition-transform hover:scale-110 ">
+                      <button className="bg-white p-2 py-4 rounded  ">
                         <FaHome
                           className={`text-6xl bg ${
                             ele.estado === "despachado"
-                              ? "text-[#FF0000]"
+                              ? "text-[#FF0000] transform transition-transform hover:scale-110"
                               : "text-[#0F9903]"
                           }`}
                         />
                       </button>
                     </Link>
+                  </div> */}
+                  <div className="py-2">
+                    {ele.estado === "despachado" ? (
+                      <Link
+                        key={ele.id}
+                        href={`/repartidor?modalentrega=${ele.id}`}
+                      >
+                        <button className="bg-white p-2 py-4 rounded transform transition-transform hover:scale-110 ">
+                          <FaHome className={`text-6xl bg text-[#FF0000] `} />
+                        </button>
+                      </Link>
+                    ) : (
+                      <div className="bg-white p-2 py-4 rounded  ">
+                        <FaHome className={`text-6xl bg  text-[#0F9903]`} />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
