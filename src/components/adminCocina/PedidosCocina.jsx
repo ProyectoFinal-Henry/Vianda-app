@@ -122,7 +122,8 @@ const PedidosCocina = ({ dataPedido }) => {
     try {
       const resultado = await axios.put(`/api/pedidos/`, { idPedido, estado });
       if (resultado.status === 200) {
-        alert('Pedido despachado con éxito.');
+        calcularEstadisticas();
+        alert('Pedido despachado con éxito.')
         window.location.reload();
       } else {
         alert('Error al despachar el pedido.');
