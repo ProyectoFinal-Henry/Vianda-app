@@ -12,22 +12,22 @@ const FullWidthHeader = () => {
       <Link
         href={"/catalog/checkout"}
         className="w-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-500
-       flex flex-col justify-center min-h-[50vh] md:min-h-[30vh] -mt-5 "
+       flex flex-col justify-center   -mt-5 py-8 "
       >
-        <div className="flex flex-col md:flex-row items-center justify-around ">
-          <h2 className="text-white font-extrabold text-4xl md:text-5xl text-center min-w-full md:min-w-fit ">
+        <div className="flex flex-col md:flex-row items-center justify-around gap-8 ">
+          <h2 className="text-white font-extrabold text-4xl md:text-4xl lg:text-5xl text-center min-w-full md:min-w-fit ">
             Con hambre
             <br className=" hidden md:block" /> y sin tiempo?
           </h2>
 
           <Image
-            className="avatar w-60 md:w-96 "
-            src={"https://res.cloudinary.com/deezwetqk/image/upload/v1695169213/dgpfodji4vd4ttnh6uma.png"}
+            className="avatar w-80 lg:w-96 "
+            src={"https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_450/v1695169213/dgpfodji4vd4ttnh6uma.png"}
             height={"300"}
             width={"300"}
             alt="banner image"
           />
-          <h2 className="text-slate-900 font-extrabold text-2xl md:text-5xl text-center min-w-full md:min-w-fit">
+          <h2 className="text-slate-900 font-extrabold text-4xl md:text-4xl lg:text-5xl text-center min-w-full md:min-w-fit">
             Te llevamos
             <br className=" hidden md:block" /> el almuerzo.
           </h2>
@@ -36,10 +36,10 @@ const FullWidthHeader = () => {
       <Link
         href={"/catalog/checkout"}
         className="w-full bg-gradient-to-b from-primary via-amber-2 to-base-100
-       flex flex-col justify-center min-h-[40vh] "
+       flex flex-col justify-center  "
       >
         <div className="flex flex-col items-center justify-around md:items-center md:justify-center gap-8 md:gap-12 ">
-          <h2 className="text-slate-700 font-extrabold text-4xl md:text-4xl text-center  md:min-w-fit mt-8 md:mt-6">Cómo Funciona?</h2>
+          <h2 className="text-slate-700 font-extrabold text-4xl md:text-4xl lg:text-5xl text-center  md:min-w-fit mt-8 md:mt-6">Cómo Funciona?</h2>
 
           <div
             className="flex flex-row flex-wrap justify-around gap-4 md:gap-x-12"

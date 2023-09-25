@@ -12,11 +12,18 @@ import Link from "next/link";
 import { UserAuth } from "@/context/AuthContext";
 import LoadingComponentApp from "@/app/loading";
 import { useRouter } from "next/navigation";
+import { useCarrito } from "@/context/CarritoContext";
 
-function MisDatos() {
-  const router = useRouter()
+function MisDatos({ tokenData }) {
+  const { setFlagLogeed, setUserDataCarrito, setViandas } = useCarrito();
+  const router = useRouter();
   const { user, googleLogout } = UserAuth();
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setUserDataCarrito(tokenData);
+    setFlagLogeed(true);
+  }, []);
 
   const {
     register,
@@ -44,26 +51,19 @@ function MisDatos() {
   });
 
   useEffect(() => {
-    try {  
-        axios.get("/api/auth/check").then((res) => {
-          setValue("nombre", res.data.nombre);
-          setValue("email", res.data.email);
-          setValue("dni", res.data.dni);
-          setValue("telefono", res.data.telefono);
-          setValue("direccion", res.data.direccion);
-          setUserData({
-            nombre: res.data.nombre,
-            email: res.data.email,
-            dni: res.data.dni,
-            telefono: res.data.telefono,
-            direccion: res.data.direccion,
-            id: res.data.id,
-          });
-        });
-      }
-      catch (error) {
-      console.log(error);
-    }
+    setValue("nombre", tokenData.nombre);
+    setValue("email", tokenData.email);
+    setValue("dni", tokenData.dni);
+    setValue("telefono", tokenData.telefono);
+    setValue("direccion", tokenData.direccion);
+    setUserData({
+      nombre: tokenData.nombre,
+      email: tokenData.email,
+      dni: tokenData.dni,
+      telefono: tokenData.telefono,
+      direccion: tokenData.direccion,
+      id: tokenData.id,
+    });
     const timeoutId = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
@@ -92,7 +92,7 @@ function MisDatos() {
         formData
       );
       const updateToken = await axios.put("/api/auth/modify", formData);
-      router.refresh()
+      router.refresh();
       setSuccess(true);
 
       await new Promise((resolve) => setTimeout(resolve, 2500));
@@ -103,14 +103,18 @@ function MisDatos() {
   });
 
   const handleGoogleLogout = async () => {
+    setUserDataCarrito({ id: 0 });
+    setFlagLogeed(false);
+    setViandas([]);
+
     try {
-      const response = await axios.post("/api/auth/logout")
-      if (response.status === 200) await googleLogout()
-      router.push("/catalog/login")
+      const response = await axios.post("/api/auth/logout");
+      if (response.status === 200) await googleLogout();
+      router.push("/catalog/login");
     } catch (error) {
-      await googleLogout()
+      await googleLogout();
     }
-  }
+  };
 
   return (
     <>
@@ -119,10 +123,10 @@ function MisDatos() {
           <LoadingComponentApp />
         </div>
       ) : (
-        <div className="flex flex-col md:flex-row items-start">
+        <div className="flex flex-col md:flex-row items-start max-w-full lg:max-w-6xl lg:mx-auto min-h-[90vh]">
           <div
             id="NavAdmin"
-            className="navbar text-black z-10 text-lg md:m-10 md:my-[10vh]"
+            className="navbar text-black z-10 text-lg md:m-10 md:my-[10vh]" 
           >
             <div className="navbar-start ">
               <div className="dropdown">
@@ -152,8 +156,7 @@ function MisDatos() {
                   </li>
                   <hr className="bg-black" />
                   <li>
-                    <button
-                    onClick={handleGoogleLogout}>
+                    <button onClick={handleGoogleLogout}>
                       <CgLogOff className="text-base text-accent" /> Cerrar
                       sesion
                     </button>
@@ -359,12 +362,12 @@ function MisDatos() {
                 </div>
               </div>
 
-                <button
-                  type="submit"
-                  className="flex items-center gap-x-2 first-letter:font-bold btn-accent px-10 py-1 rounded-md ml-3 mt-6 mb-0"
-                >
-                  Guardar Cambios
-                </button>
+              <button
+                type="submit"
+                className="flex items-center gap-x-2 first-letter:font-bold btn-accent px-10 py-1 rounded-md ml-3 mt-6 mb-0"
+              >
+                Guardar Cambios
+              </button>
             </form>
           </div>
         </div>
