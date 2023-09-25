@@ -25,10 +25,16 @@ const Modallisto = ({ pendientes }) => {
 
   const cambioEstadoPedido = async (idPedido) => {
     try {
-      await axios.put("/api/pedidos", {
+      const resultado = await axios.put("/api/pedidos", {
         idPedido,
         estado: "entregado",
       });
+      if (resultado.status === 200) {
+        window.location.reload();
+      } else {
+        alert("Error al entregar el pedido.");
+      }
+      // window.location.reload();
     } catch (error) {
       console.log(error);
     }
