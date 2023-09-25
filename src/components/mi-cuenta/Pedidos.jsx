@@ -58,7 +58,7 @@ function Pedidos({tokenData}) {
       <div className="flex flex-col md:flex-row items-start">
         <div
           id="NavAdmin"
-          className="navbar text-black z-10 text-lg md:m-10 md:my-[10vh]"
+          className="navbar text-black z-10 text-lg md:mx-[4vw] md:my-[10vh]"
         >
           <div className="navbar-start ">
             <div className="dropdown">
@@ -101,7 +101,7 @@ function Pedidos({tokenData}) {
             ></Link>
           </div>
 
-          <div className="navbar-center hidden lg:flex">
+          <div className="navbar-center hidden md:flex">
             <ul className="menu menu-vertical px-1">
               <li tabIndex={1}>
                 <Link
@@ -137,7 +137,7 @@ function Pedidos({tokenData}) {
           </div>
         </div>
 
-        <div className="flex flex-col justify-start md:justify-start items-center bg-base-100 w-[90%] mx-[5%] mb-[5%] md:w-[300%] md:mx-[0%] mr-0 md:mr-[8%] md:my-[10vh] rounded-2xl border-2 border-neutral/30 drop-shadow-lg px-2 pt-2 pb-3 ">
+        <div className="flex flex-col justify-start md:justify-start items-center bg-base-100 w-[90%] mx-[5%] mb-[5%] md:w-[300%] md:mx-[4%] md:mr-[5%] lg:ml-0 md:my-[10vh] rounded-2xl border-2 border-neutral/30 drop-shadow-lg px-2 pt-2 pb-3 ">
           <h1 className="w-full font-bold ml-3 p-2">MIS PEDIDOS</h1>
 
           {(dataPedido) ? (
@@ -145,7 +145,7 @@ function Pedidos({tokenData}) {
               return (
                 <div key={id}>
                   <div className="flex bg-base-200 flex-col md:flex-row md:justify-between w-full items-center rounded md:mr-5">
-                    <div className="flex flex-col md:flex-row justify-evenly w-full items-start ml-6 mt-3 md:ml-3 mb-3 md:mb-0 md:mt-0">
+                    <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-evenly w-full items-start ml-6 mt-3 md:ml-3 mb-3 md:mb-0 md:mt-0">
                       <h1 className="md:mr-10">
                         <strong>Pedido No: </strong> {idTransaccion}
                       </h1>
@@ -162,7 +162,7 @@ function Pedidos({tokenData}) {
                   </div>
 
 
-                  <div className="flex flex-col md:flex-row md:justify-around md:items-stretch mt-1 mb-5">
+                  <div className="flex flex-col md:flex-row md:flex-wrap min-[1333px]:flex-nowrap md:justify-around md:items-stretch mt-1 mb-5">
                     {(detallePedido) ? (
                       detallePedido.map(({ viandaId, viandaImagen, viandaNombre, precio, cantidad, total }) => {
                         return (
