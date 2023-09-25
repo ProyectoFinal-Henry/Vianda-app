@@ -73,7 +73,7 @@ const Detalle = ({ data }) => {
                 height={400}
                 alt="imagen de la vianda"
                 src={imagen}
-                className="object-cover rounded-xl max-h-64"
+                className="object-cover rounded-xl max-h-64 w-auto h-auto"
               />
               <p className="bg-accent py-1 px-3 rounded-md absolute right-4 bottom-4 text-3xl capitalize text-white">{tipo}</p>
 

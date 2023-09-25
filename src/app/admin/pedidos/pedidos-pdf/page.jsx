@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 })
 
 const PedidosPDFPage = ({ pedido }) => {
-  console.log("file: page.jsx:87  pedido:", pedido)
+  // console.log("file: page.jsx:87  pedido:", pedido)
   // const pedido = {
   //   id: 1,
   //   totalVenta: "50",

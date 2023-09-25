@@ -35,7 +35,7 @@ const CardsCheckout = ({ viandasDia, dia }) => {
     tipo: "Sin tipo.",
     descripcion: "Sin descricion.",
     ingredientes: "Sin ingredientes.",
-    imagen: "https://res.cloudinary.com/deezwetqk/image/upload/v1695171791/food-placeholder_lswewp.jpg",
+    imagen: "https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_250/v1695171791/food-placeholder_lswewp.jpg",
     stock: "Sin Stock",
     cantidad: 0,
     precio: 0,
@@ -143,21 +143,20 @@ const CardsCheckout = ({ viandasDia, dia }) => {
             id="card"
           >
             <div className="flex flex-col items-center justify-center gap-y-1">
-              <div className="avatar max-h-36">
-                <div
-                  className="w-full
-                            rounded-t-xl"
-                >
-                  <Image
-                    width={200}
-                    height={200}
-                    alt="imagen de la vianda"
-                    className="object-cover"
-                    src={viandaSeleccionada.imagen}
-                  />
-                </div>
-              </div>
-              <span className="badge m-1 bg-accent/50 rounded border-none">{viandaSeleccionada.tipo === "sinHarinas" ? "sin harina" : viandaSeleccionada.tipo}</span>
+       
+                      <figure>
+              <Image
+              width={250}
+              height={250}
+              className="rounded-t-xl object-cover min-h-[180px] max-h-[180px] md:min-h-[120px] md:max-h-[120px]  min-w-full"
+              src={viandaSeleccionada.imagen}
+                alt={viandaSeleccionada.nombre}
+              />
+            </figure>
+              
+              <span className="badge m-1 bg-accent/50 rounded border-none">
+                {viandaSeleccionada.tipo === "sinHarinas" ? "sin harina" : viandaSeleccionada.tipo}
+              </span>
             </div>
             <div
               id="cardBody"

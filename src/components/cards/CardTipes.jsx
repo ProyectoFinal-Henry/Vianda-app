@@ -10,13 +10,13 @@ function CardTipes() {
         </h1>
       </div>
 
-      <div className=" min-w-full flex flex-row flex-wrap  justify-between  my-6 gap-y-4 px-2">
-        <div className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px]    shadow-xl cursor-default rounded-xl md:min-h-[360px]">
+      <div className=" min-w-full flex flex-row flex-wrap  justify-center  my-6 gap-4 px-2">
+        <div className="card-compact bg-amber-300 max-w-[47%]   md:max-w-[265px]    shadow-xl cursor-default rounded-xl md:min-h-[360px]">
           <figure>
             <Image
               height={"300"}
               width={"300"}
-              className="rounded-t-xl"
+              className="rounded-t-xl object-cover min-w-full"
               src="https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_450/v1695169713/clasico_rxpd8k.png"
               alt="clasico"
             />
@@ -28,12 +28,12 @@ function CardTipes() {
           </div>
         </div>
 
-        <div className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px]   shadow-xl cursor-default  rounded-xl md:min-h-[360px]">
+        <div className="card-compact bg-amber-300 max-w-[47%]   md:max-w-[265px]   shadow-xl cursor-default  rounded-xl md:min-h-[360px]">
           <figure>
             <Image
               height={"300"}
               width={"300"}
-              className="rounded-t-xl"
+              className="rounded-t-xl object-cover min-w-full"
               src="https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_450/v1695169711/vegetariano_card_caypy4.png"
               alt="vegetariano"
             />
@@ -48,12 +48,12 @@ function CardTipes() {
           </div>
         </div>
 
-        <div className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px]   shadow-xl cursor-default rounded-xl md:min-h-[360px]">
+        <div className="card-compact bg-amber-300 max-w-[47%]   md:max-w-[265px]   shadow-xl cursor-default rounded-xl md:min-h-[360px]">
           <figure>
             <Image
               height={"300"}
               width={"300"}
-              className="rounded-t-xl"
+              className="rounded-t-xl object-cover min-w-full"
               src="https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_450/v1695169710/sin_harinas_card_tahoug.png"
               alt="sin_harinas"
             />
@@ -68,12 +68,12 @@ function CardTipes() {
           </div>
         </div>
 
-        <div className="card-compact bg-amber-300 max-w-[49%]   md:max-w-[265px]   shadow-xl cursor-default rounded-xl md:min-h-[360px]">
+        <div className="card-compact bg-amber-300 max-w-[47%]   md:max-w-[265px]   shadow-xl cursor-default rounded-xl md:min-h-[360px]">
           <figure>
             <Image
               height={"300"}
               width={"300"}
-              className="rounded-t-xl"
+              className="rounded-t-xl object-cover min-w-full"
               src="https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_450/v1695169709/dieta_zd9erw.png"
               alt="dieta"
             />

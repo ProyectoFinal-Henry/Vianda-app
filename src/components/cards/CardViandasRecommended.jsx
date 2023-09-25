@@ -24,13 +24,13 @@ async function CardRecomend() {
           Recomendados de la semana
         </h2>
       </div>
-      <div className="min-w-full flex flex-row flex-wrap  justify-between  my-6 gap-y-2 px-2">
+      <div className="min-w-full flex flex-row flex-wrap  justify-center  my-6 gap-2 px-2">
         {randomViandas.map((vianda, index) => (
           <Link
             href={`/catalog?modal=${vianda.id}`}
             scroll={false}
             key={index}
-            className="card-compact bg-amber-300 max-w-[49%] min-w-[49%]  
+            className="card-compact bg-amber-300 max-w-[47%] min-w-[47%]  
              md:max-w-[265px] md:min-w-[265px] md:min-h-[360px] 
                  shadow-xl cursor-default rounded-xl 
             active:transform active:scale-105 active:shadow-md active:bg-amber-400 transform transition-transform hover:scale-110
@@ -40,7 +40,7 @@ async function CardRecomend() {
               <Image
                 width={300}
                 height={300}
-                className="rounded-t-xl object-cover min-w-full min-h-[150px] max-h-[150px] md:min-h-[200px] md:max-h-[200px]"
+                className="rounded-t-xl object-cover min-w-full min-h-[150px] max-h-[150px] md:min-h-[200px] md:max-h-[200px] w-auto h-auto"
                 src={vianda.imagen}
                 alt={vianda.nombre}
               />
