@@ -146,8 +146,8 @@ const CardsCheckout = ({ viandasDia, dia }) => {
        
                       <figure>
               <Image
-              width={200}
-              height={200}
+              width={250}
+              height={250}
               className="rounded-t-xl object-cover min-h-[180px] max-h-[180px] md:min-h-[120px] md:max-h-[120px]  min-w-full"
               src={viandaSeleccionada.imagen}
                 alt={viandaSeleccionada.nombre}
