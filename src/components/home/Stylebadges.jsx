@@ -10,11 +10,11 @@ const Stylebadges = () => {
         className="w-full 
        flex flex-col justify-center my-12"
       >
-        <div className="flex flex-col items-center justify-around gap-8 md:gap-12 px-2 ">
-          <h2 className="text-slate-700 font-extrabold text-2xl md:text-4xl text-left md:min-w-fit mt-10 md:mt-0">Comé según tu estilo:</h2>
+        <div className="flex flex-col items-center justify-around  md:gap-12 px-2 ">
+          <h2 className="text-slate-700 font-extrabold text-2xl md:text-4xl text-left md:min-w-fit my-10 md:mt-0">Comé según tu estilo:</h2>
 
           <div
-            className="flex flex-row flex-wrap justify-between items-stretch md:min-w-[90%] px-2"
+            className="flex flex-row flex-wrap justify-center gap-8items-stretch md:min-w-[90%] gap-8 px-2"
             id="badgeWrapper"
           >
             <div

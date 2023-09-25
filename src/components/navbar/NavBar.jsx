@@ -54,11 +54,11 @@ function NavBar({tokenData}) {
         <div className="flex-1">
           <Link href="/catalog">
             <Image
-              src="https://res.cloudinary.com/deezwetqk/image/upload/v1695171792/logogreen_msunlg.png"
+              src="https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_250/v1695171792/logogreen_msunlg.png"
               height={100}
               width={250}
               alt="imagen logo"
-              className="  max-w-[180px] md:max-w-[250px] "
+              className="  max-w-[180px] md:max-w-[250px] w-auto h-auto"
             />
           </Link>
         </div>
