@@ -187,7 +187,7 @@ function Pedidos({tokenData}) {
                         <h1 className="mr-2 md:mr-0">
                           <strong>Estado </strong>
                         </h1>
-                        <h1 className={estado === "entregado" ? "badge badge-info text-lg py-3" : "badge badge-primary text-lg py-3"}>
+                        <h1 className={estado === "entregado" ? "badge badge-accent text-lg py-3" : "badge badge-warning text-lg py-3"}>
                           {estado}
                         </h1>
                       </div>
