@@ -1,15 +1,15 @@
-"use client";
-import { useSearchParams } from "next/navigation";
+"use client"
+import { useSearchParams } from "next/navigation"
 
-import CardsPedidos from "@/components/entregaRepartidor/CardsPedidos";
-import Modallisto from "@/components/entregaRepartidor/Modallisto";
-import React from "react";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import CardsPedidos from "@/components/entregaRepartidor/CardsPedidos"
+import Modallisto from "@/components/entregaRepartidor/Modallisto"
+import React from "react"
+import axios from "axios"
+import { useEffect, useState } from "react"
 // import NotAdmin from "@/components/adminLayout/NotAdmin";
-import Link from "next/link";
-import LoadingComponentApp from "../loading";
-import { RiCoinsLine } from "react-icons/ri";
+import Link from "next/link"
+import LoadingComponentApp from "../loading"
+import { RiCoinsLine } from "react-icons/ri"
 
 const RepartidorDashboard = () => {
   // const [auth, setAuth] = useState(false);
@@ -23,43 +23,43 @@ const RepartidorDashboard = () => {
   //   });
   // }, []);
 
-  const [listos, setListos] = useState([]);
-  const [total, setTotal] = useState("");
-  const [pendientes, setPendientes] = useState([]);
+  const [listos, setListos] = useState([])
+  const [total, setTotal] = useState("")
+  const [pendientes, setPendientes] = useState([])
   // !=============================================
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
-  const queryOrden = params.get("estado-orden");
+  const searchParams = useSearchParams()
+  const params = new URLSearchParams(searchParams)
+  const queryOrden = params.get("estado-orden")
 
-  const cantidadListos = listos.length > 0 ? listos.length : 0;
-  const cantidadPendientes = pendientes.length > 0 ? pendientes.length : 0;
-  const cantidadTotal = cantidadListos + cantidadPendientes;
+  const cantidadListos = listos.length > 0 ? listos.length : 0
+  const cantidadPendientes = pendientes.length > 0 ? pendientes.length : 0
+  const cantidadTotal = cantidadListos + cantidadPendientes
 
   useEffect(() => {
-    estadopedido();
-  }, []);
+    estadopedido()
+  }, [queryOrden])
   const estadopedido = async () => {
     try {
-      const res2 = await axios.get(`/api/pedidos?estado=despachado`); // trae los pedidos con estado despachado
-      setPendientes(res2.data);
-      const res3 = await axios.get(`/api/pedidos?estado=entregado`);
-      setListos(res3.data);
+      const res2 = await axios.get(`/api/pedidos?estado=despachado`) // trae los pedidos con estado despachado
+      setPendientes(res2.data)
+      const res3 = await axios.get(`/api/pedidos?estado=entregado`)
+      setListos(res3.data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   useEffect(() => {
     if (pendientes.length < 0 && listos.length < 0) {
-      setTotal(cantidadTotal);
+      setTotal(cantidadTotal)
     } else if (listos.length === 0) {
-      setTotal(cantidadPendientes);
+      setTotal(cantidadPendientes)
     } else if (pendientes.length === 0) {
-      setTotal(cantidadPendientes);
+      setTotal(cantidadPendientes)
     } else {
-      setTotal(cantidadTotal);
+      setTotal(cantidadTotal)
     }
-  }, [pendientes, listos]);
+  }, [pendientes, listos])
   // !=============================================
 
   return (
@@ -81,15 +81,11 @@ const RepartidorDashboard = () => {
               </div>
               <div className="flex flex-row gap-1">
                 <p className="text-2xl text-[1.625rem]">Listos:</p>
-                <p className="text-2xl text-[1.625rem] text-[#008B38]">
-                  {listos.length > 0 ? cantidadListos : "0"}
-                </p>
+                <p className="text-2xl text-[1.625rem] text-[#008B38]">{listos.length > 0 ? cantidadListos : "0"}</p>
               </div>
               <div className="flex flex-row gap-1">
                 <p className="text-2xl text-[1.625rem]">Pendientes:</p>
-                <p className="text-2xl text-[1.625rem] text-[#FF0000]">
-                  {pendientes.length > 0 ? cantidadPendientes : "0"}
-                </p>
+                <p className="text-2xl text-[1.625rem] text-[#FF0000]">{pendientes.length > 0 ? cantidadPendientes : "0"}</p>
               </div>
             </div>
 
@@ -115,9 +111,7 @@ const RepartidorDashboard = () => {
           </div>
         </div>
 
-        <CardsPedidos
-          pedidos={queryOrden === "entregado" ? listos : pendientes}
-        />
+        <CardsPedidos pedidos={queryOrden === "entregado" ? listos : pendientes} />
 
         <Modallisto pendientes={pendientes} />
       </>
@@ -125,7 +119,7 @@ const RepartidorDashboard = () => {
       {/* <NotAdmin /> */}
       {/* )} */}
     </div>
-  );
-};
+  )
+}
 
-export default RepartidorDashboard;
+export default RepartidorDashboard

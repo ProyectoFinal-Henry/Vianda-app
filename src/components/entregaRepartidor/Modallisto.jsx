@@ -1,44 +1,44 @@
-"use client";
+"use client"
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation"
 
-import { FaTimes } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa";
-import LoadingComponentApp from "@/app/loading";
-import Link from "next/link";
-import axios from "axios";
-
+import { FaTimes } from "react-icons/fa"
+import { FaCheck } from "react-icons/fa"
+import LoadingComponentApp from "@/app/loading"
+import Link from "next/link"
+import axios from "axios"
+import { useRouter } from "next/navigation"
 const Modallisto = ({ pendientes }) => {
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
-  const modalentrega = params.get("modalentrega");
-
-  if (!modalentrega) return null;
+  const searchParams = useSearchParams()
+  const params = new URLSearchParams(searchParams)
+  const modalentrega = params.get("modalentrega")
+  const router = useRouter()
+  if (!modalentrega) return null
 
   //-----
-  const pendiente = pendientes.find((p) => p.id === parseInt(modalentrega));
+  const pendiente = pendientes.find((p) => p.id === parseInt(modalentrega))
 
   const {
     id,
     usuario: { nombreCompleto, direccion },
-  } = pendiente;
+  } = pendiente
 
   const cambioEstadoPedido = async (idPedido) => {
     try {
       const resultado = await axios.put("/api/pedidos", {
         idPedido,
         estado: "entregado",
-      });
+      })
       if (resultado.status === 200) {
-        window.location.reload();
+        router.push(`/repartidor?estado-orden=entregado`)
+        router.refresh({ asPath: `/repartidor?estado-orden=entregado` })
       } else {
-        alert("Error al entregar el pedido.");
+        alert("Error al entregar el pedido.")
       }
-      // window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <>
@@ -68,7 +68,7 @@ const Modallisto = ({ pendientes }) => {
                 <div className="p-3 bg-white rounded-md transform transition-transform hover:scale-110">
                   <button
                     onClick={() => {
-                      cambioEstadoPedido(id);
+                      cambioEstadoPedido(id)
                     }}
                     className=" bg-[#21A600]/80 rounded-md p-2 "
                   >
@@ -91,6 +91,6 @@ const Modallisto = ({ pendientes }) => {
         <LoadingComponentApp />
       )}
     </>
-  );
-};
-export default Modallisto;
+  )
+}
+export default Modallisto
