@@ -1,13 +1,12 @@
 "use client"
-import { MdOutlineError } from "react-icons/md"; 
+import { MdOutlineError } from "react-icons/md"
 import { FcOk } from "react-icons/fc"
 import { currencyFormater } from "@/libs/utils/currencyFormater"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import Image from "next/image";
+import Image from "next/image"
 
-
-const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
+const CardsMenu = ({ viandas, dia, tipo, setViandas }) => {
   const [loader, setLoader] = useState("off")
   const viandaVacia = {
     id: 0,
@@ -40,7 +39,7 @@ const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
       const menuItem = await axios.post(`/api/menu`, { dia: dia, viandaId: e.target.value, tipo: tipo })
       setLoader("success")
       e.target.value !== "" && setViandaSeleccionada(viandasPorTipo.find((vianda) => vianda.id === Number(e.target.value)))
-      const viandasFilter = viandas.filter((vianda)=> vianda.id !== Number(e.target.value));
+      const viandasFilter = viandas.filter((vianda) => vianda.id !== Number(e.target.value))
       setViandas(viandasFilter)
       await new Promise((resolve) => setTimeout(resolve, 1500))
       setLoader("off")
@@ -55,7 +54,7 @@ const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
   return (
     <>
       <div
-        className="w-[95%] max-w-[250px] md:max-w-[210px] my-3"
+        className="w-[47%] max-w-[250px] md:max-w-[210px] my-3"
         id="cardWrapper"
       >
         <h1
@@ -84,7 +83,7 @@ const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
                     width={200}
                     height={200}
                     alt="imagen de la vianda"
-                    className={`object-cover ${loader === "success" && "animate-pulse" }`}
+                    className={`object-cover ${loader === "success" && "animate-pulse"}`}
                     src={viandaSeleccionada.imagen}
                   />
                 </div>
@@ -121,7 +120,7 @@ const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
                   )}
                   {loader === "error" && (
                     <div className="min-w-full flex flex-row justify-center items-center h-16 -mt-1 absolute top-0 left-0 bg-red-300 rounded-md">
-                      <MdOutlineError  className="text-4xl   text-red-600 " /> <span>ERROR!</span>
+                      <MdOutlineError className="text-4xl   text-red-600 " /> <span>ERROR!</span>
                     </div>
                   )}
 
@@ -130,7 +129,12 @@ const CardsMenu = ({ viandas, dia, tipo, setViandas}) => {
                     onChange={updateVianda}
                   >
                     Escoger Vianda
-                    <option key={0} value={"sinSeleccion"}>Seleccionar</option>
+                    <option
+                      key={0}
+                      value={"sinSeleccion"}
+                    >
+                      Seleccionar
+                    </option>
                     {viandasPorTipo.map(({ id, nombre }) => (
                       <option
                         key={id}
