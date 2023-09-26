@@ -26,6 +26,9 @@ export async function GET(request, { params }) {
       },
       select: {
         pedidos: {
+          orderBy: {
+            id: 'desc'
+          },
           include: {
             detallePedido: {
               include: {
