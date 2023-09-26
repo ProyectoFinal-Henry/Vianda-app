@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Swal from 'sweetalert2'
 import axios from "axios";
 
 const PedidosCocina = ({ dataPedido }) => {
@@ -19,7 +20,7 @@ const PedidosCocina = ({ dataPedido }) => {
 
 
   const router = useRouter();
-  const [filtro, setFiltro] = useState("todos");
+  const [filtro, setFiltro] = useState("pagados");
   const [detallesEstado, setDetallesEstado] = useState({});
   const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null);
   const [estadisticas, setEstadisticas] = useState({
@@ -120,13 +121,32 @@ const PedidosCocina = ({ dataPedido }) => {
 
   const despacharPedido = async (idPedido, estado) => {
     try {
-      const resultado = await axios.put(`/api/pedidos/`, { idPedido, estado });
+ const resultado = await axios.put(`/api/pedidos/`, { idPedido, estado });
       if (resultado.status === 200) {
-        calcularEstadisticas();
-        alert('Pedido despachado con éxito.')
-        window.location.reload();
+        Swal.fire({
+          title: 'Seguro que quieres despachar el pedido?',
+          text: "Esta acción no se puede revertir",
+          showCancelButton: true,
+          confirmButtonColor: '#38A169',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, quiero despachar!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            calcularEstadisticas();
+            router.refresh()
+            Swal.fire(
+              'Felicitaciones!',
+              'Tu pedido fue despachado con éxito!',
+              'success'
+              )
+          }
+        })
       } else {
-        alert('Error al despachar el pedido.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No se puedo despachar tu pedido!',
+        })
       }
     } catch (error) {
       console.error('Error al despachar el pedido:', error);
@@ -245,8 +265,7 @@ useEffect(() => {
                     const estado = "despachado";
 
                     if (
-                      verificarEstadoPedido(idPedido) === "cocinado" &&
-                      window.confirm("¿Deseas despachar este pedido?")
+                      verificarEstadoPedido(idPedido) === "cocinado"
                     ) {
                       despacharPedido(idPedido, estado);
                     }

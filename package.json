@@ -23,6 +23,7 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.40.0",
     "cookie": "^0.5.0",
+    "daisyui": "^3.6.4",
     "encoding": "^0.1.13",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
@@ -38,7 +39,7 @@
     "react-hook-form": "^7.45.4",
     "react-icons": "^4.10.1",
     "react-qr-code": "^2.0.12",
-    "daisyui": "^3.6.4",
+    "sweetalert2": "^11.7.31",
     "tailwindcss": "3.3.3"
   },
   "devDependencies": {
