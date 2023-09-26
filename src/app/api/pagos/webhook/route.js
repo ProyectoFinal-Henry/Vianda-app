@@ -36,7 +36,6 @@ export async function POST(request) {
                     };
                     const sendMail = await axios.post(`${process.env.LOCALHOST}/api/email`, pedidoPagadoMail);
                     const resultado = await axios.put(`${process.env.LOCALHOST}/api/pedidos`, { idPedido, estado })
-                    console.log("🚀 ~ file: route.js:39 ~ POST ~ sendMail:", sendMail)
                 }
             } catch (error) {
                 return NextResponse.json(error.message);

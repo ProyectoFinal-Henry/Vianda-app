@@ -8,11 +8,20 @@ import FullWidthHeader from "@/components/home/FullWidthHeader"
 import Stylebadges from "@/components/home/Stylebadges"
 import axios from "axios"
 import WhatsappBubbleComponent from "@/components/footer/WhatsappBubble"
-
+import { redirect } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 
-async function Homepage() {
+async function Homepage({searchParams}) {
+
+  const parameters = new URLSearchParams(searchParams);
+  const status = parameters.get("status")
+  //Por si estamos volviendo desde mercado pago, leemos la query y en caso de que exista el status = approved
+  // lo redireccionamos a mi cuenta.
+  if( status === "approved"){
+    redirect("/catalog/mi-cuenta/pedidos")
+  }
+
   const res = await axios.get(`${process.env.LOCALHOST}/api/menu?all=true`)
   const data = res.data
 
