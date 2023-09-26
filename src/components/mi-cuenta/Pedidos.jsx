@@ -141,26 +141,59 @@ function Pedidos({tokenData}) {
           <h1 className="w-full font-bold ml-3 p-2">MIS PEDIDOS</h1>
 
           {(dataPedido) ? (
-            dataPedido.map(({ totalVenta, idTransaccion, fecha, id, metodoPago, detallePedido }) => {
+            dataPedido.map(({ totalVenta, idTransaccion, fecha, id, metodoPago, detallePedido, estado }) => {
               return (
                 <div key={id}>
-                  <div className="flex bg-base-200 flex-col md:flex-row md:justify-between w-full items-center rounded md:mr-5">
-                    <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-evenly w-full items-start ml-6 mt-3 md:ml-3 mb-3 md:mb-0 md:mt-0">
-                      <h1 className="md:mr-10">
-                        <strong>Pedido No: </strong> {idTransaccion}
-                      </h1>
-                      <h1 className="md:mr-10">
-                        <strong>Fecha de compra: </strong> {fecha.slice(0, 10)}
-                      </h1>
-                      <h1 className="md:mr-10">
-                        <strong>Total compra: </strong> ${parseFloat(totalVenta).toFixed(2)}
-                      </h1>
-                      <h1 className="md:mr-5">
-                        <strong>Metodo de pago: </strong> {metodoPago}
-                      </h1>
+                  <div className="flex bg-base-200 flex-row md:justify-between md:w-[70vw] rounded ">
+                    <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-evenly md:w-[100%] items-start ml-6 mt-3 md:ml-0 mb-3 md:mb-0 md:mt-0">
+
+                      <div className='flex md:flex-col justify-center items-center'>
+                        <h1 className="mr-2 md:mr-0">
+                          <strong>Pedido No. </strong> 
+                        </h1>
+                        <h1>
+                          { idTransaccion}
+                        </h1>
+                      </div>
+
+                      <div className='flex md:flex-col justify-center items-center'>
+                        <h1 className="mr-2 md:mr-0">
+                          <strong>Fecha de compra </strong>
+                        </h1>
+                        <h1>
+                          {fecha.slice(0, 10)}
+                        </h1>
+                      </div>
+
+                      <div className='flex md:flex-col justify-center items-center'>
+                        <h1 className="mr-2 md:mr-0">
+                          <strong>Total compra </strong>
+                        </h1>
+                        <h1>
+                          ${parseFloat(totalVenta).toFixed(2)}
+                        </h1>
+                      </div>
+
+                      <div className='flex md:flex-col justify-center items-center'>
+                        <h1 className="mr-2 md:mr-0">
+                          <strong>Metodo de pago </strong>
+                        </h1>
+                        <h1>
+                          {metodoPago}
+                        </h1>                        
+                      </div>
+
+                      <div className='flex md:flex-col justify-center items-center'>
+                        <h1 className="mr-2 md:mr-0">
+                          <strong>Estado </strong>
+                        </h1>
+                        <h1 className={estado === "entregado" ? "badge badge-info text-lg py-3" : "badge badge-primary text-lg py-3"}>
+                          {estado}
+                        </h1>
+                      </div>
+
                     </div>                      
                   </div>
-
 
                   <div className="flex flex-col md:flex-row md:flex-wrap min-[1333px]:flex-nowrap md:justify-around md:items-stretch mt-1 mb-5">
                     {(detallePedido) ? (
