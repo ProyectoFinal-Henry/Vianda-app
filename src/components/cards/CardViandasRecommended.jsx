@@ -1,21 +1,21 @@
-import axios from "axios"
-import Image from "next/image"
-import Link from "next/link"
-import { BsFillBoxSeamFill } from "react-icons/bs"
+import axios from "axios";
+import Image from "next/image";
+import Link from "next/link";
+import { BsFillBoxSeamFill } from "react-icons/bs";
 
 async function CardRecomend() {
-  const res = await axios.get(`${process.env.LOCALHOST}/api/viandas`)
-  const data = res.data
+  const res = await axios.get(`${process.env.LOCALHOST}/api/viandas`);
+  const data = res.data;
 
-  const randomIndices = []
+  const randomIndices = [];
   while (randomIndices.length < 4) {
-    const randomIndex = Math.floor(Math.random() * data.length)
+    const randomIndex = Math.floor(Math.random() * data.length);
     if (!randomIndices.includes(randomIndex)) {
-      randomIndices.push(randomIndex)
+      randomIndices.push(randomIndex);
     }
   }
 
-  const randomViandas = randomIndices.map((index) => data[index])
+  const randomViandas = randomIndices.map((index) => data[index]);
 
   return (
     <>
@@ -33,7 +33,7 @@ async function CardRecomend() {
             className="card-compact bg-amber-300 max-w-[47%] min-w-[47%]  
              md:max-w-[265px] md:min-w-[265px] md:min-h-[360px] 
                  shadow-xl cursor-default rounded-xl 
-             active:bg-primary  hover:border-2 hover:border-amber-400 hover:bg-amber-400 hover:shadow-md  
+             hover:bg-amber-400 transition-all duration-300 outline-none hover:outline-amber-400 
           "
           >
             <figure>
@@ -47,7 +47,9 @@ async function CardRecomend() {
             </figure>
 
             <div className="card-body p-4 min-h-max ">
-              <div className="text-lg  text-slate900 font-bolder badge-outline">{vianda.tipo}</div>
+              <div className="text-lg  text-slate900 font-bolder badge-outline">
+                {vianda.tipo}
+              </div>
               <div className="card-actions   items-center">
                 <BsFillBoxSeamFill />
                 <div className="font-extrabold text-xl">{vianda.stock}</div>
@@ -61,7 +63,7 @@ async function CardRecomend() {
         ))}{" "}
       </div>
     </>
-  )
+  );
 }
 
-export default CardRecomend
+export default CardRecomend;
