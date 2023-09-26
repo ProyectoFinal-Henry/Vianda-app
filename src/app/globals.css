@@ -2,13 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
- /* body {
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: spinner 20s linear infinite;
+}
+
+/* body {
   display: inline-block;
   width: 100vw;
   height: 100vh;
-} */ 
+} */
 
-*{
+* {
   /* box-sizing: border-box; */
   /* border: 1px solid red; */
   /* padding: 3px; */
