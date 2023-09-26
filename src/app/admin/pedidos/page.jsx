@@ -124,7 +124,7 @@ async function ListaPedidos({ searchParams }) {
                 )
               ) : (
                 <tr>
-                  <td colSpan={"7"}>
+                  <td colSpan={"8"}>
                     <h1 className=" w-full text-2xl md:text-3xl text-center">
                       {data.message}
                     </h1>
