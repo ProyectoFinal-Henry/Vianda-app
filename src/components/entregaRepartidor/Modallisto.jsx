@@ -1,41 +1,44 @@
-"use client";
+"use client"
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation"
 
-import { FaTimes } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa";
-import LoadingComponentApp from "@/app/loading";
-import Link from "next/link";
-import axios from "axios";
-
+import { FaTimes } from "react-icons/fa"
+import { FaCheck } from "react-icons/fa"
+import LoadingComponentApp from "@/app/loading"
+import Link from "next/link"
+import axios from "axios"
+import { useRouter } from "next/navigation"
 const Modallisto = ({ pendientes }) => {
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
-  const modalentrega = params.get("modalentrega");
-
-  if (!modalentrega) return null;
+  const searchParams = useSearchParams()
+  const params = new URLSearchParams(searchParams)
+  const modalentrega = params.get("modalentrega")
+  const router = useRouter()
+  if (!modalentrega) return null
 
   //-----
-  const pendiente = pendientes.find(
-    (p) => p.fk_usuarioId === parseInt(modalentrega)
-  );
+  const pendiente = pendientes.find((p) => p.id === parseInt(modalentrega))
 
   const {
-    idTransaccion,
     id,
     usuario: { nombreCompleto, direccion },
-  } = pendiente;
+  } = pendiente
 
   const cambioEstadoPedido = async (idPedido) => {
     try {
-      await axios.put("/api/pedidos", {
+      const resultado = await axios.put("/api/pedidos", {
         idPedido,
         estado: "entregado",
-      });
+      })
+      if (resultado.status === 200) {
+        router.push(`/repartidor?estado-orden=entregado`)
+        router.refresh({ asPath: `/repartidor?estado-orden=entregado` })
+      } else {
+        alert("Error al entregar el pedido.")
+      }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <>
@@ -45,7 +48,7 @@ const Modallisto = ({ pendientes }) => {
             <div className=" flex flex-col  items-center font-medium  p-3 pb-6 rounded gap-3 ">
               <div className="text-6xl flex flex-row gap-1  ">
                 <p>#Pedido:</p>
-                <p className="text-6xl">{idTransaccion}</p>
+                <p className="text-6xl">{id}</p>
               </div>
 
               <div className=" flex flex-row gap-1 mt-2  text-[23px] font-extrabold">
@@ -65,7 +68,7 @@ const Modallisto = ({ pendientes }) => {
                 <div className="p-3 bg-white rounded-md transform transition-transform hover:scale-110">
                   <button
                     onClick={() => {
-                      cambioEstadoPedido(id);
+                      cambioEstadoPedido(id)
                     }}
                     className=" bg-[#21A600]/80 rounded-md p-2 "
                   >
@@ -88,6 +91,6 @@ const Modallisto = ({ pendientes }) => {
         <LoadingComponentApp />
       )}
     </>
-  );
-};
-export default Modallisto;
+  )
+}
+export default Modallisto

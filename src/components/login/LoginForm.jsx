@@ -90,8 +90,12 @@ export const LoginForm = () => {
       }
       try {
         axios.post("/api/auth/loginGoogle", googleData).then((res) => {
-          if (res.status === 200) {
+          if (res.status === 200) { // el 200 quiere decir que ya está ese gmail en nuestra base de datos
             clientRedirect(res.data.id, res.data.rol)
+          }
+          else{
+            router.refresh();
+            router.push("/catalog/registro");
           }
         })
       } catch (error) {

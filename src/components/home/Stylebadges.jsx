@@ -24,7 +24,7 @@ const Stylebadges = () => {
               <Image
                 height={"150"}
                 width={"150"}
-                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square"
+                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square hover:animate-spin duration-75 "
                 alt={"clasico"}
                 src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169713/clasico_rxpd8k.png"
               />
@@ -39,7 +39,7 @@ const Stylebadges = () => {
               <Image
                 height={"150"}
                 width={"150"}
-                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square"
+                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square hover:animate-spin"
                 alt={"vegetariano"}
                 src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169709/dieta_zd9erw.png"
               />
@@ -54,7 +54,7 @@ const Stylebadges = () => {
               <Image
                 height={"150"}
                 width={"150"}
-                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square"
+                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square hover:animate-spin duration-75"
                 alt={"Sin Harinas"}
                 src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169710/sin_harinas_card_tahoug.png"
               />
@@ -68,7 +68,7 @@ const Stylebadges = () => {
               <Image
                 height={"150"}
                 width={"150"}
-                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square"
+                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square hover:animate-spin duration-75"
                 alt={"vegetariano"}
                 src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169711/vegetariano_card_caypy4.png"
               />

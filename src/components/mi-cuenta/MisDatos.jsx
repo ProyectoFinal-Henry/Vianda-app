@@ -1,8 +1,8 @@
 "use client";
+import { AiFillHome } from "react-icons/ai"; 
 import { useEffect, useState } from "react";
 import { CgLogOff } from "react-icons/cg";
 import { RiShoppingBasketFill } from "react-icons/ri";
-import { MdRateReview } from "react-icons/md";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import { FiMenu } from "react-icons/fi";
@@ -149,12 +149,12 @@ function MisDatos({ tokenData }) {
                       pedidos
                     </Link>
                   </li>
+                  {/* <hr className="bg-black" /> */}
                   <li>
-                    <Link href={"/catalog/mi-cuenta/resenias"}>
-                      <MdRateReview className="text-accent" /> Mis reseñas
+                    <Link href={"/catalog"}>
+                    <AiFillHome className="text-sm text-accent"/> Volver al inicio
                     </Link>
                   </li>
-                  <hr className="bg-black" />
                   <li>
                     <button onClick={handleGoogleLogout}>
                       <CgLogOff className="text-base text-accent" /> Cerrar
@@ -169,7 +169,7 @@ function MisDatos({ tokenData }) {
               ></Link>
             </div>
 
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-center hidden md:flex">
               <ul className="menu menu-vertical px-1">
                 <li tabIndex={1}>
                   <Link className="text-base" href={`/catalog/mi-cuenta/`}>
@@ -186,15 +186,15 @@ function MisDatos({ tokenData }) {
                     pedidos
                   </Link>
                 </li>
+                  {/* <hr className="bg-black" /> */}
                 <li tabIndex={1}>
                   <Link
                     className="text-base"
-                    href={"/catalog/mi-cuenta/resenias"}
+                    href={"/catalog"}
                   >
-                    <MdRateReview className="text-xl text-accent" /> Mis reseñas
+                    <AiFillHome className="text-xl text-accent"/> Volver al inicio
                   </Link>
                 </li>
-                <hr className="bg-black" />
                 <li tabIndex={1}>
                   <button onClick={handleGoogleLogout}>
                     <CgLogOff className="text-2xl text-accent" /> Cerrar Sesión
@@ -204,7 +204,7 @@ function MisDatos({ tokenData }) {
             </div>
           </div>
 
-          <div className="flex flex-col justify-center md:justify-start items-center bg-base-100 w-[90%] mx-[5%] mb-[5%] md:w-[300%] md:mx-[0%] md:mr-[8%] md:my-[10vh] rounded-2xl border-2 border-neutral/30 drop-shadow-lg px-2 pt-2 pb-6 ">
+          <div className="flex flex-col justify-center md:justify-start items-center bg-base-100 w-[90%] mx-[5%] mb-[5%] md:w-[300%] md:mx-[4%] md:mr-[8%] md:my-[10vh] rounded-2xl border-2 border-neutral/30 drop-shadow-lg px-2 pt-2 pb-6 ">
             {success && (
               <div className="alert alert-info border-2 font-extrabold my-6 shadow-secondary shadow-xl border-primary flex flex-col justify-center">
                 <div className="flex gap-x-2 items-center">

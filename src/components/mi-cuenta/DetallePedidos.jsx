@@ -6,7 +6,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import LoadingComponentApp from "@/app/loading"
 
-const Detalle = ({ data }) => {
+const DetallePedido = ({ data }) => {
   const searchParams = useSearchParams()
   const params = new URLSearchParams(searchParams)
   const modal = params.get("modal")
@@ -43,7 +43,7 @@ const Detalle = ({ data }) => {
           id="modal producto"
           className={` fixed top-0 left-0 min-h-screen min-w-full  bg-slate-900/50  flex flex-col justify-center items-center z-30
            `}
-          onClick={() => router.push("/catalog", { scroll: false })}
+          onClick={() => router.push("/catalog/mi-cuenta/pedidos", { scroll: false })}
         >
           <div
             id="contenedorPrincipal"
@@ -55,7 +55,7 @@ const Detalle = ({ data }) => {
             <div className="flex  flex-row items-center justify-between gap-x-2 min-w-full pl-2">
               <h1 className="text-left text-xl md:text-xl font-semibold tracking-wider text-black    px-8  rounded-lg">{nombre}</h1>{" "}
               <Link
-                href="/catalog"
+                href="/catalog/mi-cuenta/pedidos"
                 className=" "
                 scroll={false}
               >
@@ -140,4 +140,4 @@ const Detalle = ({ data }) => {
   )
 }
 
-export default Detalle
+export default DetallePedido

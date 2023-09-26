@@ -1,9 +1,9 @@
 "use client"
 import React from 'react';
+import { AiFillHome } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { CgLogOff } from "react-icons/cg"
 import { RiShoppingBasketFill } from "react-icons/ri"
-import { MdRateReview } from "react-icons/md"
 import { BsFillPersonLinesFill } from "react-icons/bs"
 import { FiMenu } from "react-icons/fi"
 import Link from "next/link"
@@ -58,7 +58,7 @@ function Pedidos({tokenData}) {
       <div className="flex flex-col md:flex-row items-start">
         <div
           id="NavAdmin"
-          className="navbar text-black z-10 text-lg md:m-10 md:my-[10vh]"
+          className="navbar text-black z-10 text-lg md:mx-[4vw] md:my-[10vh]"
         >
           <div className="navbar-start ">
             <div className="dropdown">
@@ -82,12 +82,12 @@ function Pedidos({tokenData}) {
                     <RiShoppingBasketFill className="text-accent" /> Mis Pedidos
                   </Link>
                 </li>
+                {/* <hr className="bg-black" /> */}
                 <li>
-                  <Link href={"/catalog/mi-cuenta/resenias"}>
-                    <MdRateReview className="text-accent" /> Mis Reseñas
+                  <Link href={"/catalog"}>
+                    <AiFillHome className="text-sm text-accent"/> Volver al inicio
                   </Link>
                 </li>
-                <hr className="bg-black" />
                 <li>
                   <button onClick={handleGoogleLogout}>
                     <CgLogOff className="text-base text-accent" /> Cerrar Sesión
@@ -101,7 +101,7 @@ function Pedidos({tokenData}) {
             ></Link>
           </div>
 
-          <div className="navbar-center hidden lg:flex">
+          <div className="navbar-center hidden md:flex">
             <ul className="menu menu-vertical px-1">
               <li tabIndex={1}>
                 <Link
@@ -119,15 +119,15 @@ function Pedidos({tokenData}) {
                   <RiShoppingBasketFill className="text-xl text-accent" /> Mis Pedidos
                 </Link>
               </li>
+                {/* <hr className="bg-black" /> */}
               <li tabIndex={1}>
                 <Link
                   className="text-base"
-                  href={"/catalog/mi-cuenta/resenias"}
+                  href={"/catalog"}
                 >
-                  <MdRateReview className="text-xl text-accent" /> Mis Reseñas
+                  <AiFillHome className="text-xl text-accent"/> Volver al inicio
                 </Link>
               </li>
-              <hr className="bg-black" />
               <li tabIndex={1}>
               <button onClick={handleGoogleLogout} className="text-base">
                   <CgLogOff className="text-2xl text-accent" /> Cerrar Sesión
@@ -137,32 +137,65 @@ function Pedidos({tokenData}) {
           </div>
         </div>
 
-        <div className="flex flex-col justify-start md:justify-start items-center bg-base-100 w-[90%] mx-[5%] mb-[5%] md:w-[300%] md:mx-[0%] mr-0 md:mr-[8%] md:my-[10vh] rounded-2xl border-2 border-neutral/30 drop-shadow-lg px-2 pt-2 pb-3 ">
+        <div className="flex flex-col justify-start md:justify-start items-center bg-base-100 w-[90%] mx-[5%] mb-[5%] md:w-[300%] md:mx-[4%] md:mr-[5%] lg:ml-0 md:my-[10vh] rounded-2xl border-2 border-neutral/30 drop-shadow-lg px-2 pt-2 pb-3 ">
           <h1 className="w-full font-bold ml-3 p-2">MIS PEDIDOS</h1>
 
           {(dataPedido) ? (
-            dataPedido.map(({ totalVenta, idTransaccion, fecha, id, metodoPago, detallePedido }) => {
+            dataPedido.map(({ totalVenta, idTransaccion, fecha, id, metodoPago, detallePedido, estado }) => {
               return (
                 <div key={id}>
-                  <div className="flex bg-base-200 flex-col md:flex-row md:justify-between w-full items-center rounded md:mr-5">
-                    <div className="flex flex-col md:flex-row justify-evenly w-full items-start ml-6 mt-3 md:ml-3 mb-3 md:mb-0 md:mt-0">
-                      <h1 className="md:mr-10">
-                        <strong>Pedido No: </strong> {idTransaccion}
-                      </h1>
-                      <h1 className="md:mr-10">
-                        <strong>Fecha de compra: </strong> {fecha.slice(0, 10)}
-                      </h1>
-                      <h1 className="md:mr-10">
-                        <strong>Total compra: </strong> ${parseFloat(totalVenta).toFixed(2)}
-                      </h1>
-                      <h1 className="md:mr-5">
-                        <strong>Metodo de pago: </strong> {metodoPago}
-                      </h1>
+                  <div className="flex bg-base-200 flex-row md:justify-between md:w-[70vw] rounded ">
+                    <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-evenly md:w-[100%] items-start ml-6 mt-3 md:ml-0 mb-3 md:mb-0 md:mt-0">
+
+                      <div className='flex md:flex-col justify-center items-center'>
+                        <h1 className="mr-2 md:mr-0">
+                          <strong>Pedido No. </strong> 
+                        </h1>
+                        <h1>
+                          { idTransaccion}
+                        </h1>
+                      </div>
+
+                      <div className='flex md:flex-col justify-center items-center'>
+                        <h1 className="mr-2 md:mr-0">
+                          <strong>Fecha de compra </strong>
+                        </h1>
+                        <h1>
+                          {fecha.slice(0, 10)}
+                        </h1>
+                      </div>
+
+                      <div className='flex md:flex-col justify-center items-center'>
+                        <h1 className="mr-2 md:mr-0">
+                          <strong>Total compra </strong>
+                        </h1>
+                        <h1>
+                          ${parseFloat(totalVenta).toFixed(2)}
+                        </h1>
+                      </div>
+
+                      <div className='flex md:flex-col justify-center items-center'>
+                        <h1 className="mr-2 md:mr-0">
+                          <strong>Metodo de pago </strong>
+                        </h1>
+                        <h1>
+                          {metodoPago}
+                        </h1>                        
+                      </div>
+
+                      <div className='flex md:flex-col justify-center items-center'>
+                        <h1 className="mr-2 md:mr-0">
+                          <strong>Estado </strong>
+                        </h1>
+                        <h1 className={estado === "entregado" ? "badge badge-info text-lg py-3" : "badge badge-primary text-lg py-3"}>
+                          {estado}
+                        </h1>
+                      </div>
+
                     </div>                      
                   </div>
 
-
-                  <div className="flex flex-col md:flex-row md:justify-around md:items-stretch mt-1 mb-5">
+                  <div className="flex flex-col md:flex-row md:flex-wrap min-[1333px]:flex-nowrap md:justify-around md:items-stretch mt-1 mb-5">
                     {(detallePedido) ? (
                       detallePedido.map(({ viandaId, viandaImagen, viandaNombre, precio, cantidad, total }) => {
                         return (

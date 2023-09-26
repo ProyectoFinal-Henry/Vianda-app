@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 // import NotAdmin from "@/components/adminLayout/NotAdmin";
 import Link from "next/link"
 import LoadingComponentApp from "../loading"
+import { RiCoinsLine } from "react-icons/ri"
 
 const RepartidorDashboard = () => {
   // const [auth, setAuth] = useState(false);
@@ -21,28 +22,24 @@ const RepartidorDashboard = () => {
   //     }
   //   });
   // }, []);
-  const [pedidos, setPedidos] = useState([])
+
   const [listos, setListos] = useState([])
+  const [total, setTotal] = useState("")
   const [pendientes, setPendientes] = useState([])
   // !=============================================
   const searchParams = useSearchParams()
   const params = new URLSearchParams(searchParams)
   const queryOrden = params.get("estado-orden")
 
-  const cantidadListos = listos.length
-  const cantidadPendientes = pendientes.length
+  const cantidadListos = listos.length > 0 ? listos.length : 0
+  const cantidadPendientes = pendientes.length > 0 ? pendientes.length : 0
   const cantidadTotal = cantidadListos + cantidadPendientes
-  listos.length < 0 && setPedidos(cantidadTotal)
-  // !=============================================
 
   useEffect(() => {
     estadopedido()
-  }, [])
-
+  }, [queryOrden])
   const estadopedido = async () => {
     try {
-      const res = await axios.get(`/api/pedidos`) // trae todos los pedidos despachados ***HOY***
-      setPedidos(res.data)
       const res2 = await axios.get(`/api/pedidos?estado=despachado`) // trae los pedidos con estado despachado
       setPendientes(res2.data)
       const res3 = await axios.get(`/api/pedidos?estado=entregado`)
@@ -51,6 +48,19 @@ const RepartidorDashboard = () => {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    if (pendientes.length < 0 && listos.length < 0) {
+      setTotal(cantidadTotal)
+    } else if (listos.length === 0) {
+      setTotal(cantidadPendientes)
+    } else if (pendientes.length === 0) {
+      setTotal(cantidadPendientes)
+    } else {
+      setTotal(cantidadTotal)
+    }
+  }, [pendientes, listos])
+  // !=============================================
 
   return (
     <div>
@@ -67,15 +77,15 @@ const RepartidorDashboard = () => {
             >
               <div className="flex flex-row gap-1">
                 <p className="text-2xl text-[1.625rem] ">Total: </p>
-                <p className="text-2xl text-[1.625rem] ">{cantidadTotal}</p>
+                <p className="text-2xl text-[1.625rem] ">{total}</p>
               </div>
               <div className="flex flex-row gap-1">
                 <p className="text-2xl text-[1.625rem]">Listos:</p>
-                <p className="text-2xl text-[1.625rem] text-[#008B38]">{cantidadListos}</p>
+                <p className="text-2xl text-[1.625rem] text-[#008B38]">{listos.length > 0 ? cantidadListos : "0"}</p>
               </div>
               <div className="flex flex-row gap-1">
                 <p className="text-2xl text-[1.625rem]">Pendientes:</p>
-                <p className="text-2xl text-[1.625rem] text-[#FF0000]">{cantidadPendientes}</p>
+                <p className="text-2xl text-[1.625rem] text-[#FF0000]">{pendientes.length > 0 ? cantidadPendientes : "0"}</p>
               </div>
             </div>
 
@@ -86,7 +96,7 @@ const RepartidorDashboard = () => {
               >
                 <div className="flex flex-row">
                   <p>Listos:</p>
-                  <p>{cantidadListos}</p>
+                  <p>{listos.length > 0 ? cantidadListos : "0"}</p>
                 </div>
               </Link>
 
@@ -95,12 +105,13 @@ const RepartidorDashboard = () => {
                 className="btn bg-[#FF0303] text-xl font-bold px-5"
               >
                 Pendientes
-                <p>{cantidadPendientes}</p>
+                <p>{pendientes.length > 0 ? cantidadPendientes : "0"}</p>
               </Link>
             </div>
           </div>
         </div>
-        {listos.length > 0 ? <CardsPedidos pedidos={queryOrden === "entregado" ? listos : pendientes} /> : <LoadingComponentApp />}
+
+        <CardsPedidos pedidos={queryOrden === "entregado" ? listos : pendientes} />
 
         <Modallisto pendientes={pendientes} />
       </>

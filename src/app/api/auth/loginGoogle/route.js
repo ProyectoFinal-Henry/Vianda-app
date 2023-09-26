@@ -13,13 +13,11 @@ export async function POST(request) {
     });
 
     if (!usuario) {
-      console.log("202");
       return NextResponse.json(
         { error: "Correo electronico incorrecto" },
         { status: 202 }
       );
     } else {
-      console.log("200");
       const token = jwt.sign(
         {
           exp: Math.floor(Date.now() / 1000) * 3600 * 24 * 30,
