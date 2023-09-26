@@ -1,9 +1,9 @@
 "use client"
 import React from 'react';
+import { AiFillHome } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { CgLogOff } from "react-icons/cg"
 import { RiShoppingBasketFill } from "react-icons/ri"
-import { MdRateReview } from "react-icons/md"
 import { BsFillPersonLinesFill } from "react-icons/bs"
 import { FiMenu } from "react-icons/fi"
 import Link from "next/link"
@@ -82,12 +82,12 @@ function Pedidos({tokenData}) {
                     <RiShoppingBasketFill className="text-accent" /> Mis Pedidos
                   </Link>
                 </li>
+                {/* <hr className="bg-black" /> */}
                 <li>
-                  <Link href={"/catalog/mi-cuenta/resenias"}>
-                    <MdRateReview className="text-accent" /> Mis Reseñas
+                  <Link href={"/catalog"}>
+                    <AiFillHome className="text-sm text-accent"/> Volver al inicio
                   </Link>
                 </li>
-                <hr className="bg-black" />
                 <li>
                   <button onClick={handleGoogleLogout}>
                     <CgLogOff className="text-base text-accent" /> Cerrar Sesión
@@ -119,15 +119,15 @@ function Pedidos({tokenData}) {
                   <RiShoppingBasketFill className="text-xl text-accent" /> Mis Pedidos
                 </Link>
               </li>
+                {/* <hr className="bg-black" /> */}
               <li tabIndex={1}>
                 <Link
                   className="text-base"
-                  href={"/catalog/mi-cuenta/resenias"}
+                  href={"/catalog"}
                 >
-                  <MdRateReview className="text-xl text-accent" /> Mis Reseñas
+                  <AiFillHome className="text-xl text-accent"/> Volver al inicio
                 </Link>
               </li>
-              <hr className="bg-black" />
               <li tabIndex={1}>
               <button onClick={handleGoogleLogout} className="text-base">
                   <CgLogOff className="text-2xl text-accent" /> Cerrar Sesión
