@@ -18,13 +18,13 @@ const Stylebadges = () => {
             id="badgeWrapper"
           >
             <div
-              className=" max-w-[40%] md:max-w-[20%] "
+              className=" max-w-[40%] md:max-w-[20%]  hover:scale-105"
               id="badge"
             >
               <Image
                 height={"150"}
                 width={"150"}
-                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square hover:animate-spin duration-75 "
+                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square   spinner"
                 alt={"clasico"}
                 src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169713/clasico_rxpd8k.png"
               />
@@ -33,13 +33,13 @@ const Stylebadges = () => {
             </div>
 
             <div
-              className=" max-w-[40%] md:max-w-[20%]"
+              className=" max-w-[40%] md:max-w-[20%] hover:scale-105"
               id="badge"
             >
               <Image
                 height={"150"}
                 width={"150"}
-                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square hover:animate-spin"
+                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square    spinner"
                 alt={"vegetariano"}
                 src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169709/dieta_zd9erw.png"
               />
@@ -48,13 +48,13 @@ const Stylebadges = () => {
             </div>
 
             <div
-              className=" max-w-[40%] md:max-w-[20%]"
+              className=" max-w-[40%] md:max-w-[20%] hover:scale-105"
               id="badge"
             >
               <Image
                 height={"150"}
                 width={"150"}
-                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square hover:animate-spin duration-75"
+                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square   spinner"
                 alt={"Sin Harinas"}
                 src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169710/sin_harinas_card_tahoug.png"
               />
@@ -62,13 +62,13 @@ const Stylebadges = () => {
               <h2 className="text-slate-700 font-extrabold text-xl md:text-2xl text-center  md:min-w-fit">Sin Harinas</h2>
             </div>
             <div
-              className=" max-w-[40%] md:max-w-[20%]"
+              className=" max-w-[40%] md:max-w-[20%] hover:scale-105"
               id="badge"
             >
               <Image
                 height={"150"}
                 width={"150"}
-                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square hover:animate-spin duration-75"
+                className="rounded-full object-cover min-w-[130px] min-h-[130px] aspect-square   spinner"
                 alt={"vegetariano"}
                 src="https://res.cloudinary.com/deezwetqk/image/upload/v1695169711/vegetariano_card_caypy4.png"
               />
