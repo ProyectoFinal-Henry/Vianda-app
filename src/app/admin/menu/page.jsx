@@ -9,47 +9,53 @@ import { useState, useEffect } from "react"
 
 const MenuPageAdmin = () => {
   const [viandas, setViandas] = useState([])
-  
+
   const viandasGetter = async () => {
     const res = await axios.get(`/api/menu?all=true`)
     setViandas(res.data)
   }
   useEffect(() => {
-    if(viandas.length === 0){
+    if (viandas.length === 0) {
       viandasGetter()
     }
   }, [])
-  
-  const handleResetViandas = async() => {
+
+  const handleResetViandas = async () => {
     const objetoReset = {}
-  try {
-    const res = await axios.delete(`/api/menu?reset=true`)
-  } catch (error) {
+    try {
+      const res = await axios.delete(`/api/menu?reset=true`)
+    } catch (error) {
       throw new Error(error.message)
+    }
+    window.location.reload() //!OJO CON ESTO!
   }
-  window.location.reload() //!OJO CON ESTO!
-  }
-  
+
   const semana = ["lunes", "martes", "miercoles", "jueves", "viernes"]
   return (
     <>
       <RowResponsive>
         {viandas.length !== 0 ? (
           <>
-            <div className="flex flex-row justify-end flex-wrap gap-4 items-right w-full md:max-w-[896px] ">
-              <button onClick={handleResetViandas}>Boton Feo</button>
+            <div className="flex flex-row justify-center md:justify-start mb-4 flex-wrap gap-4 items-right w-full md:max-w-[896px] ">
+              <button
+                className="btn btn-sm btn-warning text-white rounded-md "
+                onClick={handleResetViandas}
+              >
+                Reiniciar Menu
+              </button>
               <Link
                 href={"/admin/menu/issue-menu"}
                 className="btn btn-sm btn-primary rounded-md "
               >
-                EXPORTAR ESTE MENU COMO IMAGEN
+                EXPORTAR MENU SEMANAL COMO IMAGEN
               </Link>
             </div>
+            <div className="divider   "></div>
             {semana.map((dia) => (
               <div key={dia}>
                 {dia !== "lunes" && <div className={"divider"}></div>}
-                <div className="flex flex-row justify-start items-center gap-8 ">
-                  <h1 className="text-3xl  font-bold   ">
+                <div className="flex flex-row justify-start items-center gap-8 mx-2 ">
+                  <h1 className="text-xl md:text-3xl  font-bold   ">
                     Viandas para el <span className="capitalize">{dia}</span>{" "}
                   </h1>
                   <Link

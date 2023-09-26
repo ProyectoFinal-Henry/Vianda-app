@@ -1,4 +1,5 @@
 "use client"
+import { BiExit } from "react-icons/bi"
 
 import Image from "next/image"
 import Link from "next/link"
@@ -8,15 +9,15 @@ import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import LoadingComponentApp from "@/app/loading"
 
-const NavAdmin = ({tokenData}) => {
+const NavAdmin = ({ tokenData }) => {
   const [name, setName] = useState()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-      if (tokenData) {
-        setName(tokenData.nombre)
-      }
+    if (tokenData) {
+      setName(tokenData.nombre)
+    }
     const timeoutId = setTimeout(() => {
       setIsLoading(false)
     }, 1000)
@@ -36,7 +37,7 @@ const NavAdmin = ({tokenData}) => {
       {!isLoading ? (
         <div
           id="NavAdmin"
-          className="navbar bg-accent text-white z-10 text-lg"
+          className="navbar   xs:items-center bg-accent text-white z-10 "
         >
           <div className="navbar-start">
             <div className="dropdown ">
@@ -66,16 +67,24 @@ const NavAdmin = ({tokenData}) => {
               </ul>
             </div>
             <Link
-              className=" min-w-[80%] sm:min-w-[40%]"
+              className=""
               href={"/admin"}
             >
               <Image
-                id="logo"
-                className="min-w-full"
+                id="logoForDesktop"
+                className="min-w-[160px] hidden sm:block"
                 width={"40"}
                 height={"40"}
                 alt="logo ViandApp"
                 src={"https://res.cloudinary.com/deezwetqk/image/upload/v1695175923/logoViandApp_ud3vtg.svg"}
+              />
+              <Image
+                id="logoForMobile"
+                className=" sm:hidden"
+                width={"60"}
+                height={"60"}
+                alt="logo ViandApp "
+                src={"https://res.cloudinary.com/deezwetqk/image/upload/v1695171791/icon_wsnmvw.svg"}
               />
             </Link>
           </div>
@@ -116,14 +125,15 @@ const NavAdmin = ({tokenData}) => {
               </li>
             </ul>
           </div>
-          <div className="navbar-end flex items-center h-fit">
-            <p className="text-neutral text-xl mx-5">{name}</p>
+          <div className="navbar-end flex items-center ">
+            <p className="text-neutral text-xl font-bold min-w-[150px] capitalize mx-2">{name}</p>
             <button
               onClick={logout}
-              className="ink link-primary font-extrabold mr-0 md:mr-10"
+              className="btn btn-warning btn-sm text-white font-bold mr-0 md:mr-10"
               href={"/"}
             >
-              Salir Del Admin
+              <span className="hidden sm:block">Salir</span>
+              <BiExit className="text-white text-3xl" />
             </button>
           </div>
         </div>
