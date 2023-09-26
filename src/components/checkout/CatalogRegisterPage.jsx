@@ -1,12 +1,9 @@
 "use client"
 import { BsBox2Heart } from "react-icons/bs"
-import { BsBox2HeartFill } from "react-icons/bs"
 import { BiSupport } from "react-icons/bi"
 import { BsShieldCheck } from "react-icons/bs"
-import { BsShieldShaded } from "react-icons/bs"
 import CardsCheckout from "@/components/checkout/CardsCheckout"
 import RowResponsive from "@/components/formaters/RowResponsive"
-import { currencyFormater } from "@/libs/utils/currencyFormater"
 import axios from "axios"
 import Image from "next/image"
 import Link from "next/link"
@@ -16,6 +13,8 @@ import LoadingComponentApp from "@/app/loading"
 import pedidosFormater from "@/libs/utils/pedidosFormater"
 import { useRouter } from "next/navigation"
 import { creation } from "@/app/api/email/templates"
+import Swal from 'sweetalert2'
+
 
 const CatalogRegisterPage = ({tokenData}) => {
   const router = useRouter()
@@ -73,7 +72,15 @@ const CatalogRegisterPage = ({tokenData}) => {
       setLoader("on");
       if (tokenData.rol !== "cliente") {
         setLoader("off")
-        window.alert("Es necesario estar LOGUEADO como cliente para poder finalizar el pedido.")
+
+        Swal.fire({
+          icon:"info",
+          title: 'No es posible procesar.',
+          text: "Es necesario estar LOGUEADO como CLIENTE para poder continuar con el pedido.",
+          confirmButtonColor: '#38A169',
+          confirmButtonText: 'Volver'
+        })
+      
       } else {
           //Desestructuracion de los datos del usuario logueado.
           const usuarioNombre = tokenData.nombre
@@ -118,7 +125,13 @@ const CatalogRegisterPage = ({tokenData}) => {
             }
         }
     }else{
-        window.alert("Para poder generar un pedido se requiere como minimo una vianda seleccionada.")
+      Swal.fire({
+        icon:"info",
+        title: 'No elegiste nada!',
+        text: "Se requiere una vianda seleccionada como minimo para proseguir.",
+        confirmButtonColor: '#38A169',
+        confirmButtonText: 'Volver'
+      })
     }
   }
 
