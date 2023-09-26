@@ -33,7 +33,7 @@ async function CardRecomend() {
             className="card-compact bg-amber-300 max-w-[47%] min-w-[47%]  
              md:max-w-[265px] md:min-w-[265px] md:min-h-[360px] 
                  shadow-xl cursor-default rounded-xl 
-            active:transform active:scale-105 active:shadow-md active:bg-amber-400 transform transition-transform hover:scale-110
+             active:bg-primary  hover:border-2 hover:border-amber-400 hover:bg-amber-400 hover:shadow-md  
           "
           >
             <figure>
