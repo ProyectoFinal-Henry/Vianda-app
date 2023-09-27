@@ -110,37 +110,6 @@ const PedidosCocina = ({ dataPedido }) => {
       return "cocinado"
     }
   }
-
-  const despacharPedido = async (idPedido, estado) => {
-    try {
-      const resultado = await axios.put(`/api/pedidos/`, { idPedido, estado })
-      if (resultado.status === 200) {
-        Swal.fire({
-          title: "Seguro que quieres despachar el pedido?",
-          text: "Esta acción no se puede revertir",
-          showCancelButton: true,
-          confirmButtonColor: "#38A169",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Si, quiero despachar!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            calcularEstadisticas()
-            router.refresh()
-            Swal.fire("Felicitaciones!", "Tu pedido fue despachado con éxito!", "success")
-          }
-        })
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "No se puedo despachar tu pedido!",
-        })
-      }
-    } catch (error) {
-      console.error("Error al despachar el pedido:", error)
-    }
-  }
-
   const calcularEstadisticas = () => {
     const totalPedidos = dataPedido.length
     const pedidosPagados = dataPedido.filter((pedido) => pedido.estado === "pagado").length
@@ -152,6 +121,50 @@ const PedidosCocina = ({ dataPedido }) => {
       pedidosCocinados,
     })
   }
+  const despacharPedido = async (idPedido, estado) => {
+    try {
+      // preguntar si esta seguro de despachar el pedido
+      const alerta = await Swal.fire({
+        title: "Seguro que quieres despachar el pedido?",
+        text: "Esta acción no se puede revertir",
+        showCancelButton: true,
+        confirmButtonText: "Si, quiero despachar!",
+        confirmButtonColor: "#38A169",
+        cancelButtonText: "Cancelar Despacho",
+        cancelButtonColor: "#d33",
+      })
+      if (alerta.isConfirmed) {
+        // si si entonces hacar la consulta y recalcular la pagina
+        const resultado = await axios.put(`/api/pedidos/`, { idPedido, estado })
+        Swal.fire({
+          icon: "success",
+          title: "Felicitaciones!",
+          text: "Tu pedido fue despachado con éxito!",
+          confirmButtonColor: "#38A169",
+          confirmButtonText: "Listo para repartidor",
+        })
+        calcularEstadisticas()
+        router.refresh()
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Cancelaste tu pedido!",
+          confirmButtonColor: "#38A169",
+        })
+      }
+
+      // si no entonces no hacer nada
+    } catch (error) {
+      console.error("Error al despachar el pedido:", error)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Hubo un error, contacta a soporte",
+      })
+    }
+  }
+
   useEffect(() => {
     const calcularYActualizarEstadisticas = async () => {
       const totalPedidos = dataPedido.length
