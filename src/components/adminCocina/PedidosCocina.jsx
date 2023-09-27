@@ -1,40 +1,37 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import Swal from 'sweetalert2'
-import axios from "axios";
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import Swal from "sweetalert2"
+import axios from "axios"
 
 const PedidosCocina = ({ dataPedido }) => {
   const fechaHoy = new Date()
   const opcionesFecha = {
-    weekday: 'long', // Nombre completo del día de la semana.
-    year: 'numeric',
-    month: 'long', // Nombre completo del mes.
-    day: 'numeric',
-  };
-  const fechaConNombre = fechaHoy.toLocaleDateString('es-ES', opcionesFecha);
-  const fechaFormateada = fechaConNombre.charAt(0).toUpperCase() + fechaConNombre.slice(1);
+    weekday: "short", // Nombre completo del día de la semana.
+    year: "numeric",
+    month: "short", // Nombre completo del mes.
+    day: "numeric",
+  }
+  const fechaConNombre = fechaHoy.toLocaleDateString("es-ES", opcionesFecha)
+  const fechaFormateada = fechaConNombre.charAt(0).toUpperCase() + fechaConNombre.slice(1)
 
-
-
-
-  const router = useRouter();
-  const [filtro, setFiltro] = useState("pagados");
-  const [detallesEstado, setDetallesEstado] = useState({});
-  const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null);
+  const router = useRouter()
+  const [filtro, setFiltro] = useState("pagados")
+  const [detallesEstado, setDetallesEstado] = useState({})
+  const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null)
   const [estadisticas, setEstadisticas] = useState({
     totalPedidos: 0,
     pedidosPagados: 0,
     pedidosCocinados: 0,
-  });
+  })
 
   useEffect(() => {
-    const { estado } = router.query || {};
+    const { estado } = router.query || {}
     if (estado) {
-      setFiltro(estado);
+      setFiltro(estado)
     }
-  }, [router.query]);
+  }, [router.query])
 
   const filtrarPorEstado = (estado) => {
     setFiltro(estado)
@@ -46,181 +43,133 @@ const PedidosCocina = ({ dataPedido }) => {
       ? dataPedido.filter((pedido) => pedido.estado === "pagado")
       : filtro === "despachado"
       ? dataPedido.filter((pedido) => pedido.estado === "despachado")
-      : dataPedido;
+      : dataPedido
 
   useEffect(() => {
     const inicializarEstadoDetalles = () => {
-      const estadoInicial = {};
+      const estadoInicial = {}
       dataPedido.forEach((pedido) => {
         pedido.detallePedido.forEach((detalle) => {
-          const key = `${pedido.id}-${detalle.viandaId}`;
-          estadoInicial[key] = "pendiente";
-        });
-      });
-      setDetallesEstado(estadoInicial);
-    };
+          const key = `${pedido.id}-${detalle.viandaId}`
+          estadoInicial[key] = "pendiente"
+        })
+      })
+      setDetallesEstado(estadoInicial)
+    }
 
-    inicializarEstadoDetalles();
-  }, [dataPedido]);
+    inicializarEstadoDetalles()
+  }, [dataPedido])
 
   const cambiarEstadoDetalle = (pedidoId, viandaId) => {
     setDetallesEstado((prevState) => {
-      const key = `${pedidoId}-${viandaId}`;
-      const nuevoEstado = { ...prevState };
+      const key = `${pedidoId}-${viandaId}`
+      const nuevoEstado = { ...prevState }
 
       if (nuevoEstado[key] === "pendiente") {
-        nuevoEstado[key] = "en proceso";
+        nuevoEstado[key] = "en proceso"
       } else if (nuevoEstado[key] === "en proceso") {
-        nuevoEstado[key] = "cocinado";
+        nuevoEstado[key] = "cocinado"
       } else if (nuevoEstado[key] === "cocinado") {
-        nuevoEstado[key] = "pendiente";
+        nuevoEstado[key] = "pendiente"
       } else {
-        nuevoEstado[key] = "pendiente";
+        nuevoEstado[key] = "pendiente"
       }
 
-      return nuevoEstado;
-    });
+      return nuevoEstado
+    })
 
-    const pedido = dataPedido.find((pedido) => pedido.id === pedidoId);
+    const pedido = dataPedido.find((pedido) => pedido.id === pedidoId)
     if (pedido) {
-      const viandasEstado = pedido.detallePedido.map(
-        (detalle) => detallesEstado[`${pedidoId}-${detalle.viandaId}`]
-      );
-      if (
-        !viandasEstado.includes("pendiente") &&
-        !viandasEstado.includes("en proceso")
-      ) {
-        setPedidoSeleccionado(pedido);
+      const viandasEstado = pedido.detallePedido.map((detalle) => detallesEstado[`${pedidoId}-${detalle.viandaId}`])
+      if (!viandasEstado.includes("pendiente") && !viandasEstado.includes("en proceso")) {
+        setPedidoSeleccionado(pedido)
       }
     }
-  };
+  }
 
   const verificarEstadoPedido = (pedidoId) => {
-    const pedido = dataPedido.find((pedido) => pedido.id === pedidoId);
+    const pedido = dataPedido.find((pedido) => pedido.id === pedidoId)
 
     if (!pedido) {
-      return "cocinado";
+      return "cocinado"
     }
 
     const viandasEstado = pedido.detallePedido.map((detalle) => {
-      return detallesEstado[`${pedidoId}-${detalle.viandaId}`];
-    });
+      return detallesEstado[`${pedidoId}-${detalle.viandaId}`]
+    })
 
     if (filtro === "despachado") {
-      return "cocinado";
+      return "cocinado"
     }
 
     if (viandasEstado.includes("pendiente")) {
-      return "pendiente";
+      return "pendiente"
     } else if (viandasEstado.includes("en proceso")) {
-      return "en proceso";
+      return "en proceso"
     } else {
-      return "cocinado";
+      return "cocinado"
     }
-  };
+  }
 
   const despacharPedido = async (idPedido, estado) => {
     try {
- const resultado = await axios.put(`/api/pedidos/`, { idPedido, estado });
+      const resultado = await axios.put(`/api/pedidos/`, { idPedido, estado })
       if (resultado.status === 200) {
         Swal.fire({
-          title: 'Seguro que quieres despachar el pedido?',
+          title: "Seguro que quieres despachar el pedido?",
           text: "Esta acción no se puede revertir",
           showCancelButton: true,
-          confirmButtonColor: '#38A169',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, quiero despachar!'
+          confirmButtonColor: "#38A169",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si, quiero despachar!",
         }).then((result) => {
           if (result.isConfirmed) {
-            calcularEstadisticas();
+            calcularEstadisticas()
             router.refresh()
-            Swal.fire(
-              'Felicitaciones!',
-              'Tu pedido fue despachado con éxito!',
-              'success'
-              )
+            Swal.fire("Felicitaciones!", "Tu pedido fue despachado con éxito!", "success")
           }
         })
       } else {
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'No se puedo despachar tu pedido!',
+          icon: "error",
+          title: "Oops...",
+          text: "No se puedo despachar tu pedido!",
         })
       }
     } catch (error) {
-      console.error('Error al despachar el pedido:', error);
+      console.error("Error al despachar el pedido:", error)
     }
-  };
+  }
 
   const calcularEstadisticas = () => {
-    const totalPedidos = dataPedido.length;
-    const pedidosPagados = dataPedido.filter(
-      (pedido) => pedido.estado === "pagado"
-    ).length;
-    const pedidosCocinados = dataPedido.filter(
-      (pedido) => pedido.estado === "despachado"
-    ).length;
+    const totalPedidos = dataPedido.length
+    const pedidosPagados = dataPedido.filter((pedido) => pedido.estado === "pagado").length
+    const pedidosCocinados = dataPedido.filter((pedido) => pedido.estado === "despachado").length
 
     setEstadisticas({
       totalPedidos,
       pedidosPagados,
       pedidosCocinados,
-    });
-  };
-useEffect(() => {
-  const calcularYActualizarEstadisticas = async () => {
-    const totalPedidos = dataPedido.length;
-    const pedidosPagados = dataPedido.filter(
-      (pedido) => pedido.estado === "pagado"
-    ).length;
-    const pedidosCocinados = dataPedido.filter(
-      (pedido) => pedido.estado === "despachado"
-    ).length;
+    })
+  }
+  useEffect(() => {
+    const calcularYActualizarEstadisticas = async () => {
+      const totalPedidos = dataPedido.length
+      const pedidosPagados = dataPedido.filter((pedido) => pedido.estado === "pagado").length
+      const pedidosCocinados = dataPedido.filter((pedido) => pedido.estado === "despachado").length
 
-    setEstadisticas({
-      totalPedidos,
-      pedidosPagados,
-      pedidosCocinados,
-    });
-  };
+      setEstadisticas({
+        totalPedidos,
+        pedidosPagados,
+        pedidosCocinados,
+      })
+    }
 
-  calcularYActualizarEstadisticas();
-}, [filtro, dataPedido]);
+    calcularYActualizarEstadisticas()
+  }, [filtro, dataPedido])
 
   return (
     <>
-      <div className="flex justify-between items-center mx-10">
-        <h1 className="font-bold ml-3 p-2">PEDIDOS POR ENTREGAR</h1>
-        <h1 className="flex items-end font-bold"> {fechaFormateada} </h1>
-      </div>
-
-      <div className="flex justify-start bg-yellow-300 border-2 border-red-500">
-        <p className="mx-7">Pedidos Pagados: {estadisticas.pedidosPagados}</p>
-        <p className="mr-7">
-          Pedidos Cocinados/Despachados: {estadisticas.pedidosCocinados}
-        </p>
-      </div>
-
-      <div className="flex justify-center mt-3">
-        <button
-          className={`mr-4 bg-yellow-500 text-white px-4 py-2 rounded ${
-            filtro === "pagados" ? "bg-yellow-600" : ""
-          }`}
-          onClick={() => filtrarPorEstado("pagados")}
-        >
-          Pagados
-        </button>
-        <button
-          className={`bg-green-500 text-white px-4 py-2 rounded ${
-            filtro === "cocinados" ? "bg-green-600" : ""
-          }`}
-          onClick={() => filtrarPorEstado("despachado")}
-        >
-          Despachados
-        </button>
-      </div>
-
       <div className="flex flex-col md:flex-row items-start">
         <div className="flex flex-col w-full items-center justify-around ml-4 me-4">
           {pedidosFiltrados.map((pedido) => (
@@ -252,22 +201,18 @@ useEffect(() => {
                 </h1>
                 <button
                   className={`font-bold px-3 py-1 rounded md:mr-3 border-2 border-neutral/30 drop-shadow-lg ${
-                    filtro === "despachado" &&
-                    verificarEstadoPedido(pedido.id) === "cocinado"
+                    filtro === "despachado" && verificarEstadoPedido(pedido.id) === "cocinado"
                       ? "bg-green-500 text-white"
-                      : filtro !== "despachado" &&
-                        verificarEstadoPedido(pedido.id) === "cocinado"
+                      : filtro !== "despachado" && verificarEstadoPedido(pedido.id) === "cocinado"
                       ? "bg-green-500 text-white"
                       : "bg-gray-300 text-gray-600 cursor-not-allowed"
                   }`}
                   onClick={() => {
-                    const idPedido = pedido.id;
-                    const estado = "despachado";
+                    const idPedido = pedido.id
+                    const estado = "despachado"
 
-                    if (
-                      verificarEstadoPedido(idPedido) === "cocinado"
-                    ) {
-                      despacharPedido(idPedido, estado);
+                    if (verificarEstadoPedido(idPedido) === "cocinado") {
+                      despacharPedido(idPedido, estado)
                     }
                   }}
                 >
@@ -298,40 +243,24 @@ useEffect(() => {
                       </div>
 
                       <div className="flex flex-col justify-center items-center gap-1 p-1 ml-2 mr-2 w-full">
-                        <h1 className="font-bold leading-4 my-1 text-center line-clamp-2 min-h-[3rem]">
-                          {" "}
-                          {detalle.viandaNombre}{" "}
-                        </h1>
+                        <h1 className="font-bold leading-4 my-1 text-center line-clamp-2 min-h-[3rem]"> {detalle.viandaNombre} </h1>
                         <h1>Cantidad: {detalle.cantidad}</h1>
                         <div>
-                        <button
-                          className={`flex justify-center items-center px-6 py-5 font-bold rounded m-auto mt-5 border-2 border-neutral/30 drop-shadow-lg ${
-                            filtro === "despachado"
-                              ? "bg-green-500 text-white"
-                              : detallesEstado[
-                                  `${pedido.id}-${detalle.viandaId}`
-                                ] === "pendiente"
-                              ? "bg-red-500 text-white"
-                              : detallesEstado[
-                                  `${pedido.id}-${detalle.viandaId}`
-                                ] === "en proceso"
-                              ? "bg-yellow-500 text-white"
-                              : "bg-green-500 text-white"
-                          }`}
-                          onClick={() =>
-                            cambiarEstadoDetalle(pedido.id, detalle.viandaId)
-                          }
-                        >
-                          {filtro === "despachado"
-                            ? "Cocinado"
-                            : detallesEstado[
-                                `${pedido.id}-${detalle.viandaId}`
-                              ]}
-                        </button>
-
+                          <button
+                            className={`flex justify-center items-center px-6 py-5 font-bold rounded m-auto mt-5 border-2 border-neutral/30 drop-shadow-lg ${
+                              filtro === "despachado"
+                                ? "bg-green-500 text-white"
+                                : detallesEstado[`${pedido.id}-${detalle.viandaId}`] === "pendiente"
+                                ? "bg-red-500 text-white"
+                                : detallesEstado[`${pedido.id}-${detalle.viandaId}`] === "en proceso"
+                                ? "bg-yellow-500 text-white"
+                                : "bg-green-500 text-white"
+                            }`}
+                            onClick={() => cambiarEstadoDetalle(pedido.id, detalle.viandaId)}
+                          >
+                            {filtro === "despachado" ? "Cocinado" : detallesEstado[`${pedido.id}-${detalle.viandaId}`]}
+                          </button>
                         </div>
-
-                        
                       </div>
                     </div>
                   </div>
@@ -341,8 +270,39 @@ useEffect(() => {
           ))}
         </div>
       </div>
-    </>
-  );
-};
 
-export default PedidosCocina;
+      <div
+        className="fixed bottom-0 left-0 min-w-full
+         flex  items-center justify-start px-8 
+         bg-yellow-300 border-2 border-red-500 py-2"
+      >
+        <div className="flex items-center gap-4">
+          <button
+            className={` bg-yellow-500 text-white px-4 py-2 rounded ${filtro === "pagados" ? "bg-yellow-600" : ""}`}
+            onClick={() => filtrarPorEstado("pagados")}
+          >
+            Pagados
+          </button>
+          <button
+            className={`bg-green-500 text-white px-4 py-2 rounded ${filtro === "cocinados" ? "bg-green-600" : ""}`}
+            onClick={() => filtrarPorEstado("despachado")}
+          >
+            Despachados
+          </button>
+        </div>
+        <div className="flex  items-center mx-10">
+          <h1 className=" ml-3 p-2">Pendientes: </h1>
+          <h1 className="flex items-end font-bold"> {fechaFormateada} </h1>
+        </div>
+        <div className="flex justify-start items-center gap-4 ">
+          <p className=" font-bold">Pedidos Pagados:</p>
+          <span className="text-2xl font-bold text-red-500">{estadisticas.pedidosPagados}</span>
+          <p className=" font-bold ">Pedidos Cocinados/Despachados:</p>
+          <span className="text-2xl font-bold text-green-500">{estadisticas.pedidosCocinados}</span>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default PedidosCocina
