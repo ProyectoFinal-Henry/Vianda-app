@@ -7,6 +7,7 @@ function FiltersByField() {
   const [inputNombre, setInputNombre] = useState("");
   const [inputDescripcion, setInputDescripcion] = useState("");
   const [inputIngredientes, setInputIngredientes] = useState("");
+  const [loader, setLoader] = useState("off");
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -54,6 +55,10 @@ function FiltersByField() {
       params.delete("ing2");
       params.delete("ing3");
     }
+    setLoader("on");
+    setTimeout(() => {
+      setLoader("off");
+    }, 1400);
     const queryString = params.toString();
     router.push("?" + queryString);
   };
@@ -69,6 +74,7 @@ function FiltersByField() {
               type="text"
               onChange={handleChange}
               value={inputNombre}
+              placeholder="pollo, haburguesa..."
               name="nombre"
             />
           </form>
@@ -81,6 +87,7 @@ function FiltersByField() {
               type="text"
               onChange={handleChange}
               value={inputDescripcion}
+              placeholder="arroz con pollo..."
               name="descripcion"
             />
           </form>
@@ -92,6 +99,7 @@ function FiltersByField() {
               type="text"
               onChange={handleChange}
               value={inputIngredientes}
+              placeholder="arroz,huevo,tomate..."
               name="ingredientes"
             />
           </form>
