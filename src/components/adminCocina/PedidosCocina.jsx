@@ -1,11 +1,14 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import Swal from "sweetalert2"
 import axios from "axios"
-
 const PedidosCocina = ({ dataPedido }) => {
+  const searchParams = useSearchParams()
+  const params = new URLSearchParams(searchParams)
+  const estadoPedidoURL = params.get("estado")
+
   const fechaHoy = new Date()
   const opcionesFecha = {
     weekday: "short", // Nombre completo del día de la semana.
@@ -125,6 +128,7 @@ const PedidosCocina = ({ dataPedido }) => {
     try {
       // preguntar si esta seguro de despachar el pedido
       const alerta = await Swal.fire({
+        icon: "question",
         title: "Seguro que quieres despachar el pedido?",
         text: "Esta acción no se puede revertir",
         showCancelButton: true,
@@ -183,8 +187,8 @@ const PedidosCocina = ({ dataPedido }) => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row items-start">
-        <div className="flex flex-col w-full items-center justify-around ml-4 me-4">
+      <div className="flex flex-col md:flex-row items-start px-8 max-w-full">
+        <div className="flex flex-col w-full items-center justify-around ">
           {pedidosFiltrados.map((pedido) => (
             <div
               className={`flex flex-col justify-center md:justify-center items-center ${
@@ -212,32 +216,35 @@ const PedidosCocina = ({ dataPedido }) => {
                 <h1 className="md:mr-10">
                   <strong>Total: </strong> ${pedido.totalVenta}
                 </h1>
-                <button
-                  className={`font-bold px-3 py-1 rounded md:mr-3 border-2 border-neutral/30 drop-shadow-lg ${
-                    filtro === "despachado" && verificarEstadoPedido(pedido.id) === "cocinado"
-                      ? "bg-green-500 text-white"
-                      : filtro !== "despachado" && verificarEstadoPedido(pedido.id) === "cocinado"
-                      ? "bg-green-500 text-white"
-                      : "bg-gray-300 text-gray-600 cursor-not-allowed"
-                  }`}
-                  onClick={() => {
-                    const idPedido = pedido.id
-                    const estado = "despachado"
+                {(!estadoPedidoURL || estadoPedidoURL === "pagados") && (
+                  <button
+                    // deshabilitarlo cunado haya queru estado= despachado
+                    className={`font-bold px-3 py-1 rounded md:mr-3 border-2 border-neutral/30 drop-shadow-lg ${
+                      filtro === "despachado" && verificarEstadoPedido(pedido.id) === "cocinado"
+                        ? "bg-green-500 text-white"
+                        : filtro !== "despachado" && verificarEstadoPedido(pedido.id) === "cocinado"
+                        ? "bg-green-500 text-white"
+                        : "bg-gray-300 text-gray-600 cursor-not-allowed"
+                    }`}
+                    onClick={() => {
+                      const idPedido = pedido.id
+                      const estado = "despachado"
 
-                    if (verificarEstadoPedido(idPedido) === "cocinado") {
-                      despacharPedido(idPedido, estado)
-                    }
-                  }}
-                >
-                  Pedido{" "}
-                  {verificarEstadoPedido(pedido.id) === "cocinado"
-                    ? "Despachado"
-                    : verificarEstadoPedido(pedido.id) === "pendiente"
-                    ? "Pendiente"
-                    : verificarEstadoPedido(pedido.id) === "en proceso"
-                    ? "En Proceso"
-                    : "Cocinado"}
-                </button>
+                      if (verificarEstadoPedido(idPedido) === "cocinado") {
+                        despacharPedido(idPedido, estado)
+                      }
+                    }}
+                  >
+                    Pedido{" "}
+                    {verificarEstadoPedido(pedido.id) === "cocinado"
+                      ? "Despachado"
+                      : verificarEstadoPedido(pedido.id) === "pendiente"
+                      ? "Pendiente"
+                      : verificarEstadoPedido(pedido.id) === "en proceso"
+                      ? "En Proceso"
+                      : "Cocinado"}
+                  </button>
+                )}
               </div>
               <div className="flex flex-col md:flex-row md:justify-around mt-5 px-3">
                 {pedido.detallePedido.map((detalle, index) => (

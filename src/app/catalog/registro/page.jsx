@@ -1,12 +1,14 @@
-import RowResponsive from "@/components/formaters/RowResponsive";
-import { UserFormRegister } from "@/components/register/UserFormRegister";
+import RowResponsive from "@/components/formaters/RowResponsive"
+import { UserFormRegister } from "@/components/register/UserFormRegister"
 
 const CatalogRegisterPage = () => {
   return (
     <>
-      <UserFormRegister />
+      <RowResponsive>
+        <UserFormRegister />
+      </RowResponsive>
     </>
-  );
-};
+  )
+}
 
-export default CatalogRegisterPage;
+export default CatalogRegisterPage
