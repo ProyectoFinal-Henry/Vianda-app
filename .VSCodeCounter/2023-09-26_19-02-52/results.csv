@@ -1,0 +1,128 @@
+"filename", "language", "JSON with Comments", "JavaScript", "Markdown", "JSON", "SQL", "XML", "JavaScript JSX", "Prisma", "CSS", "HTML", "comment", "blank", "total"
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/.eslintrc.json", "JSON with Comments", 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/README.md", "Markdown", 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 14, 35
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/jsconfig.json", "JSON with Comments", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 8
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/next.config.js", "JavaScript", 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 16
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/package-lock.json", "JSON", 0, 0, 0, 11287, 0, 0, 0, 0, 0, 0, 0, 1, 11288
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/package.json", "JSON", 0, 0, 0, 48, 0, 0, 0, 0, 0, 0, 0, 1, 49
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/postcss.config.js", "JavaScript", 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/prisma/migrations/20230920171412_init/migration.sql", "SQL", 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 11, 15, 85
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/prisma/migrations/20230920171803_dni_unique/migration.sql", "SQL", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 7, 1, 9
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/prisma/schema.prisma", "Prisma", 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 2, 11, 93
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/public_old/images/corporate/icon.svg", "XML", 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 1, 4
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/public_old/images/corporate/logoViandApp.svg", "XML", 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 1, 12
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/Providers.js", "JavaScript", 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 13
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/dev/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 188, 0, 0, 0, 10, 12, 210
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/layout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 1, 5, 36
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/mensajero/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 72, 0, 0, 0, 5, 8, 85
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/menu/issue-menu/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 142, 0, 0, 0, 0, 8, 150
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/menu/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 103, 0, 0, 0, 0, 6, 109
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 3, 9
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/pedidos/[pedidoId]/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 73, 0, 0, 0, 0, 5, 78
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/pedidos/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 125, 0, 0, 0, 7, 12, 144
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/pedidos/pedidos-pdf/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 141, 0, 0, 0, 34, 11, 186
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/usuarios/actualizar-usuario/[usuarioId]/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 3, 13
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/usuarios/nuevo-usuario/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 1, 5, 31
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/usuarios/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 161, 0, 0, 0, 13, 16, 190
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/viandas/actualizar-vianda/[viandaId]/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 1, 3, 13
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/viandas/nueva-vianda/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 1, 3, 14
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/admin/viandas/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 159, 0, 0, 0, 4, 13, 176
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/auth/check/route.js", "JavaScript", 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 20
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/auth/login/route.js", "JavaScript", 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 3, 5, 72
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/auth/loginGoogle/route.js", "JavaScript", 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 63
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/auth/logout/route.js", "JavaScript", 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 30
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/auth/modify/route.js", "JavaScript", 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 39
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/carta/[cartaId]/route.js", "JavaScript", 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 3, 5, 30
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/carta/route.js", "JavaScript", 0, 87, 0, 0, 0, 0, 0, 0, 0, 0, 9, 4, 100
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/email/route.js", "JavaScript", 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 24
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/email/sandbox.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 0, 0, 313, 0, 7, 320
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/email/templates.js", "JavaScript", 0, 1433, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 1466
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/menu/route.js", "JavaScript", 0, 62, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 72
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/pagos/route.js", "JavaScript", 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 35
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/pagos/webhook/route.js", "JavaScript", 0, 41, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 48
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/pedidos/[usuarioId]/route.js", "JavaScript", 0, 38, 0, 0, 0, 0, 0, 0, 0, 0, 15, 4, 57
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/pedidos/detalle-pedido/[pedidoId]/route.js", "JavaScript", 0, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 48
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/pedidos/route.js", "JavaScript", 0, 152, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 164
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/usuarios/[usuarioId]/route.js", "JavaScript", 0, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 106
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/usuarios/registro/route.js", "JavaScript", 0, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 54
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/usuarios/route.js", "JavaScript", 0, 70, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 75
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/viandas/[viandaId]/route.js", "JavaScript", 0, 38, 0, 0, 0, 0, 0, 0, 0, 0, 3, 8, 49
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/api/viandas/route.js", "JavaScript", 0, 211, 0, 0, 0, 0, 0, 0, 0, 0, 26, 16, 253
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/catalog/checkout/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 3, 20
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/catalog/layout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 28, 0, 0, 0, 1, 5, 34
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/catalog/login/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 5, 14
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/catalog/mi-cuenta/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 1, 4, 27
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/catalog/mi-cuenta/pedidos/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 1, 6, 33
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/catalog/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 63, 0, 0, 0, 2, 9, 74
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/catalog/registro/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 3, 13
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/cocina/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 7, 19
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/firebase.js", "JavaScript", 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 5, 3, 20
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/globals.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 8, 5, 29
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/layout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 48, 0, 0, 0, 2, 3, 53
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/loading.js", "JavaScript", 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 21
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/not-found.js", "JavaScript", 0, 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 32
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/page.js", "JavaScript", 0, 87, 0, 0, 0, 0, 0, 0, 0, 0, 1, 8, 96
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/repartidor/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 96, 0, 0, 0, 17, 13, 126
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/app/role-redirect/page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 60, 0, 0, 0, 0, 6, 66
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/LandingComponents/CallToAction.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 31, 0, 0, 0, 0, 3, 34
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/LandingComponents/HowWorks.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 75, 0, 0, 0, 1, 8, 84
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/LandingComponents/InfoEmpresa.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 4, 40
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/LoginLogout/LoginLogout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 42, 0, 0, 0, 0, 12, 54
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/actions/EditCrud.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 2, 14
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/actions/ToogleEstadoUsuario.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 3, 43
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/actions/ToogleEstadoVianda.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 3, 43
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/addToCart/AddToCart.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 4, 54
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminCocina/PedidosCocina.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 313, 0, 0, 0, 0, 36, 349
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/ClearFilters.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 73, 0, 0, 0, 0, 7, 80
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/Filters.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 74, 0, 0, 0, 0, 7, 81
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/FiltersByField.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 107, 0, 0, 0, 0, 7, 114
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/NavAdmin.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 144, 0, 0, 0, 0, 9, 153
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/NotAdmin.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 62, 0, 0, 0, 0, 7, 69
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/OrderByField.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 45, 0, 0, 0, 2, 9, 56
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/PaginationAdmin.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 6, 43
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/SearchBarViandas.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 5, 48
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/forms/UsuariosForm.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 256, 0, 0, 0, 23, 13, 292
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/forms/ViandasForm.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 272, 0, 0, 0, 21, 15, 308
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/listaPedidos/FiltersPedidos.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 147, 0, 0, 0, 1, 7, 155
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/menu/CardsMenu.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 143, 0, 0, 0, 4, 11, 158
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/menu/CardsMenuIssue.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 69, 0, 0, 0, 4, 7, 80
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/pedidos/exporterPdf.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 38, 0, 0, 0, 3, 4, 45
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/adminLayout/usuarios/FilterUsers.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 92, 0, 0, 0, 0, 11, 103
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/cards/CardAllDishes.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 48, 0, 0, 0, 1, 6, 55
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/cards/CardTipes.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 89, 0, 0, 0, 0, 7, 96
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/cards/CardViandasRecommended.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 60, 0, 0, 0, 0, 8, 68
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/cards/DetailCard.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 6
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/cards/Pagination.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 48, 0, 0, 0, 0, 10, 58
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/cartCounter/CartCounter.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 3, 14
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/checkout/CardsCheckout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 206, 0, 0, 0, 5, 17, 228
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/checkout/CatalogRegisterPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 221, 0, 0, 0, 16, 23, 260
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/deleteFromCart/DeleteFromCart.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 1, 3, 19
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/detailll/Detalle.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 130, 0, 0, 0, 3, 11, 144
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/entregaRepartidor/CardsPedidos.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 106, 0, 0, 0, 17, 5, 128
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/entregaRepartidor/EstadoPedidos.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 74, 0, 0, 0, 101, 20, 195
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/entregaRepartidor/Modallisto.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 87, 0, 0, 0, 1, 9, 97
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/footer/Footer.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 58, 0, 0, 0, 1, 6, 65
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/footer/LinkToogleAdminCatalog.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 28, 0, 0, 0, 2, 4, 34
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/footer/LoginOptions.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 7, 71
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/footer/WhatsappBubble.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 0, 5, 35
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/formaters/FormResponsiveContainer.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 2, 17
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/formaters/RowResponsive.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 2, 16
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/home/ButtonCTAOrderBlock.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 2, 18
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/home/FullWidthHeader.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 83, 0, 0, 0, 0, 5, 88
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/home/Stylebadges.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 76, 0, 0, 0, 0, 10, 86
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/login/LoginForm.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 194, 0, 0, 0, 5, 13, 212
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/mi-cuenta/DetallePedidos.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 130, 0, 0, 0, 3, 10, 143
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/mi-cuenta/MisDatos.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 355, 0, 0, 0, 2, 23, 380
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/mi-cuenta/Pedidos.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 236, 0, 0, 0, 3, 17, 256
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/navbar/NavBar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 150, 0, 0, 0, 0, 9, 159
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/register/ModalUserError.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 3, 30
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/register/ModalUserExit.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 46, 0, 0, 0, 0, 3, 49
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/components/register/UserFormRegister.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 372, 0, 0, 0, 6, 17, 395
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/context/AuthContext.js", "JavaScript", 0, 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 36
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/context/CarritoContext.js", "JavaScript", 0, 137, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19, 156
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/libs/prisma.js", "JavaScript", 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 15
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/libs/utils/currencyFormater.js", "JavaScript", 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 11
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/libs/utils/pedidosFormater.js", "JavaScript", 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 32, 5, 58
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/src/middleware.js", "JavaScript", 0, 49, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 60
+"/Users/davidmejia/HenryEtapaPractica/Vianda-app/tailwind.config.js", "JavaScript", 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 44
+"Total", "-", 7, 3056, 21, 11335, 60, 14, 6875, 80, 16, 313, 476, 918, 23171
