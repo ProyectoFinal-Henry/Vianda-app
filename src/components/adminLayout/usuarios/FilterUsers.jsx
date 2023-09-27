@@ -57,6 +57,7 @@ function FilterUsers() {
               type="text"
               onChange={handleChange}
               value={InputUsuario}
+              placeholder="Carlos Fernandez..."
               name="usuario"
             />
           </form>
@@ -69,6 +70,7 @@ function FilterUsers() {
               type="text"
               onChange={handleChange}
               value={InputEmail}
+              placeholder="ejemplo@correo.com"
               name="email"
             />
           </form>
@@ -80,6 +82,7 @@ function FilterUsers() {
               type="text"
               onChange={handleChange}
               value={InputDNI}
+              placeholder="4569871236"
               name="dni"
             />
           </form>
