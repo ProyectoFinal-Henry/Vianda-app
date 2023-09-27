@@ -1,5 +1,5 @@
 "use client";
-import { AiFillHome } from "react-icons/ai"; 
+import { AiFillHome } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { CgLogOff } from "react-icons/cg";
 import { RiShoppingBasketFill } from "react-icons/ri";
@@ -111,6 +111,7 @@ function MisDatos({ tokenData }) {
       const response = await axios.post("/api/auth/logout");
       if (response.status === 200) await googleLogout();
       router.push("/catalog/login");
+      router.refresh();
     } catch (error) {
       await googleLogout();
     }
@@ -126,7 +127,7 @@ function MisDatos({ tokenData }) {
         <div className="flex flex-col md:flex-row items-start max-w-full lg:max-w-6xl lg:mx-auto min-h-[90vh]">
           <div
             id="NavAdmin"
-            className="navbar text-black z-10 text-lg md:m-10 md:my-[10vh]" 
+            className="navbar text-black z-10 text-lg md:m-10 md:my-[10vh]"
           >
             <div className="navbar-start ">
               <div className="dropdown">
@@ -152,7 +153,8 @@ function MisDatos({ tokenData }) {
                   {/* <hr className="bg-black" /> */}
                   <li>
                     <Link href={"/catalog"}>
-                    <AiFillHome className="text-sm text-accent"/> Volver al inicio
+                      <AiFillHome className="text-sm text-accent" /> Volver al
+                      inicio
                     </Link>
                   </li>
                   <li>
@@ -186,13 +188,11 @@ function MisDatos({ tokenData }) {
                     pedidos
                   </Link>
                 </li>
-                  {/* <hr className="bg-black" /> */}
+                {/* <hr className="bg-black" /> */}
                 <li tabIndex={1}>
-                  <Link
-                    className="text-base"
-                    href={"/catalog"}
-                  >
-                    <AiFillHome className="text-xl text-accent"/> Volver al inicio
+                  <Link className="text-base" href={"/catalog"}>
+                    <AiFillHome className="text-xl text-accent" /> Volver al
+                    inicio
                   </Link>
                 </li>
                 <li tabIndex={1}>
