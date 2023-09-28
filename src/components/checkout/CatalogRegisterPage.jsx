@@ -73,13 +73,15 @@ const CatalogRegisterPage = ({tokenData}) => {
       if (tokenData.rol !== "cliente") {
         setLoader("off")
 
-        Swal.fire({
+        const result = await Swal.fire({
           icon:"info",
-          title: 'No es posible procesar.',
-          text: "Es necesario estar LOGUEADO como CLIENTE para poder continuar con el pedido.",
+          title: 'Ingresa o Registrate para continuar.',
           confirmButtonColor: '#38A169',
-          confirmButtonText: 'Volver'
+          confirmButtonText: 'Aceptar'
         })
+        if(result.isConfirmed){
+          router.push("/catalog/login")
+        }
       
       } else {
           //Desestructuracion de los datos del usuario logueado.
