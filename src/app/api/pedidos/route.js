@@ -53,6 +53,9 @@ export async function GET(request) {
           usuario: true,
           detallePedido: true,
         },
+        orderBy: {
+          id: "desc",
+        },
       });
       if (!pedidos || pedidos.length === 0) {
         return NextResponse.json({
@@ -77,6 +80,9 @@ export async function GET(request) {
             },
           },
           detallePedido: true,
+        },
+        orderBy: {
+          id: "desc",
         },
       });
       return NextResponse.json(pedidos);
