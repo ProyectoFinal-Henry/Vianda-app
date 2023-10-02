@@ -1,17 +1,20 @@
-import { AiFillLinkedin } from "react-icons/ai"
-import { AiFillGithub } from "react-icons/ai"
-import RowResponsive from "@/components/formaters/RowResponsive"
-import Image from "next/image"
-import Link from "next/link"
+import { AiFillLinkedin } from "react-icons/ai";
+import { AiFillGithub } from "react-icons/ai";
+import RowResponsive from "@/components/formaters/RowResponsive";
+import Image from "next/image";
+import Link from "next/link";
 
 const TeamPage = () => {
-  const order = [1, 2, 3, 4, 5, 6, 7]
-  const ramdonOrder = order.sort(() => Math.random() - 0.5)
+  const order = [1, 2, 3, 4, 5, 6, 7];
+  const ramdonOrder = order.sort(() => Math.random() - 0.5);
 
   return (
     <>
       <RowResponsive>
-        <h1 className=" text-green-800 text-3xl min-w-full text-center font-bold my-12"> ViandApp DREAM TEAM</h1>
+        <h1 className=" text-green-800 text-3xl min-w-full text-center font-bold my-12">
+          {" "}
+          ViandApp DREAM TEAM
+        </h1>
         <div
           id="teamWrapper"
           className="flex flex-row   flex-wrap gap-12 justify-center  px-2 "
@@ -21,19 +24,24 @@ const TeamPage = () => {
           >
             <Image
               className=" ProfilePic aspect-square object-cover rounded-full border-4 border-green-800 p-3 mx-auto"
-              src={"https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_300/v1696264607/1692129917166_uwl2iu.jpg"}
+              src={
+                "https://res.cloudinary.com/deezwetqk/image/upload/c_scale,w_300/v1696264607/1692129917166_uwl2iu.jpg"
+              }
               height={"250"}
               width={"250"}
               alt="David Mejia Developer"
             />
-            <div className="Name font-bold text-base-content text-2xl">David Mejia</div>
-            <div className="Position font-semibold text-green-800">Team Leader</div>
-            <div className="abstract">Planificador de interfaz, UX y lógica de negocio</div>
+            <div className="Name font-bold text-base-content text-2xl">
+              David Mejia
+            </div>
+            <div className="Position font-semibold text-green-800">
+              Team Leader
+            </div>
+            <div className="abstract">
+              Planificador de interfaz, UX y lógica de negocio
+            </div>
             <div className="SocialTape flex justify-start gap-3 px-4   bg-green-800 min-w-full py-2 text-white text-3xl rounded-lg">
-              <Link
-                href={"https://github.com/davidalejoms"}
-                target="_blank"
-              >
+              <Link href={"https://github.com/davidalejoms"} target="_blank">
                 <AiFillGithub />
               </Link>
 
@@ -58,14 +66,17 @@ const TeamPage = () => {
               width={"250"}
               alt="Francisco Meza Developer"
             />
-            <div className="Name font-bold text-base-content text-2xl">Francisco Meza</div>
-            <div className="Position font-semibold text-green-800">Backend Leader</div>
-            <div className="abstract">endPoints Master, Estructura de datos</div>
+            <div className="Name font-bold text-base-content text-2xl">
+              Francisco Meza
+            </div>
+            <div className="Position font-semibold text-green-800">
+              Backend Leader
+            </div>
+            <div className="abstract">
+              Endpoints Master, Estructura de datos, Proteccion de Rutas
+            </div>
             <div className="SocialTape flex justify-start gap-3 px-4   bg-green-800 min-w-full py-2 text-white text-3xl rounded-lg">
-              <Link
-                href={"https://github.com/Franmeza"}
-                target="_blank"
-              >
+              <Link href={"https://github.com/Franmeza"} target="_blank">
                 <AiFillGithub />
               </Link>
 
@@ -89,14 +100,17 @@ const TeamPage = () => {
               width={"250"}
               alt="Mauro Fallico Developer"
             />
-            <div className="Name font-bold text-base-content text-2xl">Mauro Fallico</div>
-            <div className="Position font-semibold text-green-800">Login And Role Admin</div>
-            <div className="abstract">Login y roles de administrador, analista de seguridad.</div>
+            <div className="Name font-bold text-base-content text-2xl">
+              Mauro Fallico
+            </div>
+            <div className="Position font-semibold text-green-800">
+              Login And Role Admin
+            </div>
+            <div className="abstract">
+              Login y roles de administrador, analista de seguridad.
+            </div>
             <div className="SocialTape flex justify-start gap-3 px-4   bg-green-800 min-w-full py-2 text-white text-3xl rounded-lg">
-              <Link
-                href={"https://github.com/maurofallico"}
-                target="_blank"
-              >
+              <Link href={"https://github.com/maurofallico"} target="_blank">
                 <AiFillGithub />
               </Link>
 
@@ -120,14 +134,17 @@ const TeamPage = () => {
               width={"250"}
               alt="Gonzalo Odenni Developer"
             />
-            <div className="Name font-bold text-base-content text-2xl">Gonzalo Odenni</div>
-            <div className="Position font-semibold text-green-800">E-commerce Expert </div>
-            <div className="abstract">Plataforma de pago y Logistica de órdenes</div>
+            <div className="Name font-bold text-base-content text-2xl">
+              Gonzalo Odenni
+            </div>
+            <div className="Position font-semibold text-green-800">
+              E-commerce Expert{" "}
+            </div>
+            <div className="abstract">
+              Plataforma de pago y Logistica de órdenes
+            </div>
             <div className="SocialTape flex justify-start gap-3 px-4   bg-green-800 min-w-full py-2 text-white text-3xl rounded-lg">
-              <Link
-                href={"https://github.com/gonodd"}
-                target="_blank"
-              >
+              <Link href={"https://github.com/gonodd"} target="_blank">
                 <AiFillGithub />
               </Link>
 
@@ -152,14 +169,17 @@ const TeamPage = () => {
               width={"250"}
               alt="Luciana Gatti Developer"
             />
-            <div className="Name font-bold text-base-content text-2xl">Luciana Gatti</div>
-            <div className="Position font-semibold text-green-800">Kitchen Role Integrator </div>
-            <div className="abstract">Plataforma de producción y cadena de suministro</div>
+            <div className="Name font-bold text-base-content text-2xl">
+              Luciana Gatti
+            </div>
+            <div className="Position font-semibold text-green-800">
+              Kitchen Role Integrator{" "}
+            </div>
+            <div className="abstract">
+              Plataforma de producción y cadena de suministro
+            </div>
             <div className="SocialTape flex justify-start gap-3 px-4   bg-green-800 min-w-full py-2 text-white text-3xl rounded-lg">
-              <Link
-                href={"https://github.com/gonodd"}
-                target="_blank"
-              >
+              <Link href={"https://github.com/gonodd"} target="_blank">
                 <AiFillGithub />
               </Link>
 
@@ -183,14 +203,17 @@ const TeamPage = () => {
               width={"250"}
               alt="Luciana Gatti Developer"
             />
-            <div className="Name font-bold text-base-content text-2xl">Antonella Rios</div>
-            <div className="Position font-semibold text-green-800">stakeholders Management</div>
-            <div className="abstract">Logicas de registro y manejo de usuarios del sistema</div>
+            <div className="Name font-bold text-base-content text-2xl">
+              Antonella Rios
+            </div>
+            <div className="Position font-semibold text-green-800">
+              stakeholders Management
+            </div>
+            <div className="abstract">
+              Logicas de registro y manejo de usuarios del sistema
+            </div>
             <div className="SocialTape flex justify-start gap-3 px-4   bg-green-800 min-w-full py-2 text-white text-3xl rounded-lg">
-              <Link
-                href={"https://github.com/antonellalm"}
-                target="_blank"
-              >
+              <Link href={"https://github.com/antonellalm"} target="_blank">
                 <AiFillGithub />
               </Link>
 
@@ -215,14 +238,15 @@ const TeamPage = () => {
               width={"250"}
               alt="Luciana Gatti Developer"
             />
-            <div className="Name font-bold text-base-content text-2xl">Diego Rosas</div>
-            <div className="Position font-semibold text-green-800">User Environment|</div>
+            <div className="Name font-bold text-base-content text-2xl">
+              Diego Rosas
+            </div>
+            <div className="Position font-semibold text-green-800">
+              User Environment|
+            </div>
             <div className="abstract">Pedidos y Perfiles del Client Side</div>
             <div className="SocialTape flex justify-start gap-3 px-4   bg-green-800 min-w-full py-2 text-white text-3xl rounded-lg">
-              <Link
-                href={"https://github.com/diego34346"}
-                target="_blank"
-              >
+              <Link href={"https://github.com/diego34346"} target="_blank">
                 <AiFillGithub />
               </Link>
 
@@ -237,8 +261,8 @@ const TeamPage = () => {
         </div>
       </RowResponsive>
     </>
-  )
-}
+  );
+};
 
-export default TeamPage
+export default TeamPage;
 /* c_scale,w_300/ */
