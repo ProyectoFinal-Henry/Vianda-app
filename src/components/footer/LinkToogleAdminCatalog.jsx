@@ -9,6 +9,12 @@ const LinkToogleAdminCatalog = () => {
 
   return (
     <>
+         <Link
+          href={"/catalog/team"}
+          className="link link-hover"
+        >
+          Team
+        </Link>
       {currentPath.includes("/admin") ? (
         <Link
           href={"/catalog"}
