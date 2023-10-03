@@ -104,10 +104,10 @@ const TeamPage = () => {
               Mauro Fallico
             </div>
             <div className="Position font-semibold text-green-800">
-              Login And Role Admin
+              Authentication Expert
             </div>
             <div className="abstract">
-              Login y roles de administrador, analista de seguridad.
+              Autenticación y lógicas de redireccionamientos.
             </div>
             <div className="SocialTape flex justify-start gap-3 px-4   bg-green-800 min-w-full py-2 text-white text-3xl rounded-lg">
               <Link href={"https://github.com/maurofallico"} target="_blank">

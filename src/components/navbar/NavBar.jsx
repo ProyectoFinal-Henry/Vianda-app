@@ -11,6 +11,7 @@ import { UserAuth } from "@/context/AuthContext";
 import Image from "next/image";
 
 function NavBar({ tokenData }) {
+  
   const [name, setName] = useState();
   const [logeado, setLogeado] = useState(false);
 
@@ -44,6 +45,7 @@ function NavBar({ tokenData }) {
   };
 
   useEffect(() => {
+    alert(tokenData.nombre)
     if (tokenData) {
       setLogeado(true);
       setName(tokenData.nombre);
@@ -52,7 +54,7 @@ function NavBar({ tokenData }) {
       setName("");
     }
   }),
-    [tokenData];
+    [];
 
   const handleAction = (e) => {
     if (e.target.name === "login") router.push("/catalog/login");
