@@ -1,6 +1,6 @@
-import Link from "next/link";
-import LinkToogleAdminCatalog from "./LinkToogleAdminCatalog";
-import LoginOptions from "./LoginOptions";
+import LinkToVideo from "./LinkToVideo"
+import LinkToogleAdminCatalog from "./LinkToogleAdminCatalog"
+import LoginOptions from "./LoginOptions"
 
 // saber si mi base es admin o catalog
 
@@ -52,13 +52,13 @@ function Footer({ tokenData }) {
         </nav>
 
         <aside>
-          <p className="text-center md:order-3">
-            Copyright © 2023 - All right reserved by ViandAapp Ltd
+          <p className="text-center md:order-3 animate-bounce">
+            <LinkToVideo />
           </p>
         </aside>
       </footer>
     </>
-  );
+  )
 }
 
-export default Footer;
+export default Footer
