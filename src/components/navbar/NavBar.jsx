@@ -52,7 +52,7 @@ function NavBar({ tokenData }) {
       setName("");
     }
   }),
-  [tokenData];
+    [tokenData];
 
   const handleAction = (e) => {
     if (e.target.name === "login") router.push("/catalog/login");
