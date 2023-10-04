@@ -59,10 +59,27 @@ export const UserFormRegister = ({ rol }) => {
     reset,
   } = useForm()
 
+  const randomPassword = () => {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    const length = 10
+    let password = ""
+    for (let i = 0; i < length; i++) {
+      const randomChar = chars.charAt(Math.floor(Math.random() * chars.length))
+      password = password + randomChar
+    }
+    return password;
+  }
+
   const onSubmit = handleSubmit(async (data) => {
     try {
       setToastEmail(false)
+      let newData = data
       const saltRounds = 10
+      if (google) {
+        newData.nombreCompleto = user.displayName
+        newData.email = user.email
+        data.password = randomPassword()
+      }
       const passwordHashed = await new Promise((resolve, reject) => {
         bcrypt.hash(data.password, saltRounds, function (err, hash) {
           if (err) {
@@ -73,14 +90,7 @@ export const UserFormRegister = ({ rol }) => {
           resolve(hash)
         })
       })
-      let newData = data
-      if (google) {
-        newData.nombreCompleto = user.displayName
-        newData.email = user.email
-        newData.password = "ContraseñaFalsaQueEsperemosNuncaNadieAdivine"
-      } else {
         newData.password = passwordHashed
-      }
 
       const response = await axios.post("/api/usuarios/registro", newData)
 
@@ -276,6 +286,11 @@ export const UserFormRegister = ({ rol }) => {
                       type="password"
                       className=" relative input min-w-full input-bordered w-full  input-sm bg-neutral-50 rounded h-7"
                       disabled="true"
+                      {...register("password", {
+                        required: {
+                          value: false,
+                        },
+                      })}
                     />
                   ) : (
                     <input
