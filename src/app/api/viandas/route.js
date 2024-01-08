@@ -187,20 +187,20 @@ export async function POST(request) {
   }
 }
 
-//? POST PARA CARGAR DESDE CERO.
+ //POST PARA CARGAR DESDE CERO.
 
-// export async function POST(request) {
-//   try {
-//     const data = await request.json();
-//     console.log(data);
-//     await prisma.Vianda.createMany({
-//       data: data,
-//     });
-//     return NextResponse.json("Vianda creada exitosamente!");
-//   } catch (error) {
-//     return NextResponse.json({ error: error.message });
-//   }
-// }
+ /* export async function POST(request) {
+   try {
+     const data = await request.json();
+     console.log(data);
+     await prisma.Vianda.createMany({
+       data: data,
+     });
+     return NextResponse.json("Vianda creada exitosamente!");
+   } catch (error) {
+     return NextResponse.json({ error: error.message });
+   }
+ } */
 
 export async function PUT(request) {
   try {
